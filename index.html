@@ -11,6 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -43,8 +45,11 @@
                 <a href="#hero" class="nav-link active" id="nav-hero"><i class="fa-solid fa-house"></i> الرئيسية</a>
                 <a href="#about" class="nav-link" id="nav-about"><i class="fa-solid fa-circle-info"></i> عن التخصص</a>
                 <a href="#devices" class="nav-link" id="nav-devices"><i class="fa-solid fa-laptop"></i> الأجهزة الموصى بها</a>
+                <a href="#converter" class="nav-link" id="nav-converter"><i class="fa-solid fa-calculator"></i> المحول الإحداثي</a>
                 <a href="#software" class="nav-link" id="nav-software"><i class="fa-solid fa-laptop-code"></i> البرمجيات</a>
+                <a href="#gis-map" class="nav-link" id="nav-gis-map"><i class="fa-solid fa-map-location-dot"></i> الجامعات السعودية</a>
                 <a href="#tips" class="nav-link" id="nav-tips"><i class="fa-solid fa-lightbulb"></i> نصائح ذهبية</a>
+                <a href="#mistakes" class="nav-link" id="nav-mistakes"><i class="fa-solid fa-triangle-exclamation"></i> أخطاء شائعة</a>
                 <a href="#x-community" class="nav-link" id="nav-x-community"><i class="fa-brands fa-x-twitter"></i> مجتمع X</a>
                 <a href="#courses" class="nav-link" id="nav-courses"><i class="fa-solid fa-graduation-cap"></i> مسار التعلم</a>
             </nav>
@@ -68,8 +73,11 @@
             <a href="#hero" class="drawer-link active" id="drawer-hero"><i class="fa-solid fa-house"></i> الرئيسية</a>
             <a href="#about" class="drawer-link" id="drawer-about"><i class="fa-solid fa-circle-info"></i> عن التخصص</a>
             <a href="#devices" class="drawer-link" id="drawer-devices"><i class="fa-solid fa-laptop"></i> الأجهزة الموصى بها</a>
+            <a href="#converter" class="drawer-link" id="drawer-converter"><i class="fa-solid fa-calculator"></i> المحول الإحداثي</a>
             <a href="#software" class="drawer-link" id="drawer-software"><i class="fa-solid fa-laptop-code"></i> البرمجيات</a>
+            <a href="#gis-map" class="drawer-link" id="drawer-gis-map"><i class="fa-solid fa-map-location-dot"></i> الجامعات السعودية</a>
             <a href="#tips" class="drawer-link" id="drawer-tips"><i class="fa-solid fa-lightbulb"></i> نصائح ذهبية</a>
+            <a href="#mistakes" class="drawer-link" id="drawer-mistakes"><i class="fa-solid fa-triangle-exclamation"></i> أخطاء شائعة</a>
             <a href="#x-community" class="drawer-link" id="drawer-x-community"><i class="fa-brands fa-x-twitter"></i> مجتمع X</a>
             <a href="#courses" class="drawer-link" id="drawer-courses"><i class="fa-solid fa-graduation-cap"></i> مسار التعلم</a>
         </nav>
@@ -289,15 +297,15 @@
                         <ul class="device-specs-list">
                             <li>
                                 <span class="spec-icon"><i class="fa-solid fa-microchip"></i> المعالج</span>
-                                <span class="spec-value">Intel Core i5 / AMD Ryzen 5 (جيل حديث)</span>
+                                <span class="spec-value">Intel Core Ultra 5 / AMD Ryzen 5 (جيل حديث)</span>
                             </li>
                             <li>
                                 <span class="spec-icon"><i class="fa-solid fa-memory"></i> الذاكرة (RAM)</span>
-                                <span class="spec-value">16 GB DDR4 / DDR5 (الحد الأدنى لـ GIS)</span>
+                                <span class="spec-value">16 GB DDR5 (الحد الأدنى لـ GIS في 2026)</span>
                             </li>
                             <li>
                                 <span class="spec-icon"><i class="fa-solid fa-image"></i> كرت الشاشة</span>
-                                <span class="spec-value">NVIDIA RTX 2050 / GTX 1650 (أو مدمج قوي)</span>
+                                <span class="spec-value">NVIDIA RTX 3050 / AMD Radeon 780M (أو مدمج قوي)</span>
                             </li>
                             <li>
                                 <span class="spec-icon"><i class="fa-solid fa-hdd"></i> التخزين</span>
@@ -311,12 +319,12 @@
                         <div class="specs-divider"></div>
                         <div class="suggested-models">
                             <h4>الأجهزة المقترحة:</h4>
-                            <p>Lenovo IdeaPad Slim 5 / Acer Aspire 5 / HP Victus 15 (اقتصادي)</p>
+                            <p>Lenovo IdeaPad Slim 5 (Core Ultra) / Acer Aspire 5 / HP Victus 15 (اقتصادي)</p>
                         </div>
                         <div class="device-footer">
                             <div class="price-tag">
                                 <span class="price-label">السعر التقريبي:</span>
-                                <span class="price-val font-mono">2,200 - 2,800 <span class="currency">ر.س</span></span>
+                                <span class="price-val font-mono">2,400 - 3,200 <span class="currency">ر.س</span></span>
                             </div>
                         </div>
                     </div>
@@ -336,15 +344,15 @@
                         <ul class="device-specs-list">
                             <li>
                                 <span class="spec-icon"><i class="fa-solid fa-microchip"></i> المعالج</span>
-                                <span class="spec-value">Intel Core i7 / AMD Ryzen 7 (فئة H القوية)</span>
+                                <span class="spec-value">Intel Core Ultra 7 / AMD Ryzen 7 (فئة HS/H القوية)</span>
                             </li>
                             <li>
                                 <span class="spec-icon"><i class="fa-solid fa-memory"></i> الذاكرة (RAM)</span>
-                                <span class="spec-value">32 GB DDR5 (لسلاسة فتح الخرائط الضخمة)</span>
+                                <span class="spec-value">32 GB DDR5 5600MHz (لسلاسة البرمجيات الحديثة)</span>
                             </li>
                             <li>
                                 <span class="spec-icon"><i class="fa-solid fa-image"></i> كرت الشاشة</span>
-                                <span class="spec-value">NVIDIA RTX 4050 / RTX 4060 (6GB/8GB VRAM)</span>
+                                <span class="spec-value">NVIDIA RTX 4060 / RTX 4060 Ti Laptop (8GB VRAM)</span>
                             </li>
                             <li>
                                 <span class="spec-icon"><i class="fa-solid fa-hdd"></i> التخزين</span>
@@ -358,12 +366,12 @@
                         <div class="specs-divider"></div>
                         <div class="suggested-models">
                             <h4>الأجهزة المقترحة:</h4>
-                            <p>ASUS ROG Zephyrus G14 / HP Victus 16 / Dell Inspiron 16 Plus</p>
+                            <p>ASUS ROG Zephyrus G14 (2026) / HP Victus 16 / Dell Inspiron 16 Plus</p>
                         </div>
                         <div class="device-footer">
                             <div class="price-tag">
                                 <span class="price-label">السعر التقريبي:</span>
-                                <span class="price-val font-mono">4,500 - 5,800 <span class="currency">ر.س</span></span>
+                                <span class="price-val font-mono">4,800 - 6,200 <span class="currency">ر.س</span></span>
                             </div>
                         </div>
                     </div>
@@ -383,15 +391,15 @@
                         <ul class="device-specs-list">
                             <li>
                                 <span class="spec-icon"><i class="fa-solid fa-microchip"></i> المعالج</span>
-                                <span class="spec-value">Intel Core i9 / AMD Ryzen 9 / Apple M3 Pro</span>
+                                <span class="spec-value">Intel Core Ultra 9 / AMD Ryzen 9 / Apple M4 Pro (أحدث جيل)</span>
                             </li>
                             <li>
                                 <span class="spec-icon"><i class="fa-solid fa-memory"></i> الذاكرة (RAM)</span>
-                                <span class="spec-value">64 GB DDR5 (سرعات فائقة لمعالجة البيانات)</span>
+                                <span class="spec-value">64 GB DDR5 6400MHz (سرعات فائقة للتحليلات الكبيرة)</span>
                             </li>
                             <li>
                                 <span class="spec-icon"><i class="fa-solid fa-image"></i> كرت الشاشة</span>
-                                <span class="spec-value">NVIDIA RTX 4070 / RTX A2000 (أو معالج الرسوم المدمج بـ M3)</span>
+                                <span class="spec-value">NVIDIA RTX 4070 / RTX 4070 Super / Apple M4 Pro GPU</span>
                             </li>
                             <li>
                                 <span class="spec-icon"><i class="fa-solid fa-hdd"></i> التخزين</span>
@@ -405,12 +413,12 @@
                         <div class="specs-divider"></div>
                         <div class="suggested-models">
                             <h4>الأجهزة المقترحة:</h4>
-                            <p>Lenovo ThinkPad P1 Gen 6 / Dell Precision 5680 / MacBook Pro 16" (M3 Pro)</p>
+                            <p>Lenovo ThinkPad P1 Gen 8 / Dell Precision 5690 / MacBook Pro 16" (M4 Pro)</p>
                         </div>
                         <div class="device-footer">
                             <div class="price-tag">
                                 <span class="price-label">السعر التقريبي:</span>
-                                <span class="price-val font-mono">8,500 - 12,000 <span class="currency">ر.س</span></span>
+                                <span class="price-val font-mono">9,500 - 14,000 <span class="currency">ر.س</span></span>
                             </div>
                         </div>
                     </div>
@@ -430,15 +438,15 @@
                         <ul class="device-specs-list">
                             <li>
                                 <span class="spec-icon"><i class="fa-solid fa-microchip"></i> المعالج</span>
-                                <span class="spec-value">AMD Ryzen 9 7900X / Intel Core i9 14900K</span>
+                                <span class="spec-value">AMD Ryzen 9 9900X / Intel Core Ultra 9 285K</span>
                             </li>
                             <li>
                                 <span class="spec-icon"><i class="fa-solid fa-memory"></i> الذاكرة (RAM)</span>
-                                <span class="spec-value">64 GB DDR5 6000MHz (Dual Channel 2x32GB)</span>
+                                <span class="spec-value">64 GB DDR5 6400MHz (Dual Channel 2x32GB)</span>
                             </li>
                             <li>
                                 <span class="spec-icon"><i class="fa-solid fa-image"></i> كرت الشاشة</span>
-                                <span class="spec-value">NVIDIA RTX 4070 Ti Super / RTX 4080 (16GB VRAM)</span>
+                                <span class="spec-value">NVIDIA RTX 4070 Ti Super / RTX 4080 Super (16GB VRAM)</span>
                             </li>
                             <li>
                                 <span class="spec-icon"><i class="fa-solid fa-hdd"></i> التخزين</span>
@@ -457,7 +465,82 @@
                         <div class="device-footer">
                             <div class="price-tag">
                                 <span class="price-label">التكلفة التقريبية:</span>
-                                <span class="price-val font-mono">9,000 - 15,000 <span class="currency">ر.س</span></span>
+                                <span class="price-val font-mono">10,000 - 16,000 <span class="currency">ر.س</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coordinate Converter Section -->
+        <section id="converter" class="converter-section">
+            <div class="container">
+                <div class="section-header" id="converterHeader">
+                    <h2 class="section-title">محول الإحداثيات الجغرافية <span class="highlight">التفاعلي</span></h2>
+                    <p class="section-subtitle">أداة عملية لتحويل إحداثيات WGS84 الرياضية إلى مساقط DMS ونظام الويب ميركاتور المعتمد عالمياً</p>
+                </div>
+
+                <div class="converter-grid">
+                    <!-- Control Form Card -->
+                    <div class="converter-card" id="converterInputCard">
+                        <div class="converter-glow"></div>
+                        <h3><i class="fa-solid fa-sliders text-secondary"></i> مدخلات الموقع الجغرافي</h3>
+                        <p class="card-desc">أدخل خطوط الطول والعرض بالدرجات العشرية، أو اختر أحد النماذج السعودية الجاهزة للتجربة الفورية:</p>
+                        
+                        <div class="preset-buttons">
+                            <button type="button" class="preset-btn" data-lat="24.7136" data-lng="46.6753">
+                                <i class="fa-solid fa-location-dot"></i> وسط الرياض
+                            </button>
+                            <button type="button" class="preset-btn" data-lat="21.5433" data-lng="39.1728">
+                                <i class="fa-solid fa-location-dot"></i> واجهة جدة البحرية
+                            </button>
+                            <button type="button" class="preset-btn" data-lat="26.3927" data-lng="50.1983">
+                                <i class="fa-solid fa-location-dot"></i> جامعة IAU بالشرقية
+                            </button>
+                        </div>
+
+                        <div class="input-group-row">
+                            <div class="input-field-wrapper">
+                                <label for="input-lat"><i class="fa-solid fa-arrows-up-down text-secondary"></i> خط العرض (Latitude)</label>
+                                <input type="number" id="input-lat" step="any" min="-90" max="90" value="24.7136" placeholder="مثال: 24.7136">
+                                <span class="input-hint">بين -90 و 90 درجة</span>
+                            </div>
+                            <div class="input-field-wrapper">
+                                <label for="input-lng"><i class="fa-solid fa-arrows-left-right text-secondary"></i> خط الطول (Longitude)</label>
+                                <input type="number" id="input-lng" step="any" min="-180" max="180" value="46.6753" placeholder="مثال: 46.6753">
+                                <span class="input-hint">بين -180 و 180 درجة</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Outputs Display Card -->
+                    <div class="converter-card" id="converterOutputCard">
+                        <div class="converter-glow"></div>
+                        <h3><i class="fa-solid fa-chart-simple text-primary"></i> مخرجات التحويل المساحي</h3>
+                        <p class="card-desc">تحويل فوري فائق الدقة مبني على صيغ الجيوديسيا الرياضية لعلم المساحة:</p>
+
+                        <div class="outputs-wrapper">
+                            <!-- Output 1: DMS -->
+                            <div class="output-row">
+                                <div class="output-header">
+                                    <span class="output-title"><i class="fa-solid fa-compass text-secondary"></i> الدرجات، الدقائق، الثواني (DMS)</span>
+                                    <button class="copy-btn" data-target="output-dms" aria-label="نسخ الإحداثيات">
+                                        <i class="fa-regular fa-copy"></i> <span>نسخ</span>
+                                    </button>
+                                </div>
+                                <div class="output-value-box font-mono" id="output-dms">--</div>
+                            </div>
+
+                            <!-- Output 2: Web Mercator -->
+                            <div class="output-row">
+                                <div class="output-header">
+                                    <span class="output-title"><i class="fa-solid fa-earth-americas text-primary"></i> ويب ميركاتور (EPSG:3857) - بالمتر</span>
+                                    <button class="copy-btn" data-target="output-mercator" aria-label="نسخ الإحداثيات">
+                                        <i class="fa-regular fa-copy"></i> <span>نسخ</span>
+                                    </button>
+                                </div>
+                                <div class="output-value-box font-mono" id="output-mercator">--</div>
                             </div>
                         </div>
                     </div>
@@ -625,6 +708,65 @@
             </div>
         </section>
 
+        <!-- Saudi GIS Universities Section -->
+        <section id="gis-map" class="gis-map-section">
+            <div class="container">
+                <div class="section-header" id="gisMapHeader">
+                    <h2 class="section-title">الخارطة التفاعلية <span class="highlight">للجامعات السعودية</span></h2>
+                    <p class="section-subtitle">خارطة مكانية تفاعلية تستعرض الجامعات الرائدة التي تقدم تخصصات وبرامج نظم المعلومات الجغرافية والجيوماتكس بالمملكة</p>
+                </div>
+
+                <div class="map-layout-wrapper">
+                    <!-- Map Canvas -->
+                    <div class="map-canvas-container">
+                        <div id="leaflet-gis-map"></div>
+                        <div class="map-loading-indicator" id="mapLoader">
+                            <div class="spinner"></div>
+                            <span>جاري تحميل الخارطة والموقع الجغرافي...</span>
+                        </div>
+                    </div>
+
+                    <!-- Side Details Panel -->
+                    <div class="map-info-panel" id="mapInfoPanel">
+                        <!-- Default empty state -->
+                        <div class="panel-empty-state" id="panelEmptyState">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            <h4>استكشف الجامعات والبرامج</h4>
+                            <p>انقر على أي من الرموز المضيئة على الخارطة لعرض تفاصيل البرنامج الأكاديمي، والشهادات المتاحة، والروابط الرسمية للتقديم.</p>
+                        </div>
+                        <!-- Dynamic content -->
+                        <div class="panel-dynamic-content hidden" id="panelDynamicContent">
+                            <div class="panel-header">
+                                <span class="uni-city-badge" id="panelUniCity">المدينة</span>
+                                <h3 id="panelUniName">اسم الجامعة</h3>
+                            </div>
+                            <div class="specs-divider"></div>
+                            <div class="panel-body">
+                                <div class="info-group">
+                                    <span class="info-label"><i class="fa-solid fa-graduation-cap text-secondary"></i> الدرجات الأكاديمية:</span>
+                                    <span class="info-value" id="panelUniDegree">بكالوريوس</span>
+                                </div>
+                                <div class="info-group">
+                                    <span class="info-label"><i class="fa-solid fa-school text-secondary"></i> الكلية والقسم:</span>
+                                    <span class="info-value" id="panelUniDept">الكلية</span>
+                                </div>
+                                <div class="info-group">
+                                    <span class="info-label"><i class="fa-solid fa-book-open text-secondary"></i> تفاصيل التخصص:</span>
+                                    <p class="info-desc" id="panelUniDesc">وصف التخصص</p>
+                                </div>
+                            </div>
+                            <div class="specs-divider"></div>
+                            <div class="panel-footer">
+                                <a href="#" target="_blank" class="btn btn-primary btn-sm btn-full" id="panelUniLink">
+                                    <i class="fa-solid fa-square-arrow-up-right"></i> زيارة بوابة القبول الرسمية
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Golden Tips Section -->
         <section id="tips" class="tips-section">
             <div class="container">
@@ -667,6 +809,114 @@
                         <h4>تابع وتفاعل مع مجتمع الـ GIS</h4>
                         <p>تابع قادة التخصص والمطورين على شبكات التواصل الاحترافية مثل LinkedIn و X. انخرط في التحديات العالمية مثل (30DayMapChallenge#) لمواكبة أحدث الابتكارات والمشاريع والتقنيات.</p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rookie GIS Mistakes Accordion Section -->
+        <section id="mistakes" class="mistakes-section">
+            <div class="container">
+                <div class="section-header" id="mistakesHeader">
+                    <h2 class="section-title">أخطاء كارثية يقع فيها <span class="highlight">مبتدئو الـ GIS</span></h2>
+                    <p class="section-subtitle">تجنب هذه الأخطاء الأربعة الشائعة التي تعطل عمل البرمجيات وتفسد الخرائط الجغرافية</p>
+                </div>
+
+                <div class="accordion-group">
+                    <!-- Mistake 1 -->
+                    <details class="mistake-disclosure" name="gis-mistakes" open>
+                        <summary class="mistake-summary">
+                            <span class="summary-title">
+                                <span class="badge-icon badge-orange"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                                1. تداخل ونزاع نظم الإحداثيات (CRS Mismatch)
+                            </span>
+                            <i class="fa-solid fa-chevron-down summary-arrow"></i>
+                        </summary>
+                        <div class="mistake-content">
+                            <div class="mistake-box alert-red">
+                                <strong>الخطأ الشائع:</strong> إسقاط طبقات بنظم إحداثيات مرجعية مختلفة (مثلاً طبقة بنظام WGS84 الجغرافي وطبقة أخرى بنظام إسقاط ميركاتور UTM) في نفس المشروع دون التحقق من مطابقة نظام إحداثيات الخريطة، مما يتسبب في انحراف الخريطة بآلاف الأمتار أو ظهورها في منتصف المحيط الهندي!
+                            </div>
+                            <div class="solution-box alert-green">
+                                <strong>الحل الصحيح والاحترافي:</strong> 
+                                <ul>
+                                    <li>قم بتوحيد نظام الإحداثيات (CRS) لجميع طبقات بياناتك المساحية قبل البدء بالتحليل.</li>
+                                    <li>استخدم خاصية "التحويل الفوري أثناء العرض" (On-the-Fly Projection) في برمجيات QGIS و ArcGIS Pro.</li>
+                                    <li>قم بتعيين نظام إحداثيات موحد للمشروع بأكمله يتوافق مع منطقتك (مثل استخدام EPSG:3857 لخرائط الويب، أو مساقط UTM Zone 37N إلى 39N للمشاريع المحلية بالمملكة العربية السعودية).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Mistake 2 -->
+                    <details class="mistake-disclosure" name="gis-mistakes">
+                        <summary class="mistake-summary">
+                            <span class="summary-title">
+                                <span class="badge-icon badge-orange"><i class="fa-solid fa-folder-minus"></i></span>
+                                2. إرسال ملف Shapefile منفصل وفقدان بقية الملحقات (.shp only)
+                            </span>
+                            <i class="fa-solid fa-chevron-down summary-arrow"></i>
+                        </summary>
+                        <div class="mistake-content">
+                            <div class="mistake-box alert-red">
+                                <strong>الخطأ الشائع:</strong> إرسال ملف بامتداد `.shp` فقط عبر الإيميل أو نقله لمجلد آخر ظناً منك أنه الطبقة الكاملة، مما يؤدي فوراً لتلف الطبقة تماماً وفشلها في الفتح على أي جهاز آخر لأنها فقدت الجداول والروابط والمساقط الملحقة بها.
+                            </div>
+                            <div class="solution-box alert-green">
+                                <strong>الحل الصحيح والاحترافي:</strong>
+                                <ul>
+                                    <li>تذكر دائماً أن ملف الـ Shapefile هو عبارة عن "مجموعة عائلية" من 3 إلى 8 ملفات مرتبطة ببعضها البعض ومحفوظة بنفس الاسم تماماً (مثل `.shp`, `.dbf`, `.shx`, `.prj`).</li>
+                                    <li>إذا رغبت بنقل الطبقة أو إرسالها لزميلك، فقم بضغط كامل المجلد أو كامل الملفات ذات الاسم المشترك في ملف مضغوط واحد `.zip`.</li>
+                                    <li><strong>الخيار الأفضل حديثاً:</strong> انتقل كلياً لاستخدام صيغة **GeoPackage (`.gpkg`)** المتكاملة والموصى بها رسمياً من OGC؛ حيث تجمع الطبقات المتعددة وقواعد البيانات والجداول في ملف ذكي واحد وبأداء فائق السرعة!</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Mistake 3 -->
+                    <details class="mistake-disclosure" name="gis-mistakes">
+                        <summary class="mistake-summary">
+                            <span class="summary-title">
+                                <span class="badge-icon badge-orange"><i class="fa-solid fa-language"></i></span>
+                                3. استخدام الحروف العربية والمسافات في مسارات الحفظ (Arabic Paths)
+                            </span>
+                            <i class="fa-solid fa-chevron-down summary-arrow"></i>
+                        </summary>
+                        <div class="mistake-content">
+                            <div class="mistake-box alert-red">
+                                <strong>الخطأ الشائع:</strong> تنظيم مجلداتك وحفظ ملفاتك في مسارات تحتوي على حروف عربية أو مسافات فارغة (مثال: `C:\المستخدمين\أحمد\بيانات نظم المعلومات\الرياض.shp`). هذا الأمر يتسبب في تعطل أدوات المعالجة الجغرافية (Geoprocessing Tools) كأدوات الكليب والرندرة، والسبب هو عدم دعم مكتبات بايثون و GDAL القديمة للمسارات غير اللاتينية بشكل مثالي.
+                            </div>
+                            <div class="solution-box alert-green">
+                                <strong>الحل الصحيح والاحترافي:</strong>
+                                <ul>
+                                    <li>احرص كل الحرص على استخدام الأحرف الإنجليزية فقط والأرقام في تسمية المجلدات وملفات الـ GIS.</li>
+                                    <li>تجنب استخدام المسافات الفارغة نهائياً؛ واستبدلها دائماً بالشرطة السفلية (Underscore `_`) (مثال: `C:/gis_workspace/riyadh_boundary/riyadh_suburbs.shp`).</li>
+                                    <li>هذه العادة الذهبية البسيطة ستمنع حدوث أكثر من 90% من أخطاء الـ Run Failure المبهمة والمفاجئة في بايثون ومكتبات الـ GIS.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Mistake 4 -->
+                    <details class="mistake-disclosure" name="gis-mistakes">
+                        <summary class="mistake-summary">
+                            <span class="summary-title">
+                                <span class="badge-icon badge-orange"><i class="fa-solid fa-circle-question"></i></span>
+                                4. إهمال كتابة البيانات الوصفية والتوثيق (Missing Metadata)
+                            </span>
+                            <i class="fa-solid fa-chevron-down summary-arrow"></i>
+                        </summary>
+                        <div class="mistake-content">
+                            <div class="mistake-box alert-red">
+                                <strong>الخطأ الشائع:</strong> إنتاج طبقات مساحية وخرائط وتوزيعها دون إرفاق ملف توثيقي أو كتابة البيانات الوصفية (Metadata) لها؛ مما يجعل المستخدم اللاحق (أو أنت نفسك بعد بضعة أشهر) تجهل مصدر البيانات، تاريخ المسح، الدقة المكانية، أو نسبة الخطأ المسموح بها.
+                            </div>
+                            <div class="solution-box alert-green">
+                                <strong>الحل الصحيح والاحترافي:</strong>
+                                <ul>
+                                    <li>خصص 5 دقائق بنهاية كل مشروع لتعبئة نموذج البيانات الوصفية (Metadata Card) ببرمجيات الـ GIS.</li>
+                                    <li>دوّن بوضوح: الجهة المصنعة للبيانات، تاريخ المسح الفعلي، نظام الإسقاط، ودقة المسح بالأمتار، بالإضافة إلى شروط الاستخدام والملكيات الفكرية.</li>
+                                    <li>توثيق البيانات يرفع قيمتها الاحترافية ويضمن بقاءها صالحة للاستخدام وقابلة للدمج في قواعد البيانات الوطنية ومشاريع صناع القرار.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
                 </div>
             </div>
         </section>
@@ -1096,8 +1346,11 @@
                         <li><a href="#hero">الرئيسية</a></li>
                         <li><a href="#about">ما هي الـ GIS؟</a></li>
                         <li><a href="#devices">الأجهزة الموصى بها</a></li>
+                        <li><a href="#converter">المحول الإحداثي</a></li>
                         <li><a href="#software">أدوات البرمجيات</a></li>
+                        <li><a href="#gis-map">الجامعات السعودية</a></li>
                         <li><a href="#tips">نصائح ذهبية</a></li>
+                        <li><a href="#mistakes">أخطاء شائعة للمبتدئين</a></li>
                         <li><a href="#x-community">مجتمع X</a></li>
                         <li><a href="#courses">خريطة طريق التعلم</a></li>
                     </ul>
@@ -1109,6 +1362,8 @@
         </div>
     </footer>
 
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <!-- Scripts -->
     <script src="app.js"></script>
 </body>
