@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة نظم المعلومات الجغرافية | GIS Student Hub</title>
+    <meta name="description" content="منصة تفاعلية تعليمية لطلاب الجامعات المهتمين بنظم المعلومات الجغرافية (GIS) والجيوماتكس. دليل البرمجيات، الدورات الموصى بها، ومحاكاة تفاعلية للطبقات المكانية.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress"></div>
+
+    <!-- Navigation Bar -->
+    <header class="navbar-header">
+        <div class="navbar-container">
+            <a href="#" class="brand-logo" id="logoLink">
+                <svg class="logo-svg" viewBox="0 0 100 100" width="40" height="40">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="url(#logo-grad)" stroke-width="2.5"/>
+                    <ellipse cx="50" cy="50" rx="45" ry="15" fill="none" stroke="var(--color-primary)" stroke-width="1.5" transform="rotate(30 50 50)"/>
+                    <ellipse cx="50" cy="50" rx="45" ry="15" fill="none" stroke="var(--color-secondary)" stroke-width="1.5" transform="rotate(-30 50 50)"/>
+                    <circle cx="50" cy="50" r="6" fill="var(--color-primary-glow)"/>
+                    <path d="M 50 5 L 50 95 M 5 50 L 95 50" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="3,3"/>
+                    <defs>
+                        <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="var(--color-primary)"/>
+                            <stop offset="100%" stop-color="var(--color-secondary)"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span class="brand-text"><span class="highlight">GIS</span></span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="nav-menu" id="navMenu">
+                <a href="#hero" class="nav-link active" id="nav-hero"><i class="fa-solid fa-house"></i> الرئيسية</a>
+                <a href="#about" class="nav-link" id="nav-about"><i class="fa-solid fa-circle-info"></i> عن التخصص</a>
+                <a href="#devices" class="nav-link" id="nav-devices"><i class="fa-solid fa-laptop"></i> الأجهزة الموصى بها</a>
+                <a href="#software" class="nav-link" id="nav-software"><i class="fa-solid fa-laptop-code"></i> البرمجيات</a>
+                <a href="#tips" class="nav-link" id="nav-tips"><i class="fa-solid fa-lightbulb"></i> نصائح ذهبية</a>
+                <a href="#x-community" class="nav-link" id="nav-x-community"><i class="fa-brands fa-x-twitter"></i> مجتمع X</a>
+                <a href="#courses" class="nav-link" id="nav-courses"><i class="fa-solid fa-graduation-cap"></i> مسار التعلم</a>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="menuToggle" aria-label="فتح القائمة">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header">
+            <span class="drawer-title">القائمة الرئيسية</span>
+            <button class="drawer-close" id="drawerClose" aria-label="إغلاق القائمة">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <nav class="drawer-nav">
+            <a href="#hero" class="drawer-link active" id="drawer-hero"><i class="fa-solid fa-house"></i> الرئيسية</a>
+            <a href="#about" class="drawer-link" id="drawer-about"><i class="fa-solid fa-circle-info"></i> عن التخصص</a>
+            <a href="#devices" class="drawer-link" id="drawer-devices"><i class="fa-solid fa-laptop"></i> الأجهزة الموصى بها</a>
+            <a href="#software" class="drawer-link" id="drawer-software"><i class="fa-solid fa-laptop-code"></i> البرمجيات</a>
+            <a href="#tips" class="drawer-link" id="drawer-tips"><i class="fa-solid fa-lightbulb"></i> نصائح ذهبية</a>
+            <a href="#x-community" class="drawer-link" id="drawer-x-community"><i class="fa-brands fa-x-twitter"></i> مجتمع X</a>
+            <a href="#courses" class="drawer-link" id="drawer-courses"><i class="fa-solid fa-graduation-cap"></i> مسار التعلم</a>
+        </nav>
+    </div>
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-bg-grid"></div>
+            <div class="hero-circle-glow top-right"></div>
+            <div class="hero-circle-glow bottom-left"></div>
+            
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="hero-badge" id="heroBadge">
+                        <span class="pulse-dot"></span>
+                        مستقبل التقنية المكانية والتحليل الرقمي
+                    </div>
+                    <h1 class="hero-title" id="heroTitle">
+                        مستقبل الجغرافيا <br>
+                        <span class="gradient-text">بين يديك</span>
+                    </h1>
+                    <p class="hero-subtitle" id="heroSubtitle">
+                        بوابتك التعليمية المتكاملة لاستكشاف وتحليل نظم المعلومات الجغرافية (GIS) والجيوماتكس. تعرّف على التخصص، امتلك أدواتك، وابدأ مسيرتك المهنية والبرمجية اليوم.
+                    </p>
+                    <div class="hero-actions" id="heroActions">
+                        <a href="#devices" class="btn btn-primary" id="btnExplore"><i class="fa-solid fa-laptop"></i> الأجهزة الموصى بها</a>
+                        <a href="#about" class="btn btn-secondary" id="btnAbout"><i class="fa-solid fa-book-open"></i> استكشف التخصص</a>
+                    </div>
+                </div>
+                <div class="hero-visual" id="heroVisual">
+                    <!-- Topographical Map Simulation Container -->
+                    <div class="topo-globe-container">
+                        <svg class="topo-svg" viewBox="0 0 500 500" width="100%" height="100%">
+                            <!-- Contours -->
+                            <path class="contour c-1" d="M 250,250 m -100,0 a 100,100 0 1,0 200,0 a 100,100 0 1,0 -200,0" fill="none" stroke="rgba(0, 242, 254, 0.1)" stroke-width="2"/>
+                            <path class="contour c-2" d="M 250,250 m -140,0 a 140,140 0 1,0 280,0 a 140,140 0 1,0 -280,0" fill="none" stroke="rgba(0, 242, 254, 0.15)" stroke-width="1.5"/>
+                            <path class="contour c-3" d="M 250,250 m -180,0 a 180,180 0 1,0 360,0 a 180,180 0 1,0 -360,0" fill="none" stroke="rgba(0, 242, 254, 0.2)" stroke-width="1" stroke-dasharray="5,5"/>
+                            
+                            <!-- Custom irregular topography path (represents spatial modeling) -->
+                            <path class="topo-line line-1" d="M 50,200 Q 120,80 250,150 T 450,200" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-opacity="0.8"/>
+                            <path class="topo-line line-2" d="M 50,250 Q 150,180 250,300 T 450,250" fill="none" stroke="var(--color-secondary)" stroke-width="2" stroke-opacity="0.6"/>
+                            <path class="topo-line line-3" d="M 50,300 Q 180,260 250,380 T 450,320" fill="none" stroke="var(--color-primary-glow)" stroke-width="1.5" stroke-opacity="0.4"/>
+                            
+                            <!-- Network nodes representing geodatabase and coordinates -->
+                            <g class="network-nodes">
+                                <circle cx="120" cy="120" r="5" class="node-glow" fill="var(--color-primary)"/>
+                                <line x1="120" y1="120" x2="250" y2="150" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                                
+                                <circle cx="250" cy="150" r="7" class="node-glow" fill="var(--color-secondary)"/>
+                                <line x1="250" y1="150" x2="350" y2="250" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                                <line x1="250" y1="150" x2="200" y2="300" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                                
+                                <circle cx="350" cy="250" r="5" class="node-glow" fill="var(--color-primary)"/>
+                                <line x1="350" y1="250" x2="420" y2="200" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                                
+                                <circle cx="200" cy="300" r="6" class="node-glow" fill="var(--color-secondary)"/>
+                                <line x1="200" y1="300" x2="280" y2="350" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                                
+                                <circle cx="280" cy="350" r="4" class="node-glow" fill="var(--color-primary)"/>
+                                <circle cx="420" cy="200" r="4" class="node-glow" fill="var(--color-primary)"/>
+                            </g>
+                            
+                            <!-- Outer scanning line -->
+                            <line x1="50" y1="50" x2="450" y2="450" class="radar-scanner" stroke="rgba(0, 242, 254, 0.3)" stroke-width="2" stroke-dasharray="10,10"/>
+                        </svg>
+                        <div class="globe-label-card" id="globeLabel">
+                            <i class="fa-solid fa-location-crosshairs text-primary"></i>
+                            <div class="text-group">
+                                <span class="label-title">Coordinate System</span>
+                                <span class="label-value font-mono">WGS 84 / UTM Zone 38N</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About GIS Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="section-header" id="aboutHeader">
+                    <h2 class="section-title">ما هي نظم المعلومات الجغرافية؟</h2>
+                    <p class="section-subtitle">العلم والتقنية وراء الخرائط الذكية والتحليل المكاني الحديث</p>
+                </div>
+
+                <div class="about-grid">
+                    <div class="about-text-card" id="aboutMainText">
+                        <h3>قوة المكان وعلم الـ "أين؟"</h3>
+                        <p>
+                            <strong>نظم المعلومات الجغرافية (GIS - Geographic Information Systems)</strong> هي علم وتكنولوجيا تتيح لنا التقاط وتخزين ومعالجة وتحليل وعرض شتى أنواع البيانات الجغرافية المرتبطة بموقع محدد على سطح الأرض.
+                        </p>
+                        <p>
+                            عبر دمج الخرائط الرقمية بقواعد البيانات الذكية، لا يخبرنا الـ GIS بـ <em>"ماذا يوجد؟"</em> فحسب، بل يمكننا من فهم <em>"لماذا يوجد هناك؟"</em> و <em>"ماذا سيحدث لو تغير؟"</em>، مما يجعله المحرك الأساسي لاتخاذ القرارات وإدارة العالم من حولنا.
+                        </p>
+                    </div>
+                    
+                    <div class="stats-mini-grid">
+                        <div class="stat-card" id="stat1">
+                            <span class="stat-num font-mono">80%</span>
+                            <span class="stat-label">من بيانات العالم تحتوي على مكون مكاني (جغرافي).</span>
+                        </div>
+                        <div class="stat-card" id="stat2">
+                            <span class="stat-num font-mono">3D</span>
+                            <span class="stat-label">تحليل البيانات بأبعاد متعددة للنمذجة الواقعية للمدن.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5 Pillars of GIS -->
+                <h3 class="subsection-title" id="pillarsTitle">الركائز الخمس الأساسية للـ GIS</h3>
+                <div class="pillars-grid">
+                    <!-- 1. Data -->
+                    <div class="pillar-card" id="pillar-data">
+                        <div class="pillar-icon"><i class="fa-solid fa-database"></i></div>
+                        <h4>1. البيانات (Data)</h4>
+                        <p>عصب النظام والوقود المحرك له. تشمل البيانات الوصفية والبيانات المكانية بنوعيها: المتجهة (Vector) والشبكية (Raster).</p>
+                    </div>
+                    <!-- 2. Software -->
+                    <div class="pillar-card" id="pillar-software">
+                        <div class="pillar-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                        <h4>2. البرمجيات (Software)</h4>
+                        <p>الأدوات المستخدمة لإدخال ومعالجة البيانات المكانية وعمل التحليلات وإنتاج الخرائط، مثل برامج ESRI و QGIS.</p>
+                    </div>
+                    <!-- 3. Hardware -->
+                    <div class="pillar-card" id="pillar-hardware">
+                        <div class="pillar-icon"><i class="fa-solid fa-server"></i></div>
+                        <h4>3. الأجهزة (Hardware)</h4>
+                        <p>الحواسيب فائقة الأداء، السيرفرات السحابية، أجهزة الـ GPS، وأجهزة الاستشعار عن بعد كالدرونز والأقمار الصناعية.</p>
+                    </div>
+                    <!-- 4. Methods -->
+                    <div class="pillar-card" id="pillar-methods">
+                        <div class="pillar-icon"><i class="fa-solid fa-gears"></i></div>
+                        <h4>4. الأساليب (Methods)</h4>
+                        <p>خطط العمل المنهجية، القواعد الحسابية، والتحليلات الجغرافية والإحصائية المتبعة لحل المشكلات بدقة.</p>
+                    </div>
+                    <!-- 5. People -->
+                    <div class="pillar-card" id="pillar-people">
+                        <div class="pillar-icon"><i class="fa-solid fa-users-gear"></i></div>
+                        <h4>5. الكوادر البشرية (People)</h4>
+                        <p>المختصون والمطورون والمحللون الذين يقومون بتصميم وتشغيل الأنظمة وحل المشكلات المكانية المعقدة.</p>
+                    </div>
+                </div>
+
+                <!-- Career Fields -->
+                <h3 class="subsection-title" id="careersTitle">مجالات العمل والتطبيق</h3>
+                <div class="careers-grid">
+                    <div class="career-item" id="career-urban">
+                        <div class="career-img-wrapper">
+                            <i class="fa-solid fa-city career-vector-icon"></i>
+                        </div>
+                        <div class="career-info">
+                            <h5>التخطيط العمراني والمدن الذكية</h5>
+                            <p>تخطيط مسارات النقل، تحديد مواقع الخدمات والمدارس والمستشفيات، وتحليل نمو وتوسع المدن هندسياً.</p>
+                        </div>
+                    </div>
+                    <div class="career-item" id="career-env">
+                        <div class="career-img-wrapper">
+                            <i class="fa-solid fa-seedling career-vector-icon"></i>
+                        </div>
+                        <div class="career-info">
+                            <h5>البيئة وإدارة الموارد الطبيعية</h5>
+                            <p>مراقبة التصحر، الغطاء النباتي، تتبع التلوث، دراسة التغير المناخي وحماية الحياة الفطرية بدقة مكانية.</p>
+                        </div>
+                    </div>
+                    <div class="career-item" id="career-logistics">
+                        <div class="career-img-wrapper">
+                            <i class="fa-solid fa-truck-fast career-vector-icon"></i>
+                        </div>
+                        <div class="career-info">
+                            <h5>الخدمات اللوجستية والنقل</h5>
+                            <p>تحديد المسار الأقصر لسيارات الإسعاف أو التوصيل، إدارة أساطيل النقل، وتوزيع شبكات الإمداد والطاقة.</p>
+                        </div>
+                    </div>
+                    <div class="career-item" id="career-disaster">
+                        <div class="career-img-wrapper">
+                            <i class="fa-solid fa-house-fire career-vector-icon"></i>
+                        </div>
+                        <div class="career-info">
+                            <h5>إدارة الكوارث والأزمات</h5>
+                            <p>النمذجة الطبوغرافية والتنبؤ بمسارات السيول والفيضانات، وتتبع الكوارث والحرائق للحد من مخاطرها وتقليل الخسائر.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommended Hardware & Devices Section -->
+        <section id="devices" class="devices-section">
+            <div class="container">
+                <div class="section-header" id="devicesHeader">
+                    <h2 class="section-title">الأجهزة والحواسيب الموصى بها لـ GIS</h2>
+                    <p class="section-subtitle">دليل شامل لاختيار الحاسوب الأمثل لتشغيل برمجيات الخرائط والتحليل المكاني وسلاسل البيانات الجغرافية الضخمة</p>
+                </div>
+
+                <div class="devices-advisory" id="devicesAdvisory">
+                    <div class="advisory-icon"><i class="fa-solid fa-triangle-exclamation text-accent"></i></div>
+                    <div class="advisory-text">
+                        <strong>تنبيه هام حول أنظمة التشغيل (OS):</strong> برنامج <strong>ArcGIS Pro</strong> (المعيار الصناعي) يعمل <strong>فقط على نظام التشغيل Windows</strong> بشكل رسمي. إذا اخترت جهاز Mac (بمعالجات Apple Silicon)، ستحتاج لتشغيل نظام Windows عبر برامج محاكاة مثل Parallels Desktop، بينما يعمل برنامج <strong>QGIS</strong> مفتوح المصدر على جميع الأنظمة (Windows, Mac, Linux) بسلاسة تامة وبدون أي مشاكل.
+                    </div>
+                </div>
+
+                <div class="devices-grid">
+                    <!-- Card 1: Entry Level -->
+                    <div class="device-card border-emerald" id="device-entry">
+                        <div class="device-glow"></div>
+                        <div class="device-badge badge-emerald">المستوى الاقتصادي (المواصفات الدنيا)</div>
+                        <div class="device-header">
+                            <div class="device-icon-wrapper"><i class="fa-solid fa-laptop text-primary"></i></div>
+                            <div class="device-title-group">
+                                <h3>الحواسيب الأساسية للمبتدئين</h3>
+                                <p>مثالي للطلاب المستجدين وأعمال الرسم والتحليل الخفيف</p>
+                            </div>
+                        </div>
+                        <div class="specs-divider"></div>
+                        <ul class="device-specs-list">
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-microchip"></i> المعالج</span>
+                                <span class="spec-value">Intel Core i5 / AMD Ryzen 5 (جيل حديث)</span>
+                            </li>
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-memory"></i> الذاكرة (RAM)</span>
+                                <span class="spec-value">16 GB DDR4 / DDR5 (الحد الأدنى لـ GIS)</span>
+                            </li>
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-image"></i> كرت الشاشة</span>
+                                <span class="spec-value">NVIDIA RTX 2050 / GTX 1650 (أو مدمج قوي)</span>
+                            </li>
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-hdd"></i> التخزين</span>
+                                <span class="spec-value">512 GB NVMe PCIe SSD (فائق السرعة)</span>
+                            </li>
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-display"></i> الشاشة</span>
+                                <span class="spec-value">15.6" FHD IPS (ألوان مريحة ومقاومة للتوهج)</span>
+                            </li>
+                        </ul>
+                        <div class="specs-divider"></div>
+                        <div class="suggested-models">
+                            <h4>الأجهزة المقترحة:</h4>
+                            <p>Lenovo IdeaPad Slim 5 / Acer Aspire 5 / HP Victus 15 (اقتصادي)</p>
+                        </div>
+                        <div class="device-footer">
+                            <div class="price-tag">
+                                <span class="price-label">السعر التقريبي:</span>
+                                <span class="price-val font-mono">2,200 - 2,800 <span class="currency">ر.س</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Recommended -->
+                    <div class="device-card border-cyan active-card" id="device-recommended">
+                        <div class="device-glow"></div>
+                        <div class="device-badge badge-cyan"><i class="fa-solid fa-star"></i> الخيار الذهبي (الموصى به)</div>
+                        <div class="device-header">
+                            <div class="device-icon-wrapper"><i class="fa-solid fa-laptop-code text-secondary"></i></div>
+                            <div class="device-title-group">
+                                <h3>الأجهزة المتوازنة للاحتراف</h3>
+                                <p>الخيار الأفضل للمشاريع الجامعية والتحليل ثلاثي الأبعاد والرندرة</p>
+                            </div>
+                        </div>
+                        <div class="specs-divider"></div>
+                        <ul class="device-specs-list">
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-microchip"></i> المعالج</span>
+                                <span class="spec-value">Intel Core i7 / AMD Ryzen 7 (فئة H القوية)</span>
+                            </li>
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-memory"></i> الذاكرة (RAM)</span>
+                                <span class="spec-value">32 GB DDR5 (لسلاسة فتح الخرائط الضخمة)</span>
+                            </li>
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-image"></i> كرت الشاشة</span>
+                                <span class="spec-value">NVIDIA RTX 4050 / RTX 4060 (6GB/8GB VRAM)</span>
+                            </li>
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-hdd"></i> التخزين</span>
+                                <span class="spec-value">1 TB NVMe M.2 SSD PCIe Gen 4</span>
+                            </li>
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-display"></i> الشاشة</span>
+                                <span class="spec-value">16" WQXGA (2.5K) 100% sRGB ألوان دقيقة</span>
+                            </li>
+                        </ul>
+                        <div class="specs-divider"></div>
+                        <div class="suggested-models">
+                            <h4>الأجهزة المقترحة:</h4>
+                            <p>ASUS ROG Zephyrus G14 / HP Victus 16 / Dell Inspiron 16 Plus</p>
+                        </div>
+                        <div class="device-footer">
+                            <div class="price-tag">
+                                <span class="price-label">السعر التقريبي:</span>
+                                <span class="price-val font-mono">4,500 - 5,800 <span class="currency">ر.س</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Advanced Workstation -->
+                    <div class="device-card border-amber" id="device-workstation">
+                        <div class="device-glow"></div>
+                        <div class="device-badge badge-amber">الأداء العالي (محطات العمل)</div>
+                        <div class="device-header">
+                            <div class="device-icon-wrapper"><i class="fa-solid fa-desktop text-accent"></i></div>
+                            <div class="device-title-group">
+                                <h3>محطات العمل المحمولة الفائقة</h3>
+                                <p>لتحليل الاستشعار عن بعد ومعالجة الصور الفضائية ونمذجة الـ AI</p>
+                            </div>
+                        </div>
+                        <div class="specs-divider"></div>
+                        <ul class="device-specs-list">
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-microchip"></i> المعالج</span>
+                                <span class="spec-value">Intel Core i9 / AMD Ryzen 9 / Apple M3 Pro</span>
+                            </li>
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-memory"></i> الذاكرة (RAM)</span>
+                                <span class="spec-value">64 GB DDR5 (سرعات فائقة لمعالجة البيانات)</span>
+                            </li>
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-image"></i> كرت الشاشة</span>
+                                <span class="spec-value">NVIDIA RTX 4070 / RTX A2000 (أو معالج الرسوم المدمج بـ M3)</span>
+                            </li>
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-hdd"></i> التخزين</span>
+                                <span class="spec-value">2 TB NVMe PCIe Gen4 SSD (قراءة وكتابة فائقة)</span>
+                            </li>
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-display"></i> الشاشة</span>
+                                <span class="spec-value">16" OLED 3K / Liquid Retina XDR (دقة متناهية)</span>
+                            </li>
+                        </ul>
+                        <div class="specs-divider"></div>
+                        <div class="suggested-models">
+                            <h4>الأجهزة المقترحة:</h4>
+                            <p>Lenovo ThinkPad P1 Gen 6 / Dell Precision 5680 / MacBook Pro 16" (M3 Pro)</p>
+                        </div>
+                        <div class="device-footer">
+                            <div class="price-tag">
+                                <span class="price-label">السعر التقريبي:</span>
+                                <span class="price-val font-mono">8,500 - 12,000 <span class="currency">ر.س</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Desktop PC Build -->
+                    <div class="device-card border-purple" id="device-pc-build">
+                        <div class="device-glow"></div>
+                        <div class="device-badge badge-purple">الخيار المتكامل (تجميعة PC مكتبية)</div>
+                        <div class="device-header">
+                            <div class="device-icon-wrapper"><i class="fa-solid fa-server text-purple"></i></div>
+                            <div class="device-title-group">
+                                <h3>تجميعة حاسوب مكتبي مكاني</h3>
+                                <p>للحصول على أقصى أداء ممكن وأطول عمر افتراضي مع تبريد جبار</p>
+                            </div>
+                        </div>
+                        <div class="specs-divider"></div>
+                        <ul class="device-specs-list">
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-microchip"></i> المعالج</span>
+                                <span class="spec-value">AMD Ryzen 9 7900X / Intel Core i9 14900K</span>
+                            </li>
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-memory"></i> الذاكرة (RAM)</span>
+                                <span class="spec-value">64 GB DDR5 6000MHz (Dual Channel 2x32GB)</span>
+                            </li>
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-image"></i> كرت الشاشة</span>
+                                <span class="spec-value">NVIDIA RTX 4070 Ti Super / RTX 4080 (16GB VRAM)</span>
+                            </li>
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-hdd"></i> التخزين</span>
+                                <span class="spec-value">2TB Samsung 990 Pro M.2 + 4TB HDD (أرشيف خرائط)</span>
+                            </li>
+                            <li>
+                                <span class="spec-icon"><i class="fa-solid fa-fan"></i> التبريد والطاقة</span>
+                                <span class="spec-value">مبرد مائي 360mm + مزود طاقة 850W Gold</span>
+                            </li>
+                        </ul>
+                        <div class="specs-divider"></div>
+                        <div class="suggested-models">
+                            <h4>ملاحظة التجميعة:</h4>
+                            <p>الحل الأفضل والأرخص للرندرة ومحاكاة البيانات الكبيرة والذكاء الاصطناعي المكاني.</p>
+                        </div>
+                        <div class="device-footer">
+                            <div class="price-tag">
+                                <span class="price-label">التكلفة التقريبية:</span>
+                                <span class="price-val font-mono">9,000 - 15,000 <span class="currency">ر.س</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Software Showcase Section -->
+        <section id="software" class="software-section">
+            <div class="container">
+                <div class="section-header" id="softwareHeader">
+                    <h2 class="section-title">مستودع البرمجيات والأدوات الجغرافية</h2>
+                    <p class="section-subtitle">صندوق أدواتك العملي للاحتراف في بيئات العمل والمشاريع</p>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="filter-wrapper" id="softwareFilters">
+                    <button class="filter-btn active" data-filter="all">الكل</button>
+                    <button class="filter-btn" data-filter="desktop">برمجيات مكتبية (Desktop)</button>
+                    <button class="filter-btn" data-filter="cloud">تحليل سحابي (Cloud)</button>
+                    <button class="filter-btn" data-filter="database">قواعد بيانات مكانية</button>
+                    <button class="filter-btn" data-filter="dev">برمجة وتطوير (Development)</button>
+                </div>
+
+                <!-- Software Grid -->
+                <div class="software-grid" id="softwareGrid">
+                    <!-- 1. ArcGIS Pro -->
+                    <div class="software-card" data-category="desktop">
+                        <div class="sw-badge sw-commercial">تجاري (رخصة ESRI)</div>
+                        <div class="sw-header">
+                            <div class="sw-icon"><i class="fa-solid fa-earth-americas"></i></div>
+                            <div class="sw-title-group">
+                                <h4>ArcGIS Pro</h4>
+                                <span class="sw-developer font-mono">ESRI Corp.</span>
+                            </div>
+                        </div>
+                        <p class="sw-desc">
+                            المعيار الذهبي والبرنامج الأكثر شهرة واستخداماً عالمياً في الشركات والجهات الحكومية. يتميز بقدرات تحليلية جبارة ثلاثية الأبعاد وعرض خرائط فائق الدقة.
+                        </p>
+                        <ul class="sw-features">
+                            <li><i class="fa-solid fa-check"></i> تحليلات مكانية ومتقدمة ومحاكاة ثلاثية الأبعاد.</li>
+                            <li><i class="fa-solid fa-check"></i> تكامل ممتاز مع قواعد البيانات السحابية وبيئات الـ Enterprise.</li>
+                            <li><i class="fa-solid fa-check"></i> متوفر للطلاب برخص تعليمية مخفضة.</li>
+                        </ul>
+                        <div class="sw-footer-action">
+                            <a href="https://www.esri.com/en-us/arcgis/products/arcgis-pro/overview" target="_blank" class="btn btn-outline-primary btn-sm">زيارة الموقع الرسمي</a>
+                        </div>
+                    </div>
+
+                    <!-- 2. QGIS -->
+                    <div class="software-card" data-category="desktop">
+                        <div class="sw-badge sw-free">مفتوح المصدر (مجاني بالكامل)</div>
+                        <div class="sw-header">
+                            <div class="sw-icon"><i class="fa-solid fa-globe"></i></div>
+                            <div class="sw-title-group">
+                                <h4>QGIS Desktop</h4>
+                                <span class="sw-developer font-mono">OSGeo Foundation</span>
+                            </div>
+                        </div>
+                        <p class="sw-desc">
+                            العملاق مفتوح المصدر الأقوى والمنافس الأبرز لبرمجيات إزري. مجاني بالكامل بدون أي قيود، مدعوم بمجتمع ضخم يوفر آلاف الإضافات البرمجية المجانية لكل استخدام.
+                        </p>
+                        <ul class="sw-features">
+                            <li><i class="fa-solid fa-check"></i> مجاني 100% وخفيف الوزن للغاية ويعمل على نظام Mac و Windows.</li>
+                            <li><i class="fa-solid fa-check"></i> آلاف الملحقات (Plugins) لحل المشكلات المعقدة.</li>
+                            <li><i class="fa-solid fa-check"></i> سرعة معالجة وتكامل تام مع لغة بايثون.</li>
+                        </ul>
+                        <div class="sw-footer-action">
+                            <a href="https://qgis.org/" target="_blank" class="btn btn-outline-primary btn-sm">زيارة الموقع الرسمي</a>
+                        </div>
+                    </div>
+
+                    <!-- 3. Google Earth Engine -->
+                    <div class="software-card" data-category="cloud">
+                        <div class="sw-badge sw-free">مجاني للاستخدام الأكاديمي</div>
+                        <div class="sw-header">
+                            <div class="sw-icon"><i class="fa-solid fa-cloud-sun"></i></div>
+                            <div class="sw-title-group">
+                                <h4>Google Earth Engine</h4>
+                                <span class="sw-developer font-mono">Google Cloud</span>
+                            </div>
+                        </div>
+                        <p class="sw-desc">
+                            منصة سحابية ثورية لتحليل ومعالجة صور الأقمار الصناعية والبيانات البيئية الضخمة (Big Data) على نطاق كوكبي في ثوانٍ معدودة باستخدام سيرفرات غوغل الفائقة.
+                        </p>
+                        <ul class="sw-features">
+                            <li><i class="fa-solid fa-check"></i> معالجة صور الأقمار الصناعية على نطاق كوكبي بدون تنزيل ملفات.</li>
+                            <li><i class="fa-solid fa-check"></i> برمجة باستخدام JavaScript أو Python بشكل سحابي كامل.</li>
+                            <li><i class="fa-solid fa-check"></i> الوصول لمكتبة بيانات مجانية ضخمة تحوي بيانات لعقود ماضية.</li>
+                        </ul>
+                        <div class="sw-footer-action">
+                            <a href="https://earthengine.google.com/" target="_blank" class="btn btn-outline-primary btn-sm">زيارة الموقع الرسمي</a>
+                        </div>
+                    </div>
+
+                    <!-- 4. PostGIS -->
+                    <div class="software-card" data-category="database">
+                        <div class="sw-badge sw-free">مفتوح المصدر (مجاني)</div>
+                        <div class="sw-header">
+                            <div class="sw-icon"><i class="fa-solid fa-table"></i></div>
+                            <div class="sw-title-group">
+                                <h4>PostGIS / PostgreSQL</h4>
+                                <span class="sw-developer font-mono">Refractions Research</span>
+                            </div>
+                        </div>
+                        <p class="sw-desc">
+                            إضافة لقواعد البيانات مفتوحة المصدر PostgreSQL تحولها إلى قاعدة بيانات جغرافية قوية قادرة على حفظ البيانات المكانية وتخزينها، وعمل استعلامات SQL مكانية متطورة وسريعة للغاية.
+                        </p>
+                        <ul class="sw-features">
+                            <li><i class="fa-solid fa-check"></i> المعيار المهني والفعلي لإدارة قواعد البيانات الجغرافية الكبيرة.</li>
+                            <li><i class="fa-solid fa-check"></i> إجراء عمليات الهندسة المكانية المعقدة مباشرة عبر كود SQL.</li>
+                            <li><i class="fa-solid fa-check"></i> تكامل تام وربط مباشر مع برامج ArcGIS و QGIS وسيرفرات الويب.</li>
+                        </ul>
+                        <div class="sw-footer-action">
+                            <a href="https://postgis.net/" target="_blank" class="btn btn-outline-primary btn-sm">زيارة الموقع الرسمي</a>
+                        </div>
+                    </div>
+
+                    <!-- 5. Python (ArcPy / GeoPandas) -->
+                    <div class="software-card" data-category="dev">
+                        <div class="sw-badge sw-free">بيئة برمجية مجانية</div>
+                        <div class="sw-header">
+                            <div class="sw-icon"><i class="fa-brands fa-python"></i></div>
+                            <div class="sw-title-group">
+                                <h4>Python for GIS</h4>
+                                <span class="sw-developer font-mono">Geo-Development</span>
+                            </div>
+                        </div>
+                        <p class="sw-desc">
+                            لغة البرمجة الأهم على الإطلاق لعالم الـ GIS. باستخدام مكتبات مثل GeoPandas و Shapely، أو مكتبة ArcPy المدفوعة، يمكنك أتمتة كافة العمليات الحسابية وبناء نماذج أتمتة مذهلة.
+                        </p>
+                        <ul class="sw-features">
+                            <li><i class="fa-solid fa-check"></i> أتمتة المهام المتكررة (Geoprocessing Automation).</li>
+                            <li><i class="fa-solid fa-check"></i> معالجة البيانات الجغرافية الضخمة بذكاء وسرعة مدهشة.</li>
+                            <li><i class="fa-solid fa-check"></i> المهارة رقم 1 المطلوبة حالياً في أسواق العمل الدولية للتميز.</li>
+                        </ul>
+                        <div class="sw-footer-action">
+                            <a href="https://geopandas.org/" target="_blank" class="btn btn-outline-primary btn-sm">استكشف GeoPandas</a>
+                        </div>
+                    </div>
+
+                    <!-- 6. Web Mapping (Leaflet / MapLibre) -->
+                    <div class="software-card" data-category="dev">
+                        <div class="sw-badge sw-free">مفتوح المصدر (مجاني)</div>
+                        <div class="sw-header">
+                            <div class="sw-icon"><i class="fa-solid fa-code"></i></div>
+                            <div class="sw-title-group">
+                                <h4>Leaflet & MapLibre JS</h4>
+                                <span class="sw-developer font-mono">Web Cartography</span>
+                            </div>
+                        </div>
+                        <p class="sw-desc">
+                            مكتبات جافاسكريبت قوية وخفيفة الوزن لبناء خرائط تفاعلية حية على صفحات الويب وتطبيقات الهواتف المحمولة. تتيح للمطورين بناء تطبيقات مخصصة وتفاعلية بالكامل للعملاء.
+                        </p>
+                        <ul class="sw-features">
+                            <li><i class="fa-solid fa-check"></i> حجم مكتبات صغير جداً وسرعة تحميل فائقة على الهواتف.</li>
+                            <li><i class="fa-solid fa-check"></i> بناء لوحات تحكم وخرائط تفاعلية للشركات.</li>
+                            <li><i class="fa-solid fa-check"></i> متوافق مع كافة مصادر البيانات الجغرافية مثل GeoJSON و WMS.</li>
+                        </ul>
+                        <div class="sw-footer-action">
+                            <a href="https://leafletjs.com/" target="_blank" class="btn btn-outline-primary btn-sm">استكشف Leaflet.js</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Golden Tips Section -->
+        <section id="tips" class="tips-section">
+            <div class="container">
+                <div class="section-header" id="tipsHeader">
+                    <h2 class="section-title">نصائح ذهبية للتميز في التخصص</h2>
+                    <p class="section-subtitle">إرشادات وتوجيهات عملية من خبراء المجال لتسريع نموك المهني</p>
+                </div>
+                <div class="tips-grid">
+                    <!-- Tip 1 -->
+                    <div class="tip-card">
+                        <div class="tip-icon"><i class="fa-solid fa-compass"></i></div>
+                        <h4>افهم الجغرافيا قبل الأزرار</h4>
+                        <p>لا تكن مجرد منفذ نقرات (Button Pusher). افهم الأساسيات العلمية أولاً؛ لماذا نختار مسقطاً معيناً؟ وما هو نموذج البيانات الأنسب للتحليل؟ استيعاب المفهوم النظري يضمن دقة وصحة مخرجاتك.</p>
+                    </div>
+
+                    <!-- Tip 2 -->
+                    <div class="tip-card">
+                        <div class="tip-icon"><i class="fa-brands fa-python"></i></div>
+                        <h4>تعلم البرمجة (بايثون) مبكراً</h4>
+                        <p>بايثون هي المهارة الذهبية الأقوى حالياً. تعلم كيف تكتب سكربتات لتسريع المهام المتكررة (Geoprocessing) والتعامل مع قواعد البيانات الجغرافية الضخمة. ستختصر على نفسك مئات ساعات العمل اليدوي.</p>
+                    </div>
+
+                    <!-- Tip 3 -->
+                    <div class="tip-card">
+                        <div class="tip-icon"><i class="fa-solid fa-briefcase"></i></div>
+                        <h4>ابنِ محفظة أعمالك (Portfolio)</h4>
+                        <p>لا تنتظر التخرج لتبدأ في البحث عن عمل. صمم خرائط مميزة، واعرضها على منصة GitHub أو Behance أو LinkedIn. محفظة الأعمال التطبيقية الحية هي أسرع وسيلة لإثبات كفاءتك لأي جهة توظيف.</p>
+                    </div>
+
+                    <!-- Tip 4 -->
+                    <div class="tip-card">
+                        <div class="tip-icon"><i class="fa-solid fa-shuffle"></i></div>
+                        <h4>لا تحصر نفسك في برنامج واحد</h4>
+                        <p>كن مرناً دائماً. تعلم ArcGIS Pro كمعيار عالمي للشركات الكبرى، وتدرب أيضاً على QGIS كأداة قوية مفتوحة المصدر. هذه المرونة ستجعلك جاهزاً لأي بيئة عمل أو مشاريع برمجية حرة.</p>
+                    </div>
+
+                    <!-- Tip 5 -->
+                    <div class="tip-card">
+                        <div class="tip-icon"><i class="fa-solid fa-users"></i></div>
+                        <h4>تابع وتفاعل مع مجتمع الـ GIS</h4>
+                        <p>تابع قادة التخصص والمطورين على شبكات التواصل الاحترافية مثل LinkedIn و X. انخرط في التحديات العالمية مثل (30DayMapChallenge#) لمواكبة أحدث الابتكارات والمشاريع والتقنيات.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- X (Twitter) Community Section -->
+        <section id="x-community" class="x-community-section">
+            <div class="container">
+                <div class="section-header" id="xCommunityHeader">
+                    <h2 class="section-title">مجتمع X للتقنيات المكانية</h2>
+                    <p class="section-subtitle">حسابات ومجتمعات رائدة على منصة X تُثري المحتوى الجغرافي العربي وتدعم الطلاب</p>
+                </div>
+
+                <div class="x-accounts-grid">
+                    <!-- Account 1 -->
+                    <a href="https://x.com/Balshammari" target="_blank" class="x-profile-card">
+                        <div class="x-card-accent"></div>
+                        <div class="x-profile-header">
+                            <div class="x-profile-avatar">
+                                <img src="https://unavatar.io/twitter/Balshammari" alt="@Balshammari" loading="lazy">
+                                <div class="online-indicator"></div>
+                            </div>
+                        </div>
+                        <p class="x-profile-bio">مختص وباحث في نظم المعلومات الجغرافية، ينشر شروحات وتقنيات وحلول مكانية حية ومفيدة لطلاب ومحترفي الجيوماتكس.</p>
+                        <div class="x-action-btn">
+                            <span>زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
+                        </div>
+                    </a>
+
+                    <!-- Account 2 -->
+                    <a href="https://x.com/Bayanjoury" target="_blank" class="x-profile-card">
+                        <div class="x-card-accent"></div>
+                        <div class="x-profile-header">
+                            <div class="x-profile-avatar">
+                                <img src="https://unavatar.io/twitter/Bayanjoury" alt="@Bayanjoury" loading="lazy">
+                                <div class="online-indicator"></div>
+                            </div>
+                        </div>
+                        <p class="x-profile-bio">شروحات ومقالات مميزة في الـ GIS والتحليل المكاني وتصميم الخرائط الجذابة، تقدم محتوى تفاعلي متميز لتبسيط العلوم الجغرافية.</p>
+                        <div class="x-action-btn">
+                            <span>زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
+                        </div>
+                    </a>
+
+                    <!-- Account 3 -->
+                    <a href="https://x.com/Gis_group20" target="_blank" class="x-profile-card">
+                        <div class="x-card-accent"></div>
+                        <div class="x-profile-header">
+                            <div class="x-profile-avatar">
+                                <img src="https://unavatar.io/twitter/Gis_group20" alt="@Gis_group20" loading="lazy">
+                                <div class="online-indicator"></div>
+                            </div>
+                        </div>
+                        <p class="x-profile-bio">مجتمع تطوعي عربي يهتم بنشر ومشاركة المعرفة والفرص والندوات وورش العمل وكل ما يخص نظم المعلومات الجغرافية والتقنيات المكانية.</p>
+                        <div class="x-action-btn">
+                            <span>زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
+                        </div>
+                    </a>
+
+                    <!-- Account 4 -->
+                    <a href="https://x.com/Alotaibi_Nawaf3" target="_blank" class="x-profile-card">
+                        <div class="x-card-accent"></div>
+                        <div class="x-profile-header">
+                            <div class="x-profile-avatar">
+                                <img src="https://unavatar.io/twitter/Alotaibi_Nawaf3" alt="@Alotaibi_Nawaf3" loading="lazy">
+                                <div class="online-indicator"></div>
+                            </div>
+                        </div>
+                        <p class="x-profile-bio">مختص في الجيوماتكس ونظم المعلومات الجغرافية، ينشر نصائح مهنية وتوجيهات للطلاب لتطوير مهاراتهم والالتحاق بسوق العمل بنجاح.</p>
+                        <div class="x-action-btn">
+                            <span>زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
+                        </div>
+                    </a>
+
+                    <!-- Account 5 -->
+                    <a href="https://x.com/gis_eductation" target="_blank" class="x-profile-card">
+                        <div class="x-card-accent"></div>
+                        <div class="x-profile-header">
+                            <div class="x-profile-avatar">
+                                <img src="https://unavatar.io/twitter/gis_eductation" alt="@gis_eductation" loading="lazy">
+                                <div class="online-indicator"></div>
+                            </div>
+                        </div>
+                        <p class="x-profile-bio">حساب تعليمي متميز يركز على تقديم شروحات مبسطة، كتب رقمية، ومصادر تعليمية غنية لطلاب تخصص نظم المعلومات الجغرافية لتمكينهم أكاديمياً وعملياً.</p>
+                        <div class="x-action-btn">
+                            <span>زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
+                        </div>
+                    </a>
+
+                    <!-- Account 6 -->
+                    <a href="https://x.com/GIS_Bandit" target="_blank" class="x-profile-card">
+                        <div class="x-card-accent"></div>
+                        <div class="x-profile-header">
+                            <div class="x-profile-avatar">
+                                <img src="https://unavatar.io/twitter/GIS_Bandit" alt="@GIS_Bandit" loading="lazy">
+                                <div class="online-indicator"></div>
+                            </div>
+                        </div>
+                        <p class="x-profile-bio">مهتم بمشاركة حيل وأدوات احترافية في QGIS وتصميم الخرائط الجذابة (Cartography)، مع تقديم إرشادات برمجية ممتازة للمطورين الجغرافيين.</p>
+                        <div class="x-action-btn">
+                            <span>زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
+                        </div>
+                    </a>
+
+                    <!-- Account 7 -->
+                    <a href="https://x.com/milos_gis" target="_blank" class="x-profile-card">
+                        <div class="x-card-accent"></div>
+                        <div class="x-profile-header">
+                            <div class="x-profile-avatar">
+                                <img src="https://unavatar.io/twitter/milos_gis" alt="@milos_gis" loading="lazy">
+                                <div class="online-indicator"></div>
+                            </div>
+                        </div>
+                        <p class="x-profile-bio">محلل بيانات مكانية كارتوغرافي شهير، يشارك خرائط استثنائية وعالية الدقة مع تقديم شروحات ممتازة حول استخدام لغتي R وبايثون في التحليل المكاني.</p>
+                        <div class="x-action-btn">
+                            <span>زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
+                        </div>
+                    </a>
+
+                    <!-- Account 8 -->
+                    <a href="https://x.com/giswqs" target="_blank" class="x-profile-card">
+                        <div class="x-card-accent"></div>
+                        <div class="x-profile-header">
+                            <div class="x-profile-avatar">
+                                <img src="https://unavatar.io/twitter/giswqs" alt="@giswqs" loading="lazy">
+                                <div class="online-indicator"></div>
+                            </div>
+                        </div>
+                        <p class="x-profile-bio">بروفيسور جامعي ومطور حزمتي geemap و leafmap المفتوحتين، يقدم دروساً احترافية في تحليل بيانات الاستشعار عن بعد ومحرك جوجل لعلوم الأرض (Google Earth Engine).</p>
+                        <div class="x-action-btn">
+                            <span>زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Suggestions & Feedback Card (User's account) -->
+                <div class="x-feedback-wrapper">
+                    <div class="x-feedback-card">
+                        <div class="feedback-glow"></div>
+                        <div class="feedback-content">
+                            <div class="feedback-developer">
+                                <div class="developer-avatar-wrapper">
+                                    <img src="https://unavatar.io/twitter/i6naF" alt="i6naF" class="developer-avatar" loading="lazy">
+                                    <span class="pulse-ring"></span>
+                                </div>
+                            </div>
+                            <div class="feedback-text-group">
+                                <h3>💡 هل لديك اقتراحات أو أفكار لتطوير الموقع؟</h3>
+                                <p>يسعدنا جداً الاستماع لأفكارك ومقترحاتك لتطوير هذه البوابة وإضافة المزيد من الأدوات والدورات المفيدة لطلاب تخصص نظم المعلومات الجغرافية!</p>
+                            </div>
+                            <a href="https://x.com/i6naF" target="_blank" class="btn btn-outline-secondary feedback-btn">
+                                <i class="fa-brands fa-x-twitter"></i> تواصل معي عبر X للاقتراحات والتحسينات
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Path & Recommended Courses Section -->
+        <section id="courses" class="courses-section">
+            <div class="container">
+                <div class="section-header" id="coursesHeader">
+                    <h2 class="section-title">مسار التعلم والدورات التدريبية</h2>
+                    <p class="section-subtitle">خريطة طريق علمية ودليل لأفضل المصادر المجانية والمدفوعة</p>
+                </div>
+
+                <!-- Interactive Roadmap -->
+                <h3 class="subsection-title text-center" id="roadmapSubTitle">خريطة الطريق لاحتراف نظم المعلومات الجغرافية (GIS Roadmap)</h3>
+                
+                <div class="roadmap-timeline" id="gisRoadmap">
+                    <!-- Step 1 -->
+                    <div class="roadmap-step" id="step-1">
+                        <div class="step-num font-mono">01</div>
+                        <div class="step-content">
+                            <h4>أساسيات الخرائط وعلم المساحة (Cartography & Survey)</h4>
+                            <p>قبل البدء بأي برنامج، يجب فهم أساسيات قراءة الخرائط، المقاييس، وأنظمة الإحداثيات والمساقط الجغرافية (Projective Systems)، وهي العمود الفقري لسلامة البيانات الجغرافية.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="roadmap-step" id="step-2">
+                        <div class="step-num font-mono">02</div>
+                        <div class="step-content">
+                            <h4>إتقان البرمجيات المكتبية الأساسية (Desktop GIS)</h4>
+                            <p>تعلم كيفية استخدام برنامج ArcGIS Pro أو برنامج QGIS. تدرب على استيراد البيانات وتعديل الجداول وتصميم الخرائط الفنية وطباعتها بأشكال مهنية.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="roadmap-step" id="step-3">
+                        <div class="step-num font-mono">03</div>
+                        <div class="step-content">
+                            <h4>التحليل المكاني وإدارة البيانات (Spatial Analysis)</h4>
+                            <p>الانتقال للتحليل: تتبع مسارات المياه، إيجاد المواقع الأمثل للمشاريع، وإجراء الاستعلامات المعقدة وإدارة قواعد البيانات الجغرافية (Geodatabases).</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="roadmap-step" id="step-4">
+                        <div class="step-num font-mono">04</div>
+                        <div class="step-content">
+                            <h4>الاستشعار عن بعد والتحليل السحابي (Remote Sensing & Cloud)</h4>
+                            <p>دراسة الأقمار الصناعية والأمواج الطيفية. تحليل التغيرات البيئية باستخدام Google Earth Engine لمعالجة مساحات شاسعة وبيانات زمنية ضخمة.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="roadmap-step" id="step-5">
+                        <div class="step-num font-mono">05</div>
+                        <div class="step-content">
+                            <h4>تطوير نظم المعلومات الجغرافية وأتمتتها (GIS Development)</h4>
+                            <p>تعلم لغة بايثون للتحليل الآلي وتطوير إضافات QGIS وأدوات ArcGIS. كذلك تعلم جافاسكريبت لبناء لوحات خرائط تفاعلية للويب للتميز التام في سوق العمل.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Recommendations Directory -->
+                <h3 class="subsection-title text-center" id="coursesTitle">الدورات الموصى بها لمختلف المستويات</h3>
+                
+                <!-- Filters for Courses -->
+                <div class="filter-wrapper" id="coursesFilters">
+                    <button class="filter-btn active" data-filter="all">جميع المستويات</button>
+                    <button class="filter-btn" data-filter="beginner">مبتدئ</button>
+                    <button class="filter-btn" data-filter="intermediate">متوسط</button>
+                    <button class="filter-btn" data-filter="advanced">متقدم (برمجة وتطوير)</button>
+                </div>
+
+                <!-- Courses Grid -->
+                <div class="courses-grid" id="coursesGrid">
+                    <!-- Course 1 -->
+                    <div class="course-card" data-level="beginner">
+                        <div class="course-level level-beg">مبتدئ</div>
+                        <h4>أساسيات نظم المعلومات الجغرافية</h4>
+                        <span class="course-source"><i class="fa-solid fa-school"></i> منصة Coursera (جامعة UC Davis)</span>
+                        <p>دورة تأسيسية قوية للغاية تقدمها واحدة من أفضل الجامعات الأمريكية في هذا المجال. تشرح المسائل العلمية والعملية خطوة بخطوة باللغة الإنجليزية مع ترجمة عربية.</p>
+                        <div class="course-meta-tags font-mono">
+                            <span>ArcGIS Pro</span>
+                            <span>Cartography</span>
+                        </div>
+                        <a href="https://www.coursera.org/specializations/gis" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> عرض الكورس</a>
+                    </div>
+
+                    <!-- Course 2 -->
+                    <div class="course-card" data-level="beginner">
+                        <div class="course-level level-beg">مبتدئ</div>
+                        <h4>أكاديمية تدريب Esri (Esri Academy)</h4>
+                        <span class="course-source"><i class="fa-solid fa-graduation-cap"></i> موقع ESRI الرسمي لـ GIS</span>
+                        <p>بوابة التدريب الرسمية للشركة المصنعة لبرمجيات ArcGIS. تحوي مئات الدورات المجانية بالكامل والمعتمدة لطلاب الجامعات مع تطبيق عملي خطوة بخطوة وشهادات رسمية.</p>
+                        <div class="course-meta-tags font-mono">
+                            <span>Web / Desktop</span>
+                            <span>E-Learning</span>
+                        </div>
+                        <a href="https://www.esri.com/training/" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> عرض الكورس</a>
+                    </div>
+
+                    <!-- Course 3 -->
+                    <div class="course-card" data-level="intermediate">
+                        <div class="course-level level-int">متوسط</div>
+                        <h4>سلسلة تعليم QGIS الاحترافية باللغة العربية</h4>
+                        <span class="course-source"><i class="fa-brands fa-youtube"></i> قنوات يوتيوب التعليمية العربية</span>
+                        <p>شروحات عربية شاملة وعملية ومبسطة للبرنامج الأقوى مفتوح المصدر QGIS من مرحلة التثبيت وتصميم الخرائط وعمل تحليلات شبكات الطرق والتحليل الإحصائي المكاني بالكامل.</p>
+                        <div class="course-meta-tags font-mono">
+                            <span>QGIS Desktop</span>
+                            <span>اللغة العربية</span>
+                        </div>
+                        <a href="https://www.youtube.com/results?search_query=%D8%AF%D9%88%D8%B1%D8%A9+qgis+%D8%A8%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> عرض الكورس</a>
+                    </div>
+
+                    <!-- Course 4 -->
+                    <div class="course-card" data-level="intermediate">
+                        <div class="course-level level-int">متوسط</div>
+                        <h4>كورس الاستشعار عن بعد ومراقبة الأرض</h4>
+                        <span class="course-source"><i class="fa-solid fa-earth-africa"></i> منصة إدراك (Edraak) / رواق</span>
+                        <p>شرح باللغة العربية لأساسيات الاستشعار عن بعد وتفسير وتحليل صور الأقمار الصناعية المتنوعة مثل Landsat و Sentinel، والتعرف على المؤشرات البيئية والغطاء النباتي.</p>
+                        <div class="course-meta-tags font-mono">
+                            <span>Remote Sensing</span>
+                            <span>Satellite Data</span>
+                        </div>
+                        <a href="https://www.rwaq.org/" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> عرض الكورس</a>
+                    </div>
+
+                    <!-- Course 5 -->
+                    <div class="course-card" data-level="advanced">
+                        <div class="course-level level-adv">متقدم (برمجة)</div>
+                        <h4>برمجة واستخدام Google Earth Engine</h4>
+                        <span class="course-source"><i class="fa-solid fa-code"></i> كورسات مختصة (سحابي)</span>
+                        <p>دورة لتعلم كيفية البرمجة باستخدام لغة جافاسكريبت لمعالجة آلاف صور الأقمار الصناعية دفعة واحدة وفي ثوانٍ معدودة. مناسب للأبحاث ومشاريع التخرج الكبيرة والمميزة.</p>
+                        <div class="course-meta-tags font-mono">
+                            <span>Earth Engine</span>
+                            <span>JavaScript / Python</span>
+                        </div>
+                        <a href="https://developers.google.com/earth-engine/tutorials" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> عرض الكورس</a>
+                    </div>
+
+                    <!-- Course 6 -->
+                    <div class="course-card" data-level="advanced">
+                        <div class="course-level level-adv">متقدم (برمجة)</div>
+                        <h4>دورة بايثون لأتمتة معالجة البيانات الجغرافية (Python for GIS)</h4>
+                        <span class="course-source"><i class="fa-brands fa-python"></i> منصة GitHub ومصادر مفتوحة</span>
+                        <p>مسار برمجي مخصص لتعلم كيفية استخدام لغة بايثون للتحليل المكاني وتدريب الطلاب على استخدام مكاتب جغرافية قوية مثل GeoPandas و Shapely و Fiona بدقة مذهلة.</p>
+                        <div class="course-meta-tags font-mono">
+                            <span>Python API</span>
+                            <span>GeoPandas / ArcPy</span>
+                        </div>
+                        <a href="https://pythongis.org/" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> عرض الكورس</a>
+                    </div>
+
+                    <!-- Course 7 -->
+                    <div class="course-card" data-level="intermediate">
+                        <div class="course-level level-int">متوسط</div>
+                        <h4>كتابة سيناريوهات بايثون لبرنامج ArcGIS Pro</h4>
+                        <span class="course-source"><i class="fa-solid fa-graduation-cap"></i> أكاديمية Esri الرسمية</span>
+                        <p>دورة احترافية رسمية لتعلم كيفية استخدام لغة بايثون للتحكم بأدوات ArcGIS Pro وتحليل البيانات الجغرافية بكفاءة عالية وأتمتة المهام وتوفير الجهد والوقت.</p>
+                        <div class="course-meta-tags font-mono">
+                            <span>ArcGIS Pro</span>
+                            <span>ArcPy / Python</span>
+                        </div>
+                        <a href="https://www.esri.com/training/catalog/5c786a34c568b209e99a8ec3/" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> عرض الكورس</a>
+                    </div>
+
+                    <!-- Course 8 -->
+                    <div class="course-card" data-level="beginner">
+                        <div class="course-level level-beg">مبتدئ</div>
+                        <h4>مبادئ الجيوديسيا ونظم الإحداثيات والمساقط</h4>
+                        <span class="course-source"><i class="fa-solid fa-chalkboard-user"></i> محاضرات أ.د. جمعة داود</span>
+                        <p>الشرح المرجعي العربي الأفضل لفهم أسس القياسات الأرضية والجيوديسيا، ونظم المساقط الجغرافية والإسقاط الكارتوغرافي وكيفية تحويل الإحداثيات بين الأنظمة المختلفة بدقة متناهية.</p>
+                        <div class="course-meta-tags font-mono">
+                            <span>Geodesy</span>
+                            <span>Coordinate Systems</span>
+                        </div>
+                        <a href="https://www.youtube.com/playlist?list=PLzWDrJ-Qf2ldp6mC1M3BwW3QGqK1PqLw8" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> عرض الكورس</a>
+                    </div>
+                </div>
+
+                <!-- YouTube Playlists/Videos Section -->
+                <div class="youtube-section-wrapper" id="youtubeLibrary">
+                    <div class="section-header text-center">
+                        <h3 class="subsection-title text-center" style="margin-top: 0;">مكتبة فيديوهات وقنوات يوتيوب الموصى بها</h3>
+                        <p class="section-subtitle">شروحات مرئية وقنوات عربية وعالمية متميزة تقدم دروساً وتطبيقات عملية حية</p>
+                    </div>
+
+                    <div class="youtube-grid">
+                        <!-- Video Card 1 -->
+                        <div class="youtube-card">
+                            <div class="yt-thumb-wrapper">
+                                <div class="yt-grid-bg"></div>
+                                <div class="yt-play-btn"><i class="fa-solid fa-play"></i></div>
+                                <span class="yt-duration-badge font-mono">50+ فيديو</span>
+                            </div>
+                            <div class="yt-card-body">
+                                <div class="yt-channel-badge">
+                                    <i class="fa-brands fa-youtube"></i> أ.د. جمعة داود
+                                </div>
+                                <h4 class="yt-title">سلسلة علم المساحة ونظم المعلومات الجغرافية</h4>
+                                <p class="yt-desc">المرجع الأكاديمي العربي الأبرز والمجاني بالكامل لشرح مبادئ المساحة، الاستشعار عن بعد، الجيوديسيا ونظم المعلومات الجغرافية من الصفر للاحتراف.</p>
+                                <a href="https://www.youtube.com/@GomaaDawod" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-up-right-from-square"></i> تصفح القناة</a>
+                            </div>
+                        </div>
+
+                        <!-- Video Card 2 -->
+                        <div class="youtube-card">
+                            <div class="yt-thumb-wrapper">
+                                <div class="yt-grid-bg"></div>
+                                <div class="yt-play-btn"><i class="fa-solid fa-play"></i></div>
+                                <span class="yt-duration-badge font-mono">35+ فيديو</span>
+                            </div>
+                            <div class="yt-card-body">
+                                <div class="yt-channel-badge">
+                                    <i class="fa-brands fa-youtube"></i> م. حمود العنزي
+                                </div>
+                                <h4 class="yt-title">سلسلة دروس وحلول ArcGIS Pro العملية</h4>
+                                <p class="yt-desc">شروحات تطبيقية مبسطة وعالية الجودة تحل العقبات اليومية التي تواجه المحللين والطلاب عند استخدام برنامج ArcGIS Pro لتصميم وإنتاج الخرائط الاحترافية.</p>
+                                <a href="https://www.youtube.com/@EngHamoud" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-up-right-from-square"></i> تصفح القناة</a>
+                            </div>
+                        </div>
+
+                        <!-- Video Card 3 -->
+                        <div class="youtube-card">
+                            <div class="yt-thumb-wrapper">
+                                <div class="yt-grid-bg"></div>
+                                <div class="yt-play-btn"><i class="fa-solid fa-play"></i></div>
+                                <span class="yt-duration-badge font-mono">ورش عمل حية</span>
+                            </div>
+                            <div class="yt-card-body">
+                                <div class="yt-channel-badge">
+                                    <i class="fa-brands fa-youtube"></i> مجتمع GIS Saudi Arabia
+                                </div>
+                                <h4 class="yt-title">ندوات وتطبيقات نظم المعلومات الجغرافية</h4>
+                                <p class="yt-desc">تسجيلات للمحاضرات والندوات التخصصية التي يلقيها نخبة من خبراء التقنية المكانية في المملكة العربية السعودية حول مشاريع رؤية 2030 وتطبيقات الجيوماتكس.</p>
+                                <a href="https://www.youtube.com/results?search_query=GIS+Saudi+Arabia" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-up-right-from-square"></i> تصفح الفيديوهات</a>
+                            </div>
+                        </div>
+
+                        <!-- Video Card 4 -->
+                        <div class="youtube-card">
+                            <div class="yt-thumb-wrapper">
+                                <div class="yt-grid-bg"></div>
+                                <div class="yt-play-btn"><i class="fa-solid fa-play"></i></div>
+                                <span class="yt-duration-badge font-mono">120+ فيديو</span>
+                            </div>
+                            <div class="yt-card-body">
+                                <div class="yt-channel-badge">
+                                    <i class="fa-brands fa-youtube"></i> OpenSource Options
+                                </div>
+                                <h4 class="yt-title">احترف QGIS وبرمجة المكاتب المفتوحة بالإنجليزية</h4>
+                                <p class="yt-desc">قناة عالمية متميزة تركز بالكامل على احتراف QGIS واستخدام لغة بايثون للتحليل المكاني. مثالية لمن يرغب في التوسع في كتابة الأكواد وأتمتة النمذجة الجغرافية.</p>
+                                <a href="https://www.youtube.com/@OpenSourceOptions" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-up-right-from-square"></i> تصفح القناة</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3><span class="highlight">GIS</span></h3>
+                    <p>منصة طلابية عربية غير ربحية تهدف لتسهيل وتبسيط علوم ومبادئ وأدوات نظم المعلومات الجغرافية وتقنيات الاستشعار عن بعد لجيل واعد من الجغرافيين والمطورين.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>الوصول السريع</h4>
+                    <ul>
+                        <li><a href="#hero">الرئيسية</a></li>
+                        <li><a href="#about">ما هي الـ GIS؟</a></li>
+                        <li><a href="#devices">الأجهزة الموصى بها</a></li>
+                        <li><a href="#software">أدوات البرمجيات</a></li>
+                        <li><a href="#tips">نصائح ذهبية</a></li>
+                        <li><a href="#x-community">مجتمع X</a></li>
+                        <li><a href="#courses">خريطة طريق التعلم</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 بوابة نظم المعلومات الجغرافية (GIS). تم التطوير بكل إتقان لدعم طلاب الجيوماتكس.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
