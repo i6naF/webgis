@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    <link rel="stylesheet" href="styles.css?v=1.3">
+    <link rel="stylesheet" href="styles.css?v=1.4">
 </head>
 <body>
 
@@ -46,6 +46,7 @@
                 <a href="#about" class="nav-link" id="nav-about"><i class="fa-solid fa-circle-info"></i> عن التخصص</a>
                 <a href="#devices" class="nav-link" id="nav-devices"><i class="fa-solid fa-laptop"></i> الأجهزة الموصى بها</a>
                 <a href="#converter" class="nav-link" id="nav-converter"><i class="fa-solid fa-calculator"></i> المحول الإحداثي</a>
+                <a href="#sandbox" class="nav-link" id="nav-sandbox"><i class="fa-solid fa-code"></i> المطور (Sandbox)</a>
                 <a href="#software" class="nav-link" id="nav-software"><i class="fa-solid fa-laptop-code"></i> البرمجيات</a>
                 <a href="#gis-map" class="nav-link" id="nav-gis-map"><i class="fa-solid fa-map-location-dot"></i> الجامعات السعودية</a>
                 <a href="#tips" class="nav-link" id="nav-tips"><i class="fa-solid fa-lightbulb"></i> نصائح ذهبية</a>
@@ -74,6 +75,7 @@
             <a href="#about" class="drawer-link" id="drawer-about"><i class="fa-solid fa-circle-info"></i> عن التخصص</a>
             <a href="#devices" class="drawer-link" id="drawer-devices"><i class="fa-solid fa-laptop"></i> الأجهزة الموصى بها</a>
             <a href="#converter" class="drawer-link" id="drawer-converter"><i class="fa-solid fa-calculator"></i> المحول الإحداثي</a>
+            <a href="#sandbox" class="drawer-link" id="drawer-sandbox"><i class="fa-solid fa-code"></i> المطور (Sandbox)</a>
             <a href="#software" class="drawer-link" id="drawer-software"><i class="fa-solid fa-laptop-code"></i> البرمجيات</a>
             <a href="#gis-map" class="drawer-link" id="drawer-gis-map"><i class="fa-solid fa-map-location-dot"></i> الجامعات السعودية</a>
             <a href="#tips" class="drawer-link" id="drawer-tips"><i class="fa-solid fa-lightbulb"></i> نصائح ذهبية</a>
@@ -541,6 +543,139 @@
                                     </button>
                                 </div>
                                 <div class="output-value-box font-mono" id="output-mercator">--</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Python SDK Sandbox Section -->
+        <section id="sandbox" class="sandbox-section">
+            <div class="container">
+                <div class="section-header" id="sandboxHeader">
+                    <div class="sandbox-badge"><i class="fa-solid fa-terminal text-primary"></i> ميزة تعليمية متقدمة</div>
+                    <h2 class="section-title">بيئة تطوير ومواءمة البيانات <span class="highlight">الخام (Sandbox)</span></h2>
+                    <p class="section-subtitle">قم بصياغة استعلامات برمجية لمحاكاة مواءمة ودمج البيانات متعددة المصادر (NDVI, LST, NO2, السكان) لمنطقتك المفضلة وتصديرها فورياً بصيغ جغرافية قياسية</p>
+                </div>
+
+                <div class="sandbox-grid">
+                    <!-- Controls Card -->
+                    <div class="sandbox-card sandbox-controls" id="sandboxControlsCard" tabindex="0">
+                        <div class="sandbox-glow"></div>
+                        <h3><i class="fa-solid fa-sliders text-secondary"></i> إعدادات الفلترة المكانية والمواءمة</h3>
+                        <p class="card-desc">حدد النطاق والبيانات المطلوبة لتركيب الحزمة الجغرافية وسيقوم الـ SDK بمواءمة الشبكة فورياً:</p>
+                        
+                        <div class="input-field-wrapper">
+                            <label for="sandbox-region"><i class="fa-solid fa-map-location-dot text-secondary"></i> المنطقة الجغرافية المستهدفة</label>
+                            <select id="sandbox-region">
+                                <option value="riyadh" selected>منطقة الرياض (الوسطى) - العاصمة</option>
+                                <option value="western">المنطقة الغربية (مكة وجدة) - الساحل</option>
+                                <option value="eastern">المنطقة الشرقية (الدمام والجبيل) - الواحة والصناعة</option>
+                                <option value="southern">المنطقة الجنوبية (عسير وأبها) - الجبال والغطاء الكثيف</option>
+                                <option value="northern">المنطقة الشمالية (تبوك ونيوم) - الصحاري الواعدة</option>
+                            </select>
+                        </div>
+
+                        <div class="input-field-wrapper">
+                            <label for="sandbox-resolution"><i class="fa-solid fa-border-all text-primary"></i> دقة الاستبانة المكانية (Grid Resolution)</label>
+                            <select id="sandbox-resolution">
+                                <option value="30">30 متر (تحليل مساحي فائق الدقة - Landsat TIRS)</option>
+                                <option value="100" selected>100 متر (دقة متوسطة متوازنة - Sentinel-5P)</option>
+                                <option value="250">250 متر (دقة واسعة سريعة الاستجابة - MODIS)</option>
+                            </select>
+                        </div>
+
+                        <div class="checkbox-group-wrapper">
+                            <label><i class="fa-solid fa-database text-accent"></i> البيانات المراد مواءمتها ودمجها</label>
+                            
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="var-ndvi" value="ndvi" checked>
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">
+                                    <strong>مؤشر الغطاء النباتي (NDVI)</strong>
+                                    <span class="checkbox-desc">MODIS / دقة رصد حيوية النباتات</span>
+                                </span>
+                            </label>
+
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="var-lst" value="lst" checked>
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">
+                                    <strong>درجة حرارة سطح الأرض (LST)</strong>
+                                    <span class="checkbox-desc">Landsat 9 / التباين الحراري الحضري</span>
+                                </span>
+                            </label>
+
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="var-no2" value="no2">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">
+                                    <strong>ثاني أكسيد النيتروجين (NO2)</strong>
+                                    <span class="checkbox-desc">Sentinel-5P / مؤشر تلوث الغلاف الجوي</span>
+                                </span>
+                            </label>
+
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="var-population" value="population">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">
+                                    <strong>الكثافة السكانية التقديرية (Pop)</strong>
+                                    <span class="checkbox-desc">Simulated Saudi Grid / التوزيع السكاني المساحي</span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="sandbox-actions">
+                            <button type="button" class="btn btn-primary w-full" id="runPythonBtn">
+                                <i class="fa-solid fa-play"></i> تشغيل الكود البرمجي (Run SDK)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Editor and Console Window -->
+                    <div class="sandbox-ide-container">
+                        <!-- Code Editor Card -->
+                        <div class="ide-window" id="pythonIDEWindow">
+                            <div class="ide-header">
+                                <div class="ide-dots">
+                                    <span class="dot dot-red"></span>
+                                    <span class="dot dot-yellow"></span>
+                                    <span class="dot dot-green"></span>
+                                </div>
+                                <span class="ide-title font-mono"><i class="fa-brands fa-python text-primary"></i> geomesh_analysis.py</span>
+                                <div class="ide-actions">
+                                    <span class="badge badge-success font-mono">Python 3.10</span>
+                                </div>
+                            </div>
+                            <div class="ide-editor font-mono">
+                                <div class="line-numbers" id="editorLineNumbers">
+                                    <!-- Dynamic line numbers -->
+                                </div>
+                                <pre class="code-display" id="codeDisplay">
+                                    <!-- Code will be inserted dynamically and colorized -->
+                                </pre>
+                            </div>
+                        </div>
+
+                        <!-- Terminal Console Card -->
+                        <div class="console-window" id="pythonConsoleWindow">
+                            <div class="console-header">
+                                <span class="console-title font-mono"><i class="fa-solid fa-rectangle-terminal text-secondary"></i> Kernel Output Terminal</span>
+                                <div class="console-status font-mono" id="consoleStatus"><i class="fa-solid fa-circle text-muted"></i> Ready</div>
+                            </div>
+                            <div class="console-body font-mono" id="consoleBody">
+                                <div class="console-line text-muted"># بانتظار تشغيل الكود... البيانات الناتجة ستظهر هنا وتتحول لملف قابل للتنزيل فورياً.</div>
+                            </div>
+                            <div class="console-footer" id="consoleFooter" style="display: none;">
+                                <div class="download-actions-wrapper">
+                                    <button class="btn btn-emerald" id="downloadJsonBtn">
+                                        <i class="fa-solid fa-download"></i> تنزيل ملف GeoJSON الموحد
+                                    </button>
+                                    <button class="btn btn-outline-secondary" id="downloadCsvBtn">
+                                        <i class="fa-solid fa-file-csv"></i> تنزيل ملف CSV الموحد
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1447,6 +1582,7 @@
                         <li><a href="#about">ما هي الـ GIS؟</a></li>
                         <li><a href="#devices">الأجهزة الموصى بها</a></li>
                         <li><a href="#converter">المحول الإحداثي</a></li>
+                        <li><a href="#sandbox">بيئة المطور (Sandbox)</a></li>
                         <li><a href="#software">أدوات البرمجيات</a></li>
                         <li><a href="#gis-map">الجامعات السعودية</a></li>
                         <li><a href="#tips">نصائح ذهبية</a></li>
@@ -1465,6 +1601,6 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <!-- Scripts -->
-    <script src="app.js?v=1.3"></script>
+    <script src="app.js?v=1.4"></script>
 </body>
 </html>
