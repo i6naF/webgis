@@ -53,6 +53,14 @@ SAUDI_REGIONS = {
         "base_lst": 32.1,
         "base_ndvi": 0.10,
         "base_no2": 15.6
+    },
+    "hail": {
+        "name_ar": "منطقة حائل",
+        "bbox": [27.0, 41.0, 27.8, 42.0],
+        "base_pop": 60,
+        "base_lst": 33.5,
+        "base_ndvi": 0.14,
+        "base_no2": 11.5
     }
 }
 
