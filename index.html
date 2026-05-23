@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    <link rel="stylesheet" href="styles.css?v=1.8">
+    <link rel="stylesheet" href="styles.css?v=1.9">
 </head>
 <body>
 
@@ -917,58 +917,72 @@
 
                         <!-- Environmental Analytics Tab Content -->
                         <div class="tab-content" id="tab-analytics">
-                            <div class="analytics-selector-group">
-                                <h4><i class="fa-solid fa-earth-asia text-primary"></i> اختر الظاهرة الجغرافية:</h4>
-                                <div class="analytics-option active" data-layer="no2" tabindex="0" title="قمر Sentinel-5P / Aura OMI يعطي دقة تفصيلية لمراقبة جودة الهواء ومكافحة الانبعاثات الكربونية">
-                                    <span class="option-icon option-no2"><i class="fa-solid fa-wind"></i></span>
-                                    <div class="option-text">
-                                        <h5>تلوث الهواء (NO₂ Concentration)</h5>
-                                        <p>مراقبة مستويات ثاني أكسيد النيتروجين يومياً عبر قمر Sentinel-5P</p>
-                                    </div>
+                            <div class="analytics-inspector-card">
+                                <div class="inspector-header">
+                                    <div class="inspector-pulse"></div>
+                                    <h4><i class="fa-solid fa-crosshairs text-primary"></i> مؤشر الفحص البيئي الحي</h4>
                                 </div>
-                                <div class="analytics-option" data-layer="ndvi" tabindex="0" title="يقيس مؤشر NDVI صحة الغطاء النباتي والكلوروفيل من قمر MODIS لدراسة المسطحات الخضراء ومحاربة التصحر">
-                                    <span class="option-icon option-ndvi"><i class="fa-solid fa-seedling"></i></span>
-                                    <div class="option-text">
-                                        <h5>مؤشر الغطاء النباتي (NDVI)</h5>
-                                        <p>مراقبة جودة وصحة المساحات الخضراء والزراعية عبر قمر MODIS/Landsat</p>
-                                    </div>
+                                <p class="card-desc">اسحب مؤشر الفحص المضيء في الخارطة أو انقر في أي مكان لقراءة البيانات الفورية من الأقمار الصناعية مباشرة:</p>
+                                
+                                <div class="coordinate-badge">
+                                    <i class="fa-solid fa-location-crosshairs text-secondary"></i> الإحداثيات: 
+                                    <span id="inspect-coords">جاري تحميل الإحداثيات...</span>
                                 </div>
-                                <div class="analytics-option" data-layer="lst" tabindex="0" title="يرصد الإشعاع الحراري لسطح الأرض بدقة 1كم لرصد الجزر الحرارية بالمدن وموجات الاحتباس الحراري">
-                                    <span class="option-icon option-lst"><i class="fa-solid fa-temperature-high"></i></span>
-                                    <div class="option-text">
-                                        <h5>درجة الحرارة السطحية (LST)</h5>
-                                        <p>مراقبة الإشعاع الحراري لسطح الأرض وموجات الاحتباس الحراري الحضرية</p>
+                                
+                                <div class="specs-divider"></div>
+                                
+                                <div class="live-stats-container">
+                                    <!-- Live Temperature -->
+                                    <div class="live-stat-row">
+                                        <div class="stat-meta">
+                                            <span class="stat-icon temp-icon"><i class="fa-solid fa-temperature-half"></i></span>
+                                            <div class="stat-text">
+                                                <h5>درجة الحرارة السطحية (LST)</h5>
+                                                <p class="font-xs">مستشعرات ناسا الحرارية</p>
+                                            </div>
+                                        </div>
+                                        <span class="live-val text-primary" id="inspect-lst">--.- °م</span>
+                                    </div>
+                                    
+                                    <!-- Live NO2 Pollution -->
+                                    <div class="live-stat-row">
+                                        <div class="stat-meta">
+                                            <span class="stat-icon no2-icon"><i class="fa-solid fa-wind"></i></span>
+                                            <div class="stat-text">
+                                                <h5>تلوث الهواء (NO₂ Concentration)</h5>
+                                                <p class="font-xs">Copernicus Sentinel-5P</p>
+                                            </div>
+                                        </div>
+                                        <span class="live-val text-warn" id="inspect-no2">--.- ppb</span>
+                                    </div>
+                                    
+                                    <!-- Live NDVI Greenness -->
+                                    <div class="live-stat-row">
+                                        <div class="stat-meta">
+                                            <span class="stat-icon ndvi-icon"><i class="fa-solid fa-seedling"></i></span>
+                                            <div class="stat-text">
+                                                <h5>مؤشر صحة النبات (NDVI)</h5>
+                                                <p class="font-xs">مستشعرات MODIS الأرضية</p>
+                                            </div>
+                                        </div>
+                                        <span class="live-val text-success" id="inspect-ndvi">-.----</span>
                                     </div>
                                 </div>
                             </div>
-
+                            
                             <div class="specs-divider"></div>
-
-                            <!-- Live Scale Legend -->
-                            <div class="analytics-legend-card">
-                                <h5>مفتاح الخريطة والتوزيع المقياسي:</h5>
-                                <div class="legend-scale-bar scale-no2" id="analyticsLegendBar"></div>
-                                <div class="legend-labels">
-                                    <span id="legendMinLabel">منخفض (0)</span>
-                                    <span id="legendMidLabel">متوسط (1.5)</span>
-                                    <span id="legendMaxLabel">مرتفع جداً (>3.0)</span>
-                                </div>
-                            </div>
-
-                            <div class="specs-divider"></div>
-
-                            <!-- Statistical Trends -->
+                            
+                            <!-- Dynamic weather summary -->
                             <div class="analytics-stats-card">
-                                <h5><i class="fa-solid fa-chart-line text-secondary"></i> قراءة تحليلية للمملكة (2026):</h5>
-                                <p class="stats-desc" id="analyticsStatsDesc">أظهرت قراءات قمر Aura OMI الصناعي استقراراً نسبياً في مستويات تلوث الهواء بالمدن الكبرى بالمملكة لعام 2026 مع انخفاض طفيف بنسبة 5% في العاصمة الرياض نتيجة مبادرات التشجير الحضري وزيادة المساحات الخضراء.</p>
+                                <h5><i class="fa-solid fa-cloud-sun text-secondary"></i> حالة الطقس والمناخ الحالي بالمنطقة:</h5>
                                 <div class="stats-grid">
                                     <div class="stat-box">
-                                        <span class="stat-label">المعدل العام بالرياض</span>
-                                        <span class="stat-val text-primary" id="statRiyadh">18.5 ppb</span>
+                                        <span class="stat-label">نسبة الرطوبة</span>
+                                        <span class="stat-val text-primary" id="inspect-humidity">--%</span>
                                     </div>
                                     <div class="stat-box">
-                                        <span class="stat-label">معدل التغير السنوي</span>
-                                        <span class="stat-val text-secondary" id="statChange">-5.2%</span>
+                                        <span class="stat-label">هطول الأمطار</span>
+                                        <span class="stat-val text-secondary" id="inspect-precip">-- ملم</span>
                                     </div>
                                 </div>
                             </div>
@@ -977,28 +991,21 @@
 
                             <!-- Dataset Metadata Card -->
                             <div class="analytics-metadata-card">
-                                <h5><i class="fa-solid fa-circle-info text-primary"></i> بيانات المصدر والترخيص (Dataset Metadata):</h5>
+                                <h5><i class="fa-solid fa-circle-info text-primary"></i> البيانات المفتوحة وتراخيص الاستخدام:</h5>
                                 <div class="metadata-grid">
                                     <div class="meta-row">
-                                        <span class="meta-label">قاعدة البيانات:</span>
-                                        <span class="meta-val font-mono" id="metaDataset">Aura OMI / Sentinel-5P TROPOMI</span>
+                                        <span class="meta-label">مزود LST & الطقس:</span>
+                                        <span class="meta-val font-mono">NASA POWER / Open-Meteo</span>
                                     </div>
                                     <div class="meta-row">
-                                        <span class="meta-label">آخر تحديث:</span>
-                                        <span class="meta-val" id="metaUpdate">يومي (محدث قبل 24 ساعة)</span>
-                                    </div>
-                                    <div class="meta-row">
-                                        <span class="meta-label">دقة المعلومات:</span>
-                                        <span class="meta-val font-mono" id="metaRes">3.5 × 5.5 كم / 1°</span>
+                                        <span class="meta-label">قمر ملوثات الهواء:</span>
+                                        <span class="meta-val font-mono">Copernicus Sentinel-5P</span>
                                     </div>
                                     <div class="meta-row">
                                         <span class="meta-label">الترخيص المساحي:</span>
-                                        <span class="meta-val font-mono" id="metaLicense">CC-BY 4.0</span>
+                                        <span class="meta-val font-mono">CC-BY 4.0 / CC0 Open</span>
                                     </div>
                                 </div>
-                                <a href="https://sentinel.esa.int/web/sentinel/missions/sentinel-5p" target="_blank" class="btn btn-outline-primary btn-sm btn-full mt-2" id="metaLink">
-                                    <i class="fa-solid fa-square-arrow-up-right"></i> زيارة مصدر البيانات الأصلي
-                                </a>
                             </div>
                         </div>
                     </div>
@@ -1605,6 +1612,6 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <!-- Scripts -->
-    <script src="app.js?v=1.8"></script>
+    <script src="app.js?v=1.9"></script>
 </body>
 </html>

@@ -3947,3 +3947,176 @@ input:checked + .slider:before {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* ==========================================================================
+   📡 Live Draggable Environmental Telemetry Inspector (NASA & Copernicus)
+   ========================================================================== */
+.neon-inspector-marker {
+    background: transparent;
+    border: none;
+}
+
+.inspector-marker-wrapper {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+}
+
+.inspector-marker-wrapper:active {
+    cursor: grabbing;
+}
+
+.inspector-crosshair {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-primary); /* emerald green matching GIS theme */
+    border: 2px solid #fff;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+    z-index: 2;
+}
+
+.inspector-pulse-ring {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    animation: inspectorPulse 1.8s infinite ease-out;
+    z-index: 1;
+    opacity: 0;
+}
+
+@keyframes inspectorPulse {
+    0% {
+        transform: scale(0.4);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1.3);
+        opacity: 0;
+    }
+}
+
+.analytics-inspector-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: inset 0 0 15px rgba(255,255,255,0.01);
+}
+
+.inspector-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.inspector-pulse {
+    width: 8px;
+    height: 8px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
+    animation: statusPulse 1.2s infinite alternate;
+}
+
+.coordinate-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--color-text);
+    margin-top: 0.5rem;
+}
+
+.live-stats-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-top: 1rem;
+}
+
+.live-stat-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    transition: var(--transition-smooth);
+}
+
+.live-stat-row:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.stat-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.stat-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.temp-icon {
+    background: rgba(244, 63, 94, 0.1);
+    border: 1px solid rgba(244, 63, 94, 0.2);
+    color: #f43f5e;
+}
+
+.no2-icon {
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+}
+
+.ndvi-icon {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    color: #10b981;
+}
+
+.font-xs {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+.live-val {
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-family: monospace;
+}
+
+.loading-dots {
+    font-weight: normal;
+    display: inline-block;
+    animation: loadingPulse 1s infinite alternate;
+}
+
+@keyframes loadingPulse {
+    0% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+
+
