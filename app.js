@@ -898,7 +898,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (!consoleBody) { resolve(); return; }
                             const line = document.createElement('div');
                             line.className = `console-line text-${type}`;
-                            line.textContent = msg;
+                            if (msg.trim().startsWith('<')) {
+                                line.innerHTML = msg;
+                            } else {
+                                line.textContent = msg;
+                            }
                             consoleBody.appendChild(line);
                             consoleBody.scrollTop = consoleBody.scrollHeight;
                             resolve();
@@ -952,20 +956,36 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
 
-                // Construct and render ASCII Table in terminal
-                await logSql("\n+------------------------------+------------+----------------------------------+", "muted", 100);
-                await logSql("| Name (الجامعة)               | City       | Program Levels (الدرجات المتاحة)  |", "info", 50);
-                await logSql("+------------------------------+------------+----------------------------------+", "muted", 50);
-                
-                for (const uni of filteredUnis) {
-                    const namePad = (uni.name).padEnd(28).substring(0, 28);
-                    const cityPad = (uni.city).padEnd(10).substring(0, 10);
-                    const degPad = (uni.degrees).padEnd(32).substring(0, 32);
-                    await logSql(`| ${namePad} | ${cityPad} | ${degPad} |`, "success", 100);
-                }
-                
-                await logSql("+------------------------------+------------+----------------------------------+", "muted", 50);
-                await logSql(`Total Rows returned: ${filteredUnis.length} | Execution time: ${(1.2 + Math.random()*2).toFixed(2)} ms\n`, "success", 100);
+                // Construct and render HTML Table in terminal
+                let tableHtml = `
+                <table style="width: 100%; border-collapse: collapse; margin: 12px 0; font-family: Cairo, monospace; font-size: 0.8rem; text-align: right; direction: rtl; background: rgba(255,255,255,0.015); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.25);">
+                    <thead>
+                        <tr style="background: rgba(59, 130, 246, 0.15); border-bottom: 1px solid rgba(59, 130, 246, 0.25); color: #60a5fa;">
+                            <th style="padding: 10px 12px; font-weight: 600; text-align: right; border-left: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem;">اسم الجامعة (University Name)</th>
+                            <th style="padding: 10px 12px; font-weight: 600; text-align: right; border-left: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; width: 80px;">المدينة</th>
+                            <th style="padding: 10px 12px; font-weight: 600; text-align: right; font-size: 0.8rem;">الدرجات الأكاديمية (Degrees)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                `;
+
+                filteredUnis.forEach(uni => {
+                    tableHtml += `
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.04); transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.03)'" onmouseout="this.style.background='transparent'">
+                            <td style="padding: 10px 12px; color: #10b981; font-weight: 600; border-left: 1px solid rgba(255,255,255,0.05); font-size: 0.78rem;">${uni.name}</td>
+                            <td style="padding: 10px 12px; color: #e2e8f0; border-left: 1px solid rgba(255,255,255,0.05); font-size: 0.78rem;">${uni.city}</td>
+                            <td style="padding: 10px 12px; color: #94a3b8; font-size: 0.72rem;">${uni.degrees}</td>
+                        </tr>
+                    `;
+                });
+
+                tableHtml += `
+                    </tbody>
+                </table>
+                `;
+
+                await logSql(tableHtml, "success", 100);
+                await logSql(`Total Rows returned: ${filteredUnis.length} | Execution time: ${(0.8 + Math.random()*1.5).toFixed(2)} ms\n`, "success", 100);
 
                 // Update console status to Success
                 if (consoleStatus) {
