@@ -728,38 +728,110 @@
 
                     <!-- Side Details Panel -->
                     <div class="map-info-panel" id="mapInfoPanel">
-                        <!-- Default empty state -->
-                        <div class="panel-empty-state" id="panelEmptyState">
-                            <i class="fa-solid fa-map-location-dot"></i>
-                            <h4>استكشف الجامعات والبرامج</h4>
-                            <p>انقر على أي من الرموز المضيئة على الخارطة لعرض تفاصيل البرنامج الأكاديمي، والشهادات المتاحة، والروابط الرسمية للتقديم.</p>
+                        <!-- Panel Tabs -->
+                        <div class="panel-tabs">
+                            <button class="panel-tab-btn active" data-tab="universities" type="button">
+                                <i class="fa-solid fa-graduation-cap"></i> الجامعات السعودية
+                            </button>
+                            <button class="panel-tab-btn" data-tab="analytics" type="button">
+                                <i class="fa-solid fa-chart-line"></i> التحليل البيئي
+                            </button>
                         </div>
-                        <!-- Dynamic content -->
-                        <div class="panel-dynamic-content hidden" id="panelDynamicContent">
-                            <div class="panel-header">
-                                <span class="uni-city-badge" id="panelUniCity">المدينة</span>
-                                <h3 id="panelUniName">اسم الجامعة</h3>
+
+                        <!-- Universities Tab Content -->
+                        <div class="tab-content active" id="tab-universities">
+                            <!-- Default empty state -->
+                            <div class="panel-empty-state" id="panelEmptyState">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                                <h4>استكشف الجامعات والبرامج</h4>
+                                <p>انقر على أي من الرموز المضيئة على الخارطة لعرض تفاصيل البرنامج الأكاديمي، والشهادات المتاحة، والروابط الرسمية للتقديم.</p>
                             </div>
-                            <div class="specs-divider"></div>
-                            <div class="panel-body">
-                                <div class="info-group">
-                                    <span class="info-label"><i class="fa-solid fa-graduation-cap text-secondary"></i> الدرجات الأكاديمية:</span>
-                                    <span class="info-value" id="panelUniDegree">بكالوريوس</span>
+                            <!-- Dynamic content -->
+                            <div class="panel-dynamic-content hidden" id="panelDynamicContent">
+                                <div class="panel-header">
+                                    <span class="uni-city-badge" id="panelUniCity">المدينة</span>
+                                    <h3 id="panelUniName">اسم الجامعة</h3>
                                 </div>
-                                <div class="info-group">
-                                    <span class="info-label"><i class="fa-solid fa-school text-secondary"></i> الكلية والقسم:</span>
-                                    <span class="info-value" id="panelUniDept">الكلية</span>
+                                <div class="specs-divider"></div>
+                                <div class="panel-body">
+                                    <div class="info-group">
+                                        <span class="info-label"><i class="fa-solid fa-graduation-cap text-secondary"></i> الدرجات الأكاديمية:</span>
+                                        <span class="info-value" id="panelUniDegree">بكالوريوس</span>
+                                    </div>
+                                    <div class="info-group">
+                                        <span class="info-label"><i class="fa-solid fa-school text-secondary"></i> الكلية والقسم:</span>
+                                        <span class="info-value" id="panelUniDept">الكلية</span>
+                                    </div>
+                                    <div class="info-group">
+                                        <span class="info-label"><i class="fa-solid fa-book-open text-secondary"></i> تفاصيل التخصص:</span>
+                                        <p class="info-desc" id="panelUniDesc">وصف التخصص</p>
+                                    </div>
                                 </div>
-                                <div class="info-group">
-                                    <span class="info-label"><i class="fa-solid fa-book-open text-secondary"></i> تفاصيل التخصص:</span>
-                                    <p class="info-desc" id="panelUniDesc">وصف التخصص</p>
+                                <div class="specs-divider"></div>
+                                <div class="panel-footer">
+                                    <a href="#" target="_blank" class="btn btn-primary btn-sm btn-full" id="panelUniLink">
+                                        <i class="fa-solid fa-square-arrow-up-right"></i> زيارة بوابة القبول الرسمية
+                                    </a>
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Environmental Analytics Tab Content -->
+                        <div class="tab-content" id="tab-analytics">
+                            <div class="analytics-selector-group">
+                                <h4><i class="fa-solid fa-earth-asia text-primary"></i> اختر الظاهرة الجغرافية:</h4>
+                                <div class="analytics-option active" data-layer="no2">
+                                    <span class="option-icon option-no2"><i class="fa-solid fa-wind"></i></span>
+                                    <div class="option-text">
+                                        <h5>تلوث الهواء (NO₂ Concentration)</h5>
+                                        <p>مراقبة مستويات ثاني أكسيد النيتروجين يومياً عبر قمر Sentinel-5P</p>
+                                    </div>
+                                </div>
+                                <div class="analytics-option" data-layer="ndvi">
+                                    <span class="option-icon option-ndvi"><i class="fa-solid fa-seedling"></i></span>
+                                    <div class="option-text">
+                                        <h5>مؤشر الغطاء النباتي (NDVI)</h5>
+                                        <p>مراقبة جودة وصحة المساحات الخضراء والزراعية عبر قمر MODIS/Landsat</p>
+                                    </div>
+                                </div>
+                                <div class="analytics-option" data-layer="lst">
+                                    <span class="option-icon option-lst"><i class="fa-solid fa-temperature-high"></i></span>
+                                    <div class="option-text">
+                                        <h5>درجة الحرارة السطحية (LST)</h5>
+                                        <p>مراقبة الإشعاع الحراري لسطح الأرض وموجات الاحتباس الحراري الحضرية</p>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="specs-divider"></div>
-                            <div class="panel-footer">
-                                <a href="#" target="_blank" class="btn btn-primary btn-sm btn-full" id="panelUniLink">
-                                    <i class="fa-solid fa-square-arrow-up-right"></i> زيارة بوابة القبول الرسمية
-                                </a>
+
+                            <!-- Live Scale Legend -->
+                            <div class="analytics-legend-card">
+                                <h5>مفتاح الخريطة والتوزيع المقياسي:</h5>
+                                <div class="legend-scale-bar scale-no2" id="analyticsLegendBar"></div>
+                                <div class="legend-labels">
+                                    <span id="legendMinLabel">منخفض (0)</span>
+                                    <span id="legendMidLabel">متوسط (1.5)</span>
+                                    <span id="legendMaxLabel">مرتفع جداً (>3.0)</span>
+                                </div>
+                            </div>
+
+                            <div class="specs-divider"></div>
+
+                            <!-- Statistical Trends -->
+                            <div class="analytics-stats-card">
+                                <h5><i class="fa-solid fa-chart-line text-secondary"></i> قراءة تحليلية للمملكة (2026):</h5>
+                                <p class="stats-desc" id="analyticsStatsDesc">أظهرت قراءات قمر Aura OMI الصناعي استقراراً نسبياً في مستويات تلوث الهواء بالمدن الكبرى بالمملكة لعام 2026 مع انخفاض طفيف بنسبة 5% في العاصمة الرياض نتيجة مبادرات التشجير الحضري وزيادة المساحات الخضراء.</p>
+                                <div class="stats-grid">
+                                    <div class="stat-box">
+                                        <span class="stat-label">المعدل العام بالرياض</span>
+                                        <span class="stat-val text-primary" id="statRiyadh">18.5 ppb</span>
+                                    </div>
+                                    <div class="stat-box">
+                                        <span class="stat-label">معدل التغير السنوي</span>
+                                        <span class="stat-val text-secondary" id="statChange">-5.2%</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

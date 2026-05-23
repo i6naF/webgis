@@ -3329,3 +3329,213 @@ input:checked + .slider:before {
         padding-top: 1rem;
     }
 }
+
+/* ==========================================================================
+   12. Environmental Analytics Tab and Layer Switcher Styles
+   ========================================================================== */
+.panel-tabs {
+    display: flex;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0.5rem;
+    gap: 0.5rem;
+}
+
+.panel-tab-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    padding: 0.6rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    transition: var(--transition-smooth);
+}
+
+.panel-tab-btn:hover {
+    color: var(--color-text-white);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.panel-tab-btn.active {
+    color: var(--color-secondary);
+    background: rgba(0, 242, 254, 0.08);
+    border: 1px solid rgba(0, 242, 254, 0.15);
+}
+
+.tab-content {
+    display: none;
+    padding: 1.5rem;
+    height: calc(100% - 55px);
+    overflow-y: auto;
+}
+
+.tab-content.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Analytics options styles */
+.analytics-selector-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.analytics-selector-group h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+}
+
+.analytics-option {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.analytics-option:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.analytics-option.active {
+    background: rgba(16, 185, 129, 0.06);
+    border-color: rgba(16, 185, 129, 0.25);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.05);
+}
+
+.option-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.option-no2 {
+    background: rgba(56, 189, 248, 0.1);
+    color: #38bdf8;
+}
+
+.option-ndvi {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--color-primary);
+}
+
+.option-lst {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--color-accent);
+}
+
+.option-text h5 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-text-white);
+    margin-bottom: 0.15rem;
+}
+
+.option-text p {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    line-height: 1.3;
+}
+
+/* Legend scale styles */
+.analytics-legend-card h5, .analytics-stats-card h5 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    margin-bottom: 0.75rem;
+}
+
+.legend-scale-bar {
+    height: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.legend-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    margin-top: 0.35rem;
+    font-weight: 600;
+}
+
+/* NO2 Scale Gradient */
+#analyticsLegendBar.scale-no2 {
+    background: linear-gradient(to left, #00c6ff, #0072ff, #f200ff);
+}
+
+/* NDVI Scale Gradient */
+#analyticsLegendBar.scale-ndvi {
+    background: linear-gradient(to left, #e5e7eb, #a7f3d0, #10b981, #065f46);
+}
+
+/* LST Scale Gradient */
+#analyticsLegendBar.scale-lst {
+    background: linear-gradient(to left, #3b82f6, #fee2e2, #f59e0b, #ef4444);
+}
+
+/* Stats styles */
+.stats-desc {
+    font-size: 0.8rem;
+    color: var(--color-text);
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 0.6rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+}
+
+.stat-val {
+    font-size: 0.95rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+}
+
+/* Pulse highlight class for preset buttons input feedback */
+.pulse-highlight {
+    animation: borderPulse 0.6s ease-out;
+}
+
+@keyframes borderPulse {
+    0% { box-shadow: 0 0 0 0px rgba(16, 185, 129, 0.4); border-color: rgba(16, 185, 129, 0.6); }
+    100% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); border-color: rgba(255, 255, 255, 0.08); }
+}
