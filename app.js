@@ -854,24 +854,27 @@ document.addEventListener('DOMContentLoaded', () => {
         if (varPopulation && varPopulation.checked) selectedVars.push('population');
     }
 
-    // High-fidelity syntax highlighter for editable preview code
+    // High-fidelity syntax highlighter for editable preview code (Single-pass Bug-free)
     function highlightPythonCode(code) {
-        // Safe HTML escape
+        // 1. Safe HTML escape
         let escaped = code
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
             .replace(/>/g, "&gt;");
 
-        // RegEx replacement for syntax elements
-        escaped = escaped.replace(/(#.*)/g, '<span class="comment">$1</span>');
-        escaped = escaped.replace(/("(?:\\"|[^"])*")/g, '<span class="string">$1</span>');
-        escaped = escaped.replace(/\b(from|import|print|class|def|return|if|else|for|in)\b/g, '<span class="keyword">$1</span>');
-        escaped = escaped.replace(/\b(GeoMesh)\b/g, '<span class="class-name">$1</span>');
-        escaped = escaped.replace(/\b(harmonize|to_geojson|to_csv)\b/g, '<span class="function">$1</span>');
-        escaped = escaped.replace(/\b(\d+)\b/g, '<span class="number">$1</span>');
-        escaped = escaped.replace(/([=\(\),\[\]:])/g, '<span class="operator">$1</span>');
+        // 2. Single-pass tokenization using Regex alternation to prevent recursive replacing of tags
+        const tokenRegex = /(#.*)|("[^"\\]*(?:\\.[^"\\]*)*")|\b(from|import|print|class|def|return|if|else|for|in)\b|\b(GeoMesh)\b|\b(harmonize|to_geojson|to_csv)\b|\b(\d+)\b|([=\(\),\[\]:])/g;
 
-        return escaped;
+        return escaped.replace(tokenRegex, (match, comment, string, keyword, className, func, number, operator) => {
+            if (comment) return `<span class="comment">${comment}</span>`;
+            if (string) return `<span class="string">${string}</span>`;
+            if (keyword) return `<span class="keyword">${keyword}</span>`;
+            if (className) return `<span class="class-name">${className}</span>`;
+            if (func) return `<span class="function">${func}</span>`;
+            if (number) return `<span class="number">${number}</span>`;
+            if (operator) return `<span class="operator">${operator}</span>`;
+            return match;
+        });
     }
 
     // Refreshes the IDE window code text based on current controls

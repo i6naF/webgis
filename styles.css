@@ -3636,9 +3636,10 @@ input:checked + .slider:before {
 /* Custom Checkbox Container */
 .checkbox-container {
     display: flex;
+    flex-direction: row;
     align-items: flex-start;
     gap: 1rem;
-    padding: 0.75rem 1rem;
+    padding: 0.85rem 1.25rem;
     background: rgba(255, 255, 255, 0.015);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 12px;
@@ -3646,6 +3647,8 @@ input:checked + .slider:before {
     position: relative;
     user-select: none;
     transition: all 0.25s ease;
+    direction: rtl;
+    text-align: right;
 }
 
 .checkbox-container:hover {
@@ -3669,7 +3672,7 @@ input:checked + .slider:before {
     border: 1.5px solid rgba(255, 255, 255, 0.15);
     border-radius: 5px;
     flex-shrink: 0;
-    margin-top: 0.15rem;
+    margin-top: 0.2rem;
     transition: all 0.2s ease;
 }
 
@@ -3707,6 +3710,8 @@ input:checked + .slider:before {
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
+    flex: 1;
+    text-align: right;
 }
 
 .checkbox-label strong {
