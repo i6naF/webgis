@@ -975,7 +975,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
-    }
 
     // ==========================================================================
     // 8. Rookie GIS Mistakes Accordion (Mutually Exclusive Polyfill)
