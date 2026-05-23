@@ -780,21 +780,21 @@
                         <div class="tab-content" id="tab-analytics">
                             <div class="analytics-selector-group">
                                 <h4><i class="fa-solid fa-earth-asia text-primary"></i> اختر الظاهرة الجغرافية:</h4>
-                                <div class="analytics-option active" data-layer="no2">
+                                <div class="analytics-option active" data-layer="no2" tabindex="0" title="قمر Sentinel-5P / Aura OMI يعطي دقة تفصيلية لمراقبة جودة الهواء ومكافحة الانبعاثات الكربونية">
                                     <span class="option-icon option-no2"><i class="fa-solid fa-wind"></i></span>
                                     <div class="option-text">
                                         <h5>تلوث الهواء (NO₂ Concentration)</h5>
                                         <p>مراقبة مستويات ثاني أكسيد النيتروجين يومياً عبر قمر Sentinel-5P</p>
                                     </div>
                                 </div>
-                                <div class="analytics-option" data-layer="ndvi">
+                                <div class="analytics-option" data-layer="ndvi" tabindex="0" title="يقيس مؤشر NDVI صحة الغطاء النباتي والكلوروفيل من قمر MODIS لدراسة المسطحات الخضراء ومحاربة التصحر">
                                     <span class="option-icon option-ndvi"><i class="fa-solid fa-seedling"></i></span>
                                     <div class="option-text">
                                         <h5>مؤشر الغطاء النباتي (NDVI)</h5>
                                         <p>مراقبة جودة وصحة المساحات الخضراء والزراعية عبر قمر MODIS/Landsat</p>
                                     </div>
                                 </div>
-                                <div class="analytics-option" data-layer="lst">
+                                <div class="analytics-option" data-layer="lst" tabindex="0" title="يرصد الإشعاع الحراري لسطح الأرض بدقة 1كم لرصد الجزر الحرارية بالمدن وموجات الاحتباس الحراري">
                                     <span class="option-icon option-lst"><i class="fa-solid fa-temperature-high"></i></span>
                                     <div class="option-text">
                                         <h5>درجة الحرارة السطحية (LST)</h5>
@@ -832,6 +832,34 @@
                                         <span class="stat-val text-secondary" id="statChange">-5.2%</span>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="specs-divider"></div>
+
+                            <!-- Dataset Metadata Card -->
+                            <div class="analytics-metadata-card">
+                                <h5><i class="fa-solid fa-circle-info text-primary"></i> بيانات المصدر والترخيص (Dataset Metadata):</h5>
+                                <div class="metadata-grid">
+                                    <div class="meta-row">
+                                        <span class="meta-label">قاعدة البيانات:</span>
+                                        <span class="meta-val font-mono" id="metaDataset">Aura OMI / Sentinel-5P TROPOMI</span>
+                                    </div>
+                                    <div class="meta-row">
+                                        <span class="meta-label">آخر تحديث:</span>
+                                        <span class="meta-val" id="metaUpdate">يومي (محدث قبل 24 ساعة)</span>
+                                    </div>
+                                    <div class="meta-row">
+                                        <span class="meta-label">دقة المعلومات:</span>
+                                        <span class="meta-val font-mono" id="metaRes">3.5 × 5.5 كم / 1°</span>
+                                    </div>
+                                    <div class="meta-row">
+                                        <span class="meta-label">الترخيص المساحي:</span>
+                                        <span class="meta-val font-mono" id="metaLicense">CC-BY 4.0</span>
+                                    </div>
+                                </div>
+                                <a href="https://sentinel.esa.int/web/sentinel/missions/sentinel-5p" target="_blank" class="btn btn-outline-primary btn-sm btn-full mt-2" id="metaLink">
+                                    <i class="fa-solid fa-square-arrow-up-right"></i> زيارة مصدر البيانات الأصلي
+                                </a>
                             </div>
                         </div>
                     </div>
