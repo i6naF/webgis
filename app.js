@@ -1413,6 +1413,43 @@ csv_data = mesh.to_csv()
             sessionStorage.setItem('ehsanAdDismissed', 'true');
         });
     }
+    // ==========================================================================
+    // 10. Top Announcement Ehsan Donation Banner Controller
+    // ==========================================================================
+    const ehsanTopBanner = document.getElementById('ehsanTopBanner');
+    const closeTopBanner = document.getElementById('closeTopBanner');
+
+    if (ehsanTopBanner && closeTopBanner) {
+        // Toggle top banner view on scroll
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                document.body.classList.add('scrolled-past-banner');
+                ehsanTopBanner.classList.add('hide');
+            } else {
+                // Only show again if not explicitly closed by user
+                if (!sessionStorage.getItem('ehsanTopBannerDismissed')) {
+                    document.body.classList.remove('scrolled-past-banner');
+                    ehsanTopBanner.classList.remove('hide');
+                }
+            }
+        });
+
+        // Close click handler
+        closeTopBanner.addEventListener('click', () => {
+            ehsanTopBanner.classList.add('hide');
+            document.body.classList.remove('has-top-banner');
+            document.body.classList.add('scrolled-past-banner');
+            // Save state in sessionStorage
+            sessionStorage.setItem('ehsanTopBannerDismissed', 'true');
+        });
+        
+        // Check if dismissed previously in the session
+        if (sessionStorage.getItem('ehsanTopBannerDismissed')) {
+            ehsanTopBanner.classList.add('hide');
+            document.body.classList.remove('has-top-banner');
+            document.body.classList.add('scrolled-past-banner');
+        }
+    }
 
 });
 
