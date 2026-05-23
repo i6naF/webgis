@@ -563,77 +563,103 @@
                 </div>
 
                 <div class="sandbox-grid">
-                    <!-- Controls Card -->
-                    <div class="sandbox-card sandbox-controls" id="sandboxControlsCard" tabindex="0">
-                        <div class="sandbox-glow"></div>
-                        <h3><i class="fa-solid fa-sliders text-secondary"></i> إعدادات الفلترة المكانية والمواءمة</h3>
-                        <p class="card-desc">حدد النطاق والبيانات المطلوبة لتركيب الحزمة الجغرافية وسيقوم الـ SDK بمواءمة الشبكة فورياً:</p>
-                        
-                        <div class="input-field-wrapper">
-                            <label for="sandbox-region"><i class="fa-solid fa-map-location-dot text-secondary"></i> المنطقة الجغرافية المستهدفة</label>
-                            <select id="sandbox-region">
-                                <option value="riyadh" selected>منطقة الرياض (الوسطى) - العاصمة</option>
-                                <option value="western">المنطقة الغربية (مكة وجدة) - الساحل</option>
-                                <option value="eastern">المنطقة الشرقية (الدمام والجبيل) - الواحة والصناعة</option>
-                                <option value="southern">المنطقة الجنوبية (عسير وأبها) - الجبال والغطاء الكثيف</option>
-                                <option value="northern">المنطقة الشمالية (تبوك ونيوم) - الصحاري الواعدة</option>
-                                <option value="hail">منطقة حائل - الجبال المنيعة والمزارع الواعدة</option>
-                            </select>
-                        </div>
-
-                        <div class="input-field-wrapper">
-                            <label for="sandbox-resolution"><i class="fa-solid fa-border-all text-primary"></i> دقة الاستبانة المكانية (Grid Resolution)</label>
-                            <select id="sandbox-resolution">
-                                <option value="30">30 متر (تحليل مساحي فائق الدقة - Landsat TIRS)</option>
-                                <option value="100" selected>100 متر (دقة متوسطة متوازنة - Sentinel-5P)</option>
-                                <option value="250">250 متر (دقة واسعة سريعة الاستجابة - MODIS)</option>
-                            </select>
-                        </div>
-
-                        <div class="checkbox-group-wrapper">
-                            <label><i class="fa-solid fa-database text-accent"></i> البيانات المراد مواءمتها ودمجها</label>
+                    <!-- Left Sidebar Column Wrapper -->
+                    <div class="sandbox-sidebar-wrapper" style="display: flex; flex-direction: column; gap: 2rem;">
+                        <!-- Controls Card -->
+                        <div class="sandbox-card sandbox-controls" id="sandboxControlsCard" tabindex="0" style="margin-bottom: 0;">
+                            <div class="sandbox-glow"></div>
+                            <h3><i class="fa-solid fa-sliders text-secondary"></i> إعدادات الفلترة المكانية والمواءمة</h3>
+                            <p class="card-desc">حدد النطاق والبيانات المطلوبة لتركيب الحزمة الجغرافية وسيقوم الـ SDK بمواءمة الشبكة فورياً:</p>
                             
-                            <label class="checkbox-container">
-                                <input type="checkbox" id="var-ndvi" value="ndvi" checked>
-                                <span class="checkmark"></span>
-                                <span class="checkbox-label">
-                                    <strong>مؤشر الغطاء النباتي (NDVI)</strong>
-                                    <span class="checkbox-desc">MODIS / دقة رصد حيوية النباتات</span>
-                                </span>
-                            </label>
+                            <div class="input-field-wrapper">
+                                <label for="sandbox-region"><i class="fa-solid fa-map-location-dot text-secondary"></i> المنطقة الجغرافية المستهدفة</label>
+                                <select id="sandbox-region">
+                                    <option value="riyadh" selected>منطقة الرياض (الوسطى) - العاصمة</option>
+                                    <option value="western">المنطقة الغربية (مكة وجدة) - الساحل</option>
+                                    <option value="eastern">المنطقة الشرقية (الدمام والجبيل) - الواحة والصناعة</option>
+                                    <option value="southern">المنطقة الجنوبية (عسير وأبها) - الجبال والغطاء الكثيف</option>
+                                    <option value="northern">المنطقة الشمالية (تبوك ونيوم) - الصحاري الواعدة</option>
+                                    <option value="hail">منطقة حائل - الجبال المنيعة والمزارع الواعدة</option>
+                                </select>
+                            </div>
 
-                            <label class="checkbox-container">
-                                <input type="checkbox" id="var-lst" value="lst" checked>
-                                <span class="checkmark"></span>
-                                <span class="checkbox-label">
-                                    <strong>درجة حرارة سطح الأرض (LST)</strong>
-                                    <span class="checkbox-desc">Landsat 9 / التباين الحراري الحضري</span>
-                                </span>
-                            </label>
+                            <div class="input-field-wrapper">
+                                <label for="sandbox-resolution"><i class="fa-solid fa-border-all text-primary"></i> دقة الاستبانة المكانية (Grid Resolution)</label>
+                                <select id="sandbox-resolution">
+                                    <option value="30">30 متر (تحليل مساحي فائق الدقة - Landsat TIRS)</option>
+                                    <option value="100" selected>100 متر (دقة متوسطة متوازنة - Sentinel-5P)</option>
+                                    <option value="250">250 متر (دقة واسعة سريعة الاستجابة - MODIS)</option>
+                                </select>
+                            </div>
 
-                            <label class="checkbox-container">
-                                <input type="checkbox" id="var-no2" value="no2">
-                                <span class="checkmark"></span>
-                                <span class="checkbox-label">
-                                    <strong>ثاني أكسيد النيتروجين (NO2)</strong>
-                                    <span class="checkbox-desc">Sentinel-5P / مؤشر تلوث الغلاف الجوي</span>
-                                </span>
-                            </label>
+                            <div class="checkbox-group-wrapper">
+                                <label><i class="fa-solid fa-database text-accent"></i> البيانات المراد مواءمتها ودمجها</label>
+                                
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="var-ndvi" value="ndvi" checked>
+                                    <span class="checkmark"></span>
+                                    <span class="checkbox-label">
+                                        <strong>مؤشار الغطاء النباتي (NDVI)</strong>
+                                        <span class="checkbox-desc">MODIS / دقة رصد حيوية النباتات</span>
+                                    </span>
+                                </label>
 
-                            <label class="checkbox-container">
-                                <input type="checkbox" id="var-population" value="population">
-                                <span class="checkmark"></span>
-                                <span class="checkbox-label">
-                                    <strong>الكثافة السكانية التقديرية (Pop)</strong>
-                                    <span class="checkbox-desc">Simulated Saudi Grid / التوزيع السكاني المساحي</span>
-                                </span>
-                            </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="var-lst" value="lst" checked>
+                                    <span class="checkmark"></span>
+                                    <span class="checkbox-label">
+                                        <strong>درجة حرارة سطح الأرض (LST)</strong>
+                                        <span class="checkbox-desc">Landsat 9 / التباين الحراري الحضري</span>
+                                    </span>
+                                </label>
+
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="var-no2" value="no2">
+                                    <span class="checkmark"></span>
+                                    <span class="checkbox-label">
+                                        <strong>ثاني أكسيد النيتروجين (NO2)</strong>
+                                        <span class="checkbox-desc">Sentinel-5P / مؤشر تلوث الغلاف الجوي</span>
+                                    </span>
+                                </label>
+
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="var-population" value="population">
+                                    <span class="checkmark"></span>
+                                    <span class="checkbox-label">
+                                        <strong>الكثافة السكانية التقديرية (Pop)</strong>
+                                        <span class="checkbox-desc">Simulated Saudi Grid / التوزيع السكاني المساحي</span>
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="sandbox-actions">
+                                <button type="button" class="btn btn-primary w-full" id="runPythonBtn">
+                                    <i class="fa-solid fa-play"></i> تشغيل الكود البرمجي (Run SDK)
+                                </button>
+                            </div>
                         </div>
 
-                        <div class="sandbox-actions">
-                            <button type="button" class="btn btn-primary w-full" id="runPythonBtn">
-                                <i class="fa-solid fa-play"></i> تشغيل الكود البرمجي (Run SDK)
-                            </button>
+                        <!-- Spatial SQL Card -->
+                        <div class="sandbox-card sandbox-sql" id="sandboxSqlCard" tabindex="0" style="display: flex; flex-direction: column; gap: 1.25rem;">
+                            <div class="sandbox-glow" style="background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 80%); border-radius: 20px;"></div>
+                            <h3 style="margin: 0; font-size: 1.25rem; color: var(--color-text-white); display: flex; align-items: center; gap: 0.75rem;"><i class="fa-solid fa-database text-info" style="color: #3b82f6;"></i> ملعب الاستعلامات المكانية (Spatial SQL)</h3>
+                            <p class="card-desc" style="margin: 0; color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.5;">قم بتشغيل استعلامات SQL الجيومكانية (PostGIS) الافتراضية لفلترة وتحديد مواقع الجامعات السعودية في الوقت الفعلي:</p>
+                            
+                            <div class="input-field-wrapper" style="display: flex; flex-direction: column; gap: 0.5rem; text-align: right;">
+                                <label for="sandbox-sql-query" style="font-size: 0.9rem; font-weight: 600; color: var(--color-text-white); display: block;"><i class="fa-solid fa-terminal text-info" style="color: #3b82f6;"></i> استعلام SQL جيو-مكاني (PostGIS)</label>
+                                <select id="sandbox-sql-query" style="width: 100%; padding: 0.75rem; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; color: #fff; font-family: monospace; font-size: 0.8rem; text-align: left; direction: ltr;">
+                                    <option value="near_riyadh" selected>SELECT * FROM universities WHERE ST_DWithin(geom, ST_MakePoint(46.619, 24.716), 200000);</option>
+                                    <option value="east_ksa">SELECT name, city, dept FROM universities WHERE ST_X(geom) > 45.0;</option>
+                                    <option value="postgrad">SELECT * FROM universities WHERE degrees LIKE '%ماجستير%';</option>
+                                    <option value="non_cap">SELECT * FROM universities WHERE city NOT IN ('الرياض', 'جدة');</option>
+                                </select>
+                            </div>
+                            
+                            <div class="sandbox-actions" style="margin-top: 0.5rem;">
+                                <button type="button" class="btn btn-secondary w-full" id="runSqlBtn" style="width: 100%; padding: 0.75rem; font-size: 0.9rem; border-radius: 10px; cursor: pointer; transition: all 0.25s ease; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); color: #60a5fa; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                    <i class="fa-solid fa-database"></i> تنفيذ استعلام SQL (Execute Query)
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -917,6 +943,12 @@
 
                         <!-- Environmental Analytics Tab Content -->
                         <div class="tab-content" id="tab-analytics">
+                            <!-- Project Entry Banner -->
+                            <div id="inspect-project-banner" class="project-banner hidden" style="background: rgba(16, 185, 129, 0.12); border: 1px solid var(--color-primary); border-radius: 12px; padding: 12px; margin-bottom: 1rem; text-align: right; direction: rtl; box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); animation: pulse-border 2s infinite;">
+                                <h5 style="color: var(--color-primary); margin: 0 0 4px 0; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-flag-checkered"></i> <span>ضمن مشاريع رؤية السعودية 2030</span></h5>
+                                <p id="inspect-project-text" style="color: #ffffff; margin: 0; font-size: 0.8rem; line-height: 1.4;">أنت حالياً داخل النطاق الجغرافي لمشروع نيوم العملاق.</p>
+                            </div>
+
                             <div class="analytics-inspector-card">
                                 <div class="inspector-header">
                                     <div class="inspector-pulse"></div>
@@ -944,6 +976,18 @@
                                         <span class="live-val text-primary" id="inspect-lst">--.- °م</span>
                                     </div>
                                     
+                                    <!-- Urban Heat Island Row -->
+                                    <div class="live-stat-row">
+                                        <div class="stat-meta">
+                                            <span class="stat-icon uhi-icon" style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: #ef4444;"><i class="fa-solid fa-city"></i></span>
+                                            <div class="stat-text">
+                                                <h5>الجزيرة الحرارية الحضرية (UHI)</h5>
+                                                <p class="font-xs">مقارنة بضواحي المدينة الخارجية</p>
+                                            </div>
+                                        </div>
+                                        <span class="live-val" id="inspect-uhi" style="color: #ef4444; font-size: 1.1rem; font-weight: 600;">--.- °م</span>
+                                    </div>
+
                                     <!-- Live NO2 Pollution -->
                                     <div class="live-stat-row">
                                         <div class="stat-meta">
@@ -967,6 +1011,42 @@
                                         </div>
                                         <span class="live-val text-success" id="inspect-ndvi">-.----</span>
                                     </div>
+
+                                    <!-- Elevation DEM Row -->
+                                    <div class="live-stat-row">
+                                        <div class="stat-meta">
+                                            <span class="stat-icon dem-icon" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); color: #3b82f6;"><i class="fa-solid fa-mountain"></i></span>
+                                            <div class="stat-text">
+                                                <h5>الارتفاع الرقمي (DEM Elevation)</h5>
+                                                <p class="font-xs">مستشعرات طوبوغرافية حية</p>
+                                            </div>
+                                        </div>
+                                        <span class="live-val" id="inspect-elevation" style="color: #3b82f6;">--- م</span>
+                                    </div>
+                                    
+                                    <!-- Slope Row -->
+                                    <div class="live-stat-row">
+                                        <div class="stat-meta">
+                                            <span class="stat-icon slope-icon" style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); color: #f59e0b;"><i class="fa-solid fa-road-slope"></i></span>
+                                            <div class="stat-text">
+                                                <h5>درجة انحدار السطح (Slope)</h5>
+                                                <p class="font-xs">نموذج ارتفاع رقمي مشتق</p>
+                                            </div>
+                                        </div>
+                                        <span class="live-val" id="inspect-slope" style="color: #f59e0b;">--°</span>
+                                    </div>
+                                    
+                                    <!-- Flash Flood Susceptibility Row -->
+                                    <div class="live-stat-row">
+                                        <div class="stat-meta">
+                                            <span class="stat-icon flood-icon" style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.2); color: #a855f7;"><i class="fa-solid fa-house-flood-water"></i></span>
+                                            <div class="stat-text">
+                                                <h5>خطر السيول الفجائية</h5>
+                                                <p class="font-xs">تحليل هيدرولوجي طوبوغرافي</p>
+                                            </div>
+                                        </div>
+                                        <span class="live-val" id="inspect-flood" style="color: #a855f7; font-size: 0.9rem; font-weight: 600;">جاري الحساب...</span>
+                                    </div>
                                 </div>
                             </div>
                             
@@ -989,6 +1069,59 @@
 
                             <div class="specs-divider"></div>
 
+                            <!-- SVG Temporal Trend Chart Card -->
+                            <div class="analytics-inspector-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 1.25rem;">
+                                <h5><i class="fa-solid fa-chart-line text-accent" style="color: var(--color-accent);"></i> الدورة المناخية السنوية المتوقعة</h5>
+                                <p class="card-desc" style="margin-bottom: 0.75rem;">منحنى التغير الحراري والغطائي السنوي بناءً على نقطة الفحص:</p>
+                                <div class="chart-container" style="position: relative; background: rgba(0,0,0,0.25); border-radius: 10px; padding: 8px; border: 1px solid rgba(255,255,255,0.05); direction: ltr;">
+                                    <svg id="temporalTrendChart" viewBox="0 0 320 120" style="width: 100%; height: auto; display: block; overflow: visible;">
+                                        <!-- Grid Lines -->
+                                        <line x1="30" y1="10" x2="295" y2="10" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2" />
+                                        <line x1="30" y1="50" x2="295" y2="50" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2" />
+                                        <line x1="30" y1="90" x2="295" y2="90" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2" />
+                                        <line x1="30" y1="100" x2="295" y2="100" stroke="rgba(255,255,255,0.15)" stroke-width="1.2" />
+                                        
+                                        <!-- LST Path (Red/Orange glow) -->
+                                        <path id="chartPathLst" d="" fill="none" stroke="url(#lstGrad)" stroke-width="2.5" stroke-linecap="round" style="filter: drop-shadow(0 0 4px rgba(254, 180, 123, 0.4));" />
+                                        
+                                        <!-- NDVI Path (Emerald glow) -->
+                                        <path id="chartPathNdvi" d="" fill="none" stroke="url(#ndviGrad)" stroke-width="2.5" stroke-linecap="round" style="filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.4));" />
+                                        
+                                        <!-- Gradients -->
+                                        <defs>
+                                            <linearGradient id="lstGrad" x1="0" y1="0" x2="1" y2="0">
+                                                <stop offset="0%" stop-color="#ff7e5f" />
+                                                <stop offset="100%" stop-color="#feb47b" />
+                                            </linearGradient>
+                                            <linearGradient id="ndviGrad" x1="0" y1="0" x2="1" y2="0">
+                                                <stop offset="0%" stop-color="#10b981" />
+                                                <stop offset="100%" stop-color="#059669" />
+                                            </linearGradient>
+                                        </defs>
+                                        
+                                        <!-- X Axis Months labels -->
+                                        <text x="30" y="112" fill="rgba(255,255,255,0.4)" font-size="7" text-anchor="middle">Jan</text>
+                                        <text x="96" y="112" fill="rgba(255,255,255,0.4)" font-size="7" text-anchor="middle">Apr</text>
+                                        <text x="162" y="112" fill="rgba(255,255,255,0.4)" font-size="7" text-anchor="middle">Jul</text>
+                                        <text x="228" y="112" fill="rgba(255,255,255,0.4)" font-size="7" text-anchor="middle">Oct</text>
+                                        <text x="295" y="112" fill="rgba(255,255,255,0.4)" font-size="7" text-anchor="middle">Dec</text>
+                                        
+                                        <!-- Y Axis values -->
+                                        <text x="24" y="13" fill="#feb47b" font-size="7" text-anchor="end">45°C</text>
+                                        <text x="24" y="53" fill="#ff7e5f" font-size="7" text-anchor="end">25°C</text>
+                                        <text x="24" y="93" fill="#10b981" font-size="7" text-anchor="end">0.0</text>
+                                    </svg>
+                                    
+                                    <!-- Legend -->
+                                    <div class="chart-legend" style="display: flex; justify-content: center; gap: 15px; margin-top: 8px; font-size: 0.72rem; direction: rtl;">
+                                        <span style="display: flex; align-items: center; gap: 4px; color: #feb47b;"><span style="width: 8px; height: 8px; background: #feb47b; border-radius: 50%;"></span> الحرارة LST</span>
+                                        <span style="display: flex; align-items: center; gap: 4px; color: #10b981;"><span style="width: 8px; height: 8px; background: #10b981; border-radius: 50%;"></span> النبات NDVI</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="specs-divider"></div>
+
                             <!-- Dataset Metadata Card -->
                             <div class="analytics-metadata-card">
                                 <h5><i class="fa-solid fa-circle-info text-primary"></i> البيانات المفتوحة وتراخيص الاستخدام:</h5>
@@ -996,6 +1129,10 @@
                                     <div class="meta-row">
                                         <span class="meta-label">مزود LST & الطقس:</span>
                                         <span class="meta-val font-mono">NASA POWER / Open-Meteo</span>
+                                    </div>
+                                    <div class="meta-row">
+                                        <span class="meta-label">ارتفاع DEM ومورفولوجيا:</span>
+                                        <span class="meta-val font-mono">Open-Meteo Elevation API</span>
                                     </div>
                                     <div class="meta-row">
                                         <span class="meta-label">قمر ملوثات الهواء:</span>

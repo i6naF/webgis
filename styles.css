@@ -4119,4 +4119,77 @@ input:checked + .slider:before {
     100% { opacity: 1; }
 }
 
+/* ==========================================================================
+   10. Senior GIS Expert Features & Glowing Neon Polygons (Phase 4)
+   ========================================================================== */
+
+/* Glowing Neon Project Polygons and Paths in Leaflet */
+.glowing-neon-neom {
+    filter: drop-shadow(0 0 8px #10b981);
+    stroke-dasharray: 6, 6;
+    animation: polyDash NEOM 30s linear infinite;
+}
+.glowing-neon-line {
+    filter: drop-shadow(0 0 10px #06b6d4);
+    stroke-dasharray: 8, 4;
+    animation: polyDash LINE 20s linear infinite;
+}
+.glowing-neon-redsea {
+    filter: drop-shadow(0 0 8px #3b82f6);
+    stroke-dasharray: 10, 5;
+    animation: polyDash REDSEA 40s linear infinite;
+}
+.glowing-neon-qiddiya {
+    filter: drop-shadow(0 0 8px #eab308);
+}
+.glowing-neon-greenriyadh {
+    filter: drop-shadow(0 0 8px #22c55e);
+    stroke-dasharray: 5, 5;
+}
+
+@keyframes polyDash {
+    to {
+        stroke-dashoffset: -1000;
+    }
+}
+
+/* Project Entry Banner Pulse Border */
+@keyframes pulse-border {
+    0% {
+        border-color: rgba(16, 185, 129, 0.4);
+        box-shadow: 0 0 8px rgba(16, 185, 129, 0.2);
+    }
+    50% {
+        border-color: rgba(16, 185, 129, 0.9);
+        box-shadow: 0 0 18px rgba(16, 185, 129, 0.4);
+    }
+    100% {
+        border-color: rgba(16, 185, 129, 0.4);
+        box-shadow: 0 0 8px rgba(16, 185, 129, 0.2);
+    }
+}
+
+/* SQL Playground Styles */
+.sandbox-sql {
+    border-color: rgba(59, 130, 246, 0.15);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sandbox-sql:hover, .sandbox-sql:focus-within {
+    border-color: rgba(59, 130, 246, 0.35) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 
+                0 0 20px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* SVG Chart CSS styling */
+#temporalTrendChart path {
+    transition: stroke-dasharray 0.5s ease-in-out, d 0.5s ease-in-out;
+}
+
+#temporalTrendChart text {
+    font-family: monospace, system-ui;
+    user-select: none;
+}
+
+
 
