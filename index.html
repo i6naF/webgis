@@ -53,6 +53,7 @@
                 <a href="#mistakes" class="nav-link" id="nav-mistakes"><i class="fa-solid fa-triangle-exclamation"></i> أخطاء شائعة</a>
                 <a href="#x-community" class="nav-link" id="nav-x-community"><i class="fa-brands fa-x-twitter"></i> مجتمع X</a>
                 <a href="#courses" class="nav-link" id="nav-courses"><i class="fa-solid fa-graduation-cap"></i> مسار التعلم</a>
+                <a href="#donate" class="nav-link" id="nav-donate" style="color: #34d399; font-weight: 700;"><i class="fa-solid fa-heart"></i> تبرع لإحسان</a>
             </nav>
 
             <!-- Mobile Menu Toggle -->
@@ -82,6 +83,7 @@
             <a href="#mistakes" class="drawer-link" id="drawer-mistakes"><i class="fa-solid fa-triangle-exclamation"></i> أخطاء شائعة</a>
             <a href="#x-community" class="drawer-link" id="drawer-x-community"><i class="fa-brands fa-x-twitter"></i> مجتمع X</a>
             <a href="#courses" class="drawer-link" id="drawer-courses"><i class="fa-solid fa-graduation-cap"></i> مسار التعلم</a>
+            <a href="#donate" class="drawer-link" id="drawer-donate" style="color: #34d399; font-weight: 700;"><i class="fa-solid fa-heart"></i> تبرع لإحسان</a>
         </nav>
     </div>
     <div class="drawer-overlay" id="drawerOverlay"></div>
@@ -1687,6 +1689,50 @@
                 </div>
             </div>
         </section>
+
+        <!-- Ehsan Donation Section -->
+        <section id="donate" class="donate-section">
+            <div class="container">
+                <div class="donate-card-wrapper">
+                    <div class="donate-glow-effect"></div>
+                    <div class="donate-grid">
+                        <div class="donate-info">
+                            <div class="donate-badge"><i class="fa-solid fa-heart text-accent"></i> عمل خيري وطني مستدام</div>
+                            <h2 class="donate-title">المسؤولية المجتمعية والتمكين الخيري لبلدنا المعطاء</h2>
+                            <p class="donate-description">
+                                نحن في بوابة نظم المعلومات الجغرافية، كمنصة طلابية غير ربحية تقدم العون المعرفي، نؤمن بأهمية دعم مبادرات وطننا المعطاء. ندعوكم للمساهمة والتبرع ومساندة الأعمال الإنسانية والتنموية الرسمية عبر **منصة إحسان الوطنية للعمل الخيري** الرسمية في المملكة العربية السعودية بكل موثوقية وسرعة وأمان.
+                            </p>
+                            <div class="donate-features">
+                                <div class="donate-feature">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                    <span>مظلة رسمية آمنة وتحت إشراف مباشر من عدة جهات وهيئات حكومية.</span>
+                                </div>
+                                <div class="donate-feature">
+                                    <i class="fa-solid fa-circle-nodes"></i>
+                                    <span>دعم حقيقي مباشر يصل للجهات المستحقة بكل شفافية وسرعة.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="donate-action-card">
+                            <div class="ehsan-logo-placeholder">
+                                <svg class="ehsan-svg" viewBox="0 0 120 120" width="80" height="80">
+                                    <circle cx="60" cy="60" r="50" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-dasharray="2,2"/>
+                                    <!-- A stylized clean abstract icon representing Ehsan platform -->
+                                    <path d="M60,25 C78,25 90,45 60,88 C30,45 42,25 60,25 Z" fill="rgba(16, 185, 129, 0.15)" stroke="#10b981" stroke-width="4.5" stroke-linejoin="round"/>
+                                    <circle cx="60" cy="48" r="8" fill="#eab308"/>
+                                    <path d="M48,60 Q60,72 72,60" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round"/>
+                                </svg>
+                                <h3>منصة إحسان الوطنية</h3>
+                                <span class="ehsan-subtext">تسهيل وتوطين العمل الخيري بالمملكة</span>
+                            </div>
+                            <a href="https://ehsan.sa/" target="_blank" class="btn btn-primary btn-lg w-full donate-btn" id="ehsanDonateBtn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                <i class="fa-solid fa-heart"></i> تبرع الآن عبر منصة إحسان <i class="fa-solid fa-up-right-from-square" style="font-size: 0.75rem; margin-right: 3px;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
@@ -1723,6 +1769,34 @@
             </div>
         </div>
     </footer>
+
+    <!-- Floating Ehsan Donation Advertisement (Ehsan Campaign) -->
+    <div class="ehsan-ad-float" id="ehsanFloatingAd">
+        <div class="ehsan-ad-glow"></div>
+        <button class="ehsan-ad-close" id="closeEhsanAd" aria-label="إغلاق الإعلان">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="ehsan-ad-content">
+            <div class="ehsan-ad-icon-wrapper">
+                <svg class="ehsan-ad-svg" viewBox="0 0 120 120" width="44" height="44">
+                    <circle cx="60" cy="60" r="50" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="2,2"/>
+                    <path d="M60,25 C78,25 90,45 60,88 C30,45 42,25 60,25 Z" fill="rgba(16, 185, 129, 0.15)" stroke="#10b981" stroke-width="4.5" stroke-linejoin="round"/>
+                    <circle cx="60" cy="48" r="8" fill="#eab308"/>
+                    <path d="M48,60 Q60,72 72,60" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="ehsan-ad-text">
+                <span class="ehsan-ad-badge">🇸🇦 الحملة الوطنية للتبرع</span>
+                <h4>منصة إحسان الخيرية</h4>
+                <p>ساهم معنا بتقديم الخير ودعم المحتاجين عبر منصة إحسان الوطنية بكل أمان وموثوقية.</p>
+            </div>
+        </div>
+        <div class="ehsan-ad-actions">
+            <a href="https://ehsan.sa/" target="_blank" class="btn btn-emerald btn-sm w-full ehsan-ad-btn" id="ehsanFloatingAdBtn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <i class="fa-solid fa-heart animate-pulse-heart"></i> تبرع الآن (إحسان) <i class="fa-solid fa-up-right-from-square" style="font-size: 0.7rem; margin-right: 2px;"></i>
+            </a>
+        </div>
+    </div>
 
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

@@ -1390,5 +1390,29 @@ csv_data = mesh.to_csv()
     // Initial load preview render
     updatePythonPreview();
 
+    // ==========================================================================
+    // 9. Floating Ehsan Platform Donation Campaign Advertisement Controller
+    // ==========================================================================
+    const ehsanFloatingAd = document.getElementById('ehsanFloatingAd');
+    const closeEhsanAd = document.getElementById('closeEhsanAd');
+
+    if (ehsanFloatingAd && closeEhsanAd) {
+        // Only show if the user hasn't dismissed it in the current session
+        const isDismissed = sessionStorage.getItem('ehsanAdDismissed');
+        if (!isDismissed) {
+            // Show after 2.5 seconds with a sliding animation
+            setTimeout(() => {
+                ehsanFloatingAd.classList.add('show');
+            }, 2500);
+        }
+
+        // Close/Dismiss click handler
+        closeEhsanAd.addEventListener('click', () => {
+            ehsanFloatingAd.classList.remove('show');
+            // Save preference in sessionStorage so it doesn't pop up again this session
+            sessionStorage.setItem('ehsanAdDismissed', 'true');
+        });
+    }
+
 });
 
