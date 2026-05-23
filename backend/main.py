@@ -69,6 +69,11 @@ def process_mesh(req: HarmonizationRequest):
         logs.append(f"[{time.strftime('%H:%M:%S')}] [SDK] Loaded bbox: {mesh.region['bbox']}")
         
         num_points = mesh.harmonize()
+        
+        # Inject live telemetry connection logs from external APIs
+        for api_log in mesh.api_logs:
+            logs.append(f"[{time.strftime('%H:%M:%S')}] {api_log}")
+            
         elapsed = time.time() - start_time
         
         logs.append(f"[{time.strftime('%H:%M:%S')}] [ALIGN] Spatial grid alignment complete. Generated {num_points} nodes.")
