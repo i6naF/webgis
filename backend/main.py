@@ -20,7 +20,7 @@ app = FastAPI(
 # Enable CORS for frontend integration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Permits local file loading and GitHub Pages testing
+    allow_origins=["https://i6naf.github.io"],  # Restrict to GitHub Pages origin
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

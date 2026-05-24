@@ -89,6 +89,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+        // ==========================================================================
+    // 3. SVG Hero Layer Toggles (Topo / Radar / Network layers in hero visual)
+    // ==========================================================================
+    const heroLayerToggles = document.querySelectorAll('[data-hero-layer]');
+    heroLayerToggles.forEach(toggle => {
+        toggle.addEventListener('change', () => {
+            const layerId = toggle.getAttribute('data-hero-layer');
+            const layer = document.getElementById(layerId);
+            if (layer) {
+                layer.style.opacity = toggle.checked ? '1' : '0';
+                layer.style.pointerEvents = toggle.checked ? 'auto' : 'none';
+            }
+        });
+    });
 
     // ==========================================================================
     // 4. Client-side Dynamic Filtering (Software Showcase)

@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بوابة نظم المعلومات الجغرافية | GIS Student Hub</title>
     <meta name="description" content="منصة تفاعلية تعليمية لطلاب الجامعات المهتمين بنظم المعلومات الجغرافية (GIS) والجيوماتكس. دليل البرمجيات، الدورات الموصى بها، ومحاكاة تفاعلية للطبقات المكانية.">
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://i6naf.github.io/webgis/">
+    <meta property="og:title" content="بوابة نظم المعلومات الجغرافية | GIS Student Hub">
+    <meta property="og:description" content="منصة تفاعلية تعليمية لطلاب الجامعات المهتمين بنظم المعلومات الجغرافية (GIS) والجيوماتكس. دليل البرمجيات، الدورات الموصى بها، ومحاكاة تفاعلية للطبقات المكانية.">
+    <meta property="og:image" content="https://i6naf.github.io/webgis/og-image.png">
+    <meta property="og:locale" content="ar_SA">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="بوابة نظم المعلومات الجغرافية | GIS Student Hub">
+    <meta name="twitter:description" content="منصة تفاعلية تعليمية لطلاب الجامعات المهتمين بنظم المعلومات الجغرافية (GIS) والجيوماتكس.">
+    <meta name="twitter:image" content="https://i6naf.github.io/webgis/og-image.png">
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -578,6 +590,11 @@
                     <p class="section-subtitle">قم بصياغة استعلامات برمجية للاتصال المباشر بقواعد البيانات العالمية وجلب بيانات بيئية حية (ناسا، كوبيرنيكوس) لمواءمتها وتصديرها فورياً بصيغ جغرافية قياسية (GeoJSON & CSV)</p>
                 </div>
 
+                <!-- Simulation Mode Notice -->
+                <div class="sandbox-simulation-notice" style="background:rgba(255,170,0,0.1);border:1px solid rgba(255,170,0,0.4);border-radius:12px;padding:12px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px;font-size:0.9rem;">
+                    <i class="fa-solid fa-triangle-exclamation" style="color:#ffaa00;font-size:1.1rem;flex-shrink:0;"></i>
+                    <span>هذه البيئة تعمل في <strong>وضع المحاكاة</strong> — الموقع مستضاف على GitHub Pages ولا يدعم تشغيل الخادم الخلفي (Python/FastAPI). الاستعلامات تُولّد بيانات محاكاة تعليمية بدلاً من الاتصال الحي بـ NASA و Copernicus APIs.</span>
+                </div>
                 <div class="sandbox-grid">
                     <!-- Controls Card -->
                     <div class="sandbox-card sandbox-controls" id="sandboxControlsCard" tabindex="0">
@@ -1769,7 +1786,7 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <!-- Privacy-friendly Web Analytics (GoatCounter) -->
-    <script data-goatcounter="https://webgis-i6na.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script data-goatcounter="https://webgis-i6na.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
     <!-- Scripts -->
     <script src="app.js?v=2.0"></script>
 </body>
