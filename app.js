@@ -607,13 +607,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Bind informative popup on hover / click
             const popupContent = `
-                <div style="direction: rtl; text-align: right; font-family: system-ui, -apple-system, sans-serif; padding: 4px;">
-                    <strong style="color: var(--color-primary); font-size: 0.95rem; display: block; margin-bottom: 2px;">${uni.name}</strong>
-                    <span style="color: var(--color-text-muted); font-size: 0.8rem;"><i class="fa-solid fa-location-dot"></i> ${uni.city}</span>
+                <div style="direction: rtl; text-align: right; font-family: system-ui, -apple-system, sans-serif; min-width: 180px; padding: 4px;">
+                    <strong style="color: var(--color-primary); font-size: 0.95rem; display: block; margin-bottom: 4px;">${uni.name}</strong>
+                    <span style="color: var(--color-text-muted); font-size: 0.8rem; display: block; margin-bottom: 8px;">
+                        <i class="fa-solid fa-location-dot"></i> ${uni.city}
+                    </span>
+                    <div style="display: flex; gap: 8px; margin-top: 6px;">
+                        <a href="${uni.link}" target="_blank" style="flex: 1; text-align: center; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.3); color: #00f2fe; padding: 4px 6px; border-radius: 6px; font-size: 0.72rem; text-decoration: none; font-weight: bold; transition: all 0.2s;" onmouseover="this.style.background='rgba(0, 242, 254, 0.25)'" onmouseout="this.style.background='rgba(0, 242, 254, 0.1)'">
+                            <i class="fa-solid fa-earth-asia"></i> البوابة
+                        </a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=${uni.coords[0]},${uni.coords[1]}" target="_blank" style="flex: 1; text-align: center; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.3); color: #34d399; padding: 4px 6px; border-radius: 6px; font-size: 0.72rem; text-decoration: none; font-weight: bold; transition: all 0.2s;" onmouseover="this.style.background='rgba(52, 211, 153, 0.25)'" onmouseout="this.style.background='rgba(52, 211, 153, 0.1)'">
+                            <i class="fa-solid fa-map-location-dot"></i> الاتجاهات
+                        </a>
+                    </div>
                 </div>
             `;
             marker.bindPopup(popupContent, {
-                closeButton: false,
+                closeButton: true,
                 offset: L.point(0, -5)
             });
 
