@@ -67,12 +67,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function openDrawer() {
         mobileDrawer.classList.add('open');
         drawerOverlay.classList.add('show');
+        document.body.classList.add('drawer-open');
         document.body.style.overflow = 'hidden'; // disable background scroll
     }
 
     function closeDrawer() {
         mobileDrawer.classList.remove('open');
         drawerOverlay.classList.remove('show');
+        document.body.classList.remove('drawer-open');
         document.body.style.overflow = 'auto'; // enable background scroll
     }
 

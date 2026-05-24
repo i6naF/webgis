@@ -411,7 +411,7 @@ body, .scroller, .query-inspector, .mobile-drawer {
     width: 280px;
     height: 100vh;
     background: var(--color-surface-solid);
-    z-index: 102;
+    z-index: 10000;
     border-left: 1px solid var(--color-border);
     padding: 2rem;
     display: flex;
@@ -419,6 +419,8 @@ body, .scroller, .query-inspector, .mobile-drawer {
     gap: 2rem;
     transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+    overflow-y: auto; /* Allow vertical scrolling if links overflow on small screens */
+    -webkit-overflow-scrolling: touch; /* Smooth kinetic scrolling for iOS */
 }
 
 .mobile-drawer.open {
@@ -473,12 +475,22 @@ body, .scroller, .query-inspector, .mobile-drawer {
     height: 100vh;
     background: rgba(0,0,0,0.7);
     backdrop-filter: blur(4px);
-    z-index: 101;
+    z-index: 9999;
     display: none;
 }
 
 .drawer-overlay.show {
     display: block;
+}
+
+/* Hide background components with backdrop blurs on drawer open to fix iOS stacking leaks */
+body.drawer-open .navbar-header,
+body.drawer-open .hero-actions,
+body.drawer-open .ehsan-ad-float {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 /* ==========================================================================
