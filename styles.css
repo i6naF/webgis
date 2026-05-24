@@ -17,7 +17,7 @@
     --color-secondary: #00f2fe; /* Cyber Cyan (Water/Coordinates) */
     --color-secondary-rgb: 0, 242, 254;
     --color-accent: #f59e0b; /* Amber Gold (Urban/Buildings) */
-    --color-accent-rgb: 245, 158, 11;
+    --color-accent-rgb: 245, 158, 11
     
     /* Glow Effects */
     --color-primary-glow: rgba(16, 185, 129, 0.3);
@@ -612,7 +612,7 @@ body, .scroller, .query-inspector, .mobile-drawer {
     to { transform: rotate(360deg); }
 }
 @keyframes spin-reverse {
-    to { transform: transform: rotate(-360deg); }
+    to { transform: rotate(-360deg); }
 }
 
 .topo-line {
