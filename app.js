@@ -1429,6 +1429,491 @@ csv_data = mesh.to_csv()
             sessionStorage.setItem('ehsanAdDismissed', 'true');
         });
     }
+
+    // ==========================================================================
+    // 10. Riyadh Spatial Analytics Dashboard Controller
+    // ==========================================================================
+    let riyadhMap = null;
+    let riyadhPointsLayer = L.layerGroup();
+    let riyadhHeatLayer = null;
+    let riyadhRawData = [];
+    let riyadhFilteredFeatures = [];
+    
+    let activeVar = 'lst'; // 'lst', 'ndvi', 'population'
+    let activeMode = 'grid'; // 'grid', 'heatmap'
+    
+    // Default Filter Ranges
+    const dashboardFilters = {
+        lstMin: 20,
+        lstMax: 60,
+        ndviMin: -0.1,
+        ndviMax: 0.6,
+        popMin: 0,
+        popMax: 1500
+    };
+
+    // Color Helpers
+    function getLstColor(val) {
+        if (val < 30) return '#3b82f6'; // Blue (Cool)
+        if (val < 38) return '#10b981'; // Emerald (Moderate)
+        if (val < 44) return '#fbbf24'; // Amber (Warm)
+        if (val < 50) return '#f97316'; // Orange (Hot)
+        return '#ef4444'; // Red (Extreme Hot)
+    }
+
+    function getNdviColor(val) {
+        if (val < 0.05) return '#b45309'; // Brown (Barren/Sand)
+        if (val < 0.15) return '#fbbf24'; // Yellow (Very sparse veg)
+        if (val < 0.3) return '#a3e635'; // Lime (Sparse veg)
+        if (val < 0.45) return '#4ade80'; // Light Green (Moderate veg)
+        return '#16a34a'; // Green (Dense vegetation)
+    }
+
+    function getPopColor(val) {
+        if (val < 10) return 'rgba(255, 255, 255, 0.06)'; // Empty/Very Low
+        if (val < 150) return '#bae6fd'; // Light Blue
+        if (val < 500) return '#7dd3fc'; // Sky Blue
+        if (val < 1000) return '#0284c7'; // Medium Blue
+        return '#0369a1'; // Deep Blue
+    }
+
+    function getColorForVariable(val, variable) {
+        if (variable === 'lst') return getLstColor(val);
+        if (variable === 'ndvi') return getNdviColor(val);
+        return getPopColor(val);
+    }
+
+    // Initialize Riyadh Map
+    function initRiyadhMap() {
+        const mapContainer = document.getElementById('riyadhMap');
+        if (!mapContainer || riyadhMap) return;
+
+        // Create Map
+        riyadhMap = L.map('riyadhMap', {
+            center: [24.65, 46.72],
+            zoom: 11,
+            preferCanvas: true,
+            zoomControl: true,
+            scrollWheelZoom: false // disable scrolling by accident
+        });
+
+        // Add CartoDB Dark Base Layer
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            maxZoom: 20
+        }).addTo(riyadhMap);
+
+        riyadhPointsLayer.addTo(riyadhMap);
+    }
+
+    // Fetch GeoJSON Dataset
+    function loadRiyadhDataset() {
+        fetch('data/geomesh_riyadh_100m.geojson')
+            .then(res => {
+                if (!res.ok) throw new Error('Failed to load spatial dataset');
+                return res.json();
+            })
+            .then(data => {
+                riyadhRawData = data.features;
+                riyadhFilteredFeatures = [...riyadhRawData];
+                
+                // Initialize Map & Render
+                initRiyadhMap();
+                updateDashboard();
+            })
+            .catch(err => {
+                console.error('Error loading spatial data:', err);
+                const mapContainer = document.getElementById('riyadhMap');
+                if (mapContainer) {
+                    mapContainer.innerHTML = `<div class="error-placeholder" style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--color-text-muted);"><i class="fa-solid fa-triangle-exclamation text-error" style="margin-left:8px;"></i> حدث خطأ أثناء تحميل بيانات المرصد الجغرافي.</div>`;
+                }
+            });
+    }
+
+    // Update KPI & Calculations
+    function updateKPIs() {
+        const count = riyadhFilteredFeatures.length;
+        const totalRaw = riyadhRawData.length;
+        
+        // Calculate percentages
+        const percent = totalRaw > 0 ? (count / totalRaw) * 100 : 0;
+        
+        // Compute averages
+        let sumLst = 0;
+        let sumNdvi = 0;
+        let totalPop = 0;
+        
+        riyadhFilteredFeatures.forEach(f => {
+            sumLst += f.properties.lst || 0;
+            sumNdvi += f.properties.ndvi || 0;
+            totalPop += f.properties.population || 0;
+        });
+        
+        const avgLst = count > 0 ? (sumLst / count) : 0;
+        const avgNdvi = count > 0 ? (sumNdvi / count) : 0;
+        
+        // Update DOM elements
+        document.getElementById('kpi-active-points').textContent = count.toLocaleString('ar-EG');
+        document.getElementById('kpi-active-percent').textContent = `${percent.toFixed(0)}% من إجمالي المرصد`;
+        document.getElementById('kpi-progress-points').style.width = `${percent}%`;
+        
+        if (count > 0) {
+            document.getElementById('kpi-avg-lst').textContent = `${avgLst.toFixed(1)} °م`;
+            // Calculate a relative progress percentage for LST (20 to 60 scale)
+            const lstProgress = Math.max(0, Math.min(100, ((avgLst - 20) / 40) * 100));
+            document.getElementById('kpi-progress-lst').style.width = `${lstProgress}%`;
+            
+            document.getElementById('kpi-avg-ndvi').textContent = avgNdvi.toFixed(4);
+            // Calculate relative progress for NDVI (-0.1 to 0.6 scale)
+            const ndviProgress = Math.max(0, Math.min(100, ((avgNdvi + 0.1) / 0.7) * 100));
+            document.getElementById('kpi-progress-ndvi').style.width = `${ndviProgress}%`;
+            
+            document.getElementById('kpi-total-pop').textContent = totalPop.toLocaleString('ar-EG');
+            // Calculate relative population progress (max capped at 500,000 for visuals)
+            const popProgress = Math.min(100, (totalPop / 500000) * 100);
+            document.getElementById('kpi-progress-pop').style.width = `${popProgress}%`;
+        } else {
+            document.getElementById('kpi-avg-lst').textContent = '--.- °م';
+            document.getElementById('kpi-progress-lst').style.width = '0%';
+            document.getElementById('kpi-avg-ndvi').textContent = '-.----';
+            document.getElementById('kpi-progress-ndvi').style.width = '0%';
+            document.getElementById('kpi-total-pop').textContent = '٠';
+            document.getElementById('kpi-progress-pop').style.width = '0%';
+        }
+    }
+
+    // Render Point Circles
+    function renderPointGrid() {
+        riyadhPointsLayer.clearLayers();
+        if (riyadhHeatLayer) {
+            riyadhMap.removeLayer(riyadhHeatLayer);
+            riyadhHeatLayer = null;
+        }
+
+        riyadhFilteredFeatures.forEach(feature => {
+            const coords = feature.geometry.coordinates; // [lon, lat]
+            const prop = feature.properties;
+            const val = prop[activeVar];
+            
+            // Format popups
+            const popupContent = `
+                <div style="direction:rtl; text-align:right; font-family:'Cairo',sans-serif; font-size:0.82rem; min-width:180px;">
+                    <h4 style="margin:0 0 6px 0; color:var(--color-secondary); font-size:0.9rem;">📍 تفاصيل الخلية المساحية</h4>
+                    <hr style="border:0; border-top:1px solid rgba(255,255,255,0.08); margin:4px 0;">
+                    <div>🌡️ <strong>درجة الحرارة (LST):</strong> ${prop.lst.toFixed(1)} °م</div>
+                    <div>🌱 <strong>الغطاء النباتي (NDVI):</strong> ${prop.ndvi.toFixed(4)}</div>
+                    <div>👥 <strong>السكان بالخلية:</strong> ${prop.population.toLocaleString('ar-EG')} نسمة</div>
+                    <hr style="border:0; border-top:1px solid rgba(255,255,255,0.08); margin:4px 0;">
+                    <div style="font-size:0.7rem; color:var(--color-text-muted); font-family:monospace; direction:ltr; text-align:left;">
+                        Coords: ${coords[1].toFixed(5)}, ${coords[0].toFixed(5)}
+                    </div>
+                </div>
+            `;
+
+            const color = getColorForVariable(val, activeVar);
+            
+            const marker = L.circleMarker([coords[1], coords[0]], {
+                radius: activeVar === 'population' && val > 0 ? Math.max(3.5, Math.min(8, val / 150)) : 4.5,
+                fillColor: color,
+                color: '#070b13',
+                weight: 0.8,
+                opacity: 0.9,
+                fillOpacity: activeVar === 'population' && val === 0 ? 0.15 : 0.85
+            }).bindPopup(popupContent);
+
+            riyadhPointsLayer.addLayer(marker);
+        });
+    }
+
+    // Render Heatmap Layer
+    function renderHeatmap() {
+        riyadhPointsLayer.clearLayers();
+        if (riyadhHeatLayer) {
+            riyadhMap.removeLayer(riyadhHeatLayer);
+        }
+
+        // Structure heat points: [lat, lon, intensity]
+        const heatPoints = riyadhFilteredFeatures.map(feature => {
+            const coords = feature.geometry.coordinates;
+            const prop = feature.properties;
+            let intensity = 0.5;
+
+            if (activeVar === 'lst') {
+                // scale temperature 20-60 to 0-1
+                intensity = Math.max(0.1, (prop.lst - 20) / 40);
+            } else if (activeVar === 'ndvi') {
+                // scale ndvi -0.1 to 0.6 to 0-1
+                intensity = Math.max(0.1, (prop.ndvi + 0.1) / 0.7) * 1.5;
+            } else if (activeVar === 'population') {
+                // scale population 0-1500 to 0-1
+                intensity = Math.max(0.1, prop.population / 400);
+            }
+
+            return [coords[1], coords[0], intensity];
+        });
+
+        // Gradient options
+        let grad = { 0.4: 'blue', 0.65: 'lime', 1.0: 'red' };
+        if (activeVar === 'ndvi') {
+            grad = { 0.4: '#d97706', 0.7: '#a3e635', 1.0: '#16a34a' };
+        } else if (activeVar === 'population') {
+            grad = { 0.4: '#bae6fd', 0.7: '#7dd3fc', 1.0: '#0369a1' };
+        }
+
+        riyadhHeatLayer = L.heatLayer(heatPoints, {
+            radius: 26,
+            blur: 18,
+            maxZoom: 16,
+            gradient: grad
+        }).addTo(riyadhMap);
+    }
+
+    // Update Interactive Legend
+    function updateLegend() {
+        const titleText = document.getElementById('legend-title-text');
+        const scaleBars = document.getElementById('legend-scale-bars');
+        if (!titleText || !scaleBars) return;
+
+        scaleBars.innerHTML = '';
+
+        if (activeVar === 'lst') {
+            titleText.innerHTML = `<i class="fa-solid fa-temperature-high text-orange"></i> درجات الحرارة السطحية LST`;
+            const intervals = [
+                { val: 'أقل من ٣٠ °م', color: '#3b82f6' },
+                { val: '٣٠ - ٣٨ °م', color: '#10b981' },
+                { val: '٣٨ - ٤٤ °م', color: '#fbbf24' },
+                { val: '٤٤ - ٥٠ °م', color: '#f97316' },
+                { val: 'أكثر من ٥٠ °م', color: '#ef4444' }
+            ];
+            intervals.forEach(item => {
+                scaleBars.innerHTML += `
+                    <div class="legend-row">
+                        <span class="legend-val">${item.val}</span>
+                        <div class="legend-color" style="background:${item.color};"></div>
+                    </div>
+                `;
+            });
+        } else if (activeVar === 'ndvi') {
+            titleText.innerHTML = `<i class="fa-solid fa-seedling text-emerald"></i> مؤشر الغطاء النباتي NDVI`;
+            const intervals = [
+                { val: 'أقل من ٠.٠٥ (تربة رملية)', color: '#b45309' },
+                { val: '٠.٠٥ - ٠.١٥ (جاف خفيف)', color: '#fbbf24' },
+                { val: '٠.١٥ - ٠.٣٠ (غطاء خفيف)', color: '#a3e635' },
+                { val: '٠.٣٠ - ٠.٤٥ (غطاء متوسط)', color: '#4ade80' },
+                { val: 'أكثر من ٠.٤٥ (غطاء كثيف)', color: '#16a34a' }
+            ];
+            intervals.forEach(item => {
+                scaleBars.innerHTML += `
+                    <div class="legend-row">
+                        <span class="legend-val">${item.val}</span>
+                        <div class="legend-color" style="background:${item.color};"></div>
+                    </div>
+                `;
+            });
+        } else if (activeVar === 'population') {
+            titleText.innerHTML = `<i class="fa-solid fa-users text-cyan"></i> الكثافة السكانية (الخلية)`;
+            const intervals = [
+                { val: 'شبه خالية (أقل من ١٠)', color: 'rgba(255,255,255,0.06)' },
+                { val: 'منخفضة جداً (١٠ - ١٥٠)', color: '#bae6fd' },
+                { val: 'منخفضة (١٥٠ - ٥٠٠)', color: '#7dd3fc' },
+                { val: 'متوسطة (٥٠٠ - ١٠٠٠)', color: '#0284c7' },
+                { val: 'كثيفة (أكثر من ١٠٠٠)', color: '#0369a1' }
+            ];
+            intervals.forEach(item => {
+                scaleBars.innerHTML += `
+                    <div class="legend-row">
+                        <span class="legend-val">${item.val}</span>
+                        <div class="legend-color" style="background:${item.color};"></div>
+                    </div>
+                `;
+            });
+        }
+    }
+
+    // Master Dashboard Render update
+    function updateDashboard() {
+        if (!riyadhMap || riyadhRawData.length === 0) return;
+
+        updateKPIs();
+
+        if (activeMode === 'grid') {
+            renderPointGrid();
+        } else {
+            renderHeatmap();
+        }
+
+        updateLegend();
+    }
+
+    // Debounced Filtering logic
+    let filterTimeout = null;
+    function filterDashboardData() {
+        if (filterTimeout) clearTimeout(filterTimeout);
+        
+        filterTimeout = setTimeout(() => {
+            requestAnimationFrame(() => {
+                riyadhFilteredFeatures = riyadhRawData.filter(feature => {
+                    const prop = feature.properties;
+                    const matchLst = prop.lst >= dashboardFilters.lstMin && prop.lst <= dashboardFilters.lstMax;
+                    const matchNdvi = prop.ndvi >= dashboardFilters.ndviMin && prop.ndvi <= dashboardFilters.ndviMax;
+                    const matchPop = prop.population >= dashboardFilters.popMin && prop.population <= dashboardFilters.popMax;
+                    return matchLst && matchNdvi && matchPop;
+                });
+                
+                updateDashboard();
+            });
+        }, 60);
+    }
+
+    // Sliders Dual Controls Sync
+    function setupDualSliders(minId, maxId, valLabelId, filterMinKey, filterMaxKey, unit = '') {
+        const minInput = document.getElementById(minId);
+        const maxInput = document.getElementById(maxId);
+        const label = document.getElementById(valLabelId);
+
+        if (!minInput || !maxInput || !label) return;
+
+        function updateLabels() {
+            let minVal = parseFloat(minInput.value);
+            let maxVal = parseFloat(maxInput.value);
+
+            if (minVal > maxVal) {
+                // Swap values to prevent handles crossing
+                const temp = minVal;
+                minVal = maxVal;
+                maxInput.value = temp;
+                minInput.value = maxVal;
+            }
+
+            dashboardFilters[filterMinKey] = minVal;
+            dashboardFilters[filterMaxKey] = maxVal;
+
+            label.textContent = `${minVal.toLocaleString('en-US')}${unit} - ${maxVal.toLocaleString('en-US')}${unit}`;
+            filterDashboardData();
+        }
+
+        minInput.addEventListener('input', updateLabels);
+        maxInput.addEventListener('input', updateLabels);
+    }
+
+    // Trigger Initial Fetch if the dashboard section exists in DOM
+    const dashboardSection = document.getElementById('riyadh-dashboard');
+    if (dashboardSection) {
+        loadRiyadhDataset();
+
+        // 1. Setup Dual Sliders
+        setupDualSliders('lst-min', 'lst-max', 'slider-lst-val', 'lstMin', 'lstMax', '°م');
+        setupDualSliders('ndvi-min', 'ndvi-max', 'slider-ndvi-val', 'ndviMin', 'ndviMax', '');
+        setupDualSliders('pop-min', 'pop-max', 'slider-pop-val', 'popMin', 'popMax', ' نسمة');
+
+        // 2. Variable Buttons Listeners
+        const varButtons = document.querySelectorAll('.var-btn');
+        varButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                varButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                activeVar = btn.getAttribute('data-var');
+                updateDashboard();
+            });
+        });
+
+        // 3. View Mode Toggles Listeners
+        const viewToggles = document.querySelectorAll('.view-toggle-btn');
+        viewToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                viewToggles.forEach(t => t.classList.remove('active'));
+                toggle.classList.add('active');
+                
+                activeMode = toggle.getAttribute('data-mode');
+                updateDashboard();
+            });
+        });
+
+        // 4. Reset Filters Button
+        const resetBtn = document.getElementById('reset-dashboard-filters');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                document.getElementById('lst-min').value = 20;
+                document.getElementById('lst-max').value = 60;
+                document.getElementById('ndvi-min').value = -0.1;
+                document.getElementById('ndvi-max').value = 0.6;
+                document.getElementById('pop-min').value = 0;
+                document.getElementById('pop-max').value = 1500;
+
+                dashboardFilters.lstMin = 20;
+                dashboardFilters.lstMax = 60;
+                dashboardFilters.ndviMin = -0.1;
+                dashboardFilters.ndviMax = 0.6;
+                dashboardFilters.popMin = 0;
+                dashboardFilters.popMax = 1500;
+
+                document.getElementById('slider-lst-val').textContent = '20°م - 60°م';
+                document.getElementById('slider-ndvi-val').textContent = '-0.1 - 0.6';
+                document.getElementById('slider-pop-val').textContent = '0 - 1,500 نسمة';
+
+                filterDashboardData();
+            });
+        }
+
+        // 5. Exporter: GeoJSON
+        const exportGeojsonBtn = document.getElementById('export-geojson');
+        if (exportGeojsonBtn) {
+            exportGeojsonBtn.addEventListener('click', () => {
+                if (riyadhFilteredFeatures.length === 0) {
+                    alert('لا توجد بيانات مفلترة لتصديرها!');
+                    return;
+                }
+
+                const fc = {
+                    type: "FeatureCollection",
+                    metadata: {
+                        region: "riyadh",
+                        region_name_ar: "منطقة الرياض (تصفية مخصصة)",
+                        filtered_count: riyadhFilteredFeatures.length,
+                        export_time: new Date().toISOString()
+                    },
+                    features: riyadhFilteredFeatures
+                };
+
+                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(fc, null, 2));
+                const downloadAnchor = document.createElement('a');
+                downloadAnchor.setAttribute("href", dataStr);
+                downloadAnchor.setAttribute("download", `riyadh_filtered_observatory_${activeVar}.geojson`);
+                document.body.appendChild(downloadAnchor);
+                downloadAnchor.click();
+                downloadAnchor.remove();
+            });
+        }
+
+        // 6. Exporter: CSV
+        const exportCsvBtn = document.getElementById('export-csv');
+        if (exportCsvBtn) {
+            exportCsvBtn.addEventListener('click', () => {
+                if (riyadhFilteredFeatures.length === 0) {
+                    alert('لا توجد بيانات مفلترة لتصديرها!');
+                    return;
+                }
+
+                // Write header
+                let csvContent = "Longitude,Latitude,Projected_X_3857,Projected_Y_3857,LST_Celsius,NDVI,Population_Cell\n";
+                
+                riyadhFilteredFeatures.forEach(feature => {
+                    const coords = feature.geometry.coordinates;
+                    const prop = feature.properties;
+                    csvContent += `${coords[0]},${coords[1]},${prop.x_epsg3857},${prop.y_epsg3857},${prop.lst},${prop.ndvi},${prop.population}\n`;
+                });
+
+                const dataStr = "data:text/csv;charset=utf-8,\uFEFF" + encodeURIComponent(csvContent); // prepend UTF-8 BOM for Excel Arabic layout
+                const downloadAnchor = document.createElement('a');
+                downloadAnchor.setAttribute("href", dataStr);
+                downloadAnchor.setAttribute("download", `riyadh_filtered_observatory_${activeVar}.csv`);
+                document.body.appendChild(downloadAnchor);
+                downloadAnchor.click();
+                downloadAnchor.remove();
+            });
+        }
+    }
 });
 
 

@@ -1143,6 +1143,173 @@
             </div>
         </section>
 
+        <!-- Riyadh Spatial Analytics Dashboard Section -->
+        <section id="riyadh-dashboard" class="dashboard-section">
+            <div class="container">
+                <div class="section-header" id="dashboardHeader">
+                    <div class="dashboard-badge">
+                        <i class="fa-solid fa-earth-asia animate-spin-slow"></i> مرصد التحليل المكاني لمدينة الرياض
+                    </div>
+                    <h2 class="section-title">لوحة تحليل بيانات الرياض التفاعلية</h2>
+                    <p class="section-subtitle">لوحة معلومات جغرافية متكاملة لتحليل 1,258 نقطة قياس سكانية وبيئية بدقة متناهية (100 متر) مأخوذة من بيانات الأقمار الصناعية والتعداد الإحصائي الفعلي.</p>
+                </div>
+
+                <!-- KPI Analytics Summary Grid -->
+                <div class="dashboard-kpi-grid">
+                    <!-- KPI 1: Active Points -->
+                    <div class="kpi-card" id="kpi-points-card">
+                        <div class="kpi-icon-wrapper"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="kpi-info">
+                            <span class="kpi-label">النقاط المفلترة</span>
+                            <h3 class="kpi-value" id="kpi-active-points">1,258</h3>
+                            <span class="kpi-subtext" id="kpi-active-percent">100% من إجمالي المرصد</span>
+                        </div>
+                        <div class="kpi-progress-bar"><div class="kpi-progress" id="kpi-progress-points" style="width: 100%;"></div></div>
+                    </div>
+                    
+                    <!-- KPI 2: Avg LST -->
+                    <div class="kpi-card" id="kpi-lst-card">
+                        <div class="kpi-icon-wrapper"><i class="fa-solid fa-temperature-high"></i></div>
+                        <div class="kpi-info">
+                            <span class="kpi-label">متوسط درجة الحرارة (LST)</span>
+                            <h3 class="kpi-value" id="kpi-avg-lst">--.- °م</h3>
+                            <span class="kpi-subtext">معدل حرارة أسطح الخلايا</span>
+                        </div>
+                        <div class="kpi-progress-bar"><div class="kpi-progress bg-orange" id="kpi-progress-lst" style="width: 0%;"></div></div>
+                    </div>
+
+                    <!-- KPI 3: Avg NDVI -->
+                    <div class="kpi-card" id="kpi-ndvi-card">
+                        <div class="kpi-icon-wrapper"><i class="fa-solid fa-seedling"></i></div>
+                        <div class="kpi-info">
+                            <span class="kpi-label">معدل الغطاء النباتي (NDVI)</span>
+                            <h3 class="kpi-value" id="kpi-avg-ndvi">-.----</h3>
+                            <span class="kpi-subtext">مؤشر حيوية المسطحات الخضراء</span>
+                        </div>
+                        <div class="kpi-progress-bar"><div class="kpi-progress bg-emerald" id="kpi-progress-ndvi" style="width: 0%;"></div></div>
+                    </div>
+
+                    <!-- KPI 4: Population -->
+                    <div class="kpi-card" id="kpi-pop-card">
+                        <div class="kpi-icon-wrapper"><i class="fa-solid fa-users"></i></div>
+                        <div class="kpi-info">
+                            <span class="kpi-label">التعداد السكاني الإجمالي</span>
+                            <h3 class="kpi-value" id="kpi-total-pop">--,---</h3>
+                            <span class="kpi-subtext">الكثافة المغطاة بالخلايا المحددة</span>
+                        </div>
+                        <div class="kpi-progress-bar"><div class="kpi-progress bg-cyan" id="kpi-progress-pop" style="width: 0%;"></div></div>
+                    </div>
+                </div>
+
+                <!-- Main Layout Container (Sidebar Controls + Map Canvas) -->
+                <div class="dashboard-layout">
+                    <!-- Controls Sidebar -->
+                    <aside class="dashboard-sidebar">
+                        <div class="sidebar-block">
+                            <h3><i class="fa-solid fa-layer-group"></i> اختيار متغير التحليل</h3>
+                            <p class="block-desc">اختر المتغير الجغرافي لتلوين شبكة النقاط أو توليد الخريطة الحرارية البصرية:</p>
+                            <div class="variable-selector">
+                                <button class="var-btn active" data-var="lst" type="button">
+                                    <i class="fa-solid fa-temperature-high"></i> درجة الحرارة (LST)
+                                </button>
+                                <button class="var-btn" data-var="ndvi" type="button">
+                                    <i class="fa-solid fa-seedling"></i> الغطاء النباتي (NDVI)
+                                </button>
+                                <button class="var-btn" data-var="population" type="button">
+                                    <i class="fa-solid fa-users"></i> الكثافة السكانية (Pop)
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-block">
+                            <h3><i class="fa-solid fa-sliders"></i> التصفية الحركية (Real-time Filters)</h3>
+                            <p class="block-desc">قم بتصفية 1,258 خلية مكانية بالوقت الحقيقي بناءً على نطاقات محددة:</p>
+                            
+                            <!-- Filter 1: LST Slider -->
+                            <div class="slider-group">
+                                <div class="slider-header">
+                                    <span class="slider-label"><i class="fa-solid fa-temperature-quarter text-orange"></i> درجة الحرارة (LST)</span>
+                                    <span class="slider-values" id="slider-lst-val">20°م - 60°م</span>
+                                </div>
+                                <div class="double-slider-container">
+                                    <input type="range" id="lst-min" min="20" max="60" step="0.5" value="20" class="slider-range">
+                                    <input type="range" id="lst-max" min="20" max="60" step="0.5" value="60" class="slider-range">
+                                </div>
+                            </div>
+
+                            <!-- Filter 2: NDVI Slider -->
+                            <div class="slider-group">
+                                <div class="slider-header">
+                                    <span class="slider-label"><i class="fa-solid fa-seedling text-emerald"></i> الغطاء النباتي (NDVI)</span>
+                                    <span class="slider-values" id="slider-ndvi-val">-0.1 - 0.6</span>
+                                </div>
+                                <div class="double-slider-container">
+                                    <input type="range" id="ndvi-min" min="-0.1" max="0.6" step="0.01" value="-0.1" class="slider-range">
+                                    <input type="range" id="ndvi-max" min="-0.1" max="0.6" step="0.01" value="0.6" class="slider-range">
+                                </div>
+                            </div>
+
+                            <!-- Filter 3: Population Slider -->
+                            <div class="slider-group">
+                                <div class="slider-header">
+                                    <span class="slider-label"><i class="fa-solid fa-users text-cyan"></i> الكثافة السكانية (الخلية)</span>
+                                    <span class="slider-values" id="slider-pop-val">0 - 1500 نسمة</span>
+                                </div>
+                                <div class="double-slider-container">
+                                    <input type="range" id="pop-min" min="0" max="1500" step="10" value="0" class="slider-range">
+                                    <input type="range" id="pop-max" min="0" max="1500" step="10" value="1500" class="slider-range">
+                                </div>
+                            </div>
+
+                            <button class="btn btn-outline-secondary w-full" id="reset-dashboard-filters" type="button" style="width: 100%; margin-top: 0.5rem; font-size: 0.85rem; font-weight: 600;">
+                                <i class="fa-solid fa-rotate-left"></i> إعادة ضبط التصفية
+                            </button>
+                        </div>
+
+                        <div class="sidebar-block">
+                            <h3><i class="fa-solid fa-file-export"></i> تصدير البيانات المحللة (Export)</h3>
+                            <p class="block-desc">قم بتحميل البيانات المفلترة حالياً مباشرة لاستخدامها في برامج GIS كـ ArcGIS أو QGIS:</p>
+                            <div class="export-buttons-group">
+                                <button class="btn btn-primary btn-sm" id="export-geojson" type="button">
+                                    <i class="fa-solid fa-file-code"></i> GeoJSON
+                                </button>
+                                <button class="btn btn-emerald btn-sm" id="export-csv" type="button">
+                                    <i class="fa-solid fa-file-csv"></i> CSV جدول
+                                </button>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Interactive Map Container -->
+                    <div class="dashboard-map-area">
+                        <!-- Toggle Views (Point Grid vs Heatmap) -->
+                        <div class="map-view-toggles">
+                            <button class="view-toggle-btn active" data-mode="grid" type="button">
+                                <i class="fa-solid fa-circle-nodes"></i> شبكة نقاط القياس
+                            </button>
+                            <button class="view-toggle-btn" data-mode="heatmap" type="button">
+                                <i class="fa-solid fa-fire"></i> الخريطة الحرارية (Heatmap)
+                            </button>
+                        </div>
+
+                        <div class="dashboard-map" id="riyadhMap"></div>
+
+                        <!-- Legend Container -->
+                        <div class="dashboard-legend" id="dashboardLegend">
+                            <span class="legend-title" id="legend-title-text">مفتاح القياس (LST)</span>
+                            <div class="legend-scale" id="legend-scale-bars"></div>
+                        </div>
+
+                        <!-- Data Information Notice -->
+                        <div class="dashboard-info-notice">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span>تتوزع النقاط بشكل شبكي منتظم في مدينة الرياض بدقة 100 متر. يتم ترميز وتلوين الخلايا فورياً بناءً على تصفيتك.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Golden Tips Section -->
         <section id="tips" class="tips-section">
             <div class="container">
@@ -1771,6 +1938,8 @@
 
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Leaflet Heatmap Plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
     <!-- Privacy-friendly Web Analytics (GoatCounter) -->
     <script data-goatcounter="https://webgis-i6na.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
     <!-- Scripts -->
