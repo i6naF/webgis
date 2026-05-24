@@ -5097,3 +5097,329 @@ input:checked + .slider:before {
         gap: 0.85rem !important;
     }
 }
+
+/* ==========================================================================
+   14. Advanced Coordinate Converter Upgrades
+   ========================================================================== */
+.conv-tab-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.conv-tab-btn:hover {
+    color: var(--color-text-white);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.conv-tab-btn.active {
+    background: rgba(0, 242, 254, 0.1);
+    color: #00f2fe;
+    border-color: rgba(0, 242, 254, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.05);
+}
+
+.conv-input-panel {
+    display: none;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.conv-input-panel.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dms-fields input, .dms-fields select, .utm-layout select {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-white);
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-size: 0.9rem;
+    transition: var(--transition-smooth);
+    width: 100%;
+    text-align: center;
+}
+
+.dms-fields input:focus, .dms-fields select:focus, .utm-layout select:focus {
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 8px rgba(0, 242, 254, 0.15);
+    outline: none;
+}
+
+/* ==========================================================================
+   15. Interactive Spatial Simulation Lab Styles
+   ========================================================================== */
+.spatial-lab-section {
+    position: relative;
+    background: transparent;
+    z-index: 2;
+}
+
+.spatial-lab-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 2rem;
+    align-items: stretch;
+    margin-top: 2rem;
+}
+
+.lab-tool-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(13, 21, 38, 0.2);
+    color: var(--color-text-white);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: right;
+    width: 100%;
+}
+
+.lab-tool-btn:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.04);
+    transform: translateY(-2px);
+}
+
+.lab-tool-btn.active {
+    border-color: var(--color-secondary);
+    background: rgba(0, 242, 254, 0.05);
+    box-shadow: 0 8px 24px rgba(0, 242, 254, 0.08);
+}
+
+.lab-tool-btn.active i.fa-chevron-left {
+    color: var(--color-secondary) !important;
+    transform: translateX(-4px);
+}
+
+.lab-param-group {
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.lab-param-group.active {
+    display: block;
+}
+
+.lab-overlay-action-btn {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--color-text-muted);
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.lab-overlay-action-btn:hover {
+    color: var(--color-text-white);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.lab-overlay-action-btn.active {
+    border-color: #eab308;
+    background: rgba(234, 179, 8, 0.08);
+    color: #eab308;
+}
+
+#spatialLabMap {
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ==========================================================================
+   16. GIS File Converter Styles
+   ========================================================================== */
+.file-converter-section {
+    position: relative;
+    background: transparent;
+    z-index: 2;
+}
+
+.file-converter-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2.5rem;
+    align-items: stretch;
+    margin-top: 2rem;
+}
+
+.file-conv-tab-btn {
+    flex: 1;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.file-conv-tab-btn:hover {
+    color: var(--color-text-white);
+}
+
+.file-conv-tab-btn.active {
+    background: rgba(0, 242, 254, 0.1);
+    color: #00f2fe;
+    border-color: rgba(0, 242, 254, 0.2);
+}
+
+.file-dropzone {
+    border: 2px dashed rgba(0, 242, 254, 0.25);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.01);
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.file-dropzone:hover {
+    border-color: var(--color-secondary);
+    background: rgba(0, 242, 254, 0.02);
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.05);
+}
+
+.file-dropzone.dragover {
+    border-color: var(--color-secondary);
+    background: rgba(0, 242, 254, 0.06);
+    transform: scale(0.98);
+}
+
+.file-dropzone.dragover #dropzone-icon {
+    transform: translateY(-6px) scale(1.1);
+    color: #00f2fe;
+}
+
+.dropzone-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0);
+    pointer-events: none;
+    transition: all 0.3s;
+}
+
+.file-dropzone.dragover .dropzone-glow {
+    box-shadow: inset 0 0 30px rgba(0, 242, 254, 0.15);
+}
+
+/* Previsualizer Table and Scrollbars */
+.preview-viewport table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+}
+
+.preview-viewport th {
+    background: rgba(13, 21, 38, 0.95);
+    color: #00f2fe;
+    font-weight: 700;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.preview-viewport td {
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    color: var(--color-text-white);
+}
+
+.preview-viewport tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.preview-viewport::-webkit-scrollbar, 
+.preview-viewport pre::-webkit-scrollbar, 
+.preview-viewport div::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.preview-viewport::-webkit-scrollbar-track,
+.preview-viewport pre::-webkit-scrollbar-track,
+.preview-viewport div::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.preview-viewport::-webkit-scrollbar-thumb,
+.preview-viewport pre::-webkit-scrollbar-thumb,
+.preview-viewport div::-webkit-scrollbar-thumb {
+    background: rgba(0, 242, 254, 0.15);
+    border-radius: 3px;
+}
+
+.preview-viewport::-webkit-scrollbar-thumb:hover,
+.preview-viewport pre::-webkit-scrollbar-thumb:hover,
+.preview-viewport div::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 242, 254, 0.35);
+}
+
+/* ==========================================================================
+   17. Responsive Grid Overrides
+   ========================================================================== */
+@media screen and (max-width: 992px) {
+    .spatial-lab-grid, .file-converter-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    #geodesyCard {
+        grid-column: span 1 !important;
+    }
+    
+    .geodesy-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    .geodesy-results {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        padding: 1rem !important;
+    }
+    
+    .geo-result-item {
+        border-right: none !important;
+        border-left: none !important;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .geo-result-item:last-child {
+        border-bottom: none !important;
+    }
+}
+

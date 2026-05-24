@@ -162,34 +162,47 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================================================
-    // 6. Interactive Coordinate Converter Widget
+    // 6. Upgraded Interactive Coordinate Converter & Geodesy Widget
     // ==========================================================================
-    const inputLat = document.getElementById('input-lat');
-    const inputLng = document.getElementById('input-lng');
-    const outputDms = document.getElementById('output-dms');
-    const outputMercator = document.getElementById('output-mercator');
-    const presetBtns = document.querySelectorAll('.preset-btn');
-    const copyBtns = document.querySelectorAll('.copy-btn');
+    
+    // Mathematical Geodesy Constants & Projections (WGS84 Ellipsoid)
+    const WGS84_A = 6378137.0; // semi-major axis in meters
+    const WGS84_F = 1 / 298.257223563; // flattening
+    const WGS84_B = WGS84_A * (1 - WGS84_F); // semi-minor axis
+    const WGS84_E_SQ = (WGS84_A * WGS84_A - WGS84_B * WGS84_B) / (WGS84_A * WGS84_A); // eccentricity squared
+    const WGS84_E_PRIME_SQ = (WGS84_A * WGS84_A - WGS84_B * WGS84_B) / (WGS84_B * WGS84_B); // second eccentricity squared
+    const UTM_K0 = 0.9996; // central meridian scale factor
 
     // Decimal Degrees (DD) to DMS conversion
-    function ddToDms(lat, lng) {
-        const formatDMS = (val, isLat) => {
-            const abs = Math.abs(val);
-            const d = Math.floor(abs);
-            const m = Math.floor((abs - d) * 60);
-            const s = ((abs - d - m / 60) * 3600).toFixed(2);
-            
-            let dir = "";
-            if (isLat) {
-                dir = val >= 0 ? "شمالاً (N)" : "جنوباً (S)";
-            } else {
-                dir = val >= 0 ? "شرقاً (E)" : "غرباً (W)";
-            }
-            
-            return `${d}° ${m}' ${s}" ${dir}`;
-        };
+    function ddToDms(val, isLat) {
+        const abs = Math.abs(val);
+        const d = Math.floor(abs);
+        const m = Math.floor((abs - d) * 60);
+        const s = ((abs - d - m / 60) * 3600).toFixed(2);
         
-        return `${formatDMS(lat, true)} | ${formatDMS(lng, false)}`;
+        let dir = "";
+        if (isLat) {
+            dir = val >= 0 ? "N" : "S";
+        } else {
+            dir = val >= 0 ? "E" : "W";
+        }
+        
+        return {
+            deg: d,
+            min: m,
+            sec: parseFloat(s),
+            dir: dir,
+            str: `${d}° ${m}' ${s}" ${dir === "N" ? "شمالاً" : dir === "S" ? "جنوباً" : dir === "E" ? "شرقاً" : "غرباً"} (${dir})`
+        };
+    }
+
+    // DMS to DD
+    function dmsToDd(deg, min, sec, dir) {
+        let dd = deg + min / 60 + sec / 3600;
+        if (dir === 'S' || dir === 'W' || dir === 's' || dir === 'w') {
+            dd = -dd;
+        }
+        return dd;
     }
 
     // DD to Web Mercator (EPSG:3857) meters conversion
@@ -198,71 +211,413 @@ document.addEventListener('DOMContentLoaded', () => {
         const maxMerc = 20037508.34;
         
         let x = lng * (Math.PI / 180) * r;
-        
-        // Clamp latitude to avoid infinity at poles ([-85.05112878, 85.05112878])
         const latClamped = Math.max(-85.05112878, Math.min(85.05112878, lat));
         let y = Math.log(Math.tan((90 + latClamped) * Math.PI / 360)) * r;
         
-        // Force coordinates within EPSG:3857 boundaries
         if (x > maxMerc) x = maxMerc;
         if (x < -maxMerc) x = -maxMerc;
         if (y > maxMerc) y = maxMerc;
         if (y < -maxMerc) y = -maxMerc;
         
-        return `X: ${x.toFixed(2)} م | Y: ${y.toFixed(2)} م`;
+        return { x: x, y: y };
     }
 
-    // Trigger update of converted values
-    function updateConversion() {
-        if (!inputLat || !inputLng || !outputDms || !outputMercator) return;
-        
-        let lat = parseFloat(inputLat.value);
-        let lng = parseFloat(inputLng.value);
-        
-        if (isNaN(lat) || isNaN(lng)) {
-            outputDms.textContent = "الرجاء إدخال إحداثيات صالحة";
-            outputMercator.textContent = "الرجاء إدخال إحداثيات صالحة";
-            return;
+    // Web Mercator (EPSG:3857) to DD conversion
+    function webMercatorToDd(x, y) {
+        const r = 6378137;
+        let lng = (x / r) * (180 / Math.PI);
+        let lat = (Math.atan(Math.exp(y / r)) * 2 - Math.PI / 2) * (180 / Math.PI);
+        return { lat: lat, lng: lng };
+    }
+
+    // WGS84 (Lat, Lng) to UTM Projection Forward
+    function wgs84ToUtm(lat, lng) {
+        if (lat < -80 || lat > 84) {
+            return null; // UTM is defined only between 80 degrees S and 84 degrees N
         }
-
-        // Validate bounds
-        if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
-            outputDms.textContent = "الإحداثيات خارج الحدود المسموحة";
-            outputMercator.textContent = "الإحداثيات خارج الحدود المسموحة";
-            return;
+        
+        let zone = Math.floor((lng + 180) / 6) + 1;
+        if (lat >= 56 && lat < 64 && lng >= 3 && lng < 12) zone = 32;
+        if (lat >= 72 && lat < 84) {
+            if (lng >= 0 && lng < 9) zone = 31;
+            else if (lng >= 9 && lng < 21) zone = 33;
+            else if (lng >= 21 && lng < 33) zone = 35;
+            else if (lng >= 33 && lng < 42) zone = 37;
         }
-
-        outputDms.textContent = ddToDms(lat, lng);
-        outputMercator.textContent = ddToWebMercator(lat, lng);
+        const zoneMeridian = (zone - 1) * 6 - 180 + 3;
+        
+        const latRad = lat * Math.PI / 180;
+        const lngRad = lng * Math.PI / 180;
+        const centralMeridianRad = zoneMeridian * Math.PI / 180;
+        
+        const dLng = lngRad - centralMeridianRad;
+        const sinLat = Math.sin(latRad);
+        const cosLat = Math.cos(latRad);
+        const tanLat = Math.tan(latRad);
+        
+        const N = WGS84_A / Math.sqrt(1 - WGS84_E_SQ * sinLat * sinLat);
+        const T = tanLat * tanLat;
+        const C = WGS84_E_PRIME_SQ * cosLat * cosLat;
+        const A = dLng * cosLat;
+        
+        const M = WGS84_A * (
+            (1 - WGS84_E_SQ/4 - 3*WGS84_E_SQ*WGS84_E_SQ/64 - 5*WGS84_E_SQ*WGS84_E_SQ*WGS84_E_SQ/256) * latRad -
+            (3*WGS84_E_SQ/8 + 3*WGS84_E_SQ*WGS84_E_SQ/32 + 45*WGS84_E_SQ*WGS84_E_SQ*WGS84_E_SQ/1024) * Math.sin(2*latRad) +
+            (15*WGS84_E_SQ*WGS84_E_SQ/256 + 45*WGS84_E_SQ*WGS84_E_SQ*WGS84_E_SQ/1024) * Math.sin(4*latRad) -
+            (35*WGS84_E_SQ*WGS84_E_SQ*WGS84_E_SQ/3072) * Math.sin(6*latRad)
+        );
+        
+        let easting = UTM_K0 * N * (A + (1 - T + C) * A*A*A/6 + (5 - 18*T + T*T + 72*C - 58*WGS84_E_PRIME_SQ) * A*A*A*A*A/120) + 500000.0;
+        let northing = UTM_K0 * (M + N * tanLat * (A*A/2 + (5 - T + 9*C + 4*C*C) * A*A*A*A/24 + (61 - 58*T + T*T + 600*C - 330*WGS84_E_PRIME_SQ) * A*A*A*A*A*A/720));
+        
+        if (lat < 0) {
+            northing += 10000000.0; // False northing for southern hemisphere
+        }
+        
+        return {
+            easting: easting,
+            northing: northing,
+            zone: zone,
+            hemisphere: lat >= 0 ? 'N' : 'S'
+        };
     }
 
-    if (inputLat && inputLng) {
-        inputLat.addEventListener('input', updateConversion);
-        inputLng.addEventListener('input', updateConversion);
+    // UTM Projection Backward to WGS84
+    function utmToWgs84(easting, northing, zone, hemisphere) {
+        const x = easting - 500000.0;
+        let y = northing;
+        if (hemisphere === 'S' || hemisphere === 's') {
+            y -= 10000000.0;
+        }
+        
+        const e1 = (1 - Math.sqrt(1 - WGS84_E_SQ)) / (1 + Math.sqrt(1 - WGS84_E_SQ));
+        const M = y / UTM_K0;
+        const mu = M / (WGS84_A * (1 - WGS84_E_SQ/4 - 3*WGS84_E_SQ*WGS84_E_SQ/64 - 5*WGS84_E_SQ*WGS84_E_SQ*WGS84_E_SQ/256));
+        
+        const phi1Rad = mu +
+            (3*e1/2 - 27*e1*e1*e1/32) * Math.sin(2*mu) +
+            (21*e1*e1/16 - 55*e1*e1*e1*e1/32) * Math.sin(4*mu) +
+            (151*e1*e1*e1/96) * Math.sin(6*mu) +
+            (1097*e1*e1*e1*e1/512) * Math.sin(8*mu);
+            
+        const sinPhi1 = Math.sin(phi1Rad);
+        const cosPhi1 = Math.cos(phi1Rad);
+        const tanPhi1 = Math.tan(phi1Rad);
+        
+        const N1 = WGS84_A / Math.sqrt(1 - WGS84_E_SQ * sinPhi1 * sinPhi1);
+        const R1 = WGS84_A * (1 - WGS84_E_SQ) / Math.pow(1 - WGS84_E_SQ * sinPhi1 * sinPhi1, 1.5);
+        const D = x / (N1 * UTM_K0);
+        
+        let lat = phi1Rad - (N1 * tanPhi1 / R1) * (
+            D*D/2 -
+            (5 + 3*tanPhi1*tanPhi1 + 10*WGS84_E_PRIME_SQ*cosPhi1*cosPhi1 - 4*WGS84_E_PRIME_SQ*WGS84_E_PRIME_SQ*cosPhi1*cosPhi1*cosPhi1*cosPhi1 - 9*WGS84_E_PRIME_SQ*tanPhi1*tanPhi1*cosPhi1*cosPhi1) * D*D*D*D/24 +
+            (61 + 90*tanPhi1*tanPhi1 + 298*WGS84_E_PRIME_SQ*cosPhi1*cosPhi1 + 45*Math.pow(tanPhi1, 4) - 252*WGS84_E_PRIME_SQ*tanPhi1*tanPhi1*cosPhi1*cosPhi1 - 3*WGS84_E_PRIME_SQ*WGS84_E_PRIME_SQ*cosPhi1*cosPhi1*cosPhi1*cosPhi1) * Math.pow(D, 6)/720
+        );
+        
+        let zoneMeridian = (zone - 1) * 6 - 180 + 3;
+        let lng = (D - (1 + 2*tanPhi1*tanPhi1 + WGS84_E_PRIME_SQ*cosPhi1*cosPhi1) * D*D*D/6 +
+            (5 - 2*WGS84_E_PRIME_SQ*cosPhi1*cosPhi1 + 28*tanPhi1*tanPhi1 - 3*WGS84_E_PRIME_SQ*WGS84_E_PRIME_SQ*cosPhi1*cosPhi1*cosPhi1*cosPhi1 + 8*WGS84_E_PRIME_SQ*tanPhi1*tanPhi1*cosPhi1*cosPhi1 + 24*Math.pow(tanPhi1, 4)) * Math.pow(D, 5)/120
+        ) / cosPhi1;
+        
+        lat = lat * 180 / Math.PI;
+        lng = zoneMeridian + lng * 180 / Math.PI;
+        
+        return { lat: lat, lng: lng };
     }
 
-    // Preset location buttons
+    // Haversine Geodetic Distance between two WGS84 points
+    function calculateHaversineDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371000; // meters
+        const phi1 = lat1 * Math.PI / 180;
+        const phi2 = lat2 * Math.PI / 180;
+        const dPhi = (lat2 - lat1) * Math.PI / 180;
+        const dLambda = (lon2 - lon1) * Math.PI / 180;
+        
+        const a = Math.sin(dPhi/2) * Math.sin(dPhi/2) +
+                  Math.cos(phi1) * Math.cos(phi2) *
+                  Math.sin(dLambda/2) * Math.sin(dLambda/2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return R * c;
+    }
+
+    // Geodetic Initial Azimuth (Bearing)
+    function calculateBearing(lat1, lon1, lat2, lon2) {
+        const phi1 = lat1 * Math.PI / 180;
+        const phi2 = lat2 * Math.PI / 180;
+        const lambda1 = lon1 * Math.PI / 180;
+        const lambda2 = lon2 * Math.PI / 180;
+        
+        const y = Math.sin(lambda2 - lambda1) * Math.cos(phi2);
+        const x = Math.cos(phi1) * Math.sin(phi2) -
+                  Math.sin(phi1) * Math.cos(phi2) * Math.cos(lambda2 - lambda1);
+        const theta = Math.atan2(y, x);
+        return (theta * 180 / Math.PI + 360) % 360;
+    }
+
+    // Cardinal Direction translation in Arabic
+    function getCardinalDirection(bearing) {
+        const directions = [
+            "شمال (N)", "شمال شرق (NNE)", "شمال شرقي (NE)", "شرق شمال شرق (ENE)",
+            "شرق (E)", "شرق جنوب شرق (ESE)", "جنوب شرقي (SE)", "جنوب جنوب شرق (SSE)",
+            "جنوب (S)", "جنوب جنوب غرب (SSW)", "جنوب غربي (SW)", "غرب جنوب غرب (WSW)",
+            "غرب (W)", "غرب شمال غرب (WNW)", "شمال غربي (NW)", "شمال شمال غرب (NNW)"
+        ];
+        const index = Math.round(bearing / 22.5) % 16;
+        return directions[index];
+    }
+
+    // UI elements binding for Converter
+    const inputLat = document.getElementById('input-lat');
+    const inputLng = document.getElementById('input-lng');
+    const dmsLatDeg = document.getElementById('dms-lat-deg');
+    const dmsLatMin = document.getElementById('dms-lat-min');
+    const dmsLatSec = document.getElementById('dms-lat-sec');
+    const dmsLatDir = document.getElementById('dms-lat-dir');
+    const dmsLngDeg = document.getElementById('dms-lng-deg');
+    const dmsLngMin = document.getElementById('dms-lng-min');
+    const dmsLngSec = document.getElementById('dms-lng-sec');
+    const dmsLngDir = document.getElementById('dms-lng-dir');
+    const utmEasting = document.getElementById('utm-easting');
+    const utmNorthing = document.getElementById('utm-northing');
+    const utmZone = document.getElementById('utm-zone');
+    const utmHemisphere = document.getElementById('utm-hemisphere');
+    const inputMercX = document.getElementById('input-merc-x');
+    const inputMercY = document.getElementById('input-merc-y');
+
+    const outputWgs84 = document.getElementById('output-wgs84');
+    const outputDms = document.getElementById('output-dms');
+    const outputUtm = document.getElementById('output-utm');
+    const outputMercator = document.getElementById('output-mercator');
+
+    let currentInputMode = 'wgs84'; // 'wgs84', 'dms', 'utm', 'mercator'
+
+    // Tab buttons event listeners
+    const convTabBtns = document.querySelectorAll('.conv-tab-btn');
+    const convInputPanels = document.querySelectorAll('.conv-input-panel');
+
+    convTabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            convTabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const targetTab = btn.dataset.tab;
+            currentInputMode = targetTab;
+            
+            convInputPanels.forEach(panel => {
+                panel.style.display = 'none';
+            });
+            const activePanel = document.getElementById(`panel-${targetTab}`);
+            if (activePanel) activePanel.style.display = 'block';
+
+            // Show/hide presets button only for WGS84
+            const presetsWgs84 = document.getElementById('preset-buttons-wgs84');
+            if (presetsWgs84) {
+                presetsWgs84.style.display = targetTab === 'wgs84' ? 'block' : 'none';
+            }
+
+            // Sync values from previous calculated state
+            pullActiveCoordinates();
+        });
+    });
+
+    // Preset click bindings for the updated preset buttons
+    const presetBtns = document.querySelectorAll('.preset-btn');
     presetBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            const lat = btn.dataset.lat;
-            const lng = btn.dataset.lng;
+            const lat = parseFloat(btn.dataset.lat);
+            const lng = parseFloat(btn.dataset.lng);
             if (inputLat && inputLng) {
                 inputLat.value = lat;
                 inputLng.value = lng;
-                updateConversion();
-                
-                // Add a brief animation pulse to input fields on preset select
-                inputLat.classList.add('pulse-highlight');
-                inputLng.classList.add('pulse-highlight');
-                setTimeout(() => {
-                    inputLat.classList.remove('pulse-highlight');
-                    inputLng.classList.remove('pulse-highlight');
-                }, 600);
+                triggerCoordinateConversion(lat, lng);
             }
         });
     });
 
-    // Copy to Clipboard buttons
+    // Extract current display values and perform recalculations from selected input source
+    function processActiveConversion() {
+        let lat, lng;
+
+        if (currentInputMode === 'wgs84') {
+            if (!inputLat || !inputLng) return;
+            lat = parseFloat(inputLat.value);
+            lng = parseFloat(inputLng.value);
+            if (isNaN(lat) || isNaN(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+                renderConverterErrors("خطأ: الإحداثيات خارج الحدود");
+                return;
+            }
+        } 
+        else if (currentInputMode === 'dms') {
+            if (!dmsLatDeg) return;
+            const latD = parseInt(dmsLatDeg.value) || 0;
+            const latM = parseInt(dmsLatMin.value) || 0;
+            const latS = parseFloat(dmsLatSec.value) || 0;
+            const latDir = dmsLatDir.value;
+            const lngD = parseInt(dmsLngDeg.value) || 0;
+            const lngM = parseInt(dmsLngMin.value) || 0;
+            const lngS = parseFloat(dmsLngSec.value) || 0;
+            const lngDir = dmsLngDir.value;
+
+            lat = dmsToDd(latD, latM, latS, latDir);
+            lng = dmsToDd(lngD, lngM, lngS, lngDir);
+
+            if (isNaN(lat) || isNaN(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+                renderConverterErrors("خطأ في قيم DMS");
+                return;
+            }
+        } 
+        else if (currentInputMode === 'utm') {
+            if (!utmEasting) return;
+            const easting = parseFloat(utmEasting.value);
+            const northing = parseFloat(utmNorthing.value);
+            const zone = parseInt(utmZone.value);
+            const hemisphere = utmHemisphere.value;
+
+            if (isNaN(easting) || isNaN(northing) || isNaN(zone)) {
+                renderConverterErrors("خطأ في مدخلات UTM");
+                return;
+            }
+
+            const wgs84 = utmToWgs84(easting, northing, zone, hemisphere);
+            lat = wgs84.lat;
+            lng = wgs84.lng;
+
+            if (isNaN(lat) || isNaN(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+                renderConverterErrors("إحداثيات UTM غير متوافقة");
+                return;
+            }
+        } 
+        else if (currentInputMode === 'mercator') {
+            if (!inputMercX) return;
+            const x = parseFloat(inputMercX.value);
+            const y = parseFloat(inputMercY.value);
+
+            if (isNaN(x) || isNaN(y)) {
+                renderConverterErrors("خطأ في ويب ميركاتور");
+                return;
+            }
+
+            const wgs84 = webMercatorToDd(x, y);
+            lat = wgs84.lat;
+            lng = wgs84.lng;
+
+            if (isNaN(lat) || isNaN(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+                renderConverterErrors("إحداثيات ويب ميركاتور غير صالحة");
+                return;
+            }
+        }
+
+        renderAllConverterOutputs(lat, lng);
+    }
+
+    // Pull values from current output text nodes to pre-populate inputs when shifting tabs
+    function pullActiveCoordinates() {
+        if (!outputWgs84) return;
+        const text = outputWgs84.textContent;
+        if (!text || text.includes('--') || text.includes('خطأ')) return;
+        const matches = text.match(/Lat:\s*([-\d.]+)\s*°,\s*Lng:\s*([-\d.]+)/);
+        if (matches && matches.length >= 3) {
+            const lat = parseFloat(matches[1]);
+            const lng = parseFloat(matches[2]);
+            
+            // Sync values to all inputs
+            syncAllInputs(lat, lng);
+        }
+    }
+
+    function syncAllInputs(lat, lng) {
+        // WGS84 inputs
+        if (inputLat && inputLng) {
+            inputLat.value = lat.toFixed(6);
+            inputLng.value = lng.toFixed(6);
+        }
+
+        // DMS inputs
+        const dmsLat = ddToDms(lat, true);
+        const dmsLng = ddToDms(lng, false);
+        if (dmsLatDeg) {
+            dmsLatDeg.value = dmsLat.deg;
+            dmsLatMin.value = dmsLat.min;
+            dmsLatSec.value = dmsLat.sec.toFixed(2);
+            dmsLatDir.value = dmsLat.dir;
+            
+            dmsLngDeg.value = dmsLng.deg;
+            dmsLngMin.value = dmsLng.min;
+            dmsLngSec.value = dmsLng.sec.toFixed(2);
+            dmsLngDir.value = dmsLng.dir;
+        }
+
+        // UTM inputs
+        const utm = wgs84ToUtm(lat, lng);
+        if (utm && utmEasting) {
+            utmEasting.value = utm.easting.toFixed(2);
+            utmNorthing.value = utm.northing.toFixed(2);
+            utmZone.value = utm.zone;
+            utmHemisphere.value = utm.hemisphere;
+        }
+
+        // Web Mercator inputs
+        const merc = ddToWebMercator(lat, lng);
+        if (inputMercX) {
+            inputMercX.value = merc.x.toFixed(2);
+            inputMercY.value = merc.y.toFixed(2);
+        }
+    }
+
+    function triggerCoordinateConversion(lat, lng) {
+        syncAllInputs(lat, lng);
+        renderAllConverterOutputs(lat, lng);
+    }
+
+    function renderConverterErrors(errMsg) {
+        if (outputWgs84) outputWgs84.textContent = errMsg;
+        if (outputDms) outputDms.textContent = errMsg;
+        if (outputUtm) outputUtm.textContent = errMsg;
+        if (outputMercator) outputMercator.textContent = errMsg;
+    }
+
+    function renderAllConverterOutputs(lat, lng) {
+        if (!outputWgs84) return;
+
+        // 1. WGS84 Output
+        outputWgs84.textContent = `Lat: ${lat.toFixed(8)}°, Lng: ${lng.toFixed(8)}°`;
+
+        // 2. DMS Output
+        const latDms = ddToDms(lat, true);
+        const lngDms = ddToDms(lng, false);
+        outputDms.textContent = `${latDms.str} | ${lngDms.str}`;
+
+        // 3. UTM Output
+        const utm = wgs84ToUtm(lat, lng);
+        if (utm) {
+            outputUtm.textContent = `Zone: ${utm.zone}${utm.hemisphere} | E: ${utm.easting.toFixed(2)} م | N: ${utm.northing.toFixed(2)} م`;
+        } else {
+            outputUtm.textContent = "خارج نطاق إسقاط UTM (-80 إلى 84)";
+        }
+
+        // 4. Web Mercator Output
+        const merc = ddToWebMercator(lat, lng);
+        outputMercator.textContent = `X: ${merc.x.toFixed(2)} م | Y: ${merc.y.toFixed(2)} م`;
+    }
+
+    // Attach listeners to all inputs for real-time calculations
+    const allInputs = [
+        inputLat, inputLng, 
+        dmsLatDeg, dmsLatMin, dmsLatSec, dmsLatDir,
+        dmsLngDeg, dmsLngMin, dmsLngSec, dmsLngDir,
+        utmEasting, utmNorthing, utmZone, utmHemisphere,
+        inputMercX, inputMercY
+    ];
+
+    allInputs.forEach(el => {
+        if (el) {
+            el.addEventListener('input', processActiveConversion);
+            el.addEventListener('change', processActiveConversion);
+        }
+    });
+
+    // Clipboard copy mechanism
+    const copyBtns = document.querySelectorAll('.copy-btn');
     copyBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const targetId = btn.dataset.target;
@@ -277,16 +632,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     const originalIconClass = icon ? Array.from(icon.classList) : ['fa-regular', 'fa-copy'];
                     
                     if (span) span.textContent = 'تم النسخ!';
-                    if (icon) {
-                        icon.className = 'fa-solid fa-check';
-                    }
+                    if (icon) icon.className = 'fa-solid fa-check';
                     
                     setTimeout(() => {
                         btn.classList.remove('copied');
                         if (span) span.textContent = originalText;
-                        if (icon) {
-                            icon.className = originalIconClass.join(' ');
-                        }
+                        if (icon) icon.className = originalIconClass.join(' ');
                     }, 1500);
                 }).catch(err => {
                     console.error('Failed to copy text: ', err);
@@ -295,8 +646,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Initial load converter trigger
-    updateConversion();
+    // Geodesy calculations trigger
+    const geoALat = document.getElementById('geo-a-lat');
+    const geoALng = document.getElementById('geo-a-lng');
+    const geoBLat = document.getElementById('geo-b-lat');
+    const geoBLng = document.getElementById('geo-b-lng');
+    const geoDistanceEl = document.getElementById('geo-distance');
+    const geoBearingEl = document.getElementById('geo-bearing');
+    const geoDirectionEl = document.getElementById('geo-direction');
+
+    function processGeodesyCalculation() {
+        if (!geoALat || !geoALng || !geoBLat || !geoBLng || !geoDistanceEl) return;
+
+        const latA = parseFloat(geoALat.value);
+        const lngA = parseFloat(geoALng.value);
+        const latB = parseFloat(geoBLat.value);
+        const lngB = parseFloat(geoBLng.value);
+
+        if (isNaN(latA) || isNaN(lngA) || isNaN(latB) || isNaN(lngB)) {
+            geoDistanceEl.textContent = "--";
+            geoBearingEl.textContent = "--";
+            geoDirectionEl.textContent = "--";
+            return;
+        }
+
+        const distanceM = calculateHaversineDistance(latA, lngA, latB, lngB);
+        const bearing = calculateBearing(latA, lngA, latB, lngB);
+        const direction = getCardinalDirection(bearing);
+
+        let distText = "";
+        if (distanceM < 1000) {
+            distText = `${distanceM.toFixed(1)} م`;
+        } else {
+            const distKm = distanceM / 1000;
+            const distMiles = distKm * 0.621371;
+            distText = `${distKm.toFixed(2)} كم (${distMiles.toFixed(2)} ميل)`;
+        }
+
+        geoDistanceEl.textContent = distText;
+        geoBearingEl.textContent = `${bearing.toFixed(2)}°`;
+        geoDirectionEl.textContent = direction;
+    }
+
+    [geoALat, geoALng, geoBLat, geoBLng].forEach(el => {
+        if (el) {
+            el.addEventListener('input', processGeodesyCalculation);
+        }
+    });
+
+    // Initialize values on first load
+    triggerCoordinateConversion(24.7136, 46.6753);
+    processGeodesyCalculation();
 
     // ==========================================================================
     // 7. Saudi GIS Universities Interactive Map (Leaflet.js)
@@ -1913,6 +2313,799 @@ csv_data = mesh.to_csv()
                 downloadAnchor.remove();
             });
         }
+    }
+
+    // ==========================================================================
+    // 15. Interactive Spatial Simulation Lab (Turf.js & Leaflet)
+    // ==========================================================================
+    let spatialLabMap = null;
+    let labCenterPoint = [24.7136, 46.6753]; // Lat, Lng WGS84 for central Riyadh
+    let activeLabTool = 'buffer'; // 'buffer', 'overlay', 'join'
+    let bufferType = 'point'; // 'point', 'line'
+    let activeOverlayAction = 'intersect'; // 'intersect', 'difference', 'union'
+    
+    // Leaflet Layers
+    let labLayersGroup = L.layerGroup();
+    let labCenterMarker = null;
+
+    // Elements
+    const spatialLabMapEl = document.getElementById('spatialLabMap');
+    const bufferDistanceSlider = document.getElementById('buffer-distance-slider');
+    const bufferValLabel = document.getElementById('buffer-val-label');
+    const joinPointsSlider = document.getElementById('join-points-slider');
+    const joinPointsLabel = document.getElementById('join-points-label');
+    
+    const bufferDrawPointBtn = document.getElementById('buffer-draw-point');
+    const bufferDrawLineBtn = document.getElementById('buffer-draw-line');
+    const btnRegenerateJoin = document.getElementById('btn-regenerate-join');
+    
+    const labToolBtns = document.querySelectorAll('.lab-tool-btn');
+    const labParamGroups = document.querySelectorAll('.lab-param-group');
+    const labOverlayActionBtns = document.querySelectorAll('.lab-overlay-action-btn');
+    const labStatArea = document.getElementById('lab-stat-area');
+    const labExtraStats = document.getElementById('lab-extra-stats');
+
+    function initSpatialLabMap() {
+        if (!spatialLabMapEl || spatialLabMap) return;
+
+        spatialLabMap = L.map('spatialLabMap', {
+            center: labCenterPoint,
+            zoom: 13,
+            preferCanvas: true,
+            zoomControl: true,
+            scrollWheelZoom: false
+        });
+
+        // Dark cartodb tiles to match dashboard layout
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            maxZoom: 20
+        }).addTo(spatialLabMap);
+
+        labLayersGroup.addTo(spatialLabMap);
+
+        // Click on map: shift the analysis center point
+        spatialLabMap.on('click', (e) => {
+            labCenterPoint = [e.latlng.lat, e.latlng.lng];
+            runLabAnalysis();
+        });
+
+        // Initial analysis trigger
+        runLabAnalysis();
+    }
+
+    function runLabAnalysis() {
+        if (!spatialLabMap || typeof turf === 'undefined') return;
+
+        // Clear past visual layers
+        labLayersGroup.clearLayers();
+
+        // Custom neon glowing center icon
+        const centerIcon = L.divIcon({
+            className: 'custom-center-icon',
+            html: `<div style="width: 14px; height: 14px; border-radius: 50%; background: #00f2fe; border: 2px solid #fff; box-shadow: 0 0 10px #00f2fe;"></div>`,
+            iconSize: [14, 14],
+            iconAnchor: [7, 7]
+        });
+
+        // Draw analysis center
+        labCenterMarker = L.marker(labCenterPoint, { icon: centerIcon, zIndexOffset: 1000 }).addTo(labLayersGroup);
+
+        if (activeLabTool === 'buffer') {
+            const distance = parseInt(bufferDistanceSlider.value);
+            bufferValLabel.textContent = `${distance} متر`;
+
+            if (bufferType === 'point') {
+                const pt = turf.point([labCenterPoint[1], labCenterPoint[0]]);
+                const buffered = turf.buffer(pt, distance, { units: 'meters' });
+                const area = turf.area(buffered);
+
+                L.geoJSON(buffered, {
+                    style: {
+                        color: '#00f2fe',
+                        fillColor: '#00f2fe',
+                        fillOpacity: 0.12,
+                        weight: 2,
+                        dashArray: '4, 4'
+                    }
+                }).addTo(labLayersGroup);
+
+                const areaSqKm = area / 1000000;
+                labStatArea.textContent = `${areaSqKm.toFixed(3)} كم² (${(areaSqKm * 100).toFixed(1)} هكتار)`;
+                labExtraStats.innerHTML = `<span style="color: var(--color-text-muted);">نصف القطر:</span> <span class="font-mono text-secondary">${distance} م</span>`;
+            } 
+            else if (bufferType === 'line') {
+                const lng = labCenterPoint[1];
+                const lat = labCenterPoint[0];
+                const lineCoords = [
+                    [lng - 0.015, lat - 0.005],
+                    [lng, lat],
+                    [lng + 0.015, lat + 0.01]
+                ];
+                const line = turf.lineString(lineCoords);
+                const buffered = turf.buffer(line, distance, { units: 'meters' });
+                const area = turf.area(buffered);
+
+                L.geoJSON(line, { style: { color: '#eab308', weight: 4 } }).addTo(labLayersGroup);
+                
+                L.geoJSON(buffered, {
+                    style: {
+                        color: '#00f2fe',
+                        fillColor: '#00f2fe',
+                        fillOpacity: 0.12,
+                        weight: 1.5,
+                        dashArray: '3, 3'
+                    }
+                }).addTo(labLayersGroup);
+
+                const areaSqKm = area / 1000000;
+                labStatArea.textContent = `${areaSqKm.toFixed(3)} كم²`;
+                labExtraStats.innerHTML = `<span style="color: var(--color-text-muted);">طول المسار:</span> <span class="font-mono text-secondary">${(turf.length(line, {units:'kilometers'})).toFixed(2)} كم</span>`;
+            }
+        } 
+        else if (activeLabTool === 'overlay') {
+            const lng = labCenterPoint[1];
+            const lat = labCenterPoint[0];
+
+            // Overlay of two circles
+            const ptA = turf.point([lng - 0.006, lat]);
+            const ptB = turf.point([lng + 0.006, lat]);
+            
+            const polyA = turf.buffer(ptA, 800, { units: 'meters' });
+            const polyB = turf.buffer(ptB, 800, { units: 'meters' });
+
+            L.geoJSON(polyA, { style: { color: '#00f2fe', fillColor: '#00f2fe', fillOpacity: 0.05, weight: 1, dashArray: '3, 3' } }).addTo(labLayersGroup);
+            L.geoJSON(polyB, { style: { color: '#ec4899', fillColor: '#ec4899', fillOpacity: 0.05, weight: 1, dashArray: '3, 3' } }).addTo(labLayersGroup);
+
+            let result = null;
+            let resultColor = '#eab308';
+            let resultName = '';
+
+            try {
+                if (activeOverlayAction === 'intersect') {
+                    result = turf.intersect(polyA, polyB);
+                    resultColor = '#eab308';
+                    resultName = 'التقاطع المشترك (Intersection)';
+                } else if (activeOverlayAction === 'difference') {
+                    result = turf.difference(polyA, polyB);
+                    resultColor = '#10b981';
+                    resultName = 'القص والفرق (Polygon A - B)';
+                } else if (activeOverlayAction === 'union') {
+                    result = turf.union(polyA, polyB);
+                    resultColor = '#a855f7';
+                    resultName = 'الاتحاد المساحي الكلي (Union)';
+                }
+            } catch (err) {
+                console.error("Overlay calculation error: ", err);
+            }
+
+            if (result) {
+                L.geoJSON(result, {
+                    style: {
+                        color: resultColor,
+                        fillColor: resultColor,
+                        fillOpacity: 0.25,
+                        weight: 2
+                    }
+                }).addTo(labLayersGroup);
+
+                const area = turf.area(result);
+                const areaSqKm = area / 1000000;
+                labStatArea.textContent = `${areaSqKm.toFixed(3)} كم²`;
+                labExtraStats.innerHTML = `<span style="color: var(--color-text-muted);">العملية الحالية:</span> <span style="color:${resultColor}; font-weight:700;">${resultName}</span>`;
+            } else {
+                labStatArea.textContent = "0 كم² (لا يوجد تداخل)";
+                labExtraStats.innerHTML = `<span style="color: #ef4444; font-weight:700;"><i class="fa-solid fa-circle-exclamation"></i> لا يوجد تقاطع مساحي!</span>`;
+            }
+        } 
+        else if (activeLabTool === 'join') {
+            const pointCount = parseInt(joinPointsSlider.value);
+            joinPointsLabel.textContent = `${pointCount} نقطة`;
+
+            const lng = labCenterPoint[1];
+            const lat = labCenterPoint[0];
+
+            const centerPt = turf.point([lng, lat]);
+            const boundaryPoly = turf.buffer(centerPt, 1100, { units: 'meters' });
+
+            L.geoJSON(boundaryPoly, {
+                style: {
+                    color: '#ec4899',
+                    fillColor: 'transparent',
+                    weight: 2,
+                    dashArray: '6, 6'
+                }
+            }).addTo(labLayersGroup);
+
+            const bbox = turf.bbox(boundaryPoly);
+            const randomPts = turf.randomPoint(pointCount, { bbox: bbox });
+            const ptsWithin = turf.pointsWithinPolygon(randomPts, boundaryPoly);
+            
+            const insideCount = ptsWithin.features.length;
+
+            randomPts.features.forEach(feat => {
+                const isInside = turf.booleanPointInPolygon(feat.geometry.coordinates, boundaryPoly);
+                
+                L.circleMarker([feat.geometry.coordinates[1], feat.geometry.coordinates[0]], {
+                    radius: 5,
+                    fillColor: isInside ? '#10b981' : '#ef4444',
+                    color: '#fff',
+                    weight: 1,
+                    fillOpacity: 0.95
+                }).bindPopup(`إحداثيات: ${feat.geometry.coordinates[1].toFixed(4)}, ${feat.geometry.coordinates[0].toFixed(4)}<br>الحالة: ${isInside ? 'داخل النطاق (Joined)' : 'خارج النطاق'}`).addTo(labLayersGroup);
+            });
+
+            labStatArea.textContent = `${insideCount} من ${pointCount} نقطة داخل النطاق`;
+            
+            let listHtml = `
+                <div style="margin-top: 8px; max-height: 80px; overflow-y:auto; border-top:1px solid rgba(255,255,255,0.05); padding-top:6px;">
+                    <table style="width:100%; font-size:0.75rem; text-align:right; border-collapse:collapse;">
+                        <thead>
+                            <tr style="color:#10b981; font-weight:700; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <th style="padding: 4px;">معرف النقطة</th>
+                                <th style="padding: 4px;">البعد عن المركز</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+            
+            const limit = Math.min(insideCount, 3);
+            for (let i = 0; i < limit; i++) {
+                const pt = ptsWithin.features[i];
+                const dist = turf.distance(centerPt, pt, { units: 'meters' });
+                listHtml += `
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.03);">
+                        <td style="color:var(--color-text-white); padding: 4px;">Pt_${i+1}</td>
+                        <td class="font-mono text-secondary style="padding: 4px;">${dist.toFixed(1)} م</td>
+                    </tr>`;
+            }
+            if (insideCount > limit) {
+                listHtml += `<tr><td colspan="2" style="text-align:center; color:var(--color-text-muted); font-size:0.7rem; padding: 4px;">+ ${insideCount - limit} نقاط أخرى منضمة...</td></tr>`;
+            }
+            if (insideCount === 0) {
+                listHtml += `<tr><td colspan="2" style="text-align:center; color:#ef4444; font-size:0.7rem; padding: 4px;">لا توجد نقاط منضمة</td></tr>`;
+            }
+            
+            listHtml += `</tbody></table></div>`;
+            labExtraStats.innerHTML = `<span style="color: var(--color-text-muted);">نسبة الانضمام:</span> <span class="font-mono text-secondary">${((insideCount / pointCount) * 100).toFixed(0)}%</span>` + listHtml;
+        }
+    }
+
+    // Tools Toggling Event Listeners
+    labToolBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            labToolBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const tool = btn.dataset.tool;
+            activeLabTool = tool;
+
+            labParamGroups.forEach(p => p.style.display = 'none');
+            const activeGroup = document.getElementById(`param-group-${tool}`);
+            if (activeGroup) activeGroup.style.display = 'block';
+
+            if (labExtraStats) labExtraStats.innerHTML = '';
+
+            runLabAnalysis();
+        });
+    });
+
+    // Action overlay clicks
+    labOverlayActionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            labOverlayActionBtns.forEach(b => {
+                b.classList.remove('active');
+                b.classList.add('btn-outline');
+            });
+            btn.classList.add('active');
+            btn.classList.remove('btn-outline');
+
+            activeOverlayAction = btn.dataset.action;
+            runLabAnalysis();
+        });
+    });
+
+    if (bufferDistanceSlider) {
+        bufferDistanceSlider.addEventListener('input', runLabAnalysis);
+    }
+    if (joinPointsSlider) {
+        joinPointsSlider.addEventListener('input', runLabAnalysis);
+    }
+
+    if (bufferDrawPointBtn && bufferDrawLineBtn) {
+        bufferDrawPointBtn.addEventListener('click', () => {
+            bufferType = 'point';
+            bufferDrawPointBtn.classList.add('btn-secondary');
+            bufferDrawPointBtn.classList.remove('btn-outline');
+            bufferDrawLineBtn.classList.remove('btn-secondary');
+            bufferDrawLineBtn.classList.add('btn-outline');
+            runLabAnalysis();
+        });
+        
+        bufferDrawLineBtn.addEventListener('click', () => {
+            bufferType = 'line';
+            bufferDrawLineBtn.classList.add('btn-secondary');
+            bufferDrawLineBtn.classList.remove('btn-outline');
+            bufferDrawPointBtn.classList.remove('btn-secondary');
+            bufferDrawPointBtn.classList.add('btn-outline');
+            runLabAnalysis();
+        });
+    }
+
+    if (btnRegenerateJoin) {
+        btnRegenerateJoin.addEventListener('click', runLabAnalysis);
+    }
+
+    // Lazy load the Leaflet canvas map when the element intersects
+    const spatialLabObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                initSpatialLabMap();
+                spatialLabObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    if (spatialLabMapEl) {
+        spatialLabObserver.observe(spatialLabMapEl);
+    }
+
+
+    // ==========================================================================
+    // 16. GIS File Converter Logic (Shp.js / CSV / GeoJSON local parser)
+    // ==========================================================================
+    let fileConverterMode = 'shp2geojson';
+    let convertedFileContent = null;
+    let convertedFileName = '';
+
+    const fileInput = document.getElementById('gis-file-input');
+    const dropzone = document.getElementById('gis-file-dropzone');
+    const dropzoneTitle = document.getElementById('dropzone-title');
+    const dropzoneDesc = document.getElementById('dropzone-desc');
+    const dropzoneIcon = document.getElementById('dropzone-icon');
+    
+    const fileConvTabBtns = document.querySelectorAll('.file-conv-tab-btn');
+    const helpTextContent = document.getElementById('help-text-content');
+    
+    const progressContainer = document.getElementById('gis-progress-container');
+    const progressStatusText = document.getElementById('progress-status-text');
+    const progressPercentText = document.getElementById('progress-percent-text');
+    const progressBar = document.getElementById('gis-progress-bar');
+    
+    const outputFilename = document.getElementById('output-filename');
+    const outputFilesize = document.getElementById('output-filesize');
+    const outputJsonViewer = document.getElementById('output-json-viewer');
+    const outputGridViewer = document.getElementById('output-grid-viewer');
+    const btnDownloadResult = document.getElementById('btn-download-result');
+
+    fileConvTabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            fileConvTabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const mode = btn.dataset.mode;
+            fileConverterMode = mode;
+
+            if (fileInput) fileInput.value = '';
+            resetConverterOutputs();
+
+            if (mode === 'shp2geojson') {
+                dropzoneTitle.textContent = 'اسحب ملف Shapefile المضغوط (.zip)';
+                dropzoneDesc.textContent = 'يجب أن يحتوي ملف الـ ZIP على ملفات .shp و .dbf ويفضل .prj لإتمام الإسقاط';
+                dropzoneIcon.className = 'fa-solid fa-file-zipper';
+                helpTextContent.textContent = 'يتيح لك هذا الوضع تحويل الطبقات المساحية والخطية والنقطية من صيغة Shapefile (مع جدول البيانات الوصفية بالكامل) إلى ملف GeoJSON قياسي صالح للاستخدام في الويب فوراً.';
+                fileInput.accept = '.zip';
+            } 
+            else if (mode === 'csv2geojson') {
+                dropzoneTitle.textContent = 'اسحب ملف CSV يحتوي على إحداثيات مكانية';
+                dropzoneDesc.textContent = 'يجب أن يتضمن ملف الـ CSV أعمدة تمثل خطوط العرض والطول (Latitude / Longitude)';
+                dropzoneIcon.className = 'fa-solid fa-file-csv';
+                helpTextContent.textContent = 'تحويل قواعد البيانات الجدولية (CSV) المحتوية على إحداثيات جغرافية (مثل Latitude/Longitude) إلى ملف GeoJSON مكاني بنسق قياسي.';
+                fileInput.accept = '.csv';
+            } 
+            else if (mode === 'geojson2csv') {
+                dropzoneTitle.textContent = 'اسحب ملف GeoJSON للمواقع المكانية';
+                dropzoneDesc.textContent = 'يرفع ملف GeoJSON مساحي ليتم استخلاص بياناته الجدولية إلى ملف إكسل CSV متوافق';
+                dropzoneIcon.className = 'fa-solid fa-file-code';
+                helpTextContent.textContent = 'يقوم هذا الوضع بقراءة طبقات GeoJSON المساحية واستخراج جميع أعمدة البيانات الوصفية (Properties) مع إحداثيات خطوط الطول والعرض وتخزينها في ملف جدول CSV منظم.';
+                fileInput.accept = '.geojson,.json';
+            }
+        });
+    });
+
+    if (dropzone && fileInput) {
+        dropzone.addEventListener('click', () => fileInput.click());
+
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.classList.add('dragover');
+        });
+
+        ['dragleave', 'dragend', 'drop'].forEach(evt => {
+            dropzone.addEventListener(evt, () => {
+                dropzone.classList.remove('dragover');
+            });
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            if (e.dataTransfer.files.length > 0) {
+                handleUploadedGisFile(e.dataTransfer.files[0]);
+            }
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleUploadedGisFile(e.target.files[0]);
+            }
+        });
+    }
+
+    function resetConverterOutputs() {
+        if (outputFilename) {
+            outputFilename.innerHTML = '<i class="fa-solid fa-file-code"></i> لا يوجد ملف معالج حالياً';
+            outputFilesize.textContent = '--';
+            outputJsonViewer.textContent = '{}';
+            outputJsonViewer.style.display = 'block';
+            outputGridViewer.style.display = 'none';
+            btnDownloadResult.disabled = true;
+        }
+        hideConversionProgressBar();
+    }
+
+    function showConversionProgressBar() {
+        if (progressContainer) {
+            progressContainer.style.display = 'block';
+            progressBar.style.width = '0%';
+            progressPercentText.textContent = '0%';
+        }
+    }
+
+    function updateConversionProgressBar(percent, statusText) {
+        if (progressBar) {
+            progressBar.style.width = `${percent}%`;
+            progressPercentText.textContent = `${percent}%`;
+            progressStatusText.textContent = statusText;
+        }
+    }
+
+    function hideConversionProgressBar() {
+        if (progressContainer) {
+            progressContainer.style.display = 'none';
+        }
+    }
+
+    function handleUploadedGisFile(file) {
+        showConversionProgressBar();
+        updateConversionProgressBar(10, 'جاري قراءة بنية الملف محلياً...');
+
+        const sizeInMb = (file.size / (1024 * 1024)).toFixed(2);
+        convertedFileName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+
+        const reader = new FileReader();
+
+        if (fileConverterMode === 'shp2geojson') {
+            if (!file.name.endsWith('.zip')) {
+                alert('الرجاء رفع ملف Shapefile مضغوط بصيغة .zip حصراً!');
+                resetConverterOutputs();
+                return;
+            }
+
+            reader.readAsArrayBuffer(file);
+            reader.onload = function(e) {
+                updateConversionProgressBar(40, 'جاري إلغاء ضغط وفك ملفات Shapefile...');
+                
+                setTimeout(() => {
+                    if (typeof shp === 'undefined') {
+                        alert('مكتبة Shp.js غير متوفرة حالياً، تأكد من الاتصال بالإنترنت!');
+                        resetConverterOutputs();
+                        return;
+                    }
+
+                    shp(e.target.result).then(geojson => {
+                        updateConversionProgressBar(85, 'جاري توليد ملف GeoJSON مساحي...');
+                        
+                        setTimeout(() => {
+                            convertedFileContent = JSON.stringify(geojson, null, 2);
+                            convertedFileName = `${convertedFileName}_converted.geojson`;
+
+                            updateConversionProgressBar(100, 'اكتمل التحويل المساحي بنجاح!');
+                            
+                            renderGeoJsonPreview(geojson, file.name, sizeInMb);
+                        }, 400);
+                    }).catch(err => {
+                        alert('فشل في قراءة ملف Shapefile المضغوط! تأكد من وجود ملفي .shp و .dbf بداخل مجلد الـ zip.');
+                        console.error(err);
+                        resetConverterOutputs();
+                    });
+                }, 500);
+            };
+        } 
+        else if (fileConverterMode === 'csv2geojson') {
+            reader.readAsText(file);
+            reader.onload = function(e) {
+                updateConversionProgressBar(50, 'جاري تحليل أعمدة البيانات الجغرافية...');
+                
+                setTimeout(() => {
+                    const text = e.target.result;
+                    const parsed = parseCsv(text);
+
+                    if (parsed.data.length === 0) {
+                        alert('ملف CSV فارغ أو لا يحتوي على صفوف صالحة!');
+                        resetConverterOutputs();
+                        return;
+                    }
+
+                    const headers = parsed.headers;
+                    let latCol = '', lngCol = '';
+
+                    const latKeywords = ['lat', 'latitude', 'y', 'northing', 'خط العرض', 'خط_العرض'];
+                    const lngKeywords = ['lng', 'longitude', 'x', 'easting', 'lon', 'خط الطول', 'خط_الطول'];
+
+                    headers.forEach(h => {
+                        const low = h.toLowerCase();
+                        if (latKeywords.some(kw => low === kw || low.includes(kw))) latCol = h;
+                        if (lngKeywords.some(kw => low === kw || low.includes(kw))) lngCol = h;
+                    });
+
+                    if (!latCol || !lngCol) {
+                        alert('فشل في التعرف على أعمدة خط الطول أو العرض! يرجى التأكد من تسمية الأعمدة كـ Latitude و Longitude.');
+                        resetConverterOutputs();
+                        return;
+                    }
+
+                    updateConversionProgressBar(75, 'جاري إسقاط النقاط وربط البيانات الجدولية...');
+
+                    const features = [];
+                    parsed.data.forEach(row => {
+                        const latVal = parseFloat(row[latCol]);
+                        const lngVal = parseFloat(row[lngCol]);
+
+                        if (!isNaN(latVal) && !isNaN(lngVal)) {
+                            const props = { ...row };
+                            
+                            features.push({
+                                type: 'Feature',
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates: [lngVal, latVal]
+                                },
+                                properties: props
+                            });
+                        }
+                    });
+
+                    if (features.length === 0) {
+                        alert('لا توجد إحداثيات مكانية صالحة أو مطابقة داخل أعمدة الـ CSV!');
+                        resetConverterOutputs();
+                        return;
+                    }
+
+                    const geojson = {
+                        type: 'FeatureCollection',
+                        features: features
+                    };
+
+                    convertedFileContent = JSON.stringify(geojson, null, 2);
+                    convertedFileName = `${convertedFileName}_converted.geojson`;
+
+                    updateConversionProgressBar(100, 'اكتمل تحويل ملف CSV بنجاح!');
+                    
+                    renderTabularPreview(parsed.headers, parsed.data, file.name, sizeInMb);
+                    renderGeoJsonPreview(geojson, file.name, sizeInMb);
+                    
+                    outputJsonViewer.style.display = 'none';
+                    outputGridViewer.style.display = 'block';
+                }, 400);
+            };
+        } 
+        else if (fileConverterMode === 'geojson2csv') {
+            reader.readAsText(file);
+            reader.onload = function(e) {
+                updateConversionProgressBar(50, 'جاري تفكيك مصفوفات GeoJSON...');
+                
+                setTimeout(() => {
+                    try {
+                        const geojson = JSON.parse(e.target.result);
+                        
+                        let features = [];
+                        if (geojson.type === 'FeatureCollection' && Array.isArray(geojson.features)) {
+                            features = geojson.features;
+                        } else if (geojson.type === 'Feature') {
+                            features = [geojson];
+                        } else {
+                            alert('ملف GeoJSON غير صالح أو ليس FeatureCollection قياسي!');
+                            resetConverterOutputs();
+                            return;
+                        }
+
+                        if (features.length === 0) {
+                            alert('ملف GeoJSON لا يحتوي على أي معالم مكانية!');
+                            resetConverterOutputs();
+                            return;
+                        }
+
+                        updateConversionProgressBar(75, 'جاري بناء جدول البيانات الوصفية...');
+
+                        const allKeysSet = new Set();
+                        features.forEach(feat => {
+                            if (feat.properties) {
+                                Object.keys(feat.properties).forEach(k => allKeysSet.add(k));
+                            }
+                        });
+                        const propertyHeaders = Array.from(allKeysSet);
+                        const csvHeaders = ['Latitude', 'Longitude', ...propertyHeaders];
+
+                        const csvDataRows = [];
+                        features.forEach(feat => {
+                            const row = {};
+                            
+                            if (feat.geometry && feat.geometry.type === 'Point' && Array.isArray(feat.geometry.coordinates)) {
+                                row['Longitude'] = feat.geometry.coordinates[0];
+                                row['Latitude'] = feat.geometry.coordinates[1];
+                            } else {
+                                row['Longitude'] = '';
+                                row['Latitude'] = '';
+                            }
+
+                            propertyHeaders.forEach(h => {
+                                let val = '';
+                                if (feat.properties && feat.properties[h] !== undefined) {
+                                    val = feat.properties[h];
+                                    if (typeof val === 'string') {
+                                        val = val.replace(/"/g, '""');
+                                        if (val.includes(',') || val.includes('\n') || val.includes('"')) {
+                                            val = `"${val}"`;
+                                        }
+                                    }
+                                }
+                                row[h] = val;
+                            });
+
+                            csvDataRows.push(row);
+                        });
+
+                        let csvString = csvHeaders.join(',') + '\n';
+                        csvDataRows.forEach(row => {
+                            const line = csvHeaders.map(h => row[h]).join(',');
+                            csvString += line + '\n';
+                        });
+
+                        convertedFileContent = "\uFEFF" + csvString;
+                        convertedFileName = `${convertedFileName}_converted.csv`;
+
+                        updateConversionProgressBar(100, 'اكتمل التحويل الجدولي بنجاح!');
+
+                        renderTabularPreview(csvHeaders, csvDataRows, file.name, sizeInMb);
+                        
+                        outputJsonViewer.style.display = 'none';
+                        outputGridViewer.style.display = 'block';
+                    } 
+                    catch(err) {
+                        alert('ملف GeoJSON معطوب أو غير صالح للتفكيك!');
+                        console.error(err);
+                        resetConverterOutputs();
+                    }
+                }, 400);
+            };
+        }
+    }
+
+    function renderGeoJsonPreview(geojson, originalName, size) {
+        if (!outputJsonViewer) return;
+        
+        outputFilename.innerHTML = `<i class="fa-solid fa-file-shield text-secondary"></i> ${originalName}`;
+        outputFilesize.textContent = `${size} ميغابايت`;
+
+        const codeSnippet = JSON.stringify(geojson, null, 2);
+        if (codeSnippet.length > 2500) {
+            outputJsonViewer.textContent = codeSnippet.substring(0, 2500) + "\n\n/* ... تم اقتطاع نافذة المعاينة للتسريع، الملف بأكمله جاهز للتحميل ... */";
+        } else {
+            outputJsonViewer.textContent = codeSnippet;
+        }
+
+        btnDownloadResult.disabled = false;
+    }
+
+    function renderTabularPreview(headers, data, originalName, size) {
+        const tableHeaders = document.getElementById('output-table-headers');
+        const tableRows = document.getElementById('output-table-rows');
+        
+        if (!tableHeaders || !tableRows) return;
+        
+        tableHeaders.innerHTML = '';
+        tableRows.innerHTML = '';
+
+        outputFilename.innerHTML = `<i class="fa-solid fa-file-csv text-primary"></i> ${originalName}`;
+        outputFilesize.textContent = `${size} ميغابايت`;
+
+        const visibleHeaders = headers.slice(0, 5);
+        visibleHeaders.forEach(h => {
+            const th = document.createElement('th');
+            th.textContent = h;
+            tableHeaders.appendChild(th);
+        });
+        if (headers.length > 5) {
+            const th = document.createElement('th');
+            th.textContent = '...';
+            tableHeaders.appendChild(th);
+        }
+
+        const previewRows = data.slice(0, 10);
+        previewRows.forEach(row => {
+            const tr = document.createElement('tr');
+            visibleHeaders.forEach(h => {
+                const td = document.createElement('td');
+                td.textContent = row[h] !== undefined ? row[h] : '';
+                tr.appendChild(td);
+            });
+            if (headers.length > 5) {
+                const td = document.createElement('td');
+                td.textContent = '...';
+                tr.appendChild(td);
+            }
+            tableRows.appendChild(tr);
+        });
+
+        btnDownloadResult.disabled = false;
+    }
+
+    function parseCsv(text) {
+        const lines = text.split(/\r?\n/);
+        if (lines.length === 0) return { headers: [], data: [] };
+        
+        const parseLine = (line) => {
+            const result = [];
+            let cur = '';
+            let inQuote = false;
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                if (char === '"') {
+                    inQuote = !inQuote;
+                } else if (char === ',' && !inQuote) {
+                    result.push(cur.trim());
+                    cur = '';
+                } else {
+                    cur += char;
+                }
+            }
+            result.push(cur.trim());
+            return result;
+        };
+        
+        const headers = parseLine(lines[0]);
+        const data = [];
+        for (let i = 1; i < lines.length; i++) {
+            if (!lines[i].trim()) continue;
+            const cols = parseLine(lines[i]);
+            if (cols.length === headers.length) {
+                const obj = {};
+                headers.forEach((h, idx) => {
+                    obj[h] = cols[idx];
+                });
+                data.push(obj);
+            }
+        }
+        return { headers, data };
+    }
+
+    if (btnDownloadResult) {
+        btnDownloadResult.addEventListener('click', () => {
+            if (!convertedFileContent) return;
+
+            let dataUri = '';
+            if (fileConverterMode === 'geojson2csv') {
+                dataUri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(convertedFileContent);
+            } else {
+                dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(convertedFileContent);
+            }
+
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataUri);
+            downloadAnchor.setAttribute("download", convertedFileName);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        });
     }
 });
 
