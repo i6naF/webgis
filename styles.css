@@ -1340,7 +1340,7 @@ input:checked + .slider:before {
 
 .software-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
     gap: 2rem;
 }
 
@@ -1556,7 +1556,7 @@ input:checked + .slider:before {
 /* Recommended Courses Grid */
 .courses-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
     gap: 2rem;
 }
 
@@ -3299,13 +3299,14 @@ input:checked + .slider:before {
     }
     
     .map-canvas-container {
-        height: 380px;
+        height: 320px; /* Reduced for better viewport fit on mobile */
     }
     
     .map-info-panel {
         height: auto;
         border-left: none;
         border-top: 1px solid var(--color-border);
+        padding: 1.5rem 1.25rem; /* Reduced padding for cleaner text on mobile */
     }
 }
 
@@ -4514,11 +4515,40 @@ input:checked + .slider:before {
 /* Mobile Responsive adjustment for the floating ad */
 @media (max-width: 576px) {
     .ehsan-ad-float {
-        bottom: 16px;
-        left: 16px;
-        right: 16px;
-        width: calc(100% - 32px);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        bottom: 12px;
+        left: 12px;
+        right: 12px;
+        width: calc(100% - 24px);
+        padding: 0.85rem 1rem;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         z-index: 10000;
+    }
+    .ehsan-ad-text p {
+        display: none; /* Hide detailed paragraph to save vertical space on mobile */
+    }
+    .ehsan-ad-text h4 {
+        font-size: 0.95rem;
+        margin-bottom: 0;
+    }
+    .ehsan-ad-content {
+        gap: 8px;
+        align-items: center;
+    }
+    .ehsan-ad-badge {
+        font-size: 0.68rem;
+        padding: 1px 8px;
+        margin-bottom: 2px;
+    }
+    .ehsan-ad-actions {
+        margin-top: 0.65rem;
+    }
+    .ehsan-ad-btn {
+        padding: 0.45rem 0.85rem;
+        font-size: 0.8rem !important;
+    }
+    .ehsan-ad-close {
+        top: 8px;
+        right: 8px;
     }
 }
