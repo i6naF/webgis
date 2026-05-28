@@ -24,9 +24,9 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <link rel="stylesheet" href="styles.css?v=7.0">
+    <link rel="stylesheet" href="styles.css?v=9.0">
 </head>
-<body>
+<body data-i18n-document-title="documentTitle">
 
     <!-- Scroll Progress Indicator -->
     <div id="scroll-progress"></div>
@@ -52,20 +52,26 @@
             </a>
 
             <nav class="nav-menu" id="navMenu">
-                <a href="#hero" class="nav-link active" id="nav-hero"><i class="fa-solid fa-house"></i> الرئيسية</a>
-                <a href="#about" class="nav-link" id="nav-about"><i class="fa-solid fa-circle-info"></i> عن التخصص</a>
-                <a href="#devices" class="nav-link" id="nav-devices"><i class="fa-solid fa-laptop"></i> الأجهزة الموصى بها</a>
-                <a href="#gis-file-converter" class="nav-link" id="nav-gis-file-converter"><i class="fa-solid fa-file-export text-primary"></i> محول ملفات GIS</a>
-                <a href="#software" class="nav-link" id="nav-software"><i class="fa-solid fa-laptop-code"></i> البرمجيات</a>
-                <a href="#spatial-data-hub" class="nav-link" id="nav-spatial-data"><i class="fa-solid fa-database"></i> مستودع البيانات</a>
-                <a href="#utm-crs-calculator" class="nav-link" id="nav-utm-calc"><i class="fa-solid fa-calculator"></i> حاسبة UTM</a>
+                <a href="#hero" class="nav-link active" id="nav-hero"><i class="fa-solid fa-house"></i> <span data-i18n="navHome">الرئيسية</span></a>
+                <a href="#about" class="nav-link" id="nav-about"><i class="fa-solid fa-circle-info"></i> <span data-i18n="navAbout">عن التخصص</span></a>
+                <a href="#devices" class="nav-link" id="nav-devices"><i class="fa-solid fa-laptop"></i> <span data-i18n="navDevices">الأجهزة الموصى بها</span></a>
+                <a href="#gis-file-converter" class="nav-link" id="nav-gis-file-converter"><i class="fa-solid fa-file-export text-primary"></i> <span data-i18n="navConverter">محول ملفات GIS</span></a>
+                <a href="#software" class="nav-link" id="nav-software"><i class="fa-solid fa-laptop-code"></i> <span data-i18n="navSoftware">البرمجيات</span></a>
+                <a href="#spatial-data-hub" class="nav-link" id="nav-spatial-data"><i class="fa-solid fa-database"></i> <span data-i18n="navData">مستودع البيانات</span></a>
+                <a href="#utm-crs-calculator" class="nav-link" id="nav-utm-calc"><i class="fa-solid fa-calculator"></i> <span data-i18n="navUtm">حاسبة UTM</span></a>
 
-                <a href="#tips" class="nav-link" id="nav-tips"><i class="fa-solid fa-lightbulb"></i> نصائح ذهبية</a>
-                <a href="#mistakes" class="nav-link" id="nav-mistakes"><i class="fa-solid fa-triangle-exclamation"></i> أخطاء شائعة</a>
-                <a href="#vision-future" class="nav-link" id="nav-vision-future"><i class="fa-solid fa-gem text-accent"></i> رؤية 2030 والمستقبل</a>
-                <a href="#x-community" class="nav-link" id="nav-x-community"><i class="fa-brands fa-x-twitter"></i> مجتمع X</a>
-                <a href="#donate" class="nav-link" id="nav-donate" style="color: #34d399; font-weight: 700;"><i class="fa-solid fa-heart"></i> تبرع لإحسان</a>
+                <a href="#tips" class="nav-link" id="nav-tips"><i class="fa-solid fa-lightbulb"></i> <span data-i18n="navTips">نصائح ذهبية</span></a>
+                <a href="#mistakes" class="nav-link" id="nav-mistakes"><i class="fa-solid fa-triangle-exclamation"></i> <span data-i18n="navMistakes">أخطاء شائعة</span></a>
+                <a href="#vision-future" class="nav-link" id="nav-vision-future"><i class="fa-solid fa-gem text-accent"></i> <span data-i18n="navVision">رؤية 2030 والمستقبل</span></a>
+                <a href="#x-community" class="nav-link" id="nav-x-community"><i class="fa-brands fa-x-twitter"></i> <span data-i18n="navX">مجتمع X</span></a>
+                <a href="#donate" class="nav-link" id="nav-donate" style="color: #34d399; font-weight: 700;"><i class="fa-solid fa-heart"></i> <span data-i18n="navDonate">تبرع لإحسان</span></a>
             </nav>
+
+            <!-- Language Switcher Button -->
+            <button id="langToggle" class="lang-toggle-btn" aria-label="Switch Language / تغيير اللغة">
+                <i class="fa-solid fa-globe"></i>
+                <span class="lang-text">EN</span>
+            </button>
 
             <!-- Mobile Menu Toggle -->
             <button class="mobile-menu-toggle" id="menuToggle" aria-label="فتح القائمة">
@@ -77,25 +83,25 @@
     <!-- Mobile Drawer Menu -->
     <div class="mobile-drawer" id="mobileDrawer">
         <div class="drawer-header">
-            <span class="drawer-title">القائمة الرئيسية</span>
+            <span class="drawer-title" data-i18n="drawerTitle">القائمة الرئيسية</span>
             <button class="drawer-close" id="drawerClose" aria-label="إغلاق القائمة">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
         <nav class="drawer-nav">
-            <a href="#hero" class="drawer-link active" id="drawer-hero"><i class="fa-solid fa-house"></i> الرئيسية</a>
-            <a href="#about" class="drawer-link" id="drawer-about"><i class="fa-solid fa-circle-info"></i> عن التخصص</a>
-            <a href="#devices" class="drawer-link" id="drawer-devices"><i class="fa-solid fa-laptop"></i> الأجهزة الموصى بها</a>
-            <a href="#gis-file-converter" class="drawer-link" id="drawer-gis-file-converter"><i class="fa-solid fa-file-export text-primary"></i> محول ملفات GIS</a>
-            <a href="#software" class="drawer-link" id="drawer-software"><i class="fa-solid fa-laptop-code"></i> البرمجيات</a>
-            <a href="#spatial-data-hub" class="drawer-link" id="drawer-spatial-data"><i class="fa-solid fa-database"></i> مستودع البيانات</a>
-            <a href="#utm-crs-calculator" class="drawer-link" id="drawer-utm-calc"><i class="fa-solid fa-calculator"></i> حاسبة UTM</a>
+            <a href="#hero" class="drawer-link active" id="drawer-hero"><i class="fa-solid fa-house"></i> <span data-i18n="navHome">الرئيسية</span></a>
+            <a href="#about" class="drawer-link" id="drawer-about"><i class="fa-solid fa-circle-info"></i> <span data-i18n="navAbout">عن التخصص</span></a>
+            <a href="#devices" class="drawer-link" id="drawer-devices"><i class="fa-solid fa-laptop"></i> <span data-i18n="navDevices">الأجهزة الموصى بها</span></a>
+            <a href="#gis-file-converter" class="drawer-link" id="drawer-gis-file-converter"><i class="fa-solid fa-file-export text-primary"></i> <span data-i18n="navConverter">محول ملفات GIS</span></a>
+            <a href="#software" class="drawer-link" id="drawer-software"><i class="fa-solid fa-laptop-code"></i> <span data-i18n="navSoftware">البرمجيات</span></a>
+            <a href="#spatial-data-hub" class="drawer-link" id="drawer-spatial-data"><i class="fa-solid fa-database"></i> <span data-i18n="navData">مستودع البيانات</span></a>
+            <a href="#utm-crs-calculator" class="drawer-link" id="drawer-utm-calc"><i class="fa-solid fa-calculator"></i> <span data-i18n="navUtm">حاسبة UTM</span></a>
 
-            <a href="#tips" class="drawer-link" id="drawer-tips"><i class="fa-solid fa-lightbulb"></i> نصائح ذهبية</a>
-            <a href="#mistakes" class="drawer-link" id="drawer-mistakes"><i class="fa-solid fa-triangle-exclamation"></i> أخطاء شائعة</a>
-            <a href="#vision-future" class="drawer-link" id="drawer-vision-future"><i class="fa-solid fa-gem text-accent"></i> رؤية 2030 والمستقبل</a>
-            <a href="#x-community" class="drawer-link" id="drawer-x-community"><i class="fa-brands fa-x-twitter"></i> مجتمع X</a>
-            <a href="#donate" class="drawer-link" id="drawer-donate" style="color: #34d399; font-weight: 700;"><i class="fa-solid fa-heart"></i> تبرع لإحسان</a>
+            <a href="#tips" class="drawer-link" id="drawer-tips"><i class="fa-solid fa-lightbulb"></i> <span data-i18n="navTips">نصائح ذهبية</span></a>
+            <a href="#mistakes" class="drawer-link" id="drawer-mistakes"><i class="fa-solid fa-triangle-exclamation"></i> <span data-i18n="navMistakes">أخطاء شائعة</span></a>
+            <a href="#vision-future" class="drawer-link" id="drawer-vision-future"><i class="fa-solid fa-gem text-accent"></i> <span data-i18n="navVision">رؤية 2030 والمستقبل</span></a>
+            <a href="#x-community" class="drawer-link" id="drawer-x-community"><i class="fa-brands fa-x-twitter"></i> <span data-i18n="navX">مجتمع X</span></a>
+            <a href="#donate" class="drawer-link" id="drawer-donate" style="color: #34d399; font-weight: 700;"><i class="fa-solid fa-heart"></i> <span data-i18n="navDonate">تبرع لإحسان</span></a>
         </nav>
     </div>
     <div class="drawer-overlay" id="drawerOverlay"></div>
@@ -666,11 +672,11 @@
                         <input type="text" id="datasetSearch" placeholder="ابحث عن طبقة بيانات مكانية (مثال: الطرق، الحدود، الارتفاعات)...">
                     </div>
                     <div class="filter-wrapper" id="datasetFilters">
-                        <button class="filter-btn active" data-filter="all">الكل</button>
-                        <button class="filter-btn" data-filter="boundaries">الحدود الإدارية</button>
-                        <button class="filter-btn" data-filter="infrastructure">الطرق والشبكات</button>
-                        <button class="filter-btn" data-filter="terrain">الارتفاعات والتضاريس</button>
-                        <button class="filter-btn" data-filter="points">نقاط الاهتمام والبيئة</button>
+                        <button class="filter-btn active" data-filter="all" data-i18n="filterDataAll">الكل</button>
+                        <button class="filter-btn" data-filter="boundaries" data-i18n="filterDataBoundaries">الحدود الإدارية</button>
+                        <button class="filter-btn" data-filter="infrastructure" data-i18n="filterDataRoads">الطرق والشبكات</button>
+                        <button class="filter-btn" data-filter="terrain" data-i18n="filterDataTerrain">الارتفاعات والتضاريس</button>
+                        <button class="filter-btn" data-filter="environment" data-i18n="filterDataEnvironment">البيئة والغطاء النباتي</button>
                     </div>
                 </div>
 
@@ -685,19 +691,16 @@
                         <div class="dataset-header">
                             <div class="dataset-icon"><i class="fa-solid fa-map"></i></div>
                             <div class="dataset-title-group">
-                                <h3>الحدود الإدارية للمملكة</h3>
-                                <span class="dataset-source"><i class="fa-solid fa-building"></i> الهيئة العامة للإحصاء</span>
+                                <h3 data-i18n="datasetTitle1">الحدود الإدارية للمملكة</h3>
+                                <span class="dataset-source" data-i18n="datasetSource1"><i class="fa-solid fa-building"></i> الهيئة العامة للإحصاء</span>
                             </div>
                         </div>
-                        <p class="dataset-desc">
+                        <p class="dataset-desc" data-i18n="datasetDesc1">
                             الحدود الرسمية لمناطق ومحافظات المملكة العربية السعودية الثلاث عشرة. مجهزة وجاهزة للاستخدام في التحليل الإحصائي وخرائط التوزيعات الجغرافية.
                         </p>
                         <div class="dataset-footer">
-                            <span class="dataset-size"><i class="fa-solid fa-weight-hanging"></i> 14.2 MB</span>
-                            <div class="dataset-actions">
-                                <a href="https://www.stats.gov.sa/" target="_blank" class="btn btn-secondary btn-sm btn-icon-only" title="بوابة الإحصاء (GASTAT)"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                                <a href="data/saudi_admin_boundaries.zip" download class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> تحميل مباشر</a>
-                            </div>
+                            <span class="dataset-size" data-i18n="datasetSize1"><i class="fa-solid fa-weight-hanging"></i> 14.2 MB</span>
+                            <a href="https://www.stats.gov.sa/" target="_blank" class="btn btn-primary btn-sm" data-i18n="datasetBtn1"><i class="fa-solid fa-arrow-up-right-from-square"></i> بوابة الإحصاء (GASTAT)</a>
                         </div>
                     </div>
 
@@ -710,19 +713,16 @@
                         <div class="dataset-header">
                             <div class="dataset-icon"><i class="fa-solid fa-road"></i></div>
                             <div class="dataset-title-group">
-                                <h3>شبكة الطرق الوطنية الكبرى</h3>
-                                <span class="dataset-source"><i class="fa-solid fa-building"></i> وزارة النقل والخدمات اللوجستية / OSM</span>
+                                <h3 data-i18n="datasetTitle2">شبكة الطرق الوطنية الكبرى</h3>
+                                <span class="dataset-source" data-i18n="datasetSource2"><i class="fa-solid fa-building"></i> وزارة النقل والخدمات اللوجستية / OSM</span>
                             </div>
                         </div>
-                        <p class="dataset-desc">
+                        <p class="dataset-desc" data-i18n="datasetDesc2">
                             شبكة الطرق السريعة والرئيسية والفرعية التي تربط كافة مدن وقرى المملكة، مناسبة لتحليلات الشبكات (Network Analysis) وحساب أقصر مسار.
                         </p>
                         <div class="dataset-footer">
-                            <span class="dataset-size"><i class="fa-solid fa-weight-hanging"></i> 28.5 MB</span>
-                            <div class="dataset-actions">
-                                <a href="https://mot.gov.sa/" target="_blank" class="btn btn-secondary btn-sm btn-icon-only" title="بوابة النقل (MOT)"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                                <a href="data/saudi_major_roads.zip" download class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> تحميل مباشر</a>
-                            </div>
+                            <span class="dataset-size" data-i18n="datasetSize2"><i class="fa-solid fa-weight-hanging"></i> 28.5 MB</span>
+                            <a href="https://mot.gov.sa/" target="_blank" class="btn btn-primary btn-sm" data-i18n="datasetBtn2"><i class="fa-solid fa-arrow-up-right-from-square"></i> بوابة النقل (MOT)</a>
                         </div>
                     </div>
 
@@ -734,46 +734,21 @@
                         <div class="dataset-header">
                             <div class="dataset-icon"><i class="fa-solid fa-mountain"></i></div>
                             <div class="dataset-title-group">
-                                <h3>نموذج الارتفاعات الرقمي (DEM - 30m)</h3>
-                                <span class="dataset-source"><i class="fa-solid fa-building"></i> USGS / SRTM NASA</span>
+                                <h3 data-i18n="datasetTitle3">نموذج الارتفاعات الرقمي (DEM - 30m)</h3>
+                                <span class="dataset-source" data-i18n="datasetSource3"><i class="fa-solid fa-building"></i> USGS / SRTM NASA</span>
                             </div>
                         </div>
-                        <p class="dataset-desc">
+                        <p class="dataset-desc" data-i18n="datasetDesc3">
                             بيانات ارتفاعات سطح الأرض بدقة 30 متراً للمملكة العربية السعودية، مثالية لتحليلات المنحدرات (Slope)، ومجاري السيول والأودية (Hydrology Analysis).
                         </p>
                         <div class="dataset-footer">
-                            <span class="dataset-size"><i class="fa-solid fa-weight-hanging"></i> 112 MB</span>
-                            <a href="https://earthexplorer.usgs.gov/" target="_blank" class="btn btn-primary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> بوابة التحميل (USGS)</a>
-                        </div>
-                    </div>
-
-                    <!-- Dataset 4: POIs -->
-                    <div class="dataset-card" data-category="points">
-                        <div class="dataset-formats">
-                            <span class="format-badge format-csv">CSV</span>
-                            <span class="format-badge format-geojson">GeoJSON</span>
-                        </div>
-                        <div class="dataset-header">
-                            <div class="dataset-icon"><i class="fa-solid fa-location-dot"></i></div>
-                            <div class="dataset-title-group">
-                                <h3>نقاط الاهتمام والمعالم الكبرى (POIs)</h3>
-                                <span class="dataset-source"><i class="fa-solid fa-building"></i> OpenStreetMap Saudi Community</span>
-                            </div>
-                        </div>
-                        <p class="dataset-desc">
-                            توزيع المساجد، المستشفيات، المدارس، الجامعات والمجمعات التجارية في المدن الرئيسية الكبرى. مناسب للتوزيعات المكانية وتحليل التغطية والخدمات.
-                        </p>
-                        <div class="dataset-footer">
-                            <span class="dataset-size"><i class="fa-solid fa-weight-hanging"></i> 8.4 MB</span>
-                            <div class="dataset-actions">
-                                <a href="https://download.geofabrik.de/asia/saudi-arabia.html" target="_blank" class="btn btn-secondary btn-sm btn-icon-only" title="منصة Geofabrik"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                                <a href="data/saudi_pois.zip" download class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> تحميل مباشر</a>
-                            </div>
+                            <span class="dataset-size" data-i18n="datasetSize3"><i class="fa-solid fa-weight-hanging"></i> 112 MB</span>
+                            <a href="https://earthexplorer.usgs.gov/" target="_blank" class="btn btn-primary btn-sm" data-i18n="datasetBtn3"><i class="fa-solid fa-arrow-up-right-from-square"></i> بوابة التحميل (USGS)</a>
                         </div>
                     </div>
 
                     <!-- Dataset 5: Land Cover -->
-                    <div class="dataset-card" data-category="points">
+                    <div class="dataset-card" data-category="environment">
                         <div class="dataset-formats">
                             <span class="format-badge format-tiff">TIFF</span>
                             <span class="format-badge format-shp">SHP</span>
@@ -781,16 +756,16 @@
                         <div class="dataset-header">
                             <div class="dataset-icon"><i class="fa-solid fa-seedling"></i></div>
                             <div class="dataset-title-group">
-                                <h3>خارطة الغطاء النباتي واستخدام الأراضي</h3>
-                                <span class="dataset-source"><i class="fa-solid fa-building"></i> وكالة الفضاء الأوروبية Copernicus</span>
+                                <h3 data-i18n="datasetTitle4">خارطة الغطاء النباتي واستخدام الأراضي</h3>
+                                <span class="dataset-source" data-i18n="datasetSource4"><i class="fa-solid fa-building"></i> وكالة الفضاء الأوروبية Copernicus</span>
                             </div>
                         </div>
-                        <p class="dataset-desc">
+                        <p class="dataset-desc" data-i18n="datasetDesc4">
                             بيانات مرصودة توضح توزيع الغطاء النباتي، المناطق الزراعية والمساحات العمرانية والصحاري في السعودية بدقة تمثيلية تبلغ 10 أمتار.
                         </p>
                         <div class="dataset-footer">
-                            <span class="dataset-size"><i class="fa-solid fa-weight-hanging"></i> 45.1 MB</span>
-                            <a href="https://browser.dataspace.copernicus.eu/" target="_blank" class="btn btn-primary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> استكشاف Copernicus</a>
+                            <span class="dataset-size" data-i18n="datasetSize5"><i class="fa-solid fa-weight-hanging"></i> 45.1 MB</span>
+                            <a href="https://browser.dataspace.copernicus.eu/" target="_blank" class="btn btn-primary btn-sm" data-i18n="datasetBtn4"><i class="fa-solid fa-arrow-up-right-from-square"></i> استكشاف Copernicus</a>
                         </div>
                     </div>
                 </div>
@@ -802,21 +777,21 @@
         <section id="utm-crs-calculator" class="utm-calc-section">
             <div class="container">
                 <div class="section-header" id="utmCalcHeader">
-                    <span class="section-badge"><i class="fa-solid fa-calculator"></i> الأدوات الهندسية</span>
-                    <h2 class="section-title">حاسبة النطاق الجغرافي ونظام الإحداثيات (UTM & CRS)</h2>
-                    <p class="section-subtitle">حدد مدينتك أو منطقتك في المملكة للتعرف فوراً على مسقط الخريطة الأنسب، ورمز EPSG العالمي، والمرجع الجيوديسي المعتمد للمشاريع المساحية</p>
+                    <span class="section-badge"><i class="fa-solid fa-calculator"></i> <span data-i18n="utmBadge">الأدوات الهندسية</span></span>
+                    <h2 class="section-title" data-i18n="utmTitle">حاسبة النطاق الجغرافي ونظام الإحداثيات (UTM & CRS)</h2>
+                    <p class="section-subtitle" data-i18n="utmSubtitle">حدد مدينتك أو منطقتك في المملكة للتعرف فوراً على مسقط الخريطة الأنسب، ورمز EPSG العالمي، والمرجع الجيوديسي المعتمد للمشاريع المساحية</p>
                 </div>
 
                 <div class="utm-calc-container">
                     <div class="utm-calc-card input-card">
-                        <h3><i class="fa-solid fa-map-location-dot text-primary"></i> معطيات النطاق الجغرافي</h3>
-                        <p class="card-hint">اختر المنطقة الجغرافية أو المدينة في المملكة العربية السعودية لحساب بيانات الإحداثيات مباشرة:</p>
+                        <h3 data-i18n="calcCardTitle"><i class="fa-solid fa-map-location-dot text-primary"></i> معطيات النطاق الجغرافي</h3>
+                        <p class="card-hint" data-i18n="cardHint">اختر المنطقة الجغرافية أو المدينة في المملكة العربية السعودية لحساب بيانات الإحداثيات مباشرة:</p>
                         
                         <div class="form-group">
-                            <label for="citySelector"><i class="fa-solid fa-city"></i> المدينة أو المنطقة المستهدفة:</label>
+                            <label for="citySelector" data-i18n="labelSelectCity"><i class="fa-solid fa-city"></i> المدينة أو المنطقة المستهدفة:</label>
                             <div class="select-wrapper">
                                 <select id="citySelector" class="custom-select">
-                                    <option value="" disabled selected>اختر المدينة / المنطقة...</option>
+                                    <option value="" disabled selected data-i18n="placeholderSelectCity">اختر المدينة / المنطقة...</option>
                                     <option value="riyadh">الرياض (Riyadh)</option>
                                     <option value="jeddah">جدة (Jeddah)</option>
                                     <option value="mecca">مكة المكرمة (Mecca)</option>
@@ -851,8 +826,8 @@
                     <div class="utm-calc-card result-card empty-state" id="utmResultCard">
                         <div class="result-placeholder">
                             <i class="fa-solid fa-compass-drafting placeholder-icon"></i>
-                            <h4>في انتظار اختيار المنطقة...</h4>
-                            <p>يرجى اختيار مدينة من القائمة المجاورة لعرض بيانات مسقط الإحداثيات ونظام المرجع الوطني بدقة ميكروية.</p>
+                            <h4 data-i18n="resultPlaceholderTitle">في انتظار اختيار المنطقة...</h4>
+                            <p data-i18n="resultPlaceholderDesc">يرجى اختيار مدينة من القائمة المجاورة لعرض بيانات مسقط الإحداثيات ونظام المرجع الوطني بدقة ميكروية.</p>
                         </div>
                         
                         <div class="result-content" style="display: none;">
@@ -865,7 +840,7 @@
                                 <div class="spec-item">
                                     <div class="spec-icon"><i class="fa-solid fa-fingerprint"></i></div>
                                     <div class="spec-info">
-                                        <span class="spec-label">رمز النظام المرجعي (EPSG)</span>
+                                        <span class="spec-label" data-i18n="labelEpsgCode">رمز النظام المرجعي (EPSG)</span>
                                         <strong class="spec-val font-mono" id="specEPSG">EPSG:32638</strong>
                                     </div>
                                 </div>
@@ -873,7 +848,7 @@
                                 <div class="spec-item">
                                     <div class="spec-icon"><i class="fa-solid fa-globe"></i></div>
                                     <div class="spec-info">
-                                        <span class="spec-label">المرجع الجيوديسي (Datum)</span>
+                                        <span class="spec-label" data-i18n="labelDatum">المرجع الجيوديسي (Datum)</span>
                                         <strong class="spec-val" id="specDatum">WGS 84 / GRS 80</strong>
                                     </div>
                                 </div>
@@ -881,7 +856,7 @@
                                 <div class="spec-item">
                                     <div class="spec-icon"><i class="fa-solid fa-arrows-left-right-to-line"></i></div>
                                     <div class="spec-info">
-                                        <span class="spec-label">خط الطول المركزي (Central Meridian)</span>
+                                        <span class="spec-label" data-i18n="labelCentralMeridian">خط الطول المركزي (Central Meridian)</span>
                                         <strong class="spec-val font-mono" id="specMeridian">45° East</strong>
                                     </div>
                                 </div>
@@ -889,7 +864,7 @@
                                 <div class="spec-item">
                                     <div class="spec-icon"><i class="fa-solid fa-circle-nodes"></i></div>
                                     <div class="spec-info">
-                                        <span class="spec-label">الاستخدام الميداني الشائع</span>
+                                        <span class="spec-label" data-i18n="labelUsage">الاستخدام الميداني الشائع</span>
                                         <strong class="spec-val" id="specUsage">الرفع المساحي، المشاريع البلدية، ونظم المعلومات الجغرافية</strong>
                                     </div>
                                 </div>
@@ -898,7 +873,7 @@
                             <div class="engineering-note-box">
                                 <div class="note-header">
                                     <i class="fa-solid fa-triangle-exclamation text-accent"></i>
-                                    <span>توجيه هندسي وتوصية مساحية:</span>
+                                    <span data-i18n="noteTitle">توجيه هندسي وتوصية مساحية:</span>
                                 </div>
                                 <p id="specNote">
                                     يُعتمد هذا النطاق لكافة المشاريع البلدية في الرياض لتجنب التشويه الهندسي في المساحات المسطحة.
@@ -1137,7 +1112,7 @@
                 <div id="tab-news" class="vision-tab-content" style="display: none;">
                     <!-- Filter Search Input -->
                     <div style="max-width: 600px; margin: 0 auto 2rem auto; position: relative;">
-                        <input type="text" id="news-search" placeholder="ابحث في الأخبار والفعاليات الجيومكانية..." style="width: 100%; padding: 14px 45px 14px 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); background: rgba(0,0,0,0.25); color: var(--color-text-white); text-align: right; outline: none; font-size: 0.9rem; transition: all 0.3s; backdrop-filter: blur(10px);">
+                        <input type="text" id="news-search" data-i18n-placeholder="newsSearchPlaceholder" placeholder="ابحث في الأخبار والفعاليات الجيومكانية..." style="width: 100%; padding: 14px 45px 14px 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); background: rgba(0,0,0,0.25); color: var(--color-text-white); text-align: right; outline: none; font-size: 0.9rem; transition: all 0.3s; backdrop-filter: blur(10px);">
                         <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--color-text-muted); font-size: 1rem;"></i>
                     </div>
 
@@ -1145,12 +1120,12 @@
                         <!-- News Contribution Card -->
                         <div class="news-submission-box" style="background: rgba(13, 21, 38, 0.25); border: 1px solid rgba(255,255,255,0.04); border-radius: 20px; padding: 1.5rem; position: relative; overflow: hidden;">
                             <div class="converter-glow" style="background: radial-gradient(circle, rgba(0, 242, 254, 0.08) 0%, transparent 70%);"></div>
-                            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-text-white); margin-bottom: 0.5rem;"><i class="fa-solid fa-feather-pointed text-primary"></i> مساهمة جغرافية سريعة</h3>
-                            <p style="font-size: 0.8rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 1.25rem;">هل لديك خبر جيو-مكاني أو تحديث تقني تود نشره ومشاركته مع زملائك؟ اكتب مسودة الخبر أدناه وأرسله فوراً للمراجعة والنشر:</p>
+                            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-text-white); margin-bottom: 0.5rem;"><i class="fa-solid fa-feather-pointed text-primary"></i> <span data-i18n="newsContribHeader">مساهمة جغرافية سريعة</span></h3>
+                            <p style="font-size: 0.8rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 1.25rem;" data-i18n="newsContribDesc">هل لديك خبر جيو-مكاني أو تحديث تقني تود نشره ومشاركته مع زملائك؟ اكتب مسودة الخبر أدناه وأرسله فوراً للمراجعة والنشر:</p>
                             <form id="news-contrib-form" style="display: flex; flex-direction: column; gap: 12px;">
-                                <input type="text" id="news-contrib-title" placeholder="عنوان الخبر أو الحدث الجغرافي..." required style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.3); color: var(--color-text-white); text-align: right; outline: none; font-size: 0.85rem;">
-                                <textarea id="news-contrib-desc" rows="3" placeholder="اكتب تفاصيل الخبر المساحي بإيجاز..." required style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.3); color: var(--color-text-white); text-align: right; outline: none; font-size: 0.85rem; resize: none;"></textarea>
-                                <button type="submit" class="btn btn-primary btn-sm w-full" style="width: 100%;"><i class="fa-solid fa-paper-plane"></i> إرسال مسودة الخبر للمراجعة</button>
+                                <input type="text" id="news-contrib-title" data-i18n-placeholder="newsContribTitlePlaceholder" placeholder="عنوان الخبر أو الحدث الجغرافي..." required style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.3); color: var(--color-text-white); text-align: right; outline: none; font-size: 0.85rem;">
+                                <textarea id="news-contrib-desc" rows="3" data-i18n-placeholder="newsContribDescPlaceholder" placeholder="اكتب تفاصيل الخبر المساحي بإيجاز..." required style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.3); color: var(--color-text-white); text-align: right; outline: none; font-size: 0.85rem; resize: none;"></textarea>
+                                <button type="submit" class="btn btn-primary btn-sm w-full" style="width: 100%;"><i class="fa-solid fa-paper-plane"></i> <span data-i18n="newsContribBtn">إرسال مسودة الخبر للمراجعة</span></button>
                             </form>
                         </div>
 
@@ -1280,6 +1255,58 @@
                             <button type="button" class="btn btn-secondary w-full" id="btn-download-result" style="flex: 1; padding: 12px; font-weight: 700;" disabled><i class="fa-solid fa-file-arrow-down"></i> تحميل الملف الجغرافي المعالج</button>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Geospatial Ethics Pledge & Certificate Section -->
+        <section id="geospatial-pledge" class="geospatial-pledge-section">
+            <div class="container">
+                <div class="section-header" id="pledgeHeader">
+                    <span class="section-badge"><i class="fa-solid fa-file-signature"></i> <span data-i18n="pledgeBadge">الميثاق الجيومكاني والعهد الأخلاقي</span></span>
+                    <h2 class="section-title" data-i18n="pledgeTitle">ميثاق الشرف الأخلاقي للبيانات الجغرافية</h2>
+                    <p class="section-subtitle" data-i18n="pledgeSubtitle">لأن البيانات المكانية جزء لا يتجزأ من الأمن الوطني والتنمية المستدامة، نلتزم بحمايتها واستخدامها بمسؤولية وأمانة علمية.</p>
+                </div>
+
+                <div class="pledge-card-wrapper glass-panel">
+                    <div class="pledge-icon-header">
+                        <i class="fa-solid fa-shield-halved text-accent"></i>
+                    </div>
+                    <form id="pledgeForm" class="pledge-form" onsubmit="return false;">
+                        <div class="pledge-terms-grid">
+                            <label class="pledge-checkbox-wrapper">
+                                <input type="checkbox" id="pledge-check-1" class="custom-checkbox">
+                                <span class="checkbox-box"></span>
+                                <span class="checkbox-text" data-i18n="pledgeCheck1">ألتزم بالمحافظة الكاملة على خصوصية وسرية وأمن البيانات الجغرافية والخرائط التي تقع تحت يدي ولا أشاركها مع أي جهات غير مخولة.</span>
+                            </label>
+
+                            <label class="pledge-checkbox-wrapper">
+                                <input type="checkbox" id="pledge-check-2" class="custom-checkbox">
+                                <span class="checkbox-box"></span>
+                                <span class="checkbox-text" data-i18n="pledgeCheck2">أتعهد بعدم استخدام مهارات ونظم المعلومات الجغرافية إلا في تحقيق منافع التنمية وإعمار الأرض، والامتناع التام عن أي ضرر بيئي أو تضليل مكاني.</span>
+                            </label>
+
+                            <label class="pledge-checkbox-wrapper">
+                                <input type="checkbox" id="pledge-check-3" class="custom-checkbox">
+                                <span class="checkbox-box"></span>
+                                <span class="checkbox-text" data-i18n="pledgeCheck3">أقسم على احترام الأمانة العلمية وحقوق الملكية الفكرية للمصادر الوطنية، ونسب الفضل في جمع وتطوير البيانات الجغرافية لأصحابها ومؤسساتها.</span>
+                            </label>
+                        </div>
+
+                        <div class="pledge-name-group">
+                            <label for="pledge-student-input-name" class="pledge-label" data-i18n="pledgeInputNameLabel">الاسم الثلاثي الكامل للباحث/الطالب:</label>
+                            <div class="input-with-icon">
+                                <i class="fa-solid fa-user-pen"></i>
+                                <input type="text" id="pledge-student-input-name" class="form-input" data-i18n-placeholder="pledgeInputPlaceholder" placeholder="اكتب اسمك الثلاثي الكامل هنا لتوثيق العهد...">
+                            </div>
+                        </div>
+
+                        <div class="pledge-btn-wrapper">
+                            <button type="button" id="btn-sign-pledge" class="btn btn-primary btn-lg w-full pledge-submit-btn">
+                                <i class="fa-solid fa-signature"></i> <span data-i18n="pledgeBtnSign">توقيع الميثاق وإصدار وثيقة العهد الأخلاقي</span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
@@ -1529,11 +1556,65 @@
     </div>
 
 
+    <!-- Pledge Certificate Modal Overlay -->
+    <div id="pledge-cert-overlay" class="pledge-cert-overlay" style="display: none;">
+        <canvas id="confetti-canvas"></canvas>
+        <div class="pledge-cert-modal">
+            <!-- Glassmorphic premium frame design with corner accents -->
+            <div class="cert-corner top-left"></div>
+            <div class="cert-corner top-right"></div>
+            <div class="cert-corner bottom-left"></div>
+            <div class="cert-corner bottom-right"></div>
+
+            <div class="cert-header">
+                <div class="cert-seal">
+                    <i class="fa-solid fa-ribbon"></i>
+                </div>
+                <h3 class="cert-title" data-i18n="certTitle">وثيقة العهد الأخلاقي والالتزام الجيومكاني</h3>
+                <p class="cert-subtitle" data-i18n="certSubtitle">المنصة الجغرافية التعليمية السعودية</p>
+            </div>
+
+            <div class="cert-body">
+                <p class="cert-preface" data-i18n="certPreface">نشهد بكل فخر واعتزاز بأن الباحث الجيومكاني الواعد:</p>
+                <h4 id="cert-student-name" class="cert-student-name">أحمد عبد الله الغامدي</h4>
+                <p class="cert-text" data-i18n="certBodyText">تُمنح هذه الوثيقة تقديراً للباحث وتوثيقاً لالتزامه التام ببنود ميثاق الشرف للبيانات الجغرافية الوطنية، متعهداً بالعمل بمسؤولية مهنية وأمانة علمية لبناء مستقبل جيومكاني واعد للوطن.</p>
+            </div>
+
+            <div class="cert-footer">
+                <div class="cert-meta">
+                    <span class="cert-meta-item">
+                        <strong data-i18n="certSerialLabel">الرقم التسلسلي:</strong>
+                        <span id="cert-serial-id" class="font-mono">#KSA-ETH-XXXXXX</span>
+                    </span>
+                    <span class="cert-meta-item">
+                        <strong data-i18n="certDateLabel">تاريخ التوقيع:</strong>
+                        <span id="cert-date-signed" class="font-mono">YYYY-MM-DD</span>
+                    </span>
+                </div>
+                <div class="cert-signature-area">
+                    <div class="signature-line"></div>
+                    <span class="signature-title" data-i18n="certSignatureTitle">المشرف العام على المنصة</span>
+                    <span class="signature-name">Yazeed Alshammari</span>
+                </div>
+            </div>
+
+            <div class="cert-actions">
+                <button type="button" id="btn-print-certificate" class="btn btn-secondary">
+                    <i class="fa-solid fa-print"></i> <span data-i18n="btnPrintCert">طباعة وثيقة العهد</span>
+                </button>
+                <button type="button" id="btn-close-cert" class="btn btn-primary">
+                    <i class="fa-solid fa-circle-xmark"></i> <span data-i18n="btnCloseCertText">إغلاق وثيقة العهد</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Shp.js for client-side zipped shapefiles parsing -->
     <script src="https://cdn.jsdelivr.net/npm/shpjs@4.0.2/dist/shp.js"></script>
     <!-- Privacy-friendly Web Analytics (GoatCounter) -->
     <script data-goatcounter="https://webgis-i6na.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
     <!-- Scripts -->
-    <script src="app.js?v=7.0"></script>
+    <script src="translations.js?v=9.0"></script>
+    <script src="app.js?v=9.0"></script>
 </body>
 </html>

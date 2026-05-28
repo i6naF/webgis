@@ -1,9 +1,104 @@
 /**
  * GeoHub - Core Application Logic (app.js)
  * Implements interactivity, GIS layer simulation, data inspection, and dynamic filtering.
+ * Bilingual zero-latency language switcher engine integrated.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    // ==========================================================================
+    // 0. Bilingual Language Switcher Engine (Zero-Latency, Client-Side)
+    // ==========================================================================
+    let currentLang = localStorage.getItem('selectedLang') || 'ar';
+
+    function switchLanguage(lang) {
+        currentLang = lang;
+
+        // 1. Update HTML root attributes for RTL/LTR and language
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+        // 2. Persist preference
+        localStorage.setItem('selectedLang', lang);
+
+        // 3. Translate all static [data-i18n] elements
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[lang] && translations[lang][key]) {
+                el.innerHTML = translations[lang][key];
+            }
+        });
+
+        // 4. Translate all [data-i18n-placeholder] elements
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-i18n-placeholder');
+            if (translations[lang] && translations[lang][key]) {
+                el.placeholder = translations[lang][key];
+            }
+        });
+
+        // 5. Swap language toggle button text
+        const langText = document.querySelector('#langToggle .lang-text');
+        if (langText) langText.textContent = lang === 'ar' ? 'EN' : 'العربية';
+
+        // 6. Refresh the active converter tab dropzone labels
+        refreshConverterDropzoneLabels();
+
+        // 7. If a city is currently selected in the UTM Calculator, refresh its fields
+        refreshUtmCalculatorFields();
+    }
+
+    // Bind the language toggle button
+    const langToggleBtn = document.getElementById('langToggle');
+    if (langToggleBtn) {
+        langToggleBtn.addEventListener('click', () => {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            switchLanguage(currentLang);
+        });
+    }
+
+    // Helper: refresh converter dropzone labels for current language and active tab
+    function refreshConverterDropzoneLabels() {
+        const dropzoneTitleEl = document.getElementById('dropzone-title');
+        const dropzoneDescEl = document.getElementById('dropzone-desc');
+        const helpTextEl = document.getElementById('help-text-content');
+        if (!dropzoneTitleEl) return;
+
+        if (fileConverterMode === 'shp2geojson') {
+            dropzoneTitleEl.textContent = translations[currentLang].dropzoneTitleShp;
+            dropzoneDescEl.textContent = translations[currentLang].dropzoneDescShp;
+            if (helpTextEl) helpTextEl.textContent = translations[currentLang].helpShp2GeoJson;
+        } else if (fileConverterMode === 'csv2geojson') {
+            dropzoneTitleEl.textContent = translations[currentLang].dropzoneTitleCsv;
+            dropzoneDescEl.textContent = translations[currentLang].dropzoneDescCsv;
+            if (helpTextEl) helpTextEl.textContent = translations[currentLang].helpCsv2GeoJson;
+        } else if (fileConverterMode === 'geojson2csv') {
+            dropzoneTitleEl.textContent = translations[currentLang].dropzoneTitleGeoJson;
+            dropzoneDescEl.textContent = translations[currentLang].dropzoneDescGeoJson;
+            if (helpTextEl) helpTextEl.textContent = translations[currentLang].helpGeoJson2Csv;
+        }
+    }
+
+    // Helper: refresh UTM calculator fields when language changes
+    function refreshUtmCalculatorFields() {
+        const citySel = document.getElementById('citySelector');
+        if (!citySel) return;
+        const selectedKey = citySel.value;
+        if (!selectedKey || !cityData[selectedKey]) return;
+
+        const data = cityData[selectedKey][currentLang];
+        if (!data) return;
+
+        const resultCityEl = document.getElementById('resultCityName');
+        const specMeridianEl = document.getElementById('specMeridian');
+        const specUsageEl = document.getElementById('specUsage');
+        const specNoteEl = document.getElementById('specNote');
+
+        if (resultCityEl) resultCityEl.textContent = data.name;
+        if (specMeridianEl) specMeridianEl.textContent = data.meridian;
+        if (specUsageEl) specUsageEl.textContent = data.usage;
+        if (specNoteEl) specNoteEl.textContent = data.note;
+    }
     
     // ==========================================================================
     // 1. Navigation & Scroll Indicators
@@ -215,24 +310,24 @@ document.addEventListener('DOMContentLoaded', () => {
             resetConverterOutputs();
 
             if (mode === 'shp2geojson') {
-                dropzoneTitle.textContent = 'اسحب ملف Shapefile المضغوط (.zip)';
-                dropzoneDesc.textContent = 'يجب أن يحتوي ملف الـ ZIP على ملفات .shp و .dbf ويفضل .prj لإتمام الإسقاط';
+                dropzoneTitle.textContent = translations[currentLang].dropzoneTitleShp;
+                dropzoneDesc.textContent = translations[currentLang].dropzoneDescShp;
                 dropzoneIcon.className = 'fa-solid fa-file-zipper';
-                helpTextContent.textContent = 'يتيح لك هذا الوضع تحويل الطبقات المساحية والخطية والنقطية من صيغة Shapefile (مع جدول البيانات الوصفية بالكامل) إلى ملف GeoJSON قياسي صالح للاستخدام في الويب فوراً.';
+                helpTextContent.textContent = translations[currentLang].helpShp2GeoJson;
                 fileInput.accept = '.zip';
             } 
             else if (mode === 'csv2geojson') {
-                dropzoneTitle.textContent = 'اسحب ملف CSV يحتوي على إحداثيات مكانية';
-                dropzoneDesc.textContent = 'يجب أن يتضمن ملف الـ CSV أعمدة تمثل خطوط العرض والطول (Latitude / Longitude)';
+                dropzoneTitle.textContent = translations[currentLang].dropzoneTitleCsv;
+                dropzoneDesc.textContent = translations[currentLang].dropzoneDescCsv;
                 dropzoneIcon.className = 'fa-solid fa-file-csv';
-                helpTextContent.textContent = 'تحويل قواعد البيانات الجدولية (CSV) المحتوية على إحداثيات جغرافية (مثل Latitude/Longitude) إلى ملف GeoJSON مكاني بنسق قياسي.';
+                helpTextContent.textContent = translations[currentLang].helpCsv2GeoJson;
                 fileInput.accept = '.csv';
             } 
             else if (mode === 'geojson2csv') {
-                dropzoneTitle.textContent = 'اسحب ملف GeoJSON للمواقع المكانية';
-                dropzoneDesc.textContent = 'يرفع ملف GeoJSON مساحي ليتم استخلاص بياناته الجدولية إلى ملف إكسل CSV متوافق';
+                dropzoneTitle.textContent = translations[currentLang].dropzoneTitleGeoJson;
+                dropzoneDesc.textContent = translations[currentLang].dropzoneDescGeoJson;
                 dropzoneIcon.className = 'fa-solid fa-file-code';
-                helpTextContent.textContent = 'يقوم هذا الوضع بقراءة طبقات GeoJSON المساحية واستخراج جميع أعمدة البيانات الوصفية (Properties) مع إحداثيات خطوط الطول والعرض وتخزينها في ملف جدول CSV منظم.';
+                helpTextContent.textContent = translations[currentLang].helpGeoJson2Csv;
                 fileInput.accept = '.geojson,.json';
             }
         });
@@ -268,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function resetConverterOutputs() {
         if (outputFilename) {
-            outputFilename.innerHTML = '<i class="fa-solid fa-file-code"></i> لا يوجد ملف معالج حالياً';
+            outputFilename.innerHTML = '<i class="fa-solid fa-file-code"></i> ' + (translations[currentLang].noFileProcessed || 'لا يوجد ملف معالج حالياً');
             outputFilesize.textContent = '--';
             outputJsonViewer.textContent = '{}';
             outputJsonViewer.style.display = 'block';
@@ -302,7 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleUploadedGisFile(file) {
         showConversionProgressBar();
-        updateConversionProgressBar(10, 'جاري قراءة بنية الملف محلياً...');
+        updateConversionProgressBar(10, translations[currentLang].progressReading || 'جاري قراءة بنية الملف محلياً...');
 
         const sizeInMb = (file.size / (1024 * 1024)).toFixed(2);
         convertedFileName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
@@ -311,35 +406,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (fileConverterMode === 'shp2geojson') {
             if (!file.name.endsWith('.zip')) {
-                alert('الرجاء رفع ملف Shapefile مضغوط بصيغة .zip حصراً!');
+                alert(translations[currentLang].alertShpZipOnly);
                 resetConverterOutputs();
                 return;
             }
 
             reader.readAsArrayBuffer(file);
             reader.onload = function(e) {
-                updateConversionProgressBar(40, 'جاري إلغاء ضغط وفك ملفات Shapefile...');
+                updateConversionProgressBar(40, translations[currentLang].progressDecompressing || 'جاري إلغاء ضغط وفك ملفات Shapefile...');
                 
                 setTimeout(() => {
                     if (typeof shp === 'undefined') {
-                        alert('مكتبة Shp.js غير متوفرة حالياً، تأكد من الاتصال بالإنترنت!');
+                        alert(translations[currentLang].alertShpjsUnavailable);
                         resetConverterOutputs();
                         return;
                     }
 
                     shp(e.target.result).then(geojson => {
-                        updateConversionProgressBar(85, 'جاري توليد ملف GeoJSON مساحي...');
+                        updateConversionProgressBar(85, translations[currentLang].progressGenerating || 'جاري توليد ملف GeoJSON مساحي...');
                         
                         setTimeout(() => {
                             convertedFileContent = JSON.stringify(geojson, null, 2);
                             convertedFileName = `${convertedFileName}_converted.geojson`;
 
-                            updateConversionProgressBar(100, 'اكتمل التحويل المساحي بنجاح!');
+                            updateConversionProgressBar(100, translations[currentLang].progressShpDone || 'اكتمل التحويل المساحي بنجاح!');
                             
                             renderGeoJsonPreview(geojson, file.name, sizeInMb);
                         }, 400);
                     }).catch(err => {
-                        alert('فشل في قراءة ملف Shapefile المضغوط! تأكد من وجود ملفي .shp و .dbf بداخل مجلد الـ zip.');
+                        alert(translations[currentLang].alertShpReadFailed);
                         console.error(err);
                         resetConverterOutputs();
                     });
@@ -349,14 +444,14 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (fileConverterMode === 'csv2geojson') {
             reader.readAsText(file);
             reader.onload = function(e) {
-                updateConversionProgressBar(50, 'جاري تحليل أعمدة البيانات الجغرافية...');
+                updateConversionProgressBar(50, translations[currentLang].progressAnalyzing || 'جاري تحليل أعمدة البيانات الجغرافية...');
                 
                 setTimeout(() => {
                     const text = e.target.result;
                     const parsed = parseCsv(text);
 
                     if (parsed.data.length === 0) {
-                        alert('ملف CSV فارغ أو لا يحتوي على صفوف صالحة!');
+                        alert(translations[currentLang].alertCsvEmpty);
                         resetConverterOutputs();
                         return;
                     }
@@ -374,12 +469,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
 
                     if (!latCol || !lngCol) {
-                        alert('فشل في التعرف على أعمدة خط الطول أو العرض! يرجى التأكد من تسمية الأعمدة كـ Latitude و Longitude.');
+                        alert(translations[currentLang].alertCsvCoordsNotFound);
                         resetConverterOutputs();
                         return;
                     }
 
-                    updateConversionProgressBar(75, 'جاري إسقاط النقاط وربط البيانات الجدولية...');
+                    updateConversionProgressBar(75, translations[currentLang].progressProjecting || 'جاري إسقاط النقاط وربط البيانات الجدولية...');
 
                     const features = [];
                     parsed.data.forEach(row => {
@@ -401,7 +496,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
 
                     if (features.length === 0) {
-                        alert('لا توجد إحداثيات مكانية صالحة أو مطابقة داخل أعمدة الـ CSV!');
+                        alert(translations[currentLang].alertCsvNoValidCoords);
                         resetConverterOutputs();
                         return;
                     }
@@ -414,7 +509,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     convertedFileContent = JSON.stringify(geojson, null, 2);
                     convertedFileName = `${convertedFileName}_converted.geojson`;
 
-                    updateConversionProgressBar(100, 'اكتمل تحويل ملف CSV بنجاح!');
+                    updateConversionProgressBar(100, translations[currentLang].progressCsvDone || 'اكتمل تحويل ملف CSV بنجاح!');
                     
                     renderTabularPreview(parsed.headers, parsed.data, file.name, sizeInMb);
                     renderGeoJsonPreview(geojson, file.name, sizeInMb);
@@ -427,7 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (fileConverterMode === 'geojson2csv') {
             reader.readAsText(file);
             reader.onload = function(e) {
-                updateConversionProgressBar(50, 'جاري تفكيك مصفوفات GeoJSON...');
+                updateConversionProgressBar(50, translations[currentLang].progressParsing || 'جاري تفكيك مصفوفات GeoJSON...');
                 
                 setTimeout(() => {
                     try {
@@ -439,18 +534,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         } else if (geojson.type === 'Feature') {
                             features = [geojson];
                         } else {
-                            alert('ملف GeoJSON غير صالح أو ليس FeatureCollection قياسي!');
+                            alert(translations[currentLang].alertGeojsonInvalid);
                             resetConverterOutputs();
                             return;
                         }
 
                         if (features.length === 0) {
-                            alert('ملف GeoJSON لا يحتوي على أي معالم مكانية!');
+                            alert(translations[currentLang].alertGeojsonNoFeatures);
                             resetConverterOutputs();
                             return;
                         }
 
-                        updateConversionProgressBar(75, 'جاري بناء جدول البيانات الوصفية...');
+                        updateConversionProgressBar(75, translations[currentLang].progressBuilding || 'جاري بناء جدول البيانات الوصفية...');
 
                         const allKeysSet = new Set();
                         features.forEach(feat => {
@@ -499,7 +594,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         convertedFileContent = "\uFEFF" + csvString;
                         convertedFileName = `${convertedFileName}_converted.csv`;
 
-                        updateConversionProgressBar(100, 'اكتمل التحويل الجدولي بنجاح!');
+                        updateConversionProgressBar(100, translations[currentLang].progressGeojsonDone || 'اكتمل التحويل الجدولي بنجاح!');
 
                         renderTabularPreview(csvHeaders, csvDataRows, file.name, sizeInMb);
                         
@@ -507,7 +602,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         outputGridViewer.style.display = 'block';
                     } 
                     catch(err) {
-                        alert('ملف GeoJSON معطوب أو غير صالح للتفكيك!');
+                        alert(translations[currentLang].alertGeojsonCorrupt);
                         console.error(err);
                         resetConverterOutputs();
                     }
@@ -520,11 +615,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!outputJsonViewer) return;
         
         outputFilename.innerHTML = `<i class="fa-solid fa-file-shield text-secondary"></i> ${originalName}`;
-        outputFilesize.textContent = `${size} ميغابايت`;
+        outputFilesize.textContent = `${size} ${currentLang === 'ar' ? 'ميغابايت' : 'MB'}`;
 
         const codeSnippet = JSON.stringify(geojson, null, 2);
         if (codeSnippet.length > 2500) {
-            outputJsonViewer.textContent = codeSnippet.substring(0, 2500) + "\n\n/* ... تم اقتطاع نافذة المعاينة للتسريع، الملف بأكمله جاهز للتحميل ... */";
+            outputJsonViewer.textContent = codeSnippet.substring(0, 2500) + "\n\n/* ... " + (currentLang === 'ar' ? 'تم اقتطاع نافذة المعاينة للتسريع، الملف بأكمله جاهز للتحميل' : 'Preview truncated for performance, full file is ready for download') + " ... */";
         } else {
             outputJsonViewer.textContent = codeSnippet;
         }
@@ -542,7 +637,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tableRows.innerHTML = '';
 
         outputFilename.innerHTML = `<i class="fa-solid fa-file-csv text-primary"></i> ${originalName}`;
-        outputFilesize.textContent = `${size} ميغابايت`;
+        outputFilesize.textContent = `${size} ${currentLang === 'ar' ? 'ميغابايت' : 'MB'}`;
 
         const visibleHeaders = headers.slice(0, 5);
         visibleHeaders.forEach(h => {
@@ -688,7 +783,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const titleInput = document.getElementById('news-contrib-title');
             const descInput = document.getElementById('news-contrib-desc');
             
-            alert(`✓ تم إرسال مسودة الخبر بنجاح! \nعنوان الخبر: "${titleInput.value}" \nسيتم مراجعة الخبر وتدقيقه مساحياً ونشره تحت إشراف Yazeed Alshammari في شريط الأخبار قريباً.`);
+            alert(translations[currentLang].alertNewsDraftSuccess.replace('{TITLE}', titleInput.value));
             titleInput.value = '';
             descInput.value = '';
         });
@@ -713,13 +808,13 @@ document.addEventListener('DOMContentLoaded', () => {
         btnSignPledge.addEventListener('click', () => {
             // 1. Validation check
             if (!pledgeCheck1.checked || !pledgeCheck2.checked || !pledgeCheck3.checked) {
-                alert("✗ يرجى تحديد وقراءة جميع بنود الميثاق الأخلاقي الثلاثة للتعهد والالتزام بأمن البيانات الوطنية الجغرافية!");
+                alert(translations[currentLang].alertPledgeCheckAll);
                 return;
             }
 
             const inputName = pledgeStudentNameInput.value.trim();
             if (!inputName) {
-                alert("✗ يرجى كتابة اسمك الثلاثي بالكامل لتوقيع الميثاق وإصدار وثيقة العهد الأخلاقي الجيومكاني!");
+                alert(translations[currentLang].alertPledgeNameEmpty);
                 return;
             }
 
@@ -762,6 +857,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     pledgeCertOverlay.style.display = 'none';
                 }, 400);
             }
+        });
+    }
+
+    // Wire Print Certificate Button
+    const btnPrintCertificate = document.getElementById('btn-print-certificate');
+    if (btnPrintCertificate) {
+        btnPrintCertificate.addEventListener('click', () => {
+            window.print();
         });
     }
 
@@ -835,130 +938,74 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     const cityData = {
         riyadh: {
-            name: "الرياض (Riyadh)",
-            zone: "UTM Zone 38N",
-            epsg: "EPSG:32638",
-            datum: "WGS 84 / GRS 80",
-            meridian: "45° East",
-            usage: "نظام الإحداثيات المعتمد لأمانة منطقة الرياض، المشاريع الإنشائية، وتخطيط البنية التحتية.",
-            note: "يغطي هذا النطاق كامل منطقة الرياض الكبرى ومحافظاتها الشرقية. احرص على استخدام مسقط EPSG:32638 لتفادي تشوهات حسابات المساحة الكبيرة."
+            zone: "UTM Zone 38N", epsg: "EPSG:32638", datum: "WGS 84 / GRS 80",
+            ar: { name: "الرياض (Riyadh)", meridian: "45° شرقاً", usage: "نظام الإحداثيات المعتمد لأمانة منطقة الرياض، المشاريع الإنشائية، وتخطيط البنية التحتية.", note: "يغطي هذا النطاق كامل منطقة الرياض الكبرى ومحافظاتها الشرقية. احرص على استخدام مسقط EPSG:32638 لتفادي تشوهات حسابات المساحة الكبيرة." },
+            en: { name: "Riyadh", meridian: "45° East", usage: "Approved coordinate system for Riyadh Municipality, construction projects, and infrastructure planning.", note: "This zone covers the entire Greater Riyadh region and its eastern provinces. Be sure to use EPSG:32638 to avoid distortion in large area calculations." }
         },
         jeddah: {
-            name: "جدة (Jeddah)",
-            zone: "UTM Zone 37N",
-            epsg: "EPSG:32637",
-            datum: "WGS 84 / GRS 80",
-            meridian: "39° East",
-            usage: "المشاريع البحرية، تخطيط السواحل، أعمال الرفع المساحي لبلدية جدة.",
-            note: "تعد جدة في النصف الشرقي من نطاق Zone 37N. تأكد من تحديد EPSG:32637 في برامج QGIS/ArcGIS Pro عند القيام بالتحليلات الهيدرولوجية للسيول."
+            zone: "UTM Zone 37N", epsg: "EPSG:32637", datum: "WGS 84 / GRS 80",
+            ar: { name: "جدة (Jeddah)", meridian: "39° شرقاً", usage: "المشاريع البحرية، تخطيط السواحل، أعمال الرفع المساحي لبلدية جدة.", note: "تعد جدة في النصف الشرقي من نطاق Zone 37N. تأكد من تحديد EPSG:32637 في برامج QGIS/ArcGIS Pro عند القيام بالتحليلات الهيدرولوجية للسيول." },
+            en: { name: "Jeddah", meridian: "39° East", usage: "Maritime projects, coastal planning, and surveying operations for Jeddah Municipality.", note: "Jeddah lies in the eastern half of Zone 37N. Be sure to set EPSG:32637 in QGIS/ArcGIS Pro for hydrological flood analysis." }
         },
         mecca: {
-            name: "مكة المكرمة (Mecca)",
-            zone: "UTM Zone 37N",
-            epsg: "EPSG:32637",
-            datum: "WGS 84 / GRS 80",
-            meridian: "39° East",
-            usage: "تخطيط المشاعر المقدسة، البنية التحتية للحرم، والمسوحات الطبوغرافية بمكة.",
-            note: "نظراً للطبيعة الجبلية الوعرة بمكة المكرمة، يعتبر نظام UTM Zone 37N الأنسب لتقليل نسبة الخطأ في القياسات المساحية الميدانية وعمل النماذج الرقمية ثلاثية الأبعاد."
+            zone: "UTM Zone 37N", epsg: "EPSG:32637", datum: "WGS 84 / GRS 80",
+            ar: { name: "مكة المكرمة (Mecca)", meridian: "39° شرقاً", usage: "تخطيط المشاعر المقدسة، البنية التحتية للحرم، والمسوحات الطبوغرافية بمكة.", note: "نظراً للطبيعة الجبلية الوعرة بمكة المكرمة، يعتبر نظام UTM Zone 37N الأنسب لتقليل نسبة الخطأ في القياسات المساحية الميدانية وعمل النماذج الرقمية ثلاثية الأبعاد." },
+            en: { name: "Mecca", meridian: "39° East", usage: "Holy sites planning, Grand Mosque infrastructure, and topographic surveys in Mecca.", note: "Given Mecca's rugged mountainous terrain, UTM Zone 37N is optimal for minimizing field survey measurement errors and creating 3D digital models." }
         },
         medina: {
-            name: "المدينة المنورة (Medina)",
-            zone: "UTM Zone 37N",
-            epsg: "EPSG:32637",
-            datum: "WGS 84 / GRS 80",
-            meridian: "39° East",
-            usage: "المشاريع العمرانية بالمنطقة المركزية، شبكات المياه والصرف الصحي لأمانة المدينة.",
-            note: "المنطقة تقع بالكامل ضمن نطاق زون 37N. ينصح بالتحقق من مطابقة المرجع الوطني الجيوديسي للمخططات الهندسية قبل استيرادها لقواعد البيانات الجغرافية."
+            zone: "UTM Zone 37N", epsg: "EPSG:32637", datum: "WGS 84 / GRS 80",
+            ar: { name: "المدينة المنورة (Medina)", meridian: "39° شرقاً", usage: "المشاريع العمرانية بالمنطقة المركزية، شبكات المياه والصرف الصحي لأمانة المدينة.", note: "المنطقة تقع بالكامل ضمن نطاق زون 37N. ينصح بالتحقق من مطابقة المرجع الوطني الجيوديسي للمخططات الهندسية قبل استيرادها لقواعد البيانات الجغرافية." },
+            en: { name: "Medina", meridian: "39° East", usage: "Urban projects in the central area, water and sewage networks for Medina Municipality.", note: "The region falls entirely within Zone 37N. Verify the national geodetic reference for engineering plans before importing into geographic databases." }
         },
         dammam: {
-            name: "الدمام والخبر (Dammam & Al-Khobar)",
-            zone: "UTM Zone 39N",
-            epsg: "EPSG:32639",
-            datum: "WGS 84 / GRS 80",
-            meridian: "51° East",
-            usage: "مشاريع أرامكو السعودية، الموانئ البحرية، وأعمال المساحة بالمنطقة الشرقية.",
-            note: "تقع المنطقة الشرقية بالكامل في النطاق 39N (EPSG:32639). انتبه جيداً لعدم خلطها بنطاق الرياض (38N) لكون الخط الفاصل يمر بين الدهناء والمنطقة الشرقية."
+            zone: "UTM Zone 39N", epsg: "EPSG:32639", datum: "WGS 84 / GRS 80",
+            ar: { name: "الدمام والخبر (Dammam & Al-Khobar)", meridian: "51° شرقاً", usage: "مشاريع أرامكو السعودية، الموانئ البحرية، وأعمال المساحة بالمنطقة الشرقية.", note: "تقع المنطقة الشرقية بالكامل في النطاق 39N (EPSG:32639). انتبه جيداً لعدم خلطها بنطاق الرياض (38N) لكون الخط الفاصل يمر بين الدهناء والمنطقة الشرقية." },
+            en: { name: "Dammam & Al-Khobar", meridian: "51° East", usage: "Saudi Aramco projects, maritime ports, and surveying in the Eastern Province.", note: "The Eastern Province falls entirely in Zone 39N (EPSG:32639). Be careful not to confuse it with Riyadh's zone (38N) as the boundary runs between Ad-Dahna and the Eastern Province." }
         },
         tabuk: {
-            name: "تبوك (Tabuk)",
-            zone: "UTM Zone 37N",
-            epsg: "EPSG:32637",
-            datum: "WGS 84 / GRS 80",
-            meridian: "39° East",
-            usage: "المشاريع الزراعية، مسوحات المياه الجوفية، والتنمية الحضرية بتبوك.",
-            note: "تقع تبوك في أقصى الشمال الغربي وتعتمد النطاق 37N. يوصى بالتحقق المزدوج من المرجعية الإحداثية لتجنب الإزاحات المترية عند دمج بيانات المحطات المساحية الأرضية."
+            zone: "UTM Zone 37N", epsg: "EPSG:32637", datum: "WGS 84 / GRS 80",
+            ar: { name: "تبوك (Tabuk)", meridian: "39° شرقاً", usage: "المشاريع الزراعية، مسوحات المياه الجوفية، والتنمية الحضرية بتبوك.", note: "تقع تبوك في أقصى الشمال الغربي وتعتمد النطاق 37N. يوصى بالتحقق المزدوج من المرجعية الإحداثية لتجنب الإزاحات المترية عند دمج بيانات المحطات المساحية الأرضية." },
+            en: { name: "Tabuk", meridian: "39° East", usage: "Agricultural projects, groundwater surveys, and urban development in Tabuk.", note: "Tabuk lies in the far northwest and uses Zone 37N. Double-check the coordinate reference to avoid metric offsets when merging ground survey station data." }
         },
         abha: {
-            name: "أبها وعسير (Abha & Asir)",
-            zone: "UTM Zone 37N",
-            epsg: "EPSG:32637",
-            datum: "WGS 84 / GRS 80",
-            meridian: "39° East",
-            usage: "رصد الانهيارات الجبلية، السياحة البيئية، وتخطيط المدرجات الزراعية بعسير.",
-            note: "نظراً للارتفاعات الشاهقة بجبال السروات (أبها)، يجب أخذ تأثير الارتفاع عن سطح البحر بعين الاعتبار عند مطابقة الرفع المساحي لـ UTM."
+            zone: "UTM Zone 37N", epsg: "EPSG:32637", datum: "WGS 84 / GRS 80",
+            ar: { name: "أبها وعسير (Abha & Asir)", meridian: "39° شرقاً", usage: "رصد الانهيارات الجبلية، السياحة البيئية، وتخطيط المدرجات الزراعية بعسير.", note: "نظراً للارتفاعات الشاهقة بجبال السروات (أبها)، يجب أخذ تأثير الارتفاع عن سطح البحر بعين الاعتبار عند مطابقة الرفع المساحي لـ UTM." },
+            en: { name: "Abha & Asir", meridian: "39° East", usage: "Landslide monitoring, eco-tourism, and agricultural terrace planning in Asir.", note: "Given the high elevations of the Sarawat Mountains (Abha), the effect of altitude above sea level must be considered when matching survey data to UTM." }
         },
         hail: {
-            name: "حائل (Hail)",
-            zone: "UTM Zone 38N",
-            epsg: "EPSG:32638",
-            datum: "WGS 84 / GRS 80",
-            meridian: "45° East",
-            usage: "مشاريع التنمية الزراعية، رصد التصحر، والمخططات العمرانية لأمانة حائل.",
-            note: "تقع حائل في وسط الشمال وتتبع نطاق 38N. يفضل التحقق من المرجع المساحي لبيانات المياه والآبار الجوفية التي قد تستخدم مرجع عين العبد القديم."
+            zone: "UTM Zone 38N", epsg: "EPSG:32638", datum: "WGS 84 / GRS 80",
+            ar: { name: "حائل (Hail)", meridian: "45° شرقاً", usage: "مشاريع التنمية الزراعية، رصد التصحر، والمخططات العمرانية لأمانة حائل.", note: "تقع حائل في وسط الشمال وتتبع نطاق 38N. يفضل التحقق من المرجع المساحي لبيانات المياه والآبار الجوفية التي قد تستخدم مرجع عين العبد القديم." },
+            en: { name: "Hail", meridian: "45° East", usage: "Agricultural development, desertification monitoring, and urban planning for Hail Municipality.", note: "Hail lies in the north-central region and uses Zone 38N. Verify the survey reference for water and well data that may use the legacy Ain el-Abd datum." }
         },
         jazan: {
-            name: "جازان (Jazan)",
-            zone: "UTM Zone 37N",
-            epsg: "EPSG:32637",
-            datum: "WGS 84 / GRS 80",
-            meridian: "39° East",
-            usage: "مشاريع مدينة جازان للصناعات الأساسية، رصد الجزر (فرسان)، والتخطيط البيئي.",
-            note: "تقع جازان في أقصى الجنوب الغربي ضمن زون 37N. تتميز المشاريع هنا بمتطلبات دقة عالية لتداخل التضاريس الجبلية والسهول الساحلية والجزر."
+            zone: "UTM Zone 37N", epsg: "EPSG:32637", datum: "WGS 84 / GRS 80",
+            ar: { name: "جازان (Jazan)", meridian: "39° شرقاً", usage: "مشاريع مدينة جازان للصناعات الأساسية، رصد الجزر (فرسان)، والتخطيط البيئي.", note: "تقع جازان في أقصى الجنوب الغربي ضمن زون 37N. تتميز المشاريع هنا بمتطلبات دقة عالية لتداخل التضاريس الجبلية والسهول الساحلية والجزر." },
+            en: { name: "Jazan", meridian: "39° East", usage: "Jazan Industrial City projects, Farasan Islands monitoring, and environmental planning.", note: "Jazan is in the far southwest within Zone 37N. Projects here require high precision due to the overlap of mountainous terrain, coastal plains, and islands." }
         },
         najran: {
-            name: "نجران (Najran)",
-            zone: "UTM Zone 38N",
-            epsg: "EPSG:32638",
-            datum: "WGS 84 / GRS 80",
-            meridian: "45° East",
-            usage: "المخططات العمرانية لأمانة نجران، مسوحات المياه، وتوثيق المواقع التاريخية (حمى).",
-            note: "تتبع نجران النطاق 38N. انتبه عند العمل بالقرب من الحدود الغربية للمنطقة حيث تتداخل مع زون 37N التابع لعسير."
+            zone: "UTM Zone 38N", epsg: "EPSG:32638", datum: "WGS 84 / GRS 80",
+            ar: { name: "نجران (Najran)", meridian: "45° شرقاً", usage: "المخططات العمرانية لأمانة نجران، مسوحات المياه، وتوثيق المواقع التاريخية (حمى).", note: "تتبع نجران النطاق 38N. انتبه عند العمل بالقرب من الحدود الغربية للمنطقة حيث تتداخل مع زون 37N التابع لعسير." },
+            en: { name: "Najran", meridian: "45° East", usage: "Urban planning for Najran Municipality, water surveys, and historical site documentation (Hima).", note: "Najran uses Zone 38N. Be careful when working near the western boundary where it overlaps with Asir's Zone 37N." }
         },
         aljouf: {
-            name: "الجوف (Al-Jouf)",
-            zone: "UTM Zone 37N",
-            epsg: "EPSG:32637",
-            datum: "WGS 84 / GRS 80",
-            meridian: "39° East",
-            usage: "مشاريع طاقة الرياح والطاقة الشمسية، التخطيط الزراعي بسكاكا ودومة الجندل.",
-            note: "تقع منطقة الجوف في الشمال وتسقط بالكامل في UTM Zone 37N. مناسب جداً لمشاريع أبحاث الطاقة البديلة وتوزيع الحقول الزراعية الشاسعة."
+            zone: "UTM Zone 37N", epsg: "EPSG:32637", datum: "WGS 84 / GRS 80",
+            ar: { name: "الجوف (Al-Jouf)", meridian: "39° شرقاً", usage: "مشاريع طاقة الرياح والطاقة الشمسية، التخطيط الزراعي بسكاكا ودومة الجندل.", note: "تقع منطقة الجوف في الشمال وتسقط بالكامل في UTM Zone 37N. مناسب جداً لمشاريع أبحاث الطاقة البديلة وتوزيع الحقول الزراعية الشاسعة." },
+            en: { name: "Al-Jouf", meridian: "39° East", usage: "Wind and solar energy projects, agricultural planning in Sakaka and Dumat Al-Jandal.", note: "Al-Jouf region lies in the north and falls entirely within UTM Zone 37N. Ideal for renewable energy research and mapping vast agricultural fields." }
         },
         borders: {
-            name: "الحدود الشمالية (Northern Borders)",
-            zone: "UTM Zone 38N",
-            epsg: "EPSG:32638",
-            datum: "WGS 84 / GRS 80",
-            meridian: "45° East",
-            usage: "مشاريع التعدين (وعد الشمال)، خطوط أنابيب النفط والغاز، والتخطيط الإقليمي للشمال.",
-            note: "تغطي المنطقة الشمالية مساحة شاسعة تتقاطع مع نطاق 38N. يفضل في الدراسات البيئية واسعة النطاق استخدام المرجع الجيوديسي الموحد لتقليل الإزاحة المكانية."
+            zone: "UTM Zone 38N", epsg: "EPSG:32638", datum: "WGS 84 / GRS 80",
+            ar: { name: "الحدود الشمالية (Northern Borders)", meridian: "45° شرقاً", usage: "مشاريع التعدين (وعد الشمال)، خطوط أنابيب النفط والغاز، والتخطيط الإقليمي للشمال.", note: "تغطي المنطقة الشمالية مساحة شاسعة تتقاطع مع نطاق 38N. يفضل في الدراسات البيئية واسعة النطاق استخدام المرجع الجيوديسي الموحد لتقليل الإزاحة المكانية." },
+            en: { name: "Northern Borders", meridian: "45° East", usage: "Mining projects (Wa'ad Al-Shamal), oil and gas pipelines, and regional planning.", note: "The Northern region covers a vast area intersecting Zone 38N. For large-scale environmental studies, use the unified geodetic reference to minimize spatial offset." }
         },
         albaha: {
-            name: "الباحة (Al-Baha)",
-            zone: "UTM Zone 37N",
-            epsg: "EPSG:32637",
-            datum: "WGS 84 / GRS 80",
-            meridian: "39° East",
-            usage: "مشاريع التخطيط الحضري والسياحي بالباحة، وإدارة الغابات والمدرجات.",
-            note: "تقع الباحة في زون 37N. الطبيعة الطبوغرافية الجبلية تقتضي المعايرة المساحية الدقيقة واستخدام خطوط الكنتور عالية الدقة لسلامة المنشآت الهندسية."
+            zone: "UTM Zone 37N", epsg: "EPSG:32637", datum: "WGS 84 / GRS 80",
+            ar: { name: "الباحة (Al-Baha)", meridian: "39° شرقاً", usage: "مشاريع التخطيط الحضري والسياحي بالباحة، وإدارة الغابات والمدرجات.", note: "تقع الباحة في زون 37N. الطبيعة الطبوغرافية الجبلية تقتضي المعايرة المساحية الدقيقة واستخدام خطوط الكنتور عالية الدقة لسلامة المنشآت الهندسية." },
+            en: { name: "Al-Baha", meridian: "39° East", usage: "Urban and tourism planning in Al-Baha, forest and terrace management.", note: "Al-Baha lies in Zone 37N. The mountainous topography requires precise survey calibration and high-resolution contour lines for structural engineering safety." }
         },
         neom: {
-            name: "نيوم (NEOM)",
-            zone: "UTM Zone 37N",
-            epsg: "EPSG:32637",
-            datum: "WGS 84 / GRS 80",
-            meridian: "39° East",
-            usage: "تخطيط المشاريع الضخمة (The Line, Oxagon, Trojena)، وتصميم الأنظمة الذكية المستدامة.",
-            note: "تعد نيوم في أقصى الشمال الغربي وتسقط في UTM Zone 37N. يطبق فيها معايير جيوديسية فائقة الدقة والربط السحابي مع محطات CORS الدائمة للرفع اللحظي RTK."
+            zone: "UTM Zone 37N", epsg: "EPSG:32637", datum: "WGS 84 / GRS 80",
+            ar: { name: "نيوم (NEOM)", meridian: "39° شرقاً", usage: "تخطيط المشاريع الضخمة (The Line, Oxagon, Trojena)، وتصميم الأنظمة الذكية المستدامة.", note: "تعد نيوم في أقصى الشمال الغربي وتسقط في UTM Zone 37N. يطبق فيها معايير جيوديسية فائقة الدقة والربط السحابي مع محطات CORS الدائمة للرفع اللحظي RTK." },
+            en: { name: "NEOM", meridian: "39° East", usage: "Planning mega-projects (The Line, Oxagon, Trojena) and designing sustainable smart systems.", note: "NEOM is in the far northwest and falls within UTM Zone 37N. Ultra-precision geodetic standards and cloud-connected permanent CORS stations are used for real-time RTK surveying." }
         }
     };
 
@@ -1019,14 +1066,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         citySelector.addEventListener('change', () => {
             const selectedKey = citySelector.value;
-            const data = cityData[selectedKey];
+            const cityEntry = cityData[selectedKey];
 
-            if (data) {
+            if (cityEntry) {
+                const data = cityEntry[currentLang];
                 // Update text contents
                 resultCityName.textContent = data.name;
-                resultZoneBadge.textContent = data.zone;
-                specEPSG.textContent = data.epsg;
-                specDatum.textContent = data.datum;
+                resultZoneBadge.textContent = cityEntry.zone;
+                specEPSG.textContent = cityEntry.epsg;
+                specDatum.textContent = cityEntry.datum;
                 specMeridian.textContent = data.meridian;
                 specUsage.textContent = data.usage;
                 specNote.textContent = data.note;
@@ -1046,6 +1094,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // ==========================================================================
+    // 99. Initialize Language on Page Load (apply cached preference)
+    // ==========================================================================
+    switchLanguage(currentLang);
+
 });
-
-
