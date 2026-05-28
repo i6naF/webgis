@@ -829,6 +829,223 @@ document.addEventListener('DOMContentLoaded', () => {
 
         draw();
     }
+
+    // ==========================================================================
+    // 21. Saudi Spatial Reference & City Telemetry (Calculator Dataset)
+    // ==========================================================================
+    const cityData = {
+        riyadh: {
+            name: "الرياض (Riyadh)",
+            zone: "UTM Zone 38N",
+            epsg: "EPSG:32638",
+            datum: "WGS 84 / GRS 80",
+            meridian: "45° East",
+            usage: "نظام الإحداثيات المعتمد لأمانة منطقة الرياض، المشاريع الإنشائية، وتخطيط البنية التحتية.",
+            note: "يغطي هذا النطاق كامل منطقة الرياض الكبرى ومحافظاتها الشرقية. احرص على استخدام مسقط EPSG:32638 لتفادي تشوهات حسابات المساحة الكبيرة."
+        },
+        jeddah: {
+            name: "جدة (Jeddah)",
+            zone: "UTM Zone 37N",
+            epsg: "EPSG:32637",
+            datum: "WGS 84 / GRS 80",
+            meridian: "39° East",
+            usage: "المشاريع البحرية، تخطيط السواحل، أعمال الرفع المساحي لبلدية جدة.",
+            note: "تعد جدة في النصف الشرقي من نطاق Zone 37N. تأكد من تحديد EPSG:32637 في برامج QGIS/ArcGIS Pro عند القيام بالتحليلات الهيدرولوجية للسيول."
+        },
+        mecca: {
+            name: "مكة المكرمة (Mecca)",
+            zone: "UTM Zone 37N",
+            epsg: "EPSG:32637",
+            datum: "WGS 84 / GRS 80",
+            meridian: "39° East",
+            usage: "تخطيط المشاعر المقدسة، البنية التحتية للحرم، والمسوحات الطبوغرافية بمكة.",
+            note: "نظراً للطبيعة الجبلية الوعرة بمكة المكرمة، يعتبر نظام UTM Zone 37N الأنسب لتقليل نسبة الخطأ في القياسات المساحية الميدانية وعمل النماذج الرقمية ثلاثية الأبعاد."
+        },
+        medina: {
+            name: "المدينة المنورة (Medina)",
+            zone: "UTM Zone 37N",
+            epsg: "EPSG:32637",
+            datum: "WGS 84 / GRS 80",
+            meridian: "39° East",
+            usage: "المشاريع العمرانية بالمنطقة المركزية، شبكات المياه والصرف الصحي لأمانة المدينة.",
+            note: "المنطقة تقع بالكامل ضمن نطاق زون 37N. ينصح بالتحقق من مطابقة المرجع الوطني الجيوديسي للمخططات الهندسية قبل استيرادها لقواعد البيانات الجغرافية."
+        },
+        dammam: {
+            name: "الدمام والخبر (Dammam & Al-Khobar)",
+            zone: "UTM Zone 39N",
+            epsg: "EPSG:32639",
+            datum: "WGS 84 / GRS 80",
+            meridian: "51° East",
+            usage: "مشاريع أرامكو السعودية، الموانئ البحرية، وأعمال المساحة بالمنطقة الشرقية.",
+            note: "تقع المنطقة الشرقية بالكامل في النطاق 39N (EPSG:32639). انتبه جيداً لعدم خلطها بنطاق الرياض (38N) لكون الخط الفاصل يمر بين الدهناء والمنطقة الشرقية."
+        },
+        tabuk: {
+            name: "تبوك (Tabuk)",
+            zone: "UTM Zone 37N",
+            epsg: "EPSG:32637",
+            datum: "WGS 84 / GRS 80",
+            meridian: "39° East",
+            usage: "المشاريع الزراعية، مسوحات المياه الجوفية، والتنمية الحضرية بتبوك.",
+            note: "تقع تبوك في أقصى الشمال الغربي وتعتمد النطاق 37N. يوصى بالتحقق المزدوج من المرجعية الإحداثية لتجنب الإزاحات المترية عند دمج بيانات المحطات المساحية الأرضية."
+        },
+        abha: {
+            name: "أبها وعسير (Abha & Asir)",
+            zone: "UTM Zone 37N",
+            epsg: "EPSG:32637",
+            datum: "WGS 84 / GRS 80",
+            meridian: "39° East",
+            usage: "رصد الانهيارات الجبلية، السياحة البيئية، وتخطيط المدرجات الزراعية بعسير.",
+            note: "نظراً للارتفاعات الشاهقة بجبال السروات (أبها)، يجب أخذ تأثير الارتفاع عن سطح البحر بعين الاعتبار عند مطابقة الرفع المساحي لـ UTM."
+        },
+        hail: {
+            name: "حائل (Hail)",
+            zone: "UTM Zone 38N",
+            epsg: "EPSG:32638",
+            datum: "WGS 84 / GRS 80",
+            meridian: "45° East",
+            usage: "مشاريع التنمية الزراعية، رصد التصحر، والمخططات العمرانية لأمانة حائل.",
+            note: "تقع حائل في وسط الشمال وتتبع نطاق 38N. يفضل التحقق من المرجع المساحي لبيانات المياه والآبار الجوفية التي قد تستخدم مرجع عين العبد القديم."
+        },
+        jazan: {
+            name: "جازان (Jazan)",
+            zone: "UTM Zone 37N",
+            epsg: "EPSG:32637",
+            datum: "WGS 84 / GRS 80",
+            meridian: "39° East",
+            usage: "مشاريع مدينة جازان للصناعات الأساسية، رصد الجزر (فرسان)، والتخطيط البيئي.",
+            note: "تقع جازان في أقصى الجنوب الغربي ضمن زون 37N. تتميز المشاريع هنا بمتطلبات دقة عالية لتداخل التضاريس الجبلية والسهول الساحلية والجزر."
+        },
+        najran: {
+            name: "نجران (Najran)",
+            zone: "UTM Zone 38N",
+            epsg: "EPSG:32638",
+            datum: "WGS 84 / GRS 80",
+            meridian: "45° East",
+            usage: "المخططات العمرانية لأمانة نجران، مسوحات المياه، وتوثيق المواقع التاريخية (حمى).",
+            note: "تتبع نجران النطاق 38N. انتبه عند العمل بالقرب من الحدود الغربية للمنطقة حيث تتداخل مع زون 37N التابع لعسير."
+        },
+        aljouf: {
+            name: "الجوف (Al-Jouf)",
+            zone: "UTM Zone 37N",
+            epsg: "EPSG:32637",
+            datum: "WGS 84 / GRS 80",
+            meridian: "39° East",
+            usage: "مشاريع طاقة الرياح والطاقة الشمسية، التخطيط الزراعي بسكاكا ودومة الجندل.",
+            note: "تقع منطقة الجوف في الشمال وتسقط بالكامل في UTM Zone 37N. مناسب جداً لمشاريع أبحاث الطاقة البديلة وتوزيع الحقول الزراعية الشاسعة."
+        },
+        borders: {
+            name: "الحدود الشمالية (Northern Borders)",
+            zone: "UTM Zone 38N",
+            epsg: "EPSG:32638",
+            datum: "WGS 84 / GRS 80",
+            meridian: "45° East",
+            usage: "مشاريع التعدين (وعد الشمال)، خطوط أنابيب النفط والغاز، والتخطيط الإقليمي للشمال.",
+            note: "تغطي المنطقة الشمالية مساحة شاسعة تتقاطع مع نطاق 38N. يفضل في الدراسات البيئية واسعة النطاق استخدام المرجع الجيوديسي الموحد لتقليل الإزاحة المكانية."
+        },
+        albaha: {
+            name: "الباحة (Al-Baha)",
+            zone: "UTM Zone 37N",
+            epsg: "EPSG:32637",
+            datum: "WGS 84 / GRS 80",
+            meridian: "39° East",
+            usage: "مشاريع التخطيط الحضري والسياحي بالباحة، وإدارة الغابات والمدرجات.",
+            note: "تقع الباحة في زون 37N. الطبيعة الطبوغرافية الجبلية تقتضي المعايرة المساحية الدقيقة واستخدام خطوط الكنتور عالية الدقة لسلامة المنشآت الهندسية."
+        },
+        neom: {
+            name: "نيوم (NEOM)",
+            zone: "UTM Zone 37N",
+            epsg: "EPSG:32637",
+            datum: "WGS 84 / GRS 80",
+            meridian: "39° East",
+            usage: "تخطيط المشاريع الضخمة (The Line, Oxagon, Trojena)، وتصميم الأنظمة الذكية المستدامة.",
+            note: "تعد نيوم في أقصى الشمال الغربي وتسقط في UTM Zone 37N. يطبق فيها معايير جيوديسية فائقة الدقة والربط السحابي مع محطات CORS الدائمة للرفع اللحظي RTK."
+        }
+    };
+
+    // ==========================================================================
+    // 22. Saudi Spatial Data Hub Search & Filter Logic
+    // ==========================================================================
+    const datasetSearchInput = document.getElementById('datasetSearch');
+    const datasetFilterBtns = document.querySelectorAll('#datasetFilters .filter-btn');
+    const datasetCards = document.querySelectorAll('#datasetGrid .dataset-card');
+
+    function filterDatasets() {
+        const searchQuery = datasetSearchInput ? datasetSearchInput.value.toLowerCase().trim() : '';
+        const activeFilterBtn = document.querySelector('#datasetFilters .filter-btn.active');
+        const activeCategory = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
+
+        datasetCards.forEach(card => {
+            const matchesCategory = activeCategory === 'all' || card.dataset.category === activeCategory;
+            const textContent = card.innerText.toLowerCase();
+            const matchesSearch = textContent.includes(searchQuery);
+
+            if (matchesCategory && matchesSearch) {
+                card.classList.remove('hidden');
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+    }
+
+    if (datasetSearchInput) {
+        datasetSearchInput.addEventListener('input', filterDatasets);
+    }
+
+    datasetFilterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            datasetFilterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filterDatasets();
+        });
+    });
+
+    // ==========================================================================
+    // 23. Saudi UTM & CRS Calculator Interactive Event Listener
+    // ==========================================================================
+    const citySelector = document.getElementById('citySelector');
+    const utmResultCard = document.getElementById('utmResultCard');
+
+    if (citySelector && utmResultCard) {
+        const placeholderDiv = utmResultCard.querySelector('.result-placeholder');
+        const contentDiv = utmResultCard.querySelector('.result-content');
+        
+        const resultCityName = document.getElementById('resultCityName');
+        const resultZoneBadge = document.getElementById('resultZoneBadge');
+        const specEPSG = document.getElementById('specEPSG');
+        const specDatum = document.getElementById('specDatum');
+        const specMeridian = document.getElementById('specMeridian');
+        const specUsage = document.getElementById('specUsage');
+        const specNote = document.getElementById('specNote');
+
+        citySelector.addEventListener('change', () => {
+            const selectedKey = citySelector.value;
+            const data = cityData[selectedKey];
+
+            if (data) {
+                // Update text contents
+                resultCityName.textContent = data.name;
+                resultZoneBadge.textContent = data.zone;
+                specEPSG.textContent = data.epsg;
+                specDatum.textContent = data.datum;
+                specMeridian.textContent = data.meridian;
+                specUsage.textContent = data.usage;
+                specNote.textContent = data.note;
+
+                // Toggle views
+                placeholderDiv.style.display = 'none';
+                contentDiv.style.display = 'flex';
+
+                // Add active-glow micro-animation
+                utmResultCard.classList.remove('glow-active');
+                void utmResultCard.offsetWidth; // Trigger reflow to restart CSS animation
+                utmResultCard.classList.add('glow-active');
+            } else {
+                placeholderDiv.style.display = 'flex';
+                contentDiv.style.display = 'none';
+                utmResultCard.classList.remove('glow-active');
+            }
+        });
+    }
 });
 
 

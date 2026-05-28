@@ -24,7 +24,7 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <link rel="stylesheet" href="styles.css?v=4.0">
+    <link rel="stylesheet" href="styles.css?v=5.0">
 </head>
 <body>
 
@@ -57,6 +57,8 @@
                 <a href="#devices" class="nav-link" id="nav-devices"><i class="fa-solid fa-laptop"></i> الأجهزة الموصى بها</a>
                 <a href="#gis-file-converter" class="nav-link" id="nav-gis-file-converter"><i class="fa-solid fa-file-export text-primary"></i> محول ملفات GIS</a>
                 <a href="#software" class="nav-link" id="nav-software"><i class="fa-solid fa-laptop-code"></i> البرمجيات</a>
+                <a href="#spatial-data-hub" class="nav-link" id="nav-spatial-data"><i class="fa-solid fa-database"></i> مستودع البيانات</a>
+                <a href="#utm-crs-calculator" class="nav-link" id="nav-utm-calc"><i class="fa-solid fa-calculator"></i> حاسبة UTM</a>
 
                 <a href="#tips" class="nav-link" id="nav-tips"><i class="fa-solid fa-lightbulb"></i> نصائح ذهبية</a>
                 <a href="#mistakes" class="nav-link" id="nav-mistakes"><i class="fa-solid fa-triangle-exclamation"></i> أخطاء شائعة</a>
@@ -86,6 +88,8 @@
             <a href="#devices" class="drawer-link" id="drawer-devices"><i class="fa-solid fa-laptop"></i> الأجهزة الموصى بها</a>
             <a href="#gis-file-converter" class="drawer-link" id="drawer-gis-file-converter"><i class="fa-solid fa-file-export text-primary"></i> محول ملفات GIS</a>
             <a href="#software" class="drawer-link" id="drawer-software"><i class="fa-solid fa-laptop-code"></i> البرمجيات</a>
+            <a href="#spatial-data-hub" class="drawer-link" id="drawer-spatial-data"><i class="fa-solid fa-database"></i> مستودع البيانات</a>
+            <a href="#utm-crs-calculator" class="drawer-link" id="drawer-utm-calc"><i class="fa-solid fa-calculator"></i> حاسبة UTM</a>
 
             <a href="#tips" class="drawer-link" id="drawer-tips"><i class="fa-solid fa-lightbulb"></i> نصائح ذهبية</a>
             <a href="#mistakes" class="drawer-link" id="drawer-mistakes"><i class="fa-solid fa-triangle-exclamation"></i> أخطاء شائعة</a>
@@ -639,6 +643,258 @@
                         </ul>
                         <div class="sw-footer-action">
                             <a href="https://leafletjs.com/" target="_blank" class="btn btn-outline-primary btn-sm">استكشف Leaflet.js</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Saudi Spatial Data Hub Section -->
+        <section id="spatial-data-hub" class="spatial-data-section">
+            <div class="container">
+                <div class="section-header" id="spatialDataHeader">
+                    <span class="section-badge"><i class="fa-solid fa-database"></i> مستودع البيانات المكانية</span>
+                    <h2 class="section-title">البيانات الجغرافية المفتوحة للمملكة</h2>
+                    <p class="section-subtitle">دليل شامل ومنسق لأهم طبقات البيانات الجغرافية المجانية والنظيفة المتاحة للتحميل المباشر لمشاريع الطلاب والباحثين</p>
+                </div>
+
+                <!-- Search and Filter Bar -->
+                <div class="data-hub-controls">
+                    <div class="search-box-wrapper">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="datasetSearch" placeholder="ابحث عن طبقة بيانات مكانية (مثال: الطرق، الحدود، الارتفاعات)...">
+                    </div>
+                    <div class="filter-wrapper" id="datasetFilters">
+                        <button class="filter-btn active" data-filter="all">الكل</button>
+                        <button class="filter-btn" data-filter="boundaries">الحدود الإدارية</button>
+                        <button class="filter-btn" data-filter="infrastructure">الطرق والشبكات</button>
+                        <button class="filter-btn" data-filter="terrain">الارتفاعات والتضاريس</button>
+                        <button class="filter-btn" data-filter="points">نقاط الاهتمام والبيئة</button>
+                    </div>
+                </div>
+
+                <!-- Datasets Grid -->
+                <div class="data-hub-grid" id="datasetGrid">
+                    <!-- Dataset 1: Boundaries -->
+                    <div class="dataset-card" data-category="boundaries">
+                        <div class="dataset-formats">
+                            <span class="format-badge format-shp">SHP</span>
+                            <span class="format-badge format-geojson">GeoJSON</span>
+                        </div>
+                        <div class="dataset-header">
+                            <div class="dataset-icon"><i class="fa-solid fa-map"></i></div>
+                            <div class="dataset-title-group">
+                                <h3>الحدود الإدارية للمملكة</h3>
+                                <span class="dataset-source"><i class="fa-solid fa-building"></i> الهيئة العامة للإحصاء</span>
+                            </div>
+                        </div>
+                        <p class="dataset-desc">
+                            الحدود الرسمية لمناطق ومحافظات المملكة العربية السعودية الثلاث عشرة. مجهزة وجاهزة للاستخدام في التحليل الإحصائي وخرائط التوزيعات الجغرافية.
+                        </p>
+                        <div class="dataset-footer">
+                            <span class="dataset-size"><i class="fa-solid fa-weight-hanging"></i> 14.2 MB</span>
+                            <a href="https://raw.githubusercontent.com/i6naf/webgis/main/data/saudi_admin_boundaries.zip" target="_blank" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> تحميل مباشر</a>
+                        </div>
+                    </div>
+
+                    <!-- Dataset 2: Roads -->
+                    <div class="dataset-card" data-category="infrastructure">
+                        <div class="dataset-formats">
+                            <span class="format-badge format-geojson">GeoJSON</span>
+                            <span class="format-badge format-kml">KML</span>
+                        </div>
+                        <div class="dataset-header">
+                            <div class="dataset-icon"><i class="fa-solid fa-road"></i></div>
+                            <div class="dataset-title-group">
+                                <h3>شبكة الطرق الوطنية الكبرى</h3>
+                                <span class="dataset-source"><i class="fa-solid fa-building"></i> وزارة النقل والخدمات اللوجستية / OSM</span>
+                            </div>
+                        </div>
+                        <p class="dataset-desc">
+                            شبكة الطرق السريعة والرئيسية والفرعية التي تربط كافة مدن وقرى المملكة، مناسبة لتحليلات الشبكات (Network Analysis) وحساب أقصر مسار.
+                        </p>
+                        <div class="dataset-footer">
+                            <span class="dataset-size"><i class="fa-solid fa-weight-hanging"></i> 28.5 MB</span>
+                            <a href="https://raw.githubusercontent.com/i6naf/webgis/main/data/saudi_major_roads.zip" target="_blank" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> تحميل مباشر</a>
+                        </div>
+                    </div>
+
+                    <!-- Dataset 3: DEM elevation -->
+                    <div class="dataset-card" data-category="terrain">
+                        <div class="dataset-formats">
+                            <span class="format-badge format-tiff">TIFF</span>
+                        </div>
+                        <div class="dataset-header">
+                            <div class="dataset-icon"><i class="fa-solid fa-mountain"></i></div>
+                            <div class="dataset-title-group">
+                                <h3>نموذج الارتفاعات الرقمي (DEM - 30m)</h3>
+                                <span class="dataset-source"><i class="fa-solid fa-building"></i> USGS / SRTM NASA</span>
+                            </div>
+                        </div>
+                        <p class="dataset-desc">
+                            بيانات ارتفاعات سطح الأرض بدقة 30 متراً للمملكة العربية السعودية، مثالية لتحليلات المنحدرات (Slope)، ومجاري السيول والأودية (Hydrology Analysis).
+                        </p>
+                        <div class="dataset-footer">
+                            <span class="dataset-size"><i class="fa-solid fa-weight-hanging"></i> 112 MB</span>
+                            <a href="https://earthexplorer.usgs.gov/" target="_blank" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> بوابة التحميل (USGS)</a>
+                        </div>
+                    </div>
+
+                    <!-- Dataset 4: POIs -->
+                    <div class="dataset-card" data-category="points">
+                        <div class="dataset-formats">
+                            <span class="format-badge format-csv">CSV</span>
+                            <span class="format-badge format-geojson">GeoJSON</span>
+                        </div>
+                        <div class="dataset-header">
+                            <div class="dataset-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div class="dataset-title-group">
+                                <h3>نقاط الاهتمام والمعالم الكبرى (POIs)</h3>
+                                <span class="dataset-source"><i class="fa-solid fa-building"></i> OpenStreetMap Saudi Community</span>
+                            </div>
+                        </div>
+                        <p class="dataset-desc">
+                            توزيع المساجد، المستشفيات، المدارس، الجامعات والمجمعات التجارية في المدن الرئيسية الكبرى. مناسب للتوزيعات المكانية وتحليل التغطية والخدمات.
+                        </p>
+                        <div class="dataset-footer">
+                            <span class="dataset-size"><i class="fa-solid fa-weight-hanging"></i> 8.4 MB</span>
+                            <a href="https://raw.githubusercontent.com/i6naf/webgis/main/data/saudi_pois.zip" target="_blank" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> تحميل مباشر</a>
+                        </div>
+                    </div>
+
+                    <!-- Dataset 5: Land Cover -->
+                    <div class="dataset-card" data-category="points">
+                        <div class="dataset-formats">
+                            <span class="format-badge format-tiff">TIFF</span>
+                            <span class="format-badge format-shp">SHP</span>
+                        </div>
+                        <div class="dataset-header">
+                            <div class="dataset-icon"><i class="fa-solid fa-seedling"></i></div>
+                            <div class="dataset-title-group">
+                                <h3>خارطة الغطاء النباتي واستخدام الأراضي</h3>
+                                <span class="dataset-source"><i class="fa-solid fa-building"></i> وكالة الفضاء الأوروبية Copernicus</span>
+                            </div>
+                        </div>
+                        <p class="dataset-desc">
+                            بيانات مرصودة توضح توزيع الغطاء النباتي، المناطق الزراعية والمساحات العمرانية والصحاري في السعودية بدقة تمثيلية تبلغ 10 أمتار.
+                        </p>
+                        <div class="dataset-footer">
+                            <span class="dataset-size"><i class="fa-solid fa-weight-hanging"></i> 45.1 MB</span>
+                            <a href="https://browser.dataspace.copernicus.eu/" target="_blank" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> استكشاف Copernicus</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Saudi UTM & CRS Calculator Section -->
+        <section id="utm-crs-calculator" class="utm-calc-section">
+            <div class="container">
+                <div class="section-header" id="utmCalcHeader">
+                    <span class="section-badge"><i class="fa-solid fa-calculator"></i> الأدوات الهندسية</span>
+                    <h2 class="section-title">حاسبة النطاق الجغرافي ونظام الإحداثيات (UTM & CRS)</h2>
+                    <p class="section-subtitle">حدد مدينتك أو منطقتك في المملكة للتعرف فوراً على مسقط الخريطة الأنسب، ورمز EPSG العالمي، والمرجع الجيوديسي المعتمد للمشاريع المساحية</p>
+                </div>
+
+                <div class="utm-calc-container">
+                    <div class="utm-calc-card input-card">
+                        <h3><i class="fa-solid fa-map-location-dot text-primary"></i> معطيات النطاق الجغرافي</h3>
+                        <p class="card-hint">اختر المنطقة الجغرافية أو المدينة في المملكة العربية السعودية لحساب بيانات الإحداثيات مباشرة:</p>
+                        
+                        <div class="form-group">
+                            <label for="citySelector"><i class="fa-solid fa-city"></i> المدينة أو المنطقة المستهدفة:</label>
+                            <div class="select-wrapper">
+                                <select id="citySelector" class="custom-select">
+                                    <option value="" disabled selected>اختر المدينة / المنطقة...</option>
+                                    <option value="riyadh">الرياض (Riyadh)</option>
+                                    <option value="jeddah">جدة (Jeddah)</option>
+                                    <option value="mecca">مكة المكرمة (Mecca)</option>
+                                    <option value="medina">المدينة المنورة (Medina)</option>
+                                    <option value="dammam">الدمام والخبر (Dammam & Al-Khobar)</option>
+                                    <option value="tabuk">تبوك (Tabuk)</option>
+                                    <option value="abha">أبها وعسير (Abha & Asir)</option>
+                                    <option value="hail">حائل (Hail)</option>
+                                    <option value="jazan">جازان (Jazan)</option>
+                                    <option value="najran">نجران (Najran)</option>
+                                    <option value="aljouf">الجوف (Al-Jouf)</option>
+                                    <option value="borders">الحدود الشمالية (Northern Borders)</option>
+                                    <option value="albaha">الباحة (Al-Baha)</option>
+                                    <option value="neom">نيوم (NEOM)</option>
+                                </select>
+                                <i class="fa-solid fa-chevron-down select-arrow"></i>
+                            </div>
+                        </div>
+
+                        <div class="calculator-illustration">
+                            <svg viewBox="0 0 200 120" class="globe-svg">
+                                <circle cx="100" cy="60" r="50" fill="none" stroke="rgba(0, 242, 254, 0.15)" stroke-width="1.5" />
+                                <ellipse cx="100" cy="60" rx="50" ry="15" fill="none" stroke="rgba(0, 242, 254, 0.2)" stroke-width="1" />
+                                <ellipse cx="100" cy="60" rx="15" ry="50" fill="none" stroke="rgba(0, 242, 254, 0.2)" stroke-width="1" />
+                                <line x1="100" y1="10" x2="100" y2="110" stroke="rgba(0, 242, 254, 0.25)" stroke-width="1.5" stroke-dasharray="3,3" />
+                                <line x1="50" y1="60" x2="150" y2="60" stroke="rgba(0, 242, 254, 0.25)" stroke-width="1.5" stroke-dasharray="3,3" />
+                                <circle cx="120" cy="45" r="4" fill="var(--color-primary)" class="pulse-dot" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="utm-calc-card result-card empty-state" id="utmResultCard">
+                        <div class="result-placeholder">
+                            <i class="fa-solid fa-compass-drafting placeholder-icon"></i>
+                            <h4>في انتظار اختيار المنطقة...</h4>
+                            <p>يرجى اختيار مدينة من القائمة المجاورة لعرض بيانات مسقط الإحداثيات ونظام المرجع الوطني بدقة ميكروية.</p>
+                        </div>
+                        
+                        <div class="result-content" style="display: none;">
+                            <div class="result-header">
+                                <h3 id="resultCityName">الرياض</h3>
+                                <span class="result-badge" id="resultZoneBadge">UTM Zone 38N</span>
+                            </div>
+
+                            <div class="specs-grid">
+                                <div class="spec-item">
+                                    <div class="spec-icon"><i class="fa-solid fa-fingerprint"></i></div>
+                                    <div class="spec-info">
+                                        <span class="spec-label">رمز النظام المرجعي (EPSG)</span>
+                                        <strong class="spec-val font-mono" id="specEPSG">EPSG:32638</strong>
+                                    </div>
+                                </div>
+
+                                <div class="spec-item">
+                                    <div class="spec-icon"><i class="fa-solid fa-globe"></i></div>
+                                    <div class="spec-info">
+                                        <span class="spec-label">المرجع الجيوديسي (Datum)</span>
+                                        <strong class="spec-val" id="specDatum">WGS 84 / GRS 80</strong>
+                                    </div>
+                                </div>
+
+                                <div class="spec-item">
+                                    <div class="spec-icon"><i class="fa-solid fa-arrows-left-right-to-line"></i></div>
+                                    <div class="spec-info">
+                                        <span class="spec-label">خط الطول المركزي (Central Meridian)</span>
+                                        <strong class="spec-val font-mono" id="specMeridian">45° East</strong>
+                                    </div>
+                                </div>
+
+                                <div class="spec-item">
+                                    <div class="spec-icon"><i class="fa-solid fa-circle-nodes"></i></div>
+                                    <div class="spec-info">
+                                        <span class="spec-label">الاستخدام الميداني الشائع</span>
+                                        <strong class="spec-val" id="specUsage">الرفع المساحي، المشاريع البلدية، ونظم المعلومات الجغرافية</strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="engineering-note-box">
+                                <div class="note-header">
+                                    <i class="fa-solid fa-triangle-exclamation text-accent"></i>
+                                    <span>توجيه هندسي وتوصية مساحية:</span>
+                                </div>
+                                <p id="specNote">
+                                    يُعتمد هذا النطاق لكافة المشاريع البلدية في الرياض لتجنب التشويه الهندسي في المساحات المسطحة.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1269,6 +1525,6 @@
     <!-- Privacy-friendly Web Analytics (GoatCounter) -->
     <script data-goatcounter="https://webgis-i6na.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
     <!-- Scripts -->
-    <script src="app.js?v=4.0"></script>
+    <script src="app.js?v=5.0"></script>
 </body>
 </html>
