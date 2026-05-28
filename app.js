@@ -180,128 +180,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 3000);
 
-        // Custom Neon Green Pulsing Div Icon
-        const customMarkerIcon = L.divIcon({
-            className: 'neon-glow-marker',
-            html: `
-                <div class="marker-pulse-wrapper">
-                    <div class="marker-glow-ring"></div>
-                    <div class="marker-core"></div>
-                </div>
-            `,
-            iconSize: [20, 20],
-            iconAnchor: [10, 10],
-            popupAnchor: [0, -10]
-        });
-
-        // Dataset of Saudi GIS / Geomatics departments (10 verified universities)
-        const universities = [
-            {
-                name: "جامعة الملك سعود",
-                city: "الرياض",
-                coords: [24.7162, 46.6190],
-                degrees: "بكالوريوس، ماجستير، دكتوراه",
-                dept: "كلية الآداب - قسم الجغرافيا",
-                desc: "برنامج رائد يركز على التطبيقات المكانية ونظم المعلومات الجغرافية، مع تغطية شاملة لنظم الاستشعار عن بعد ومسح الأراضي والتحليلات الجغرافية المتقدمة.",
-                link: "https://dar.ksu.edu.sa/ar"
-            },
-            {
-                name: "جامعة الملك عبدالعزيز",
-                city: "جدة",
-                coords: [21.4939, 39.2503],
-                degrees: "بكالوريوس، ماجستير",
-                dept: "كلية الآداب والعلوم الإنسانية - قسم الجغرافيا والجيوماتكس",
-                desc: "يقدم قسماً متخصصاً يدمج بين الجغرافيا والجيوماتكس والمسح البحري والاستشعار عن بعد، لتخريج كوادر متمكنة في التحليل المكاني وإدارة الموارد الجغرافية.",
-                link: "https://www.kau.edu.sa"
-            },
-            {
-                name: "جامعة الإمام عبدالرحمن بن فيصل",
-                city: "الدمام",
-                coords: [26.3927, 50.1983],
-                degrees: "بكالوريوس",
-                dept: "كلية التصاميم - قسم الجيوماتكس",
-                desc: "برنامج تقني وتطبيقي يركز على دراسة الجيوماتكس والمساحة الرقمية واستخدام أحدث التقنيات السحابية ونظم التموضع العالمي GPS لتخطيط وتصميم المدن الذكية.",
-                link: "https://www.iau.edu.sa/ar/admissions"
-            },
-            {
-                name: "جامعة طيبة",
-                city: "المدينة المنورة",
-                coords: [24.4812, 39.5442],
-                degrees: "بكالوريوس",
-                dept: "كلية الآداب والعلوم الإنسانية - قسم الجغرافيا ونظم المعلومات الجغرافية",
-                desc: "يتميز البرنامج بدمج الجغرافيا الطبيعية والبشرية مع نظم التحليل المكاني الحديثة لخدمة التنمية الحضرية في منطقة المدينة المنورة والمشاعر المقدسة.",
-                link: "https://www.taibahu.edu.sa/"
-            },
-            {
-                name: "جامعة أم القرى",
-                city: "مكة المكرمة",
-                coords: [21.3254, 39.9654],
-                degrees: "دبلوم عالي",
-                dept: "كلية العلوم الاجتماعية - قسم الجغرافيا",
-                desc: "يقدم برنامج الدبلوم العالي لنظم المعلومات الجغرافية لتأهيل الكوادر الوطنية للربط بين العمل الميداني والتقني في مجالات إدارة الحشود وخدمة ضيوف الرحمن.",
-                link: "https://uqu.edu.sa/"
-            },
-            {
-                name: "جامعة الأميرة نورة بنت عبدالرحمن",
-                city: "الرياض",
-                coords: [24.8471, 46.7246],
-                degrees: "بكالوريوس",
-                dept: "كلية العلوم الإنسانية - قسم الجغرافيا",
-                desc: "برنامج بكالوريوس رائد مخصص للطالبات يركز على التطبيقات المتقدمة لنظم المعلومات الجغرافية والاستشعار عن بعد في مجالات البيئة والتموضع العالمي الجغرافي GPS.",
-                link: "https://www.pnu.edu.sa/ar"
-            },
-            {
-                name: "جامعة الملك فيصل",
-                city: "الأحساء",
-                coords: [25.3333, 49.6000],
-                degrees: "بكالوريوس",
-                dept: "كلية الآداب - قسم الجغرافيا ونظم المعلومات الجغرافية",
-                desc: "برنامج أكاديمي متميز يؤهل الطلاب لسوق العمل في مجالات التحليل الجغرافي المتقدم ومعالجة البيانات المساحية لخدمة مشاريع التنمية بالمنطقة الشرقية.",
-                link: "https://www.kfu.edu.sa/ar"
-            },
-            {
-                name: "جامعة القصيم",
-                city: "بريدة",
-                coords: [26.3486, 43.7667],
-                degrees: "ماجستير",
-                dept: "كلية الآداب والعلوم - قسم الجغرافيا",
-                desc: "يقدم برنامج ماجستير التقنيات الجغرافية والبيئية لدراسة النمذجة البيئية ومحاربة التصحر والتغير المناخي باستخدام أحدث تقنيات المعالجة السحابية.",
-                link: "https://www.qu.edu.sa/"
-            },
-            {
-                name: "جامعة الملك خالد",
-                city: "أبها",
-                coords: [18.2464, 42.5611],
-                degrees: "بكالوريوس، ماجستير",
-                dept: "كلية العلوم الإنسانية - قسم الجغرافيا التطبيقية ونظم المعلومات الجغرافية",
-                desc: "برنامج مميز يدمج بين الجغرافيا التطبيقية ونظم المعلومات الجغرافية لدعم التنمية السياحية والتخطيط الحضري في المناطق الجبلية بمنطقة عسير.",
-                link: "https://www.kku.edu.sa/ar"
-            },
-            {
-                name: "جامعة حائل",
-                city: "حائل",
-                coords: [27.5616, 41.7001],
-                degrees: "بكالوريوس",
-                dept: "كلية الآداب والفنون - قسم الجغرافيا والعلوم الاجتماعية",
-                desc: "يقدم مساراً متخصصاً يدمج بين الجغرافيا الطبيعية والبشرية ونظم التحليل الجغرافي لدعم الدراسات المساحية والتخطيط الإقليمي لشمال المملكة.",
-                link: "https://www.uoh.edu.sa/"
-            }
-        ];
-
-        const panelEmptyState = document.getElementById('panelEmptyState');
-        const panelDynamicContent = document.getElementById('panelDynamicContent');
-        const panelUniCity = document.getElementById('panelUniCity');
-        const panelUniName = document.getElementById('panelUniName');
-        const panelUniDegree = document.getElementById('panelUniDegree');
-        const panelUniDept = document.getElementById('panelUniDept');
-        const panelUniDesc = document.getElementById('panelUniDesc');
-        const panelUniLink = document.getElementById('panelUniLink');
-
-        // Create a Layer Group for University Markers
-        const universityLayerGroup = L.layerGroup().addTo(map);
-
-        // Create a Layer Group for Saudi Vision 2030 Projects
-        const visionProjectsLayerGroup = L.layerGroup();
+        // Create a Layer Group for Saudi Vision 2030 Projects and add to map
+        const visionProjectsLayerGroup = L.layerGroup().addTo(map);
 
         // 1. NEOM Polygon (Greenish Emerald)
         const neomPolygon = L.polygon([[27.8, 34.6], [27.8, 35.8], [28.8, 35.8], [28.8, 34.6]], {
@@ -523,7 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (lat >= 27.8 && lat <= 28.8 && lng >= 34.6 && lng <= 35.8) {
                 inProject = true;
-                projectDesc = "أنت حالياً داخل النطاق الجغرافي لمشروع نيوم العملاق 🟢. يُحسب معامل الغطاء النباتي (NDVI) والحرارة هنا بنمذجة الاستدامة البيئية لمدينة نيوم الذكية.";
+                projectDesc = "أنت حالياً داخل النقاط الجغرافية لمشروع نيوم العملاق 🟢. يُحسب معامل الغطاء النباتي (NDVI) والحرارة هنا بنمذجة الاستدامة البيئية لمدينة نيوم الذكية.";
             } else if (lat >= 28.0 && lat <= 28.25 && lng >= 34.5 && lng <= 35.6) {
                 inProject = true;
                 projectDesc = "أنت تعبر المسار الطولي لمدينة ذا لاين (The Line) 🌐. أحدث مفاهيم التخطيط الحضري الخالي من الكربون وعوادم السيارات، بمستويات حرارية معتدلة بفضل التصاميم الحرارية المبتكرة.";
@@ -576,143 +456,37 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        universities.forEach(uni => {
-            const marker = L.marker(uni.coords, { icon: customMarkerIcon }).addTo(universityLayerGroup);
-            uni.markerInstance = marker; // Store reference for Spatial SQL Playground
-
-            // Bind informative popup on hover / click
-            const popupContent = `
-                <div style="direction: rtl; text-align: right; font-family: system-ui, -apple-system, sans-serif; min-width: 180px; padding: 4px;">
-                    <strong style="color: var(--color-primary); font-size: 0.95rem; display: block; margin-bottom: 4px;">${uni.name}</strong>
-                    <span style="color: var(--color-text-muted); font-size: 0.8rem; display: block; margin-bottom: 8px;">
-                        <i class="fa-solid fa-location-dot"></i> ${uni.city}
-                    </span>
-                    <div style="display: flex; gap: 8px; margin-top: 6px;">
-                        <a href="${uni.link}" target="_blank" style="flex: 1; text-align: center; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.3); color: #00f2fe; padding: 4px 6px; border-radius: 6px; font-size: 0.72rem; text-decoration: none; font-weight: bold; transition: all 0.2s;" onmouseover="this.style.background='rgba(0, 242, 254, 0.25)'" onmouseout="this.style.background='rgba(0, 242, 254, 0.1)'">
-                            <i class="fa-solid fa-earth-asia"></i> البوابة
-                        </a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=${uni.coords[0]},${uni.coords[1]}" target="_blank" style="flex: 1; text-align: center; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.3); color: #34d399; padding: 4px 6px; border-radius: 6px; font-size: 0.72rem; text-decoration: none; font-weight: bold; transition: all 0.2s;" onmouseover="this.style.background='rgba(52, 211, 153, 0.25)'" onmouseout="this.style.background='rgba(52, 211, 153, 0.1)'">
-                            <i class="fa-solid fa-map-location-dot"></i> الاتجاهات
-                        </a>
-                    </div>
+        // Initialize inspector marker immediately
+        const inspectorIcon = L.divIcon({
+            className: 'neon-inspector-marker',
+            html: `
+                <div class="inspector-marker-wrapper">
+                    <div class="inspector-pulse-ring"></div>
+                    <div class="inspector-crosshair"></div>
                 </div>
-            `;
-            marker.bindPopup(popupContent, {
-                closeButton: true,
-                offset: L.point(0, -5)
-            });
-
-            // Update details panel on click
-            marker.on('click', () => {
-                // Ensure Universities tab is active
-                const uniTabBtn = document.querySelector('.panel-tab-btn[data-tab="universities"]');
-                if (uniTabBtn) uniTabBtn.click();
-
-                if (panelEmptyState && panelDynamicContent) {
-                    panelEmptyState.classList.add('hidden');
-                    panelDynamicContent.classList.remove('hidden');
-
-                    if (panelUniCity) panelUniCity.textContent = uni.city;
-                    if (panelUniName) panelUniName.textContent = uni.name;
-                    if (panelUniDegree) panelUniDegree.textContent = uni.degrees;
-                    if (panelUniDept) panelUniDept.textContent = uni.dept;
-                    if (panelUniDesc) panelUniDesc.textContent = uni.desc;
-                    if (panelUniLink) {
-                        panelUniLink.href = uni.link;
-                    }
-                }
-            });
+            `,
+            iconSize: [40, 40],
+            iconAnchor: [20, 20]
         });
-
-        // ==========================================================================
-        // 7c. Dual-Tab Panel Switcher Layout Logic
-        // ==========================================================================
-        const tabBtns = document.querySelectorAll('.panel-tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Set button state
-                tabBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                // Toggle active tab content visibility
-                const tabKey = btn.dataset.tab;
-                tabContents.forEach(tc => {
-                    tc.classList.remove('active');
-                    if (tc.getAttribute('id') === `tab-${tabKey}`) {
-                        tc.classList.add('active');
-                    }
-                });
-
-                // Sync Leaflet map layers based on the active panel tab
-                if (tabKey === 'universities') {
-                    // Restore universities, hide inspector marker and project polygons
-                    map.addLayer(universityLayerGroup);
-                    map.removeLayer(visionProjectsLayerGroup);
-                    if (inspectorMarker) {
-                        map.removeLayer(inspectorMarker);
-                    }
-                    map.off('click', onMapClickForInspector);
-                    // Reset map view to center
-                    map.setView([23.8859, 45.0792], 5.5);
-                    
-                    // Reset opacities from any SQL queries
-                    universities.forEach(uni => {
-                        if (uni.markerInstance) uni.markerInstance.setOpacity(1.0);
-                    });
-                } else if (tabKey === 'analytics') {
-                    // Hide universities, enable inspector marker and show project polygons
-                    map.removeLayer(universityLayerGroup);
-                    map.addLayer(visionProjectsLayerGroup);
-                    map.closePopup();
-                    
-                    // Create inspector marker if it doesn't exist
-                    if (!inspectorMarker) {
-                        const inspectorIcon = L.divIcon({
-                            className: 'neon-inspector-marker',
-                            html: `
-                                <div class="inspector-marker-wrapper">
-                                    <div class="inspector-pulse-ring"></div>
-                                    <div class="inspector-crosshair"></div>
-                                </div>
-                            `,
-                            iconSize: [40, 40],
-                            iconAnchor: [20, 20]
-                        });
-                        
-                        inspectorMarker = L.marker(map.getCenter(), {
-                            draggable: true,
-                            icon: inspectorIcon
-                        });
-                        
-                        // Drag event
-                        inspectorMarker.on('dragend', () => {
-                            const latlng = inspectorMarker.getLatLng();
-                            inspectCoordinates(latlng.lat, latlng.lng);
-                        });
-                    }
-                    
-                    inspectorMarker.addTo(map);
-                    
-                    // Trigger initial telemetry read at the current center
-                    const currentCenter = map.getCenter();
-                    inspectorMarker.setLatLng(currentCenter);
-                    inspectCoordinates(currentCenter.lat, currentCenter.lng);
-                    
-                    // Bind click anywhere on map to inspect
-                    map.on('click', onMapClickForInspector);
-                }
-            });
-
-            // A11y: Keyboard interaction for tab headers
-            btn.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    btn.click();
-                }
-            });
+        
+        inspectorMarker = L.marker(map.getCenter(), {
+            draggable: true,
+            icon: inspectorIcon
+        }).addTo(map);
+        
+        // Drag event
+        inspectorMarker.on('dragend', () => {
+            const latlng = inspectorMarker.getLatLng();
+            inspectCoordinates(latlng.lat, latlng.lng);
         });
+        
+        // Trigger initial telemetry read at the current center
+        const currentCenter = map.getCenter();
+        inspectorMarker.setLatLng(currentCenter);
+        inspectCoordinates(currentCenter.lat, currentCenter.lng);
+        
+        // Bind click anywhere on map to inspect
+        map.on('click', onMapClickForInspector);
 
 
     }

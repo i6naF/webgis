@@ -58,7 +58,7 @@
                 <a href="#devices" class="nav-link" id="nav-devices"><i class="fa-solid fa-laptop"></i> الأجهزة الموصى بها</a>
                 <a href="#gis-file-converter" class="nav-link" id="nav-gis-file-converter"><i class="fa-solid fa-file-export text-primary"></i> محول ملفات GIS</a>
                 <a href="#software" class="nav-link" id="nav-software"><i class="fa-solid fa-laptop-code"></i> البرمجيات</a>
-                <a href="#gis-map" class="nav-link" id="nav-gis-map"><i class="fa-solid fa-map-location-dot"></i> خارطة الجامعات والتحليل البيئي</a>
+                <a href="#gis-map" class="nav-link" id="nav-gis-map"><i class="fa-solid fa-map-location-dot"></i> الخارطة البيئية والمناخية</a>
                 <a href="#tips" class="nav-link" id="nav-tips"><i class="fa-solid fa-lightbulb"></i> نصائح ذهبية</a>
                 <a href="#mistakes" class="nav-link" id="nav-mistakes"><i class="fa-solid fa-triangle-exclamation"></i> أخطاء شائعة</a>
                 <a href="#vision-future" class="nav-link" id="nav-vision-future"><i class="fa-solid fa-gem text-accent"></i> رؤية 2030 والمستقبل</a>
@@ -87,7 +87,7 @@
             <a href="#devices" class="drawer-link" id="drawer-devices"><i class="fa-solid fa-laptop"></i> الأجهزة الموصى بها</a>
             <a href="#gis-file-converter" class="drawer-link" id="drawer-gis-file-converter"><i class="fa-solid fa-file-export text-primary"></i> محول ملفات GIS</a>
             <a href="#software" class="drawer-link" id="drawer-software"><i class="fa-solid fa-laptop-code"></i> البرمجيات</a>
-            <a href="#gis-map" class="drawer-link" id="drawer-gis-map"><i class="fa-solid fa-map-location-dot"></i> خارطة الجامعات والتحليل البيئي</a>
+            <a href="#gis-map" class="drawer-link" id="drawer-gis-map"><i class="fa-solid fa-map-location-dot"></i> الخارطة البيئية والمناخية</a>
             <a href="#tips" class="drawer-link" id="drawer-tips"><i class="fa-solid fa-lightbulb"></i> نصائح ذهبية</a>
             <a href="#mistakes" class="drawer-link" id="drawer-mistakes"><i class="fa-solid fa-triangle-exclamation"></i> أخطاء شائعة</a>
             <a href="#vision-future" class="drawer-link" id="drawer-vision-future"><i class="fa-solid fa-gem text-accent"></i> رؤية 2030 والمستقبل</a>
@@ -657,8 +657,8 @@
         <section id="gis-map" class="gis-map-section">
             <div class="container">
                 <div class="section-header" id="gisMapHeader">
-                    <h2 class="section-title">الخارطة التفاعلية <span class="highlight">للجامعات والتحليل البيئي</span></h2>
-                    <p class="section-subtitle">خارطة مكانية تفاعلية تستعرض الجامعات السعودية التي تقدم تخصصات الجيوماتكس، مع طبقات تفاعلية للتحليل البيئي ورصد المناخ بالمملكة</p>
+                    <h2 class="section-title">الخارطة التفاعلية <span class="highlight">للتحليل البيئي ورصد المناخ</span></h2>
+                    <p class="section-subtitle">خارطة مكانية تفاعلية تستعرض مؤشرات البيئة والمناخ بالمملكة، وتوفر أداة فحص مباشر لطبقات الحرارة والتلوث والارتفاع ومشاريع رؤية السعودية 2030</p>
                 </div>
 
                 <div class="map-layout-wrapper">
@@ -673,56 +673,8 @@
 
                     <!-- Side Details Panel -->
                     <div class="map-info-panel" id="mapInfoPanel">
-                        <!-- Panel Tabs -->
-                        <div class="panel-tabs">
-                            <button class="panel-tab-btn active" data-tab="universities" type="button">
-                                <i class="fa-solid fa-graduation-cap"></i> الجامعات السعودية
-                            </button>
-                            <button class="panel-tab-btn" data-tab="analytics" type="button">
-                                <i class="fa-solid fa-chart-line"></i> التحليل البيئي
-                            </button>
-                        </div>
-
-                        <!-- Universities Tab Content -->
-                        <div class="tab-content active" id="tab-universities">
-                            <!-- Default empty state -->
-                            <div class="panel-empty-state" id="panelEmptyState">
-                                <i class="fa-solid fa-map-location-dot"></i>
-                                <h4>استكشف الجامعات والبرامج</h4>
-                                <p>انقر على أي من الرموز المضيئة على الخارطة لعرض تفاصيل البرنامج الأكاديمي، والشهادات المتاحة، والروابط الرسمية للتقديم.</p>
-                            </div>
-                            <!-- Dynamic content -->
-                            <div class="panel-dynamic-content hidden" id="panelDynamicContent">
-                                <div class="panel-header">
-                                    <span class="uni-city-badge" id="panelUniCity">المدينة</span>
-                                    <h3 id="panelUniName">اسم الجامعة</h3>
-                                </div>
-                                <div class="specs-divider"></div>
-                                <div class="panel-body">
-                                    <div class="info-group">
-                                        <span class="info-label"><i class="fa-solid fa-graduation-cap text-secondary"></i> الدرجات الأكاديمية:</span>
-                                        <span class="info-value" id="panelUniDegree">بكالوريوس</span>
-                                    </div>
-                                    <div class="info-group">
-                                        <span class="info-label"><i class="fa-solid fa-school text-secondary"></i> الكلية والقسم:</span>
-                                        <span class="info-value" id="panelUniDept">الكلية</span>
-                                    </div>
-                                    <div class="info-group">
-                                        <span class="info-label"><i class="fa-solid fa-book-open text-secondary"></i> تفاصيل التخصص:</span>
-                                        <p class="info-desc" id="panelUniDesc">وصف التخصص</p>
-                                    </div>
-                                </div>
-                                <div class="specs-divider"></div>
-                                <div class="panel-footer">
-                                    <a href="#" target="_blank" class="btn btn-primary btn-sm btn-full" id="panelUniLink">
-                                        <i class="fa-solid fa-square-arrow-up-right"></i> زيارة بوابة القبول الرسمية
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Environmental Analytics Tab Content -->
-                        <div class="tab-content" id="tab-analytics">
+                        <!-- Environmental Analytics Tab Content (Active by default, no tabs) -->
+                        <div class="tab-content active" id="tab-analytics" style="display: block;">
                             <!-- Project Entry Banner -->
                             <div id="inspect-project-banner" class="project-banner hidden" style="background: rgba(16, 185, 129, 0.12); border: 1px solid var(--color-primary); border-radius: 12px; padding: 12px; margin-bottom: 1rem; text-align: right; direction: rtl; box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); animation: pulse-border 2s infinite;">
                                 <h5 style="color: var(--color-primary); margin: 0 0 4px 0; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-flag-checkered"></i> <span>ضمن مشاريع رؤية السعودية 2030</span></h5>
