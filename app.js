@@ -1266,6 +1266,175 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // ==========================================================================
+    // 18. Live News Hub Real-time Filter & Draft Submission
+    // ==========================================================================
+    const newsSearch = document.getElementById('news-search');
+    const newsItems = document.querySelectorAll('#news-feed-items .news-item');
+
+    if (newsSearch && newsItems) {
+        newsSearch.addEventListener('input', () => {
+            const query = newsSearch.value.trim().toLowerCase();
+            newsItems.forEach(item => {
+                const searchText = item.getAttribute('data-search').toLowerCase();
+                if (searchText.includes(query)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    }
+
+    const newsContribForm = document.getElementById('news-contrib-form');
+    if (newsContribForm) {
+        newsContribForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const titleInput = document.getElementById('news-contrib-title');
+            const descInput = document.getElementById('news-contrib-desc');
+            
+            alert(`✓ تم إرسال مسودة الخبر بنجاح! \nعنوان الخبر: "${titleInput.value}" \nسيتم مراجعة الخبر وتدقيقه مساحياً ونشره تحت إشراف Yazeed Alshammari في شريط الأخبار قريباً.`);
+            titleInput.value = '';
+            descInput.value = '';
+        });
+    }
+
+    // ==========================================================================
+    // 19. Gamified Geospatial Ethics Pledge & Confetti Certificate Engine
+    // ==========================================================================
+    const btnSignPledge = document.getElementById('btn-sign-pledge');
+    const pledgeCheck1 = document.getElementById('pledge-check-1');
+    const pledgeCheck2 = document.getElementById('pledge-check-2');
+    const pledgeCheck3 = document.getElementById('pledge-check-3');
+    const pledgeStudentNameInput = document.getElementById('pledge-student-input-name');
+    const pledgeCertOverlay = document.getElementById('pledge-cert-overlay');
+    const btnCloseCert = document.getElementById('btn-close-cert');
+
+    const certStudentName = document.getElementById('cert-student-name');
+    const certSerialId = document.getElementById('cert-serial-id');
+    const certDateSigned = document.getElementById('cert-date-signed');
+
+    if (btnSignPledge && pledgeCertOverlay) {
+        btnSignPledge.addEventListener('click', () => {
+            // 1. Validation check
+            if (!pledgeCheck1.checked || !pledgeCheck2.checked || !pledgeCheck3.checked) {
+                alert("✗ يرجى تحديد وقراءة جميع بنود الميثاق الأخلاقي الثلاثة للتعهد والالتزام بأمن البيانات الوطنية الجغرافية!");
+                return;
+            }
+
+            const inputName = pledgeStudentNameInput.value.trim();
+            if (!inputName) {
+                alert("✗ يرجى كتابة اسمك الثلاثي بالكامل لتوقيع الميثاق وإصدار وثيقة العهد الأخلاقي الجيومكاني!");
+                return;
+            }
+
+            // 2. Set certificate values
+            if (certStudentName) certStudentName.textContent = inputName;
+            if (certSerialId) {
+                const randHex = Math.floor(Math.random() * 0xFFFFFF).toString(16).toUpperCase().padStart(6, '0');
+                certSerialId.textContent = `#KSA-ETH-${randHex}`;
+            }
+            if (certDateSigned) {
+                const today = new Date();
+                const dd = String(today.getDate()).padStart(2, '0');
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
+                const yyyy = today.getFullYear();
+                certDateSigned.textContent = `${yyyy}-${mm}-${dd}`;
+            }
+
+            // 3. Show certificate modal
+            pledgeCertOverlay.style.display = 'flex';
+            setTimeout(() => {
+                pledgeCertOverlay.classList.add('show');
+            }, 50);
+
+            // 4. Fire beautiful client-side confetti sparkles
+            triggerConfettiAnimation();
+        });
+    }
+
+    if (btnCloseCert && pledgeCertOverlay) {
+        btnCloseCert.addEventListener('click', () => {
+            pledgeCertOverlay.classList.remove('show');
+            setTimeout(() => {
+                pledgeCertOverlay.style.display = 'none';
+            }, 400);
+        });
+        pledgeCertOverlay.addEventListener('click', (e) => {
+            if (e.target === pledgeCertOverlay) {
+                pledgeCertOverlay.classList.remove('show');
+                setTimeout(() => {
+                    pledgeCertOverlay.style.display = 'none';
+                }, 400);
+            }
+        });
+    }
+
+    // Canvas Confetti Particles Calculator
+    function triggerConfettiAnimation() {
+        const canvas = document.getElementById('confetti-canvas');
+        if (!canvas) return;
+
+        canvas.style.display = 'block';
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const colors = ['#10b981', '#00f2fe', '#eab308', '#3b82f6', '#f43f5e'];
+        const particles = [];
+
+        for (let i = 0; i < 150; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height - height,
+                r: Math.random() * 6 + 4,
+                d: Math.random() * width,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                tilt: Math.random() * 10 - 5,
+                tiltAngleIncremental: Math.random() * 0.07 + 0.02,
+                tiltAngle: 0
+            });
+        }
+
+        let animationFrameId;
+        let elapsedFrames = 0;
+
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+
+            particles.forEach((p, idx) => {
+                p.tiltAngle += p.tiltAngleIncremental;
+                p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+                p.x += Math.sin(p.tiltAngle);
+                p.tilt = Math.sin(p.tiltAngle - idx / 3) * 15;
+
+                ctx.beginPath();
+                ctx.lineWidth = p.r / 2;
+                ctx.strokeStyle = p.color;
+                ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+                ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+                ctx.stroke();
+            });
+
+            elapsedFrames++;
+
+            if (elapsedFrames < 180) {
+                animationFrameId = requestAnimationFrame(draw);
+            } else {
+                ctx.clearRect(0, 0, width, height);
+                canvas.style.display = 'none';
+                cancelAnimationFrame(animationFrameId);
+            }
+        }
+
+        draw();
+    }
 });
 
 

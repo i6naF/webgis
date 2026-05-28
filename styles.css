@@ -5872,3 +5872,104 @@ input:checked + .slider:before {
     }
 }
 
+/* ==========================================================================
+   20. Vision 2030, News Hub & Ethics Pledge Upgrades
+   ========================================================================== */
+.skill-tag-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 10px;
+}
+
+.skill-tag {
+    background: rgba(16, 185, 129, 0.08);
+    color: var(--color-primary);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.software-tag {
+    background: rgba(255,255,255,0.03);
+    color: var(--color-text-white);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+@media (max-width: 992px) {
+    .news-tab-layout {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    .pledge-interactive-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+}
+
+.news-submission-box form input:focus,
+.news-submission-box form textarea:focus,
+#news-search:focus {
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 10px rgba(0, 242, 254, 0.15);
+    outline: none;
+}
+
+/* Checklist Pledges */
+.pledge-checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.pledge-checkbox-label span {
+    transition: var(--transition-smooth);
+}
+
+.pledge-checkbox-label input[type="checkbox"]:checked + span {
+    color: var(--color-text-white);
+}
+
+#pledge-student-input-name:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+    outline: none;
+}
+
+/* Pledge Certificate Overlay Modal */
+.pledge-cert-overlay.show {
+    opacity: 1 !important;
+    display: flex !important;
+}
+
+.pledge-cert-overlay.show .pledge-cert-modal {
+    transform: scale(1) !important;
+}
+
+.cert-close-btn:hover {
+    background: rgba(255,255,255,0.08) !important;
+    color: var(--color-accent) !important;
+}
+
+@keyframes pulse-gold {
+    0% { box-shadow: 0 0 20px rgba(234, 179, 8, 0.15); }
+    50% { box-shadow: 0 0 35px rgba(234, 179, 8, 0.35); }
+    100% { box-shadow: 0 0 20px rgba(234, 179, 8, 0.15); }
+}
+
+.pledge-cert-modal .cert-logo {
+    animation: pulse-gold 3s infinite ease-in-out;
+}
+
