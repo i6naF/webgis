@@ -23,8 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
     <link rel="stylesheet" href="styles.css?v=4.0">
 </head>
 <body>
@@ -58,7 +57,7 @@
                 <a href="#devices" class="nav-link" id="nav-devices"><i class="fa-solid fa-laptop"></i> الأجهزة الموصى بها</a>
                 <a href="#gis-file-converter" class="nav-link" id="nav-gis-file-converter"><i class="fa-solid fa-file-export text-primary"></i> محول ملفات GIS</a>
                 <a href="#software" class="nav-link" id="nav-software"><i class="fa-solid fa-laptop-code"></i> البرمجيات</a>
-                <a href="#gis-map" class="nav-link" id="nav-gis-map"><i class="fa-solid fa-map-location-dot"></i> الخارطة البيئية والمناخية</a>
+
                 <a href="#tips" class="nav-link" id="nav-tips"><i class="fa-solid fa-lightbulb"></i> نصائح ذهبية</a>
                 <a href="#mistakes" class="nav-link" id="nav-mistakes"><i class="fa-solid fa-triangle-exclamation"></i> أخطاء شائعة</a>
                 <a href="#vision-future" class="nav-link" id="nav-vision-future"><i class="fa-solid fa-gem text-accent"></i> رؤية 2030 والمستقبل</a>
@@ -87,7 +86,7 @@
             <a href="#devices" class="drawer-link" id="drawer-devices"><i class="fa-solid fa-laptop"></i> الأجهزة الموصى بها</a>
             <a href="#gis-file-converter" class="drawer-link" id="drawer-gis-file-converter"><i class="fa-solid fa-file-export text-primary"></i> محول ملفات GIS</a>
             <a href="#software" class="drawer-link" id="drawer-software"><i class="fa-solid fa-laptop-code"></i> البرمجيات</a>
-            <a href="#gis-map" class="drawer-link" id="drawer-gis-map"><i class="fa-solid fa-map-location-dot"></i> الخارطة البيئية والمناخية</a>
+
             <a href="#tips" class="drawer-link" id="drawer-tips"><i class="fa-solid fa-lightbulb"></i> نصائح ذهبية</a>
             <a href="#mistakes" class="drawer-link" id="drawer-mistakes"><i class="fa-solid fa-triangle-exclamation"></i> أخطاء شائعة</a>
             <a href="#vision-future" class="drawer-link" id="drawer-vision-future"><i class="fa-solid fa-gem text-accent"></i> رؤية 2030 والمستقبل</a>
@@ -653,265 +652,6 @@
             </div>
         </section>
 
-        <!-- Saudi GIS Universities Section -->
-        <section id="gis-map" class="gis-map-section">
-            <div class="container">
-                <div class="section-header" id="gisMapHeader">
-                    <h2 class="section-title">الخارطة التفاعلية <span class="highlight">للتحليل البيئي ورصد المناخ</span></h2>
-                    <p class="section-subtitle">خارطة مكانية تفاعلية تستعرض مؤشرات البيئة والمناخ بالمملكة، وتوفر أداة فحص مباشر لطبقات الحرارة والتلوث والارتفاع ومشاريع رؤية السعودية 2030</p>
-                </div>
-
-                <div class="map-layout-wrapper">
-                    <!-- Map Canvas -->
-                    <div class="map-canvas-container">
-                        <div id="leaflet-gis-map"></div>
-                        <div class="map-loading-indicator" id="mapLoader">
-                            <div class="spinner"></div>
-                            <span>جاري تحميل الخارطة والموقع الجغرافي...</span>
-                        </div>
-                    </div>
-
-                    <!-- Side Details Panel -->
-                    <div class="map-info-panel" id="mapInfoPanel">
-                        <!-- Environmental Analytics Tab Content (Active by default, no tabs) -->
-                        <div class="tab-content active" id="tab-analytics" style="display: block;">
-                            <!-- Project Entry Banner -->
-                            <div id="inspect-project-banner" class="project-banner hidden" style="background: rgba(16, 185, 129, 0.12); border: 1px solid var(--color-primary); border-radius: 12px; padding: 12px; margin-bottom: 1rem; text-align: right; direction: rtl; box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); animation: pulse-border 2s infinite;">
-                                <h5 style="color: var(--color-primary); margin: 0 0 4px 0; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-flag-checkered"></i> <span>ضمن مشاريع رؤية السعودية 2030</span></h5>
-                                <p id="inspect-project-text" style="color: #ffffff; margin: 0; font-size: 0.8rem; line-height: 1.4;">أنت حالياً داخل النطاق الجغرافي لمشروع نيوم العملاق.</p>
-                            </div>
-
-                            <div class="analytics-inspector-card">
-                                <div class="inspector-header">
-                                    <div class="inspector-pulse"></div>
-                                    <h4><i class="fa-solid fa-crosshairs text-primary"></i> مؤشر الفحص البيئي الحي</h4>
-                                </div>
-                                <p class="card-desc">اسحب مؤشر الفحص المضيء في الخارطة أو انقر في أي مكان لقراءة البيانات الفورية من الأقمار الصناعية مباشرة:</p>
-                                
-                                <div class="coordinate-badge">
-                                    <i class="fa-solid fa-location-crosshairs text-secondary"></i> الإحداثيات: 
-                                    <span id="inspect-coords">جاري تحميل الإحداثيات...</span>
-                                </div>
-                                
-                                <div class="specs-divider"></div>
-                                
-                                <div class="live-stats-container">
-                                    <!-- Live Temperature -->
-                                    <div class="live-stat-row">
-                                        <div class="stat-meta">
-                                            <span class="stat-icon temp-icon"><i class="fa-solid fa-temperature-half"></i></span>
-                                            <div class="stat-text">
-                                                <h5>درجة الحرارة السطحية (LST)</h5>
-                                                <p class="font-xs">مستشعرات ناسا الحرارية</p>
-                                            </div>
-                                        </div>
-                                        <span class="live-val text-primary" id="inspect-lst">--.- °م</span>
-                                    </div>
-                                    
-                                    <!-- Urban Heat Island Row -->
-                                    <div class="live-stat-row">
-                                        <div class="stat-meta">
-                                            <span class="stat-icon uhi-icon" style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: #ef4444;"><i class="fa-solid fa-city"></i></span>
-                                            <div class="stat-text">
-                                                <h5>الجزيرة الحرارية الحضرية (UHI)</h5>
-                                                <p class="font-xs">مقارنة بضواحي المدينة الخارجية</p>
-                                            </div>
-                                        </div>
-                                        <span class="live-val" id="inspect-uhi" style="color: #ef4444; font-size: 1.1rem; font-weight: 600;">--.- °م</span>
-                                    </div>
-
-                                    <!-- Live NO2 Pollution -->
-                                    <div class="live-stat-row">
-                                        <div class="stat-meta">
-                                            <span class="stat-icon no2-icon"><i class="fa-solid fa-wind"></i></span>
-                                            <div class="stat-text">
-                                                <h5>تلوث الهواء (NO₂ Concentration)</h5>
-                                                <p class="font-xs">Copernicus Sentinel-5P</p>
-                                            </div>
-                                        </div>
-                                        <span class="live-val text-warn" id="inspect-no2">--.- ppb</span>
-                                    </div>
-                                    
-                                    <!-- Live NDVI Greenness -->
-                                    <div class="live-stat-row">
-                                        <div class="stat-meta">
-                                            <span class="stat-icon ndvi-icon"><i class="fa-solid fa-seedling"></i></span>
-                                            <div class="stat-text">
-                                                <h5>مؤشر صحة النبات (NDVI)</h5>
-                                                <p class="font-xs">مستشعرات MODIS الأرضية</p>
-                                            </div>
-                                        </div>
-                                        <span class="live-val text-success" id="inspect-ndvi">-.----</span>
-                                    </div>
-
-                                    <!-- Elevation DEM Row -->
-                                    <div class="live-stat-row">
-                                        <div class="stat-meta">
-                                            <span class="stat-icon dem-icon" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); color: #3b82f6;"><i class="fa-solid fa-mountain"></i></span>
-                                            <div class="stat-text">
-                                                <h5>الارتفاع الرقمي (DEM Elevation)</h5>
-                                                <p class="font-xs">مستشعرات طوبوغرافية حية</p>
-                                            </div>
-                                        </div>
-                                        <span class="live-val" id="inspect-elevation" style="color: #3b82f6;">--- م</span>
-                                    </div>
-                                    
-                                    <!-- Slope Row -->
-                                    <div class="live-stat-row">
-                                        <div class="stat-meta">
-                                            <span class="stat-icon slope-icon" style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); color: #f59e0b;"><i class="fa-solid fa-road-slope"></i></span>
-                                            <div class="stat-text">
-                                                <h5>درجة انحدار السطح (Slope)</h5>
-                                                <p class="font-xs">نموذج ارتفاع رقمي مشتق</p>
-                                            </div>
-                                        </div>
-                                        <span class="live-val" id="inspect-slope" style="color: #f59e0b;">--°</span>
-                                    </div>
-                                    
-                                    <!-- Flash Flood Susceptibility Row -->
-                                    <div class="live-stat-row">
-                                        <div class="stat-meta">
-                                            <span class="stat-icon flood-icon" style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.2); color: #a855f7;"><i class="fa-solid fa-house-flood-water"></i></span>
-                                            <div class="stat-text">
-                                                <h5>خطر السيول الفجائية</h5>
-                                                <p class="font-xs">تحليل هيدرولوجي طوبوغرافي</p>
-                                            </div>
-                                        </div>
-                                        <span class="live-val" id="inspect-flood" style="color: #a855f7; font-size: 0.9rem; font-weight: 600;">جاري الحساب...</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="specs-divider"></div>
-                            
-                            <!-- Dynamic weather summary -->
-                            <div class="analytics-stats-card">
-                                <h5><i class="fa-solid fa-cloud-sun text-secondary"></i> حالة الطقس والمناخ الحالي بالمنطقة:</h5>
-                                <div class="stats-grid">
-                                    <div class="stat-box">
-                                        <span class="stat-label">نسبة الرطوبة</span>
-                                        <span class="stat-val text-primary" id="inspect-humidity">--%</span>
-                                    </div>
-                                    <div class="stat-box">
-                                        <span class="stat-label">هطول الأمطار</span>
-                 <div class="kpi-icon-wrapper"><i class="fa-solid fa-users"></i></div>
-                        <div class="kpi-info">
-                            <span class="kpi-label">التعداد السكاني الإجمالي</span>
-                            <h3 class="kpi-value" id="kpi-total-pop">--,---</h3>
-                            <span class="kpi-subtext">الكثافة المغطاة بالخلايا المحددة</span>
-                        </div>
-                        <div class="kpi-progress-bar"><div class="kpi-progress bg-cyan" id="kpi-progress-pop" style="width: 0%;"></div></div>
-                    </div>
-                </div>
-
-                <!-- Main Layout Container (Sidebar Controls + Map Canvas) -->
-                <div class="dashboard-layout">
-                    <!-- Controls Sidebar -->
-                    <aside class="dashboard-sidebar">
-                        <div class="sidebar-block">
-                            <h3><i class="fa-solid fa-layer-group"></i> اختيار متغير التحليل</h3>
-                            <p class="block-desc">اختر المتغير الجغرافي لتلوين شبكة النقاط أو توليد الخريطة الحرارية البصرية:</p>
-                            <div class="variable-selector">
-                                <button class="var-btn active" data-var="lst" type="button">
-                                    <i class="fa-solid fa-temperature-high"></i> درجة الحرارة (LST)
-                                </button>
-                                <button class="var-btn" data-var="ndvi" type="button">
-                                    <i class="fa-solid fa-seedling"></i> الغطاء النباتي (NDVI)
-                                </button>
-                                <button class="var-btn" data-var="population" type="button">
-                                    <i class="fa-solid fa-users"></i> الكثافة السكانية (Pop)
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="sidebar-block">
-                            <h3><i class="fa-solid fa-sliders"></i> التصفية الحركية (Real-time Filters)</h3>
-                            <p class="block-desc">قم بتصفية 1,258 خلية مكانية بالوقت الحقيقي بناءً على نطاقات محددة:</p>
-                            
-                            <!-- Filter 1: LST Slider -->
-                            <div class="slider-group">
-                                <div class="slider-header">
-                                    <span class="slider-label"><i class="fa-solid fa-temperature-quarter text-orange"></i> درجة الحرارة (LST)</span>
-                                    <span class="slider-values" id="slider-lst-val">20°م - 60°م</span>
-                                </div>
-                                <div class="double-slider-container">
-                                    <input type="range" id="lst-min" min="20" max="60" step="0.5" value="20" class="slider-range">
-                                    <input type="range" id="lst-max" min="20" max="60" step="0.5" value="60" class="slider-range">
-                                </div>
-                            </div>
-
-                            <!-- Filter 2: NDVI Slider -->
-                            <div class="slider-group">
-                                <div class="slider-header">
-                                    <span class="slider-label"><i class="fa-solid fa-seedling text-emerald"></i> الغطاء النباتي (NDVI)</span>
-                                    <span class="slider-values" id="slider-ndvi-val">-0.1 - 0.6</span>
-                                </div>
-                                <div class="double-slider-container">
-                                    <input type="range" id="ndvi-min" min="-0.1" max="0.6" step="0.01" value="-0.1" class="slider-range">
-                                    <input type="range" id="ndvi-max" min="-0.1" max="0.6" step="0.01" value="0.6" class="slider-range">
-                                </div>
-                            </div>
-
-                            <!-- Filter 3: Population Slider -->
-                            <div class="slider-group">
-                                <div class="slider-header">
-                                    <span class="slider-label"><i class="fa-solid fa-users text-cyan"></i> الكثافة السكانية (الخلية)</span>
-                                    <span class="slider-values" id="slider-pop-val">0 - 1500 نسمة</span>
-                                </div>
-                                <div class="double-slider-container">
-                                    <input type="range" id="pop-min" min="0" max="1500" step="10" value="0" class="slider-range">
-                                    <input type="range" id="pop-max" min="0" max="1500" step="10" value="1500" class="slider-range">
-                                </div>
-                            </div>
-
-                            <button class="btn btn-outline-secondary w-full" id="reset-dashboard-filters" type="button" style="width: 100%; margin-top: 0.5rem; font-size: 0.85rem; font-weight: 600;">
-                                <i class="fa-solid fa-rotate-left"></i> إعادة ضبط التصفية
-                            </button>
-                        </div>
-
-                        <div class="sidebar-block">
-                            <h3><i class="fa-solid fa-file-export"></i> تصدير البيانات المحللة (Export)</h3>
-                            <p class="block-desc">قم بتحميل البيانات المفلترة حالياً مباشرة لاستخدامها في برامج GIS كـ ArcGIS أو QGIS:</p>
-                            <div class="export-buttons-group">
-                                <button class="btn btn-primary btn-sm" id="export-geojson" type="button">
-                                    <i class="fa-solid fa-file-code"></i> GeoJSON
-                                </button>
-                                <button class="btn btn-emerald btn-sm" id="export-csv" type="button">
-                                    <i class="fa-solid fa-file-csv"></i> CSV جدول
-                                </button>
-                            </div>
-                        </div>
-                    </aside>
-
-                    <!-- Interactive Map Container -->
-                    <div class="dashboard-map-area">
-                        <!-- Toggle Views (Point Grid vs Heatmap) -->
-                        <div class="map-view-toggles">
-                            <button class="view-toggle-btn active" data-mode="grid" type="button">
-                                <i class="fa-solid fa-circle-nodes"></i> شبكة نقاط القياس
-                            </button>
-                            <button class="view-toggle-btn" data-mode="heatmap" type="button">
-                                <i class="fa-solid fa-fire"></i> الخريطة الحرارية (Heatmap)
-                            </button>
-                        </div>
-
-                        <div class="dashboard-map" id="riyadhMap"></div>
-
-                        <!-- Legend Container -->
-                        <div class="dashboard-legend" id="dashboardLegend">
-                            <span class="legend-title" id="legend-title-text">مفتاح القياس (LST)</span>
-                            <div class="legend-scale" id="legend-scale-bars"></div>
-                        </div>
-
-                        <!-- Data Information Notice -->
-                        <div class="dashboard-info-notice">
-                            <i class="fa-solid fa-circle-info"></i>
-                            <span>تتوزع النقاط بشكل شبكي منتظم في مدينة الرياض بدقة 100 متر. يتم ترميز وتلوين الخلايا فورياً بناءً على تصفيتك.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- Golden Tips Section -->
         <section id="tips" class="tips-section">
@@ -1534,8 +1274,7 @@
         </div>
     </div>
 
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
     <!-- Shp.js for client-side zipped shapefiles parsing -->
     <script src="https://cdn.jsdelivr.net/npm/shpjs@4.0.2/dist/shp.js"></script>
     <!-- Privacy-friendly Web Analytics (GoatCounter) -->
