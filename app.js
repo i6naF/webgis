@@ -1239,6 +1239,33 @@ document.addEventListener('DOMContentLoaded', () => {
             downloadAnchor.remove();
         });
     }
+
+    // ==========================================================================
+    // 17. Saudi Vision 2030, GIS News & Copyright Tabs Switcher
+    // ==========================================================================
+    const visionTabBtns = document.querySelectorAll('.vision-tab-btn');
+    const visionTabContents = document.querySelectorAll('.vision-tab-content');
+
+    if (visionTabBtns && visionTabContents) {
+        visionTabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetTabId = btn.getAttribute('data-tab');
+
+                // Toggle active class on buttons
+                visionTabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Toggle visibility of content divs
+                visionTabContents.forEach(content => {
+                    if (content.id === targetTabId) {
+                        content.style.display = 'block';
+                    } else {
+                        content.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
 });
 
 

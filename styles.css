@@ -5423,3 +5423,452 @@ input:checked + .slider:before {
     }
 }
 
+/* ==========================================================================
+   18. Saudi Vision 2030, GIS News & Copyright Styles
+   ========================================================================== */
+.vision-future-section {
+    position: relative;
+    background: transparent;
+    z-index: 2;
+}
+
+.vision-tabs-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+}
+
+.vision-tabs {
+    display: flex;
+    gap: 0.75rem;
+    background: rgba(13, 21, 38, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 6px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.vision-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.vision-tab-btn {
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.vision-tab-btn i {
+    font-size: 1rem;
+    transition: transform 0.3s;
+}
+
+.vision-tab-btn:hover {
+    color: var(--color-text-white);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.vision-tab-btn.active {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--color-primary);
+    border-color: rgba(16, 185, 129, 0.2);
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.08);
+}
+
+.vision-tab-btn.active i {
+    transform: scale(1.1);
+}
+
+.vision-tab-content {
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* Tab 1: Vision Grid & Cards */
+.vision-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+}
+
+@media (max-width: 992px) {
+    .vision-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.vision-card {
+    background: rgba(13, 21, 38, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.vision-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    transition: all 0.4s;
+}
+
+.vision-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(16, 185, 129, 0.25);
+    box-shadow: 0 12px 30px rgba(16, 185, 129, 0.05);
+}
+
+.vision-card:hover::before {
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+}
+
+.vision-card-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: rgba(16, 185, 129, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    font-size: 1.4rem;
+}
+
+.vision-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-text-white);
+    margin: 0;
+}
+
+.vision-card p {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin: 0;
+    text-align: justify;
+}
+
+/* Tab 2: News Feed */
+.news-feed-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .news-feed-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.news-item {
+    background: rgba(13, 21, 38, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.news-item:hover {
+    border-color: rgba(0, 242, 254, 0.2);
+    transform: translateX(-4px);
+    background: rgba(13, 21, 38, 0.35);
+}
+
+.news-tag {
+    align-self: flex-start;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.tag-primary { background: rgba(0, 242, 254, 0.1); color: var(--color-secondary); }
+.tag-accent { background: rgba(245, 158, 11, 0.1); color: var(--color-accent); }
+.tag-success { background: rgba(16, 185, 129, 0.1); color: var(--color-primary); }
+.tag-warning { background: rgba(234, 179, 8, 0.1); color: #eab308; }
+
+.news-date {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+}
+
+.news-item h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-text-white);
+    margin: 0;
+}
+
+.news-item p {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Tab 3: Copyright Policy */
+.copyright-guide-container {
+    background: rgba(13, 21, 38, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 20px;
+    padding: 2.5rem;
+}
+
+.copyright-guide-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 1.5rem;
+}
+
+.copyright-guide-icon {
+    font-size: 2.2rem;
+    color: var(--color-primary);
+    background: rgba(16, 185, 129, 0.08);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.1);
+}
+
+.copyright-guide-intro h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-text-white);
+    margin: 0;
+}
+
+.copyright-guide-intro p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.copyright-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.copyright-step-box {
+    display: grid;
+    grid-template-columns: 45px 1fr;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    align-items: start;
+    transition: all 0.3s;
+}
+
+.copyright-step-box:hover {
+    border-color: rgba(16, 185, 129, 0.15);
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.copyright-step-box h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-text-white);
+    margin: 0 0 6px 0;
+}
+
+.copyright-step-box p {
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin: 0;
+    text-align: justify;
+}
+
+/* ==========================================================================
+   19. Platform Copyright & Creator Card Styles (Yazeed Alshammari)
+   ========================================================================== */
+.platform-copyright-card {
+    background: linear-gradient(135deg, rgba(20, 28, 48, 0.45) 0%, rgba(10, 15, 30, 0.6) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(245, 158, 11, 0.18);
+    border-radius: 24px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4), 
+                inset 0 0 20px rgba(245, 158, 11, 0.02);
+}
+
+.copyright-glow-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 10% 20%, rgba(245, 158, 11, 0.04) 0%, transparent 60%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.04) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.copyright-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    position: relative;
+    z-index: 2;
+}
+
+.copyright-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.copyright-card-icon {
+    font-size: 2rem;
+    color: #eab308;
+    background: rgba(234, 179, 8, 0.08);
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(234, 179, 8, 0.1);
+    border: 1px solid rgba(234, 179, 8, 0.15);
+}
+
+.copyright-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(234, 179, 8, 0.1);
+    color: #eab308;
+    font-size: 0.72rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.copyright-card-header h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--color-text-white);
+    margin: 0;
+}
+
+.copyright-text {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin: 0;
+    text-align: justify;
+}
+
+.name-highlight {
+    color: var(--color-secondary);
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(0, 242, 254, 0.15);
+}
+
+.copyright-footer-note {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(16, 185, 129, 0.04);
+    border: 1px solid rgba(16, 185, 129, 0.1);
+    border-radius: 12px;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-top: 0.5rem;
+    line-height: 1.5;
+}
+
+.copyright-footer-note i {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .platform-copyright-card {
+        padding: 1.75rem !important;
+        border-radius: 20px !important;
+    }
+    
+    .copyright-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+    
+    .copyright-card-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.6rem;
+    }
+    
+    .copyright-footer-note {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem !important;
+    }
+}
+
