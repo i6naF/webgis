@@ -134,32 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ==========================================================================
-    // 5. Client-side Dynamic Filtering (Courses)
-    // ==========================================================================
-    const coursesFilterBtns = document.querySelectorAll('#coursesFilters .filter-btn');
-    const courseCards = document.querySelectorAll('#coursesGrid .course-card');
 
-    coursesFilterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Remove active from all btns
-            coursesFilterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const filterValue = btn.dataset.filter;
-
-            courseCards.forEach(card => {
-                // Reset display
-                card.classList.remove('hidden');
-
-                if (filterValue !== 'all') {
-                    if (card.dataset.level !== filterValue) {
-                        card.classList.add('hidden');
-                    }
-                }
-            });
-        });
-    });
 
     // ==========================================================================
     // 7. Saudi GIS Universities Interactive Map (Leaflet.js)
