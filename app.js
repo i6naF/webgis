@@ -768,44 +768,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 18. Live News Hub Real-time Filter & Dynamic Draft Submission (Persisted)
+    // 18. Live Dynamic Server-Based News Hub (Esri RSS Integration & Real-time Filter)
     // ==========================================================================
     const newsSearch = document.getElementById('news-search');
     const newsFeedItems = document.getElementById('news-feed-items');
 
-    // Function to dynamically build and animate a news card
-    function createNewsCard(title, desc, date, tagText, tagClass) {
+    // Function to dynamically build a live news card
+    function createLiveNewsCard(title, desc, date, link, tagText, tagClass) {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'news-item';
         itemDiv.style.opacity = '0';
         itemDiv.style.transform = 'translateY(15px)';
-        itemDiv.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+        itemDiv.style.transition = 'all 0.4s ease';
         itemDiv.setAttribute('data-search', `${title} ${desc} ${tagText}`);
+
+        const cleanDesc = desc.replace(/<[^>]*>/g, '').substring(0, 180) + '...';
 
         itemDiv.innerHTML = `
             <span class="news-tag ${tagClass}">${tagText}</span>
             <span class="news-date">${date}</span>
             <h4>${title}</h4>
-            <p>${desc}</p>
+            <p>${cleanDesc}</p>
+            <div style="margin-top: 0.75rem; text-align: left;">
+                <a href="${link}" target="_blank" style="color: var(--color-secondary); font-size: 0.8rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+                    ${currentLang === 'ar' ? 'اقرأ المزيد <i class="fa-solid fa-arrow-left"></i>' : 'Read More <i class="fa-solid fa-arrow-right"></i>'}
+                </a>
+            </div>
         `;
         return itemDiv;
     }
 
-    // Load custom contributed news from localStorage on startup
-    if (newsFeedItems) {
-        const savedNews = JSON.parse(localStorage.getItem('customGisNews') || '[]');
-        // Reverse array to insert oldest first so that the absolute newest always ends up at the very top
-        savedNews.reverse().forEach(item => {
-            const card = createNewsCard(item.title, item.desc, item.date, item.tagText, item.tagClass);
-            newsFeedItems.insertBefore(card, newsFeedItems.firstChild);
-            setTimeout(() => {
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, 50);
-        });
+    // Fetch live GIS news from the official Esri Newsroom RSS Feed via a secure JSON server proxy
+    async function fetchLiveGisNews() {
+        if (!newsFeedItems) return;
+        try {
+            const feedUrl = encodeURIComponent('https://www.esri.com/about/newsroom/feed/');
+            const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${feedUrl}`);
+            const data = await response.json();
+            
+            if (data && data.status === 'ok' && data.items && data.items.length > 0) {
+                // Loop through items and append them
+                data.items.slice(0, 5).forEach((item, index) => {
+                    // Format date
+                    const pubDate = new Date(item.pubDate);
+                    const formattedDate = pubDate.toLocaleDateString(currentLang === 'ar' ? 'ar-SA' : 'en-US', {
+                        day: 'numeric', month: 'long', year: 'numeric'
+                    });
+
+                    const tagText = currentLang === 'ar' ? 'أخبار عالمية (Live)' : 'Global Live News';
+                    const tagClass = 'tag-accent';
+
+                    const card = createLiveNewsCard(item.title, item.description, formattedDate, item.link, tagText, tagClass);
+                    newsFeedItems.appendChild(card);
+
+                    // Animate card entry
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, (index + 1) * 100);
+                });
+            }
+        } catch (error) {
+            console.error('Error fetching live GIS news from server:', error);
+        }
     }
 
-    // Live search filter (queries elements dynamically on input to catch newly added items)
+    // Call live news fetcher
+    fetchLiveGisNews();
+
+    // Live search filter
     if (newsSearch) {
         newsSearch.addEventListener('input', () => {
             const query = newsSearch.value.trim().toLowerCase();
@@ -818,55 +849,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     item.style.display = 'none';
                 }
             });
-        });
-    }
-
-    // Handle dynamic local news submission
-    const newsContribForm = document.getElementById('news-contrib-form');
-    if (newsContribForm && newsFeedItems) {
-        newsContribForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const titleInput = document.getElementById('news-contrib-title');
-            const descInput = document.getElementById('news-contrib-desc');
-
-            const title = titleInput.value.trim();
-            const desc = descInput.value.trim();
-            const dateStr = currentLang === 'ar' ? 'الآن مباشر' : 'Live Now';
-            const tagText = currentLang === 'ar' ? 'مساهمة مجتمعية' : 'Community Post';
-            const tagClass = 'tag-success';
-
-            // Create card and insert at the top
-            const newCard = createNewsCard(title, desc, dateStr, tagText, tagClass);
-            newsFeedItems.insertBefore(newCard, newsFeedItems.firstChild);
-
-            // Animate card prepending beautifully
-            setTimeout(() => {
-                newCard.style.opacity = '1';
-                newCard.style.transform = 'translateY(0)';
-                newCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 100);
-
-            // Save to localStorage array
-            const savedNews = JSON.parse(localStorage.getItem('customGisNews') || '[]');
-            savedNews.unshift({
-                title: title,
-                desc: desc,
-                date: dateStr,
-                tagText: tagText,
-                tagClass: tagClass
-            });
-            localStorage.setItem('customGisNews', JSON.stringify(savedNews));
-
-            // Trigger translated alert
-            const alertMsg = translations[currentLang].alertNewsDraftSuccess 
-                ? translations[currentLang].alertNewsDraftSuccess.replace('{TITLE}', title)
-                : (currentLang === 'ar' ? `تم نشر مسودة الخبر بعنوان '${title}' حياً ومباشرة على البوابة بنجاح!` : `News draft '${title}' posted live on the portal successfully!`);
-            
-            alert(alertMsg);
-
-            // Clear inputs
-            titleInput.value = '';
-            descInput.value = '';
         });
     }
 

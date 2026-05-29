@@ -24,7 +24,7 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <link rel="stylesheet" href="styles.css?v=14.0">
+    <link rel="stylesheet" href="styles.css?v=15.0">
 </head>
 <body data-i18n-document-title="documentTitle">
 
@@ -1113,19 +1113,7 @@
                         <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--color-text-muted); font-size: 1rem;"></i>
                     </div>
 
-                    <div class="news-tab-layout" style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 2rem; align-items: start;">
-                        <!-- News Contribution Card -->
-                        <div class="news-submission-box" style="background: rgba(13, 21, 38, 0.25); border: 1px solid rgba(255,255,255,0.04); border-radius: 20px; padding: 1.5rem; position: relative; overflow: hidden;">
-                            <div class="converter-glow" style="background: radial-gradient(circle, rgba(0, 242, 254, 0.08) 0%, transparent 70%);"></div>
-                            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-text-white); margin-bottom: 0.5rem;"><i class="fa-solid fa-feather-pointed text-primary"></i> <span data-i18n="newsContribHeader">مساهمة جغرافية سريعة</span></h3>
-                            <p style="font-size: 0.8rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 1.25rem;" data-i18n="newsContribDesc">هل لديك خبر جيو-مكاني أو تحديث تقني تود نشره ومشاركته مع زملائك؟ اكتب مسودة الخبر أدناه وأرسله فوراً للمراجعة والنشر:</p>
-                            <form id="news-contrib-form" style="display: flex; flex-direction: column; gap: 12px;">
-                                <input type="text" id="news-contrib-title" data-i18n-placeholder="newsContribTitlePlaceholder" data-i18n-placeholder="newsContribTitlePlaceholder" placeholder="عنوان الخبر أو الحدث الجغرافي..." required style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.3); color: var(--color-text-white); text-align: right; outline: none; font-size: 0.85rem;">
-                                <textarea id="news-contrib-desc" rows="3" data-i18n-placeholder="newsContribDescPlaceholder" data-i18n-placeholder="newsContribDescPlaceholder" placeholder="اكتب تفاصيل الخبر المساحي بإيجاز..." required style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.3); color: var(--color-text-white); text-align: right; outline: none; font-size: 0.85rem; resize: none;"></textarea>
-                                <button type="submit" class="btn btn-primary btn-sm w-full" style="width: 100%;"><i class="fa-solid fa-paper-plane"></i> <span data-i18n="newsContribBtn">إرسال مسودة الخبر للمراجعة</span></button>
-                            </form>
-                        </div>
-
+                    <div class="news-tab-layout" style="max-width: 900px; margin: 0 auto; width: 100%;">
                         <!-- Live News Items Feed -->
                         <div class="news-feed-grid" id="news-feed-items" style="display: grid; grid-template-columns: 1fr; gap: 1rem; width: 100%;">
                             <div class="news-item" data-search="المملكة تستضيف المؤتمر العالمي الثالث للمعلومات الجيومكانية للأمم المتحدة بجدة خبر رسمي مؤتمر دولي جدة 3rd unwgic gasgi">
@@ -1574,7 +1562,7 @@
     <!-- Privacy-friendly Web Analytics (GoatCounter) -->
     <script data-goatcounter="https://webgis-i6na.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
     <!-- Scripts -->
-    <script src="translations.js?v=14.0"></script>
-    <script src="app.js?v=14.0"></script>
+    <script src="translations.js?v=15.0"></script>
+    <script src="app.js?v=15.0"></script>
 </body>
 </html>
