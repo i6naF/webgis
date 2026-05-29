@@ -282,6 +282,23 @@ const translations = {
         tipTitle5: "تابع وتفاعل مع مجتمع الـ GIS",
         tipDesc5: "تابع قادة التخصص والمطورين على شبكات التواصل الاحترافية مثل LinkedIn و X. انخرط في التحديات العالمية مثل (30DayMapChallenge#) لمواكبة أحدث الابتكارات والمشاريع والتقنيات.",
         
+        // YouTube learning channels
+        ytLibraryTitle: "مكتبة فيديوهات وقنوات يوتيوب الموصى بها",
+        ytLibrarySubtitle: "شروحات مرئية وقنوات عربية وعالمية متميزة تقدم دروساً وتطبيقات عملية حية",
+        ytDuration1: "دورات وورش عمل",
+        ytTitle1: "قناة تدريب إزري السعودية الرسمية",
+        ytDesc1: "القناة التدريبية الرسمية لشركة إزري السعودية، تقدم محاضرات علمية وورش عمل حية ومجانية لتطوير المهارات والاحتراف في نظم معلومات ArcGIS Pro والمنصات السحابية.",
+        ytDuration2: "120+ فيديو",
+        ytTitle2: "احترف برمجة الـ GIS ومكاتب QGIS",
+        ytDesc2: "القناة العالمية الرائدة للتعلم والاحتراف البرمجي في نظم المعلومات الجغرافية، تركز على لغة بايثون للتحليل الجغرافي ومكاتب ArcPy و QGIS API المتقدمة باللغة الإنجليزية.",
+        ytDuration3: "دروس تطبيقية",
+        ytTitle3: "شروحات برمجيات الاستشعار والـ GIS العملية",
+        ytDesc3: "قناة ممتازة تقدم شروحات حية وعملية باللغة العربية لبرمجيات الاستشعار عن بعد ونظم المعلومات الجغرافية، مع تغطية ممتازة لبرامج QGIS و ERDAS و ENVI.",
+        ytDuration4: "150+ درس",
+        ytTitle4: "شروحات نظم التحليل والمطابقة التضاريسية",
+        ytDesc4: "دليل مرئي عالمي تفصيلي وسهل المتابعة باللغة الإنجليزية يغطي تحليلات ArcGIS Desktop و ArcGIS Pro و QGIS وتحليل التضاريس والارتفاعات الرقمية DEM بكفاءة.",
+        ytBtn: "تصفح القناة",
+        
         // Common Mistakes Section
         mistakesTitle: "أخطاء كارثية يقع فيها مبتدئو الـ GIS",
         mistakesSubtitle: "تجنب هذه الأخطاء الأربعة الشائعة التي تعطل عمل البرمجيات وتفسد الخرائط الجغرافية",
@@ -685,6 +702,23 @@ const translations = {
         tipDesc4: "Always remain flexible. Learn ArcGIS Pro as the global standard for large enterprises, and also train on QGIS as a powerful open-source tool. This flexibility will prepare you for any work environment or freelance coding project.",
         tipTitle5: "Follow and Interact with the GIS Community",
         tipDesc5: "Follow industry leaders and developers on professional networks like LinkedIn and X. Engage in global challenges like #30DayMapChallenge to keep up with the latest innovations, projects, and technologies.",
+        
+        // YouTube learning channels
+        ytLibraryTitle: "Recommended YouTube Videos & Channels Library",
+        ytLibrarySubtitle: "Visual tutorials and outstanding Arabic & global channels offering live practical lessons",
+        ytDuration1: "Courses & Workshops",
+        ytTitle1: "Official Esri Saudi Arabia Training Channel",
+        ytDesc1: "The official training channel of Esri Saudi Arabia, offering live and free scientific lectures and workshops to develop skills and professionalism in ArcGIS Pro systems and cloud platforms.",
+        ytDuration2: "120+ Videos",
+        ytTitle2: "Master GIS Programming & QGIS Libraries",
+        ytDesc2: "The leading global channel for learning and professional programming in GIS, focusing on Python for spatial analysis, ArcPy, and advanced QGIS API in English.",
+        ytDuration3: "Practical Lessons",
+        ytTitle3: "Remote Sensing & Practical GIS Tutorials",
+        ytDesc3: "An excellent channel offering live, practical tutorials in Arabic for remote sensing and geographic information systems, with outstanding coverage of QGIS, ERDAS, and ENVI.",
+        ytDuration4: "150+ Lessons",
+        ytTitle4: "Terrain Analysis & Matching Tutorials",
+        ytDesc4: "A detailed and easy-to-follow global visual guide in English covering ArcGIS Desktop, ArcGIS Pro, and QGIS spatial analyses, and digital elevation model (DEM) terrain modeling efficiently.",
+        ytBtn: "Browse Channel",
         
         // Common Mistakes Section
         mistakesTitle: "Catastrophic Mistakes GIS Beginners Fall Into",
