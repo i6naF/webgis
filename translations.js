@@ -16,6 +16,7 @@ const translations = {
         navSoftware: "البرمجيات",
         navData: "مستودع البيانات",
         navUtm: "حاسبة UTM",
+        navCourses: "الدورات الموصى بها",
         navTips: "نصائح ذهبية",
         navMistakes: "أخطاء شائعة",
         navVision: "رؤية 2030 والمستقبل",
@@ -299,6 +300,45 @@ const translations = {
         ytDesc4: "دليل مرئي عالمي تفصيلي وسهل المتابعة باللغة الإنجليزية يغطي تحليلات ArcGIS Desktop و ArcGIS Pro و QGIS وتحليل التضاريس والارتفاعات الرقمية DEM بكفاءة.",
         ytBtn: "تصفح القناة",
         
+        // Recommended Courses Section
+        coursesTitle: "أفضل وأهم الدورات المطلوبة لنظم المعلومات الجغرافية",
+        coursesSubtitle: "أهم المسارات والشهادات المهنية العالمية المعتمدة لبناء مسيرتك الجغرافية والبرمجية بنجاح",
+        courseLevel1: "مبتدئ / متوسط",
+        courseTitle1: "شهادات إزري الفنية المعتمدة (Esri Certification)",
+        courseSource1: "شركة Esri العالمية لبرمجيات الـ GIS",
+        courseDesc1: "الشهادة المهنية الفنية الأقوى عالمياً لإثبات الاحتراف والكفاءة في إدارة قواعد البيانات الجغرافية واستخدام برمجيات ArcGIS Pro و Enterprise بتميز واجتياز الاختبارات الفنية الرسمية.",
+        coursePlatformName1: "المنصة: Esri Academy",
+        
+        courseLevel2: "متقدم (رخصة مهنية)",
+        courseTitle2: "الرخصة المهنية العالمية (GISP Certification)",
+        courseSource2: "معهد اعتماد نظم المعلومات الجغرافية الدولي (GISCI)",
+        courseDesc2: "الرخصة المهنية الأكثر شهرة واعتماداً في القطاع الجغرافي عالمياً. تتطلب خبرة عملية موثقة لعدة سنوات، تحصيلاً أكاديمياً جيوماتكياً، واجتياز الامتحان المهني الدولي للمعهد.",
+        coursePlatformName2: "المنصة: GISCI Institute",
+        
+        courseLevel3: "مبتدئ / أساسي",
+        courseTitle3: "تخصص نظم المعلومات الجغرافية الاحترافي (UC Davis)",
+        courseSource3: "جامعة كاليفورنيا ديفيس (UC Davis) عبر Coursera",
+        courseDesc3: "أشهر سلسلة أكاديمية دولية معتمدة على منصة كورسيرا. تبدأ من الصفر لتغطية أساسيات الخرائط وعلم المساحة والتحليل التضاريسي المتقدم وإنتاج الحزم الجغرافية بشكل علمي ممتاز.",
+        coursePlatformName3: "المنصة: Coursera",
+        
+        courseLevel4: "متوسط",
+        courseTitle4: "تخصص الخرائط والتحليل المكاني الفني (U of Toronto)",
+        courseSource4: "جامعة تورنتو الكندية عبر Coursera",
+        courseDesc4: "تخصص احترافي متقدم يركز بالكامل على مهارات التحليل المكاني الفني، ومعالجة تباين البيانات، والتعديل الجغرافي، وإخراج ونمذجة البيانات الجغرافية بأساليب إبداعية مذهلة.",
+        coursePlatformName4: "المنصة: Coursera",
+        
+        courseLevel5: "متوسط (استشعار)",
+        courseTitle5: "مبادئ الاستشعار عن بعد ومعالجة الأطياف (Geneva)",
+        courseSource5: "جامعة جنيف السويسرية عبر Coursera",
+        courseDesc5: "دورة معتمدة وشهادة قوية من جامعة جنيف السويسرية المرموقة، تشرح أساسيات الاستشعار عن بعد، وتفاعلات الإشعاع مع الأرض، وتطبيقات المعالجة الطيفية للصور الفضائية.",
+        coursePlatformName5: "المنصة: Coursera",
+        
+        courseLevel6: "متقدم (بيانات مكانية)",
+        courseTitle6: "علوم البيانات المكانية وتطبيقاتها (Spatial Data Science)",
+        courseSource6: "جامعة يونسي الكورية عبر Coursera",
+        courseDesc6: "برنامج تخصصي رفيع المستوى يركز على علوم البيج داتا ونظم إدارة قواعد البيانات الجغرافية Spatial DBMS وخرائط الويب والتحليلات الإحصائية الجغرافية المتقدمة.",
+        coursePlatformName6: "المنصة: Coursera",
+        
         // Common Mistakes Section
         mistakesTitle: "أخطاء كارثية يقع فيها مبتدئو الـ GIS",
         mistakesSubtitle: "تجنب هذه الأخطاء الأربعة الشائعة التي تعطل عمل البرمجيات وتفسد الخرائط الجغرافية",
@@ -439,6 +479,7 @@ const translations = {
         navSoftware: "Software",
         navData: "Data Hub",
         navUtm: "UTM Calculator",
+        navCourses: "Recommended Courses",
         navTips: "Golden Tips",
         navMistakes: "Common Mistakes",
         navVision: "Vision 2030",
@@ -719,6 +760,45 @@ const translations = {
         ytTitle4: "Terrain Analysis & Matching Tutorials",
         ytDesc4: "A detailed and easy-to-follow global visual guide in English covering ArcGIS Desktop, ArcGIS Pro, and QGIS spatial analyses, and digital elevation model (DEM) terrain modeling efficiently.",
         ytBtn: "Browse Channel",
+        
+        // Recommended Courses Section
+        coursesTitle: "Top & Essential GIS Recommended Courses",
+        coursesSubtitle: "The most important global professional courses and accredited certifications to build your GIS career successfully",
+        courseLevel1: "Beg / Int",
+        courseTitle1: "Esri Technical Certifications (Esri Certification)",
+        courseSource1: "Esri Global GIS Software Corporation",
+        courseDesc1: "The strongest technical professional certification globally to prove proficiency and competence in GIS database management and exceptional usage of ArcGIS Pro and Enterprise.",
+        coursePlatformName1: "Platform: Esri Academy",
+        
+        courseLevel2: "Adv (Professional License)",
+        courseTitle2: "Global Professional License (GISP Certification)",
+        courseSource2: "GIS Certification Institute (GISCI)",
+        courseDesc2: "The most renowned and accredited professional license in the geospatial sector globally. Requires documented years of experience, geomatics education, and passing the GISCI exam.",
+        coursePlatformName2: "Platform: GISCI Institute",
+        
+        courseLevel3: "Beg / Essential",
+        courseTitle3: "GIS Professional Specialization (UC Davis)",
+        courseSource3: "University of California, Davis via Coursera",
+        courseDesc3: "The most famous accredited international academic specialization on Coursera. Starts from scratch covering maps, surveying, terrain analysis, and GIS package creation.",
+        coursePlatformName3: "Platform: Coursera",
+        
+        courseLevel4: "Intermediate",
+        courseTitle4: "GIS Mapping & Spatial Analysis Specialization (U of Toronto)",
+        courseSource4: "University of Toronto via Coursera",
+        courseDesc4: "Advanced professional specialization focusing entirely on technical spatial analysis, resolving data variance, georeferencing, and creative geographic modeling.",
+        coursePlatformName4: "Platform: Coursera",
+        
+        courseLevel5: "Int (Remote Sensing)",
+        courseTitle5: "Principles of Remote Sensing & Spectral Analysis (Geneva)",
+        courseSource5: "University of Geneva via Coursera",
+        courseDesc5: "An accredited course and prestigious certificate from University of Geneva, explaining satellite imagery fundamentals, radiation interaction, and spectral image processing.",
+        coursePlatformName5: "Platform: Coursera",
+        
+        courseLevel6: "Adv (Spatial Data Science)",
+        courseTitle6: "Spatial Data Science and Applications (Yonsei University)",
+        courseSource6: "Yonsei University via Coursera",
+        courseDesc6: "A high-level specialization focusing on Big Data, Spatial DBMS, spatial analytics, web mapping, and advanced geostatistics using modern programmatic APIs.",
+        coursePlatformName6: "Platform: Coursera",
         
         // Common Mistakes Section
         mistakesTitle: "Catastrophic Mistakes GIS Beginners Fall Into",
