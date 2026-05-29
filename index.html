@@ -59,6 +59,7 @@
                 <a href="#software" class="nav-link" id="nav-software"><i class="fa-solid fa-laptop-code"></i> <span data-i18n="navSoftware">البرمجيات</span></a>
                 <a href="#spatial-data-hub" class="nav-link" id="nav-spatial-data"><i class="fa-solid fa-database"></i> <span data-i18n="navData">مستودع البيانات</span></a>
                 <a href="#utm-crs-calculator" class="nav-link" id="nav-utm-calc"><i class="fa-solid fa-calculator"></i> <span data-i18n="navUtm">حاسبة UTM</span></a>
+                <a href="#geomesh-hub" class="nav-link" id="nav-geomesh"><i class="fa-solid fa-square-poll-vertical text-primary"></i> <span data-i18n="navGeomesh">منشئ شبكات الـ GeoMesh</span></a>
                 <a href="#courses" class="nav-link" id="nav-courses"><i class="fa-solid fa-graduation-cap"></i> <span data-i18n="navCourses">الدورات الموصى بها</span></a>
 
                 <a href="#tips" class="nav-link" id="nav-tips"><i class="fa-solid fa-lightbulb"></i> <span data-i18n="navTips">نصائح ذهبية</span></a>
@@ -97,6 +98,7 @@
             <a href="#software" class="drawer-link" id="drawer-software"><i class="fa-solid fa-laptop-code"></i> <span data-i18n="navSoftware">البرمجيات</span></a>
             <a href="#spatial-data-hub" class="drawer-link" id="drawer-spatial-data"><i class="fa-solid fa-database"></i> <span data-i18n="navData">مستودع البيانات</span></a>
             <a href="#utm-crs-calculator" class="drawer-link" id="drawer-utm-calc"><i class="fa-solid fa-calculator"></i> <span data-i18n="navUtm">حاسبة UTM</span></a>
+            <a href="#geomesh-hub" class="drawer-link" id="drawer-geomesh"><i class="fa-solid fa-square-poll-vertical text-primary"></i> <span data-i18n="navGeomesh">منشئ شبكات الـ GeoMesh</span></a>
             <a href="#courses" class="drawer-link" id="drawer-courses"><i class="fa-solid fa-graduation-cap"></i> <span data-i18n="navCourses">الدورات الموصى بها</span></a>
 
             <a href="#tips" class="drawer-link" id="drawer-tips"><i class="fa-solid fa-lightbulb"></i> <span data-i18n="navTips">نصائح ذهبية</span></a>
@@ -879,6 +881,152 @@
                                 </p>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Saudi GeoMesh Hub Section -->
+        <section id="geomesh-hub" class="geomesh-section">
+            <div class="container">
+                <div class="section-header" id="geomeshHeader">
+                    <span class="section-badge"><i class="fa-solid fa-layer-group text-secondary"></i> <span data-i18n="geomeshBadge">محاكاة ومعالجة جيومكانية سحابية</span></span>
+                    <h2 class="section-title" data-i18n="geomeshTitle">مستودع التحليلات والـ <span class="highlight">GeoMesh</span></h2>
+                    <p class="section-subtitle" data-i18n="geomeshSubtitle">قم بتوليد شبكة بيانات متكاملة لمدن المملكة وربطها محلياً بخادم FastAPI أو محاكاتها بدقة سحابية متقدمة</p>
+                </div>
+
+                <div class="geomesh-container">
+                    <!-- Left: Control Panel -->
+                    <div class="geomesh-card control-card">
+                        <h3 data-i18n="geomeshCardControl"><i class="fa-solid fa-sliders text-primary"></i> لوحة التحكم بالمعالجة الجيومكانية</h3>
+                        <p class="card-hint" data-i18n="geomeshCardControlDesc">اختر النطاق الجغرافي، الدقة المكانية، والمتغيرات لإنشاء وتكامل طبقة شبكية متكاملة محلياً أو افتراضياً:</p>
+                        
+                        <div class="form-group">
+                            <label for="geomeshRegion" data-i18n="labelSelectRegion"><i class="fa-solid fa-map-location-dot"></i> المنطقة الجغرافية المستهدفة:</label>
+                            <div class="select-wrapper">
+                                <select id="geomeshRegion" class="custom-select">
+                                    <option value="" disabled selected data-i18n="placeholderSelectRegion">اختر المنطقة الجغرافية...</option>
+                                    <option value="riyadh" data-i18n="regRiyadh">منطقة الرياض (الوسطى)</option>
+                                    <option value="western" data-i18n="regWestern">المنطقة الغربية (مكة وجدة)</option>
+                                    <option value="eastern" data-i18n="regEastern">المنطقة الشرقية (الدمام والجبيل)</option>
+                                    <option value="southern" data-i18n="regSouthern">المنطقة الجنوبية (عسير وأبها)</option>
+                                    <option value="northern" data-i18n="regNorthern">المنطقة الشمالية (تبوك والحدود)</option>
+                                    <option value="hail" data-i18n="regHail">منطقة حائل</option>
+                                </select>
+                                <i class="fa-solid fa-chevron-down select-arrow"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label data-i18n="labelResolution"><i class="fa-solid fa-ruler-combined"></i> الدقة المكانية (حجم الخلية):</label>
+                            <div class="radio-group-container">
+                                <label class="radio-label-custom">
+                                    <input type="radio" name="geomeshResolution" value="30" checked>
+                                    <span class="radio-custom-btn font-mono">30m</span>
+                                </label>
+                                <label class="radio-label-custom">
+                                    <input type="radio" name="geomeshResolution" value="100">
+                                    <span class="radio-custom-btn font-mono">100m</span>
+                                </label>
+                                <label class="radio-label-custom">
+                                    <input type="radio" name="geomeshResolution" value="250">
+                                    <span class="radio-custom-btn font-mono">250m</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label data-i18n="labelVariables"><i class="fa-solid fa-network-wired"></i> المتغيرات والطبقات المستهدفة:</label>
+                            <div class="checkbox-group-container">
+                                <label class="checkbox-label-custom">
+                                    <input type="checkbox" name="geomeshVars" value="ndvi" checked>
+                                    <span class="checkbox-custom-box"></span>
+                                    <span class="checkbox-text" data-i18n="varNdvi">مؤشر الغطاء النباتي (NDVI)</span>
+                                </label>
+                                <label class="checkbox-label-custom">
+                                    <input type="checkbox" name="geomeshVars" value="lst" checked>
+                                    <span class="checkbox-custom-box"></span>
+                                    <span class="checkbox-text" data-i18n="varLst">حرارة سطح الأرض (LST)</span>
+                                </label>
+                                <label class="checkbox-label-custom">
+                                    <input type="checkbox" name="geomeshVars" value="no2" checked>
+                                    <span class="checkbox-custom-box"></span>
+                                    <span class="checkbox-text" data-i18n="varNo2">غاز ثاني أكسيد النيتروجين (NO2)</span>
+                                </label>
+                                <label class="checkbox-label-custom">
+                                    <input type="checkbox" name="geomeshVars" value="population" checked>
+                                    <span class="checkbox-custom-box"></span>
+                                    <span class="checkbox-text" data-i18n="varPop">الكثافة السكانية (Population Density)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="geomeshFormat" data-i18n="labelOutputFormat"><i class="fa-solid fa-file-export"></i> صيغة المخرجات الجغرافية:</label>
+                            <div class="select-wrapper">
+                                <select id="geomeshFormat" class="custom-select">
+                                    <option value="geojson" selected>GeoJSON (.geojson)</option>
+                                    <option value="csv">CSV Table (.csv)</option>
+                                </select>
+                                <i class="fa-solid fa-chevron-down select-arrow"></i>
+                            </div>
+                        </div>
+
+                        <button id="btnGenerateMesh" class="btn btn-primary btn-block">
+                            <i class="fa-solid fa-gears"></i> <span data-i18n="btnGenerateMesh">توليد وتكامل شبكة البيانات الجغرافية</span>
+                        </button>
+                    </div>
+
+                    <!-- Right: Terminal & Live Telemetry -->
+                    <div class="geomesh-card output-card">
+                        <!-- Telemetry Grid -->
+                        <div class="telemetry-wrapper">
+                            <div class="telemetry-header">
+                                <h4 data-i18n="telemetrySensorTitle"><i class="fa-solid fa-satellite-dish"></i> حالة المستشعرات حياً</h4>
+                                <span id="telemetryStatusBadge" class="sensor-badge-status offline">
+                                    <span class="status-dot"></span>
+                                    <span class="status-txt" data-i18n="telemetryOffline">وضع المحاكاة النشط</span>
+                                </span>
+                            </div>
+                            <div class="telemetry-grid">
+                                <div class="tel-tile">
+                                    <span class="tel-label" data-i18n="telemetryLiveTemp">الحرارة المباشرة</span>
+                                    <strong class="tel-value font-mono" id="telTemp">-- °C</strong>
+                                </div>
+                                <div class="tel-tile">
+                                    <span class="tel-label" data-i18n="telemetryHumidity">مستوى الرطوبة</span>
+                                    <strong class="tel-value font-mono" id="telHumidity">-- %</strong>
+                                </div>
+                                <div class="tel-tile">
+                                    <span class="tel-label" data-i18n="telemetryAirQuality">مستوى جودة الهواء</span>
+                                    <strong class="tel-value font-mono" id="telAirQuality">-- ppb</strong>
+                                </div>
+                                <div class="tel-tile">
+                                    <span class="tel-label" data-i18n="telemetryPrecipitation">الأمطار الأخيرة</span>
+                                    <strong class="tel-value font-mono" id="telPrecip">-- mm</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Terminal Box -->
+                        <div class="terminal-box">
+                            <div class="terminal-titlebar">
+                                <div class="terminal-buttons">
+                                    <span class="term-btn term-close"></span>
+                                    <span class="term-btn term-min"></span>
+                                    <span class="term-btn term-max"></span>
+                                </div>
+                                <span class="terminal-title" data-i18n="consoleHeader">وحدة معالجة البيانات الجغرافية - bash@spatial_engine.sh</span>
+                            </div>
+                            <div class="terminal-body" id="geomeshConsole">
+                                <div class="console-placeholder" data-i18n="consolePlaceholder">في انتظار إرسال معطيات التحليل... قم بالضغط على زر التوليد بالأعلى للبدء.</div>
+                            </div>
+                        </div>
+
+                        <!-- Download Button -->
+                        <button id="btnDownloadMesh" class="btn btn-secondary btn-block" disabled>
+                            <i class="fa-solid fa-cloud-arrow-down"></i> <span data-i18n="btnDownloadMesh">تحميل البيانات الجغرافية المعالجة</span>
+                        </button>
                     </div>
                 </div>
             </div>

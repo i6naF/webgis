@@ -465,6 +465,47 @@ const translations = {
         xProfileBio6: "مهتم بمشاركة حيل وأدوات احترافية في QGIS وتصميم الخرائط الجذابة (Cartography)، مع تقديم إرشادات برمجية ممتازة للمطورين الجغرافيين.",
         xProfileBio7: "محلل بيانات مكانية كارتوغرافي شهير، يشارك خرائط استثنائية وعالية الدقة مع تقديم شروحات ممتازة حول استخدام لغتي R وبايثون في التحليل المكاني.",
         xProfileBio8: "بروفيسور جامعي ومطور حزمتي geemap و leafmap المفتوحتين، يقدم دروساً احترافية في تحليل بيانات الاستشعار عن بعد ومحرك جوجل لعلوم الأرض (Google Earth Engine).",
+        
+        // GeoMesh Hub
+        navGeomesh: "منشئ شبكات الـ GeoMesh",
+        geomeshBadge: "محاكاة ومعالجة جيومكانية سحابية",
+        geomeshTitle: "مستودع التحليلات والـ <span class=\"highlight\">GeoMesh</span>",
+        geomeshSubtitle: "قم بتوليد شبكة بيانات متكاملة لمدن المملكة وربطها محلياً بخادم FastAPI أو محاكاتها بدقة سحابية متقدمة",
+        geomeshCardControl: "لوحة التحكم بالمعالجة الجيومكانية",
+        geomeshCardControlDesc: "اختر النطاق الجغرافي، الدقة المكانية، والمتغيرات لإنشاء وتكامل طبقة شبكية متكاملة محلياً أو افتراضياً:",
+        labelSelectRegion: "المنطقة الجغرافية المستهدفة:",
+        placeholderSelectRegion: "اختر المنطقة الجغرافية...",
+        labelResolution: "الدقة المكانية (حجم الخلية):",
+        labelVariables: "المتغيرات والطبقات المستهدفة:",
+        labelOutputFormat: "صيغة المخرجات الجغرافية:",
+        btnGenerateMesh: "<i class=\"fa-solid fa-gears\"></i> توليد وتكامل شبكة البيانات الجغرافية",
+        btnGeneratingMesh: "<i class=\"fa-solid fa-spinner fa-spin\"></i> جاري تشغيل خوارزميات المعالجة الجغرافية...",
+        
+        telemetrySensorTitle: "حالة المستشعرات حياً",
+        telemetryOnline: "متصل بالشبكة",
+        telemetryOffline: "وضع المحاكاة النشط",
+        telemetryLiveTemp: "الحرارة المباشرة",
+        telemetryHumidity: "مستوى الرطوبة",
+        telemetryAirQuality: "مستوى جودة الهواء",
+        telemetryPrecipitation: "الأمطار الأخيرة",
+        
+        consoleHeader: "وحدة معالجة البيانات الجغرافية - bash@spatial_engine.sh",
+        consolePlaceholder: "في انتظار إرسال معطيات التحليل... قم بالضغط على زر التوليد بالأعلى للبدء.",
+        btnDownloadMesh: "<i class=\"fa-solid fa-cloud-arrow-down\"></i> تحميل البيانات الجغرافية المعالجة",
+        
+        // Region names
+        regRiyadh: "منطقة الرياض (الوسطى)",
+        regWestern: "المنطقة الغربية (مكة وجدة)",
+        regEastern: "المنطقة الشرقية (الدمام والجبيل)",
+        regSouthern: "المنطقة الجنوبية (عسير وأبها)",
+        regNorthern: "المنطقة الشمالية (تبوك والحدود)",
+        regHail: "منطقة حائل",
+        
+        // Variable names
+        varNdvi: "مؤشر الغطاء النباتي (NDVI)",
+        varLst: "حرارة سطح الأرض (LST)",
+        varNo2: "ثاني أكسيد النيتروجين (NO2)",
+        varPop: "الكثافة السكانية (Population Density)",
     },
     
     en: {
@@ -926,5 +967,46 @@ const translations = {
         xProfileBio6: "Interested in sharing professional QGIS tips/tools and beautiful cartographic designs, providing excellent coding guidelines for geospatial developers.",
         xProfileBio7: "Renowned spatial data analyst and cartographer, sharing exceptional high-resolution maps and tutorials on using R and Python in spatial analysis.",
         xProfileBio8: "University Professor and developer of open-source geemap & leafmap packages, providing professional tutorials in remote sensing and Google Earth Engine.",
+        
+        // GeoMesh Hub
+        navGeomesh: "GeoMesh Generator",
+        geomeshBadge: "Cloud Spatial Simulation & Processing",
+        geomeshTitle: "Saudi <span class=\"highlight\">GeoMesh</span> Geoprocessing Hub",
+        geomeshSubtitle: "Generate harmonized environmental grid layers for Saudi regions. Connects to FastAPI backend locally or runs dynamic cloud simulations.",
+        geomeshCardControl: "Geoprocessing Control Panel",
+        geomeshCardControlDesc: "Select the spatial boundary, grid cell resolution, and variables to compile a multi-sensor harmonized mesh locally or virtually:",
+        labelSelectRegion: "Target Spatial Region / Boundary:",
+        placeholderSelectRegion: "Select geographic region...",
+        labelResolution: "Spatial Grid Resolution (Cell Size):",
+        labelVariables: "Target Variables & Multi-Sensor Layers:",
+        labelOutputFormat: "Spatial Output Format:",
+        btnGenerateMesh: "<i class=\"fa-solid fa-gears\"></i> Generate & Harmonize Spatial Mesh",
+        btnGeneratingMesh: "<i class=\"fa-solid fa-spinner fa-spin\"></i> Running Geoprocessing Algorithms...",
+        
+        telemetrySensorTitle: "Sensor Telemetry Feed",
+        telemetryOnline: "Live API Connected",
+        telemetryOffline: "Active Simulation Mode",
+        telemetryLiveTemp: "Live Surface Temp",
+        telemetryHumidity: "Relative Humidity",
+        telemetryAirQuality: "NO2 Air Quality",
+        telemetryPrecipitation: "Recent Precipitation",
+        
+        consoleHeader: "Spatial Geoprocessing Console - bash@spatial_engine.sh",
+        consolePlaceholder: "Awaiting geoprocessing request... Select parameters and click 'Generate' to initiate.",
+        btnDownloadMesh: "<i class=\"fa-solid fa-cloud-arrow-down\"></i> Download Harmonized Spatial Dataset",
+        
+        // Region names
+        regRiyadh: "Riyadh Region (Central KSA)",
+        regWestern: "Western Region (Mecca & Jeddah)",
+        regEastern: "Eastern Region (Dammam & Jubail)",
+        regSouthern: "Southern Region (Asir & Abha)",
+        regNorthern: "Northern Region (Tabuk & Border)",
+        regHail: "Hail Region (Central-North)",
+        
+        // Variable names
+        varNdvi: "Normalized Difference Vegetation Index (NDVI)",
+        varLst: "Land Surface Temperature (LST)",
+        varNo2: "Nitrogen Dioxide (NO2 Concentration)",
+        varPop: "Gridded Population Density",
     }
 };
