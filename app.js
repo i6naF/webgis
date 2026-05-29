@@ -768,15 +768,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 18. Live News Hub Real-time Filter & Draft Submission
+    // 18. Live News Hub Real-time Filter & Dynamic Draft Submission (Persisted)
     // ==========================================================================
     const newsSearch = document.getElementById('news-search');
-    const newsItems = document.querySelectorAll('#news-feed-items .news-item');
+    const newsFeedItems = document.getElementById('news-feed-items');
 
-    if (newsSearch && newsItems) {
+    // Function to dynamically build and animate a news card
+    function createNewsCard(title, desc, date, tagText, tagClass) {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'news-item';
+        itemDiv.style.opacity = '0';
+        itemDiv.style.transform = 'translateY(15px)';
+        itemDiv.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+        itemDiv.setAttribute('data-search', `${title} ${desc} ${tagText}`);
+
+        itemDiv.innerHTML = `
+            <span class="news-tag ${tagClass}">${tagText}</span>
+            <span class="news-date">${date}</span>
+            <h4>${title}</h4>
+            <p>${desc}</p>
+        `;
+        return itemDiv;
+    }
+
+    // Load custom contributed news from localStorage on startup
+    if (newsFeedItems) {
+        const savedNews = JSON.parse(localStorage.getItem('customGisNews') || '[]');
+        // Reverse array to insert oldest first so that the absolute newest always ends up at the very top
+        savedNews.reverse().forEach(item => {
+            const card = createNewsCard(item.title, item.desc, item.date, item.tagText, item.tagClass);
+            newsFeedItems.insertBefore(card, newsFeedItems.firstChild);
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 50);
+        });
+    }
+
+    // Live search filter (queries elements dynamically on input to catch newly added items)
+    if (newsSearch) {
         newsSearch.addEventListener('input', () => {
             const query = newsSearch.value.trim().toLowerCase();
-            newsItems.forEach(item => {
+            const currentItems = document.querySelectorAll('#news-feed-items .news-item');
+            currentItems.forEach(item => {
                 const searchText = item.getAttribute('data-search').toLowerCase();
                 if (searchText.includes(query)) {
                     item.style.display = 'block';
@@ -787,14 +821,50 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Handle dynamic local news submission
     const newsContribForm = document.getElementById('news-contrib-form');
-    if (newsContribForm) {
+    if (newsContribForm && newsFeedItems) {
         newsContribForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const titleInput = document.getElementById('news-contrib-title');
             const descInput = document.getElementById('news-contrib-desc');
+
+            const title = titleInput.value.trim();
+            const desc = descInput.value.trim();
+            const dateStr = currentLang === 'ar' ? 'الآن مباشر' : 'Live Now';
+            const tagText = currentLang === 'ar' ? 'مساهمة مجتمعية' : 'Community Post';
+            const tagClass = 'tag-success';
+
+            // Create card and insert at the top
+            const newCard = createNewsCard(title, desc, dateStr, tagText, tagClass);
+            newsFeedItems.insertBefore(newCard, newsFeedItems.firstChild);
+
+            // Animate card prepending beautifully
+            setTimeout(() => {
+                newCard.style.opacity = '1';
+                newCard.style.transform = 'translateY(0)';
+                newCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+
+            // Save to localStorage array
+            const savedNews = JSON.parse(localStorage.getItem('customGisNews') || '[]');
+            savedNews.unshift({
+                title: title,
+                desc: desc,
+                date: dateStr,
+                tagText: tagText,
+                tagClass: tagClass
+            });
+            localStorage.setItem('customGisNews', JSON.stringify(savedNews));
+
+            // Trigger translated alert
+            const alertMsg = translations[currentLang].alertNewsDraftSuccess 
+                ? translations[currentLang].alertNewsDraftSuccess.replace('{TITLE}', title)
+                : (currentLang === 'ar' ? `تم نشر مسودة الخبر بعنوان '${title}' حياً ومباشرة على البوابة بنجاح!` : `News draft '${title}' posted live on the portal successfully!`);
             
-            alert(translations[currentLang].alertNewsDraftSuccess.replace('{TITLE}', titleInput.value));
+            alert(alertMsg);
+
+            // Clear inputs
             titleInput.value = '';
             descInput.value = '';
         });

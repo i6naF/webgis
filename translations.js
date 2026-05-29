@@ -343,6 +343,7 @@ const translations = {
         newsContribTitlePlaceholder: "عنوان الخبر أو الحدث الجغرافي...",
         newsContribDescPlaceholder: "اكتب تفاصيل الخبر المساحي بإيجاز...",
         newsContribBtn: "إرسال مسودة الخبر للمراجعة",
+        alertNewsDraftSuccess: "تم إرسال ونشر مسودة الخبر بعنوان '{TITLE}' بنجاح وهي تظهر حياً في الموقع الآن!",
         
         newsTagOfficial: "خبر رسمي",
         newsTagTechnical: "تحديث فني",
@@ -360,6 +361,12 @@ const translations = {
         
         newsTitle4: "اعتماد معايير الإطار الوطني للبيانات الجيومكانية بالأبحاث",
         newsBody4: "أوصت الجامعات السعودية الطلاب والباحثين بضرورة مطابقة كافة الأبحاث والمشاريع الأكاديمية لمعايير المرجع الجيوديسي الوطني السعودي (GRS80/WGS84) المعتمد رسمياً لدى الهيئة لضمان انسجام مخرجاتهم الأكاديمية.",
+        
+        newsTitle5: "المملكة تستضيف المؤتمر العالمي الثالث للمعلومات الجيومكانية للأمم المتحدة بجدة",
+        newsBody5: "أعلنت الأمم المتحدة رسمياً عن اختيار المملكة العربية السعودية ممثلة بالهيئة العامة للمساحة والمعلومات الجيومكانية لاستضافة المؤتمر العالمي الثالث للمعلومات الجيومكانية للأمم المتحدة (3rd UNWGIC) بمدينة جدة في نوفمبر 2026، لترسيخ ريادة المملكة الرقمية عالمياً.",
+        
+        newsTitle6: "المعلومات الجيومكانية تعلن إصدار تراخيص المسح الجوي والبانورامي لدعم موسم الحج",
+        newsBody6: "أصدرت الهيئة الجيومكانية تصاريح وتراخيص لأعمال المسح الجوي والبانورامي عالي الدقة لصالح الجهات والقطاعات الحكومية المساهمة في أعمال موسم الحج 1447هـ / 2026م لضمان سلامة وإدارة الحشود والخدمات اللوجستية بدقة مكانية استثنائية.",
         
         // Suggestions and feedback
         feedbackTitle: "💡 هل لديك اقتراحات أو أفكار لتطوير الموقع؟",
@@ -740,6 +747,7 @@ const translations = {
         newsContribTitlePlaceholder: "Geospatial news or event title...",
         newsContribDescPlaceholder: "Write a brief summary of the spatial news...",
         newsContribBtn: "Submit Draft for Review",
+        alertNewsDraftSuccess: "News draft titled '{TITLE}' submitted successfully and is now posted live on the site!",
         
         newsTagOfficial: "Official News",
         newsTagTechnical: "Technical Update",
@@ -757,6 +765,12 @@ const translations = {
         
         newsTitle4: "Adoption of National Geospatial Infrastructure Standards in Research",
         newsBody4: "Saudi universities urged students and researchers to align all academic research and projects with the official Saudi National Geodetic Datum (GRS80/WGS84) standard to guarantee academic output compliance.",
+        
+        newsTitle5: "Saudi Arabia to Host the 3rd United Nations World Geospatial Information Congress in Jeddah",
+        newsBody5: "The United Nations officially announced Saudi Arabia, represented by GEOSA, as the host country for the 3rd United Nations World Geospatial Information Congress (3rd UNWGIC) in Jeddah in November 2026, solidifying the Kingdom's global digital leadership.",
+        
+        newsTitle6: "GEOSA Issues Aerial Survey and Panoramic Imaging Permits to Support Hajj Operations",
+        newsBody6: "GEOSA has officially issued permits for high-precision aerial surveying and panoramic mapping to government sectors involved in Hajj 2026 operations to support secure crowd management and advanced logistics.",
         
         // Suggestions and feedback
         feedbackTitle: "💡 Do you have suggestions or ideas to develop the site?",
