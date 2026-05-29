@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة نظم المعلومات الجغرافية والتحليل البيئي | GIS Portal</title>
+    <title data-i18n="documentTitle">بوابة نظم المعلومات الجغرافية والتحليل البيئي | GIS Portal</title>
     <meta name="description" content="منصة تفاعلية لعلوم نظم المعلومات الجغرافية (GIS) والتحليل البيئي ورصد المناخ. دليل البرمجيات، وأدوات الفحص الجغرافي المباشر لدرجات الحرارة والتلوث ومشاريع رؤية 2030.">
     <!-- Open Graph / Social Sharing -->
     <meta property="og:type" content="website">
@@ -54,7 +54,7 @@
             <nav class="nav-menu" id="navMenu">
                 <a href="#hero" class="nav-link active" id="nav-hero"><i class="fa-solid fa-house"></i> <span data-i18n="navHome">الرئيسية</span></a>
                 <a href="#about" class="nav-link" id="nav-about"><i class="fa-solid fa-circle-info"></i> <span data-i18n="navAbout">عن التخصص</span></a>
-                <a href="#devices" class="nav-link" id="nav-devices"><i class="fa-solid fa-laptop"></i> <span data-i18n="navDevices">الأجهزة الموصى بها</span></a>
+                <a href="#devices" class="nav-link" id="nav-devices" data-i18n="btnExplore"><i class="fa-solid fa-laptop"></i> <span data-i18n="navDevices">الأجهزة الموصى بها</span></a>
                 <a href="#gis-file-converter" class="nav-link" id="nav-gis-file-converter"><i class="fa-solid fa-file-export text-primary"></i> <span data-i18n="navConverter">محول ملفات GIS</span></a>
                 <a href="#software" class="nav-link" id="nav-software"><i class="fa-solid fa-laptop-code"></i> <span data-i18n="navSoftware">البرمجيات</span></a>
                 <a href="#spatial-data-hub" class="nav-link" id="nav-spatial-data"><i class="fa-solid fa-database"></i> <span data-i18n="navData">مستودع البيانات</span></a>
@@ -115,20 +115,17 @@
             
             <div class="hero-container">
                 <div class="hero-content">
-                    <div class="hero-badge" id="heroBadge">
-                        <span class="pulse-dot"></span>
-                        مستقبل التقنية المكانية والتحليل الرقمي
-                    </div>
-                    <h1 class="hero-title" id="heroTitle">
+                    <div class="hero-badge" id="heroBadge"><span class="pulse-dot"></span> <span data-i18n="heroBadge">مستقبل التقنية المكانية والتحليل الرقمي</span></div>
+                    <h1 class="hero-title" id="heroTitle" data-i18n="heroTitle">
                         بوابة الـ GIS <br>
                         <span class="gradient-text">التعليمية المبتكرة</span>
                     </h1>
-                    <p class="hero-subtitle" id="heroSubtitle">
+                    <p class="hero-subtitle" id="heroSubtitle" data-i18n="heroSubtitle">
                         دليلك المساحي والبرمجي المتكامل لتعلم نظم المعلومات الجغرافية والتحليل المكاني بأحدث التقنيات السحابية والخرائط التفاعلية.
                     </p>
                     <div class="hero-actions" id="heroActions">
-                        <a href="#devices" class="btn btn-primary" id="btnExplore"><i class="fa-solid fa-laptop"></i> الأجهزة الموصى بها</a>
-                        <a href="#about" class="btn btn-secondary" id="btnAbout"><i class="fa-solid fa-book-open"></i> استكشف التخصص</a>
+                        <a href="#devices" class="btn btn-primary" id="btnExplore"><i class="fa-solid fa-laptop"></i> <span data-i18n="btnExplore">الأجهزة الموصى بها</span></a>
+                        <a href="#about" class="btn btn-secondary" id="btnAbout" data-i18n="btnAbout"><i class="fa-solid fa-book-open"></i> استكشف التخصص</a>
                     </div>
                 </div>
                 <div class="hero-visual" id="heroVisual">
@@ -183,78 +180,78 @@
         <section id="about" class="about-section">
             <div class="container">
                 <div class="section-header" id="aboutHeader">
-                    <h2 class="section-title">ما هي نظم المعلومات الجغرافية؟</h2>
-                    <p class="section-subtitle">العلم والتقنية وراء الخرائط الذكية والتحليل المكاني الحديث</p>
+                    <h2 class="section-title" data-i18n="aboutTitle">ما هي نظم المعلومات الجغرافية؟</h2>
+                    <p class="section-subtitle" data-i18n="aboutSubtitle">العلم والتقنية وراء الخرائط الذكية والتحليل المكاني الحديث</p>
                 </div>
 
                 <div class="about-grid">
                     <div class="about-text-card" id="aboutMainText">
-                        <h3>قوة المكان وعلم الـ "أين؟"</h3>
-                        <p>
+                        <h3 data-i18n="aboutCardTitle">قوة المكان وعلم الـ "أين؟"</h3>
+                        <p data-i18n="aboutText1">
                             <strong>نظم المعلومات الجغرافية (GIS - Geographic Information Systems)</strong> هي علم وتكنولوجيا تتيح لنا التقاط وتخزين ومعالجة وتحليل وعرض شتى أنواع البيانات الجغرافية المرتبطة بموقع محدد على سطح الأرض.
                         </p>
-                        <p>
+                        <p data-i18n="aboutText2">
                             عبر دمج الخرائط الرقمية بقواعد البيانات الذكية، لا يخبرنا الـ GIS بـ <em>"ماذا يوجد؟"</em> فحسب، بل يمكننا من فهم <em>"لماذا يوجد هناك؟"</em> و <em>"ماذا سيحدث لو تغير؟"</em>، مما يجعله المحرك الأساسي لاتخاذ القرارات وإدارة العالم من حولنا.
                         </p>
                     </div>
                     
                     <div class="stats-mini-grid">
                         <div class="stat-card" id="stat1">
-                            <span class="stat-num font-mono">80%</span>
-                            <span class="stat-label">من بيانات العالم تحتوي على مكون مكاني (جغرافي).</span>
+                            <span class="stat-num font-mono" data-i18n="statNum1">80%</span>
+                            <span class="stat-label" data-i18n="statLabel1">من بيانات العالم تحتوي على مكون مكاني (جغرافي).</span>
                         </div>
                         <div class="stat-card" id="stat2">
-                            <span class="stat-num font-mono">3D</span>
-                            <span class="stat-label">تحليل البيانات بأبعاد متعددة للنمذجة الواقعية للمدن.</span>
+                            <span class="stat-num font-mono" data-i18n="statNum2">3D</span>
+                            <span class="stat-label" data-i18n="statLabel2">تحليل البيانات بأبعاد متعددة للنمذجة الواقعية للمدن.</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 5 Pillars of GIS -->
-                <h3 class="subsection-title" id="pillarsTitle">الركائز الخمس الأساسية للـ GIS</h3>
+                <h3 class="subsection-title" id="pillarsTitle" data-i18n="pillarsTitle">الركائز الخمس الأساسية للـ GIS</h3>
                 <div class="pillars-grid">
                     <!-- 1. Data -->
                     <div class="pillar-card" id="pillar-data">
                         <div class="pillar-icon"><i class="fa-solid fa-database"></i></div>
-                        <h4>1. البيانات (Data)</h4>
-                        <p>عصب النظام والوقود المحرك له. تشمل البيانات الوصفية والبيانات المكانية بنوعيها: المتجهة (Vector) والشبكية (Raster).</p>
+                        <h4 data-i18n="pillarTitle1">1. البيانات (Data)</h4>
+                        <p data-i18n="pillarDesc1">عصب النظام والوقود المحرك له. تشمل البيانات الوصفية والبيانات المكانية بنوعيها: المتجهة (Vector) والشبكية (Raster).</p>
                     </div>
                     <!-- 2. Software -->
                     <div class="pillar-card" id="pillar-software">
                         <div class="pillar-icon"><i class="fa-solid fa-laptop-code"></i></div>
-                        <h4>2. البرمجيات (Software)</h4>
-                        <p>الأدوات المستخدمة لإدخال ومعالجة البيانات المكانية وعمل التحليلات وإنتاج الخرائط، مثل برامج ESRI و QGIS.</p>
+                        <h4 data-i18n="pillarTitle2">2. البرمجيات (Software)</h4>
+                        <p data-i18n="pillarDesc2">الأدوات المستخدمة لإدخال ومعالجة البيانات المكانية وعمل التحليلات وإنتاج الخرائط، مثل برامج ESRI و QGIS.</p>
                     </div>
                     <!-- 3. Hardware -->
                     <div class="pillar-card" id="pillar-hardware">
                         <div class="pillar-icon"><i class="fa-solid fa-server"></i></div>
-                        <h4>3. الأجهزة (Hardware)</h4>
-                        <p>الحواسيب فائقة الأداء، السيرفرات السحابية، أجهزة الـ GPS، وأجهزة الاستشعار عن بعد كالدرونز والأقمار الصناعية.</p>
+                        <h4 data-i18n="pillarTitle3">3. الأجهزة (Hardware)</h4>
+                        <p data-i18n="pillarDesc3">الحواسيب فائقة الأداء، السيرفرات السحابية، أجهزة الـ GPS، وأجهزة الاستشعار عن بعد كالدرونز والأقمار الصناعية.</p>
                     </div>
                     <!-- 4. Methods -->
                     <div class="pillar-card" id="pillar-methods">
                         <div class="pillar-icon"><i class="fa-solid fa-gears"></i></div>
-                        <h4>4. الأساليب (Methods)</h4>
-                        <p>خطط العمل المنهجية، القواعد الحسابية، والتحليلات الجغرافية والإحصائية المتبعة لحل المشكلات بدقة.</p>
+                        <h4 data-i18n="pillarTitle4">4. الأساليب (Methods)</h4>
+                        <p data-i18n="pillarDesc4">خطط العمل المنهجية، القواعد الحسابية، والتحليلات الجغرافية والإحصائية المتبعة لحل المشكلات بدقة.</p>
                     </div>
                     <!-- 5. People -->
                     <div class="pillar-card" id="pillar-people">
                         <div class="pillar-icon"><i class="fa-solid fa-users-gear"></i></div>
-                        <h4>5. الكوادر البشرية (People)</h4>
-                        <p>المختصون والمطورون والمحللون الذين يقومون بتصميم وتشغيل الأنظمة وحل المشكلات المكانية المعقدة.</p>
+                        <h4 data-i18n="pillarTitle5">5. الكوادر البشرية (People)</h4>
+                        <p data-i18n="pillarDesc5">المختصون والمطورون والمحللون الذين يقومون بتصميم وتشغيل الأنظمة وحل المشكلات المكانية المعقدة.</p>
                     </div>
                 </div>
 
                 <!-- Career Fields -->
-                <h3 class="subsection-title" id="careersTitle">مجالات العمل والتطبيق</h3>
+                <h3 class="subsection-title" id="careersTitle" data-i18n="careersTitle">مجالات العمل والتطبيق</h3>
                 <div class="careers-grid">
                     <div class="career-item" id="career-urban">
                         <div class="career-img-wrapper">
                             <i class="fa-solid fa-city career-vector-icon"></i>
                         </div>
                         <div class="career-info">
-                            <h5>التخطيط العمراني والمدن الذكية</h5>
-                            <p>تخطيط مسارات النقل، تحديد مواقع الخدمات والمدارس والمستشفيات، وتحليل نمو وتوسع المدن هندسياً.</p>
+                            <h5 data-i18n="careerTitle1">التخطيط العمراني والمدن الذكية</h5>
+                            <p data-i18n="careerDesc1">تخطيط مسارات النقل، تحديد مواقع الخدمات والمدارس والمستشفيات، وتحليل نمو وتوسع المدن هندسياً.</p>
                         </div>
                     </div>
                     <div class="career-item" id="career-env">
@@ -262,8 +259,8 @@
                             <i class="fa-solid fa-seedling career-vector-icon"></i>
                         </div>
                         <div class="career-info">
-                            <h5>البيئة وإدارة الموارد الطبيعية</h5>
-                            <p>مراقبة التصحر، الغطاء النباتي، تتبع التلوث، دراسة التغير المناخي وحماية الحياة الفطرية بدقة مكانية.</p>
+                            <h5 data-i18n="careerTitle2">البيئة وإدارة الموارد الطبيعية</h5>
+                            <p data-i18n="careerDesc2">مراقبة التصحر، الغطاء النباتي، تتبع التلوث، دراسة التغير المناخي وحماية الحياة الفطرية بدقة مكانية.</p>
                         </div>
                     </div>
                     <div class="career-item" id="career-logistics">
@@ -271,8 +268,8 @@
                             <i class="fa-solid fa-truck-fast career-vector-icon"></i>
                         </div>
                         <div class="career-info">
-                            <h5>الخدمات اللوجستية والنقل</h5>
-                            <p>تحديد المسار الأقصر لسيارات الإسعاف أو التوصيل، إدارة أساطيل النقل، وتوزيع شبكات الإمداد والطاقة.</p>
+                            <h5 data-i18n="careerTitle3">الخدمات اللوجستية والنقل</h5>
+                            <p data-i18n="careerDesc3">تحديد المسار الأقصر لسيارات الإسعاف أو التوصيل، إدارة أساطيل النقل، وتوزيع شبكات الإمداد والطاقة.</p>
                         </div>
                     </div>
                     <div class="career-item" id="career-disaster">
@@ -280,8 +277,8 @@
                             <i class="fa-solid fa-house-fire career-vector-icon"></i>
                         </div>
                         <div class="career-info">
-                            <h5>إدارة الكوارث والأزمات</h5>
-                            <p>النمذجة الطبوغرافية والتنبؤ بمسارات السيول والفيضانات، وتتبع الكوارث والحرائق للحد من مخاطرها وتقليل الخسائر.</p>
+                            <h5 data-i18n="careerTitle4">إدارة الكوارث والأزمات</h5>
+                            <p data-i18n="careerDesc4">النمذجة الطبوغرافية والتنبؤ بمسارات السيول والفيضانات، وتتبع الكوارث والحرائق للحد من مخاطرها وتقليل الخسائر.</p>
                         </div>
                     </div>
                 </div>
@@ -292,13 +289,13 @@
         <section id="devices" class="devices-section">
             <div class="container">
                 <div class="section-header" id="devicesHeader">
-                    <h2 class="section-title">الأجهزة والحواسيب الموصى بها لـ GIS</h2>
-                    <p class="section-subtitle">دليل شامل لاختيار الحاسوب الأمثل لتشغيل برمجيات الخرائط والتحليل المكاني وسلاسل البيانات الجغرافية الضخمة</p>
+                    <h2 class="section-title" data-i18n="hardwareTitle">الأجهزة والحواسيب الموصى بها لـ GIS</h2>
+                    <p class="section-subtitle" data-i18n="hardwareSubtitle">دليل شامل لاختيار الحاسوب الأمثل لتشغيل برمجيات الخرائط والتحليل المكاني وسلاسل البيانات الجغرافية الضخمة</p>
                 </div>
 
                 <div class="devices-advisory" id="devicesAdvisory">
                     <div class="advisory-icon"><i class="fa-solid fa-triangle-exclamation text-accent"></i></div>
-                    <div class="advisory-text">
+                    <div class="advisory-text" data-i18n="hardwareWarning">
                         <strong>تنبيه هام حول أنظمة التشغيل (OS):</strong> برنامج <strong>ArcGIS Pro</strong> (المعيار الصناعي) يعمل <strong>فقط على نظام التشغيل Windows</strong> بشكل رسمي. إذا اخترت جهاز Mac (بمعالجات Apple Silicon)، ستحتاج لتشغيل نظام Windows عبر برامج محاكاة مثل Parallels Desktop، بينما يعمل برنامج <strong>QGIS</strong> مفتوح المصدر على جميع الأنظمة (Windows, Mac, Linux) بسلاسة تامة وبدون أي مشاكل.
                     </div>
                 </div>
@@ -307,46 +304,46 @@
                     <!-- Card 1: Entry Level -->
                     <div class="device-card border-emerald" id="device-entry">
                         <div class="device-glow"></div>
-                        <div class="device-badge badge-emerald">المستوى الاقتصادي (المواصفات الدنيا)</div>
+                        <div class="device-badge badge-emerald" data-i18n="deviceBadge1">المستوى الاقتصادي (المواصفات الدنيا)</div>
                         <div class="device-header">
                             <div class="device-icon-wrapper"><i class="fa-solid fa-laptop text-primary"></i></div>
                             <div class="device-title-group">
-                                <h3>الحواسيب الأساسية للمبتدئين</h3>
-                                <p>مثالي للطلاب المستجدين وأعمال الرسم والتحليل الخفيف</p>
+                                <h3 data-i18n="deviceTitle1">الحواسيب الأساسية للمبتدئين</h3>
+                                <p data-i18n="deviceDesc1">مثالي للطلاب المستجدين وأعمال الرسم والتحليل الخفيف</p>
                             </div>
                         </div>
                         <div class="specs-divider"></div>
                         <ul class="device-specs-list">
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-microchip"></i> المعالج</span>
-                                <span class="spec-value">Intel Core Ultra 5 / AMD Ryzen 5 (جيل حديث)</span>
+                                <span class="spec-icon"><i class="fa-solid fa-microchip"></i> <span data-i18n="specCpu">المعالج</span></span>
+                                <span class="spec-value" data-i18n="entryCpu">Intel Core Ultra 5 / AMD Ryzen 5 (جيل حديث)</span>
                             </li>
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-memory"></i> الذاكرة (RAM)</span>
-                                <span class="spec-value">16 GB DDR5 (الحد الأدنى لـ GIS في 2026)</span>
+                                <span class="spec-icon" data-i18n="specRam"><i class="fa-solid fa-memory"></i> الذاكرة (RAM)</span>
+                                <span class="spec-value" data-i18n="entryRam">16 GB DDR5 (الحد الأدنى لـ GIS في 2026)</span>
                             </li>
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-image"></i> كرت الشاشة</span>
-                                <span class="spec-value">NVIDIA RTX 3050 / AMD Radeon 780M (أو مدمج قوي)</span>
+                                <span class="spec-icon"><i class="fa-solid fa-image"></i> <span data-i18n="specGpu">كرت الشاشة</span></span>
+                                <span class="spec-value"><span data-i18n="entryGpu">NVIDIA RTX 3050 / AMD Radeon 780M (أو مدمج قوي)</span></span>
                             </li>
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-hdd"></i> التخزين</span>
-                                <span class="spec-value">512 GB NVMe PCIe SSD (فائق السرعة)</span>
+                                <span class="spec-icon"><i class="fa-solid fa-hdd"></i> <span data-i18n="specStorage">التخزين</span></span>
+                                <span class="spec-value"><span data-i18n="entryStorage">512 GB NVMe PCIe SSD (فائق السرعة)</span></span>
                             </li>
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-display"></i> الشاشة</span>
-                                <span class="spec-value">15.6" FHD IPS (ألوان مريحة ومقاومة للتوهج)</span>
+                                <span class="spec-icon"><i class="fa-solid fa-display"></i> <span data-i18n="specDisplay">الشاشة</span></span>
+                                <span class="spec-value"><span data-i18n="entryDisplay">15.6" FHD IPS (ألوان مريحة ومقاومة للتوهج)</span></span>
                             </li>
                         </ul>
                         <div class="specs-divider"></div>
                         <div class="suggested-models">
-                            <h4>الأجهزة المقترحة:</h4>
-                            <p>Lenovo IdeaPad Slim 5 (Core Ultra) / Acer Aspire 5 / HP Victus 15 (اقتصادي)</p>
+                            <h4 data-i18n="deviceNominees">الأجهزة المقترحة:</h4>
+                            <p data-i18n="entryList">Lenovo IdeaPad Slim 5 (Core Ultra) / Acer Aspire 5 / HP Victus 15 (اقتصادي)</p>
                         </div>
                         <div class="device-footer">
                             <div class="price-tag">
-                                <span class="price-label">السعر التقريبي:</span>
-                                <span class="price-val font-mono">2,400 - 3,200 <span class="currency">ر.س</span></span>
+                                <span class="price-label" data-i18n="proPriceLabel">السعر التقريبي:</span>
+                                <span class="price-val font-mono">2,400 - 3,200 <span class="currency" data-i18n="currency">ر.س</span></span>
                             </div>
                         </div>
                     </div>
@@ -354,46 +351,46 @@
                     <!-- Card 2: Recommended -->
                     <div class="device-card border-cyan active-card" id="device-recommended">
                         <div class="device-glow"></div>
-                        <div class="device-badge badge-cyan"><i class="fa-solid fa-star"></i> الخيار الذهبي (الموصى به)</div>
+                        <div class="device-badge badge-cyan"><i class="fa-solid fa-star"></i> <span data-i18n="deviceBadge2">الخيار الذهبي (الموصى به)</span></div>
                         <div class="device-header">
                             <div class="device-icon-wrapper"><i class="fa-solid fa-laptop-code text-secondary"></i></div>
                             <div class="device-title-group">
-                                <h3>الأجهزة المتوازنة للاحتراف</h3>
-                                <p>الخيار الأفضل للمشاريع الجامعية والتحليل ثلاثي الأبعاد والرندرة</p>
+                                <h3 data-i18n="deviceTitle2">الأجهزة المتوازنة للاحتراف</h3>
+                                <p data-i18n="deviceDesc2">الخيار الأفضل للمشاريع الجامعية والتحليل ثلاثي الأبعاد والرندرة</p>
                             </div>
                         </div>
                         <div class="specs-divider"></div>
                         <ul class="device-specs-list">
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-microchip"></i> المعالج</span>
-                                <span class="spec-value">Intel Core Ultra 7 / AMD Ryzen 7 (فئة HS/H القوية)</span>
+                                <span class="spec-icon"><i class="fa-solid fa-microchip"></i> <span data-i18n="specCpu">المعالج</span></span>
+                                <span class="spec-value"><span data-i18n="midCpu">Intel Core Ultra 7 / AMD Ryzen 7 (فئة HS/H القوية)</span></span>
                             </li>
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-memory"></i> الذاكرة (RAM)</span>
-                                <span class="spec-value">32 GB DDR5 5600MHz (لسلاسة البرمجيات الحديثة)</span>
+                                <span class="spec-icon"><i class="fa-solid fa-memory"></i> <span data-i18n="specRam">الذاكرة (RAM)</span></span>
+                                <span class="spec-value"><span data-i18n="midRam">32 GB DDR5 5600MHz (لسلاسة البرمجيات الحديثة)</span></span>
                             </li>
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-image"></i> كرت الشاشة</span>
-                                <span class="spec-value">NVIDIA RTX 4060 / RTX 4060 Ti Laptop (8GB VRAM)</span>
+                                <span class="spec-icon"><i class="fa-solid fa-image"></i> <span data-i18n="specGpu">كرت الشاشة</span></span>
+                                <span class="spec-value"><span data-i18n="midGpu">NVIDIA RTX 4060 / RTX 4060 Ti Laptop (8GB VRAM)</span></span>
                             </li>
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-hdd"></i> التخزين</span>
-                                <span class="spec-value">1 TB NVMe M.2 SSD PCIe Gen 4</span>
+                                <span class="spec-icon"><i class="fa-solid fa-hdd"></i> <span data-i18n="specStorage">التخزين</span></span>
+                                <span class="spec-value"><span data-i18n="midStorage">1 TB NVMe M.2 SSD PCIe Gen 4</span></span>
                             </li>
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-display"></i> الشاشة</span>
-                                <span class="spec-value">16" WQXGA (2.5K) 100% sRGB ألوان دقيقة</span>
+                                <span class="spec-icon"><i class="fa-solid fa-display"></i> <span data-i18n="specDisplay">الشاشة</span></span>
+                                <span class="spec-value"><span data-i18n="midDisplay">16" WQXGA (2.5K) 100% sRGB ألوان دقيقة</span></span>
                             </li>
                         </ul>
                         <div class="specs-divider"></div>
                         <div class="suggested-models">
-                            <h4>الأجهزة المقترحة:</h4>
-                            <p>ASUS ROG Zephyrus G14 (2026) / HP Victus 16 / Dell Inspiron 16 Plus</p>
+                            <h4 data-i18n="deviceNominees">الأجهزة المقترحة:</h4>
+                            <p data-i18n="midList">ASUS ROG Zephyrus G14 (2026) / HP Victus 16 / Dell Inspiron 16 Plus</p>
                         </div>
                         <div class="device-footer">
                             <div class="price-tag">
-                                <span class="price-label">السعر التقريبي:</span>
-                                <span class="price-val font-mono">4,800 - 6,200 <span class="currency">ر.س</span></span>
+                                <span class="price-label" data-i18n="proPriceLabel">السعر التقريبي:</span>
+                                <span class="price-val font-mono">4,800 - 6,200 <span class="currency" data-i18n="currency">ر.س</span></span>
                             </div>
                         </div>
                     </div>
@@ -401,46 +398,46 @@
                     <!-- Card 3: Advanced Workstation -->
                     <div class="device-card border-amber" id="device-workstation">
                         <div class="device-glow"></div>
-                        <div class="device-badge badge-amber">الأداء العالي (محطات العمل)</div>
+                        <div class="device-badge badge-amber" data-i18n="deviceBadge3">الأداء العالي (محطات العمل)</div>
                         <div class="device-header">
                             <div class="device-icon-wrapper"><i class="fa-solid fa-desktop text-accent"></i></div>
                             <div class="device-title-group">
-                                <h3>محطات العمل المحمولة الفائقة</h3>
-                                <p>لتحليل الاستشعار عن بعد ومعالجة الصور الفضائية ونمذجة الـ AI</p>
+                                <h3 data-i18n="deviceTitle3">محطات العمل المحمولة الفائقة</h3>
+                                <p data-i18n="deviceDesc3">لتحليل الاستشعار عن بعد ومعالجة الصور الفضائية ونمذجة الـ AI</p>
                             </div>
                         </div>
                         <div class="specs-divider"></div>
                         <ul class="device-specs-list">
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-microchip"></i> المعالج</span>
-                                <span class="spec-value">Intel Core Ultra 9 / AMD Ryzen 9 / Apple M4 Pro (أحدث جيل)</span>
+                                <span class="spec-icon"><i class="fa-solid fa-microchip"></i> <span data-i18n="specCpu">المعالج</span></span>
+                                <span class="spec-value" data-i18n="proCpu">Intel Core Ultra 9 / AMD Ryzen 9 / Apple M4 Pro (أحدث جيل)</span>
                             </li>
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-memory"></i> الذاكرة (RAM)</span>
-                                <span class="spec-value">64 GB DDR5 6400MHz (سرعات فائقة للتحليلات الكبيرة)</span>
+                                <span class="spec-icon"><i class="fa-solid fa-memory"></i> <span data-i18n="specRam">الذاكرة (RAM)</span></span>
+                                <span class="spec-value" data-i18n="proRam">64 GB DDR5 6400MHz (سرعات فائقة للتحليلات الكبيرة)</span>
                             </li>
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-image"></i> كرت الشاشة</span>
-                                <span class="spec-value">NVIDIA RTX 4070 / RTX 4070 Super / Apple M4 Pro GPU</span>
+                                <span class="spec-icon"><i class="fa-solid fa-image"></i> <span data-i18n="specGpu">كرت الشاشة</span></span>
+                                <span class="spec-value" data-i18n="proGpu">NVIDIA RTX 4070 / RTX 4070 Super / Apple M4 Pro GPU</span>
                             </li>
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-hdd"></i> التخزين</span>
-                                <span class="spec-value">2 TB NVMe PCIe Gen4 SSD (قراءة وكتابة فائقة)</span>
+                                <span class="spec-icon"><i class="fa-solid fa-hdd"></i> <span data-i18n="specStorage">التخزين</span></span>
+                                <span class="spec-value" data-i18n="proStorage">2 TB NVMe PCIe Gen4 SSD (قراءة وكتابة فائقة)</span>
                             </li>
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-display"></i> الشاشة</span>
-                                <span class="spec-value">16" OLED 3K / Liquid Retina XDR (دقة متناهية)</span>
+                                <span class="spec-icon"><i class="fa-solid fa-display"></i> <span data-i18n="specDisplay">الشاشة</span></span>
+                                <span class="spec-value" data-i18n="proDisplay">16" OLED 3K / Liquid Retina XDR (دقة متناهية)</span>
                             </li>
                         </ul>
                         <div class="specs-divider"></div>
                         <div class="suggested-models">
-                            <h4>الأجهزة المقترحة:</h4>
-                            <p>Lenovo ThinkPad P1 Gen 8 / Dell Precision 5690 / MacBook Pro 16" (M4 Pro)</p>
+                            <h4 data-i18n="deviceNominees">الأجهزة المقترحة:</h4>
+                            <p data-i18n="proList">Lenovo ThinkPad P1 Gen 8 / Dell Precision 5690 / MacBook Pro 16" (M4 Pro)</p>
                         </div>
                         <div class="device-footer">
                             <div class="price-tag">
-                                <span class="price-label">السعر التقريبي:</span>
-                                <span class="price-val font-mono">9,500 - 14,000 <span class="currency">ر.س</span></span>
+                                <span class="price-label" data-i18n="proPriceLabel">السعر التقريبي:</span>
+                                <span class="price-val font-mono">9,500 - 14,000 <span class="currency" data-i18n="currency">ر.س</span></span>
                             </div>
                         </div>
                     </div>
@@ -448,46 +445,46 @@
                     <!-- Card 4: Desktop PC Build -->
                     <div class="device-card border-purple" id="device-pc-build">
                         <div class="device-glow"></div>
-                        <div class="device-badge badge-purple">الخيار المتكامل (تجميعة PC مكتبية)</div>
+                        <div class="device-badge badge-purple" data-i18n="deviceBadge4">الخيار المتكامل (تجميعة PC مكتبية)</div>
                         <div class="device-header">
                             <div class="device-icon-wrapper"><i class="fa-solid fa-server text-purple"></i></div>
                             <div class="device-title-group">
-                                <h3>تجميعة حاسوب مكتبي مكاني</h3>
-                                <p>للحصول على أقصى أداء ممكن وأطول عمر افتراضي مع تبريد جبار</p>
+                                <h3 data-i18n="deviceTitle4">تجميعة حاسوب مكتبي مكاني</h3>
+                                <p data-i18n="deviceDesc4">للحصول على أقصى أداء ممكن وأطول عمر افتراضي مع تبريد جبار</p>
                             </div>
                         </div>
                         <div class="specs-divider"></div>
                         <ul class="device-specs-list">
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-microchip"></i> المعالج</span>
-                                <span class="spec-value">AMD Ryzen 9 9900X / Intel Core Ultra 9 285K</span>
+                                <span class="spec-icon"><i class="fa-solid fa-microchip"></i> <span data-i18n="specCpu">المعالج</span></span>
+                                <span class="spec-value" data-i18n="pcCpu">AMD Ryzen 9 9900X / Intel Core Ultra 9 285K</span>
                             </li>
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-memory"></i> الذاكرة (RAM)</span>
-                                <span class="spec-value">64 GB DDR5 6400MHz (Dual Channel 2x32GB)</span>
+                                <span class="spec-icon"><i class="fa-solid fa-memory"></i> <span data-i18n="specRam">الذاكرة (RAM)</span></span>
+                                <span class="spec-value" data-i18n="pcRam">64 GB DDR5 6400MHz (Dual Channel 2x32GB)</span>
                             </li>
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-image"></i> كرت الشاشة</span>
-                                <span class="spec-value">NVIDIA RTX 4070 Ti Super / RTX 4080 Super (16GB VRAM)</span>
+                                <span class="spec-icon"><i class="fa-solid fa-image"></i> <span data-i18n="specGpu">كرت الشاشة</span></span>
+                                <span class="spec-value" data-i18n="pcGpu">NVIDIA RTX 4070 Ti Super / RTX 4080 Super (16GB VRAM)</span>
                             </li>
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-hdd"></i> التخزين</span>
-                                <span class="spec-value">2TB Samsung 990 Pro M.2 + 4TB HDD (أرشيف خرائط)</span>
+                                <span class="spec-icon"><i class="fa-solid fa-hdd"></i> <span data-i18n="specStorage">التخزين</span></span>
+                                <span class="spec-value" data-i18n="pcStorage">2TB Samsung 990 Pro M.2 + 4TB HDD (أرشيف خرائط)</span>
                             </li>
                             <li>
-                                <span class="spec-icon"><i class="fa-solid fa-fan"></i> التبريد والطاقة</span>
-                                <span class="spec-value">مبرد مائي 360mm + مزود طاقة 850W Gold</span>
+                                <span class="spec-icon" data-i18n="specCooling"><i class="fa-solid fa-fan"></i> التبريد والطاقة</span>
+                                <span class="spec-value" data-i18n="pcCooling">مبرد مائي 360mm + مزود طاقة 850W Gold</span>
                             </li>
                         </ul>
                         <div class="specs-divider"></div>
                         <div class="suggested-models">
-                            <h4>ملاحظة التجميعة:</h4>
-                            <p>الحل الأفضل والأرخص للرندرة ومحاكاة البيانات الكبيرة والذكاء الاصطناعي المكاني.</p>
+                            <h4 data-i18n="deviceNoteTitle">ملاحظة التجميعة:</h4>
+                            <p data-i18n="pcNote">الحل الأفضل والأرخص للرندرة ومحاكاة البيانات الكبيرة والذكاء الاصطناعي المكاني.</p>
                         </div>
                         <div class="device-footer">
                             <div class="price-tag">
-                                <span class="price-label">التكلفة التقريبية:</span>
-                                <span class="price-val font-mono">10,000 - 16,000 <span class="currency">ر.س</span></span>
+                                <span class="price-label" data-i18n="pcPriceLabel">التكلفة التقريبية:</span>
+                                <span class="price-val font-mono">10,000 - 16,000 <span class="currency" data-i18n="currency">ر.س</span></span>
                             </div>
                         </div>
                     </div>
@@ -499,156 +496,156 @@
         <section id="software" class="software-section">
             <div class="container">
                 <div class="section-header" id="softwareHeader">
-                    <h2 class="section-title">مستودع البرمجيات والأدوات الجغرافية</h2>
-                    <p class="section-subtitle">صندوق أدواتك العملي للاحتراف في بيئات العمل والمشاريع</p>
+                    <h2 class="section-title" data-i18n="softwareTitle">مستودع البرمجيات والأدوات الجغرافية</h2>
+                    <p class="section-subtitle" data-i18n="softwareSubtitle">صندوق أدواتك العملي للاحتراف في بيئات العمل والمشاريع</p>
                 </div>
 
                 <!-- Filter Controls -->
                 <div class="filter-wrapper" id="softwareFilters">
-                    <button class="filter-btn active" data-filter="all">الكل</button>
-                    <button class="filter-btn" data-filter="desktop">برمجيات مكتبية (Desktop)</button>
-                    <button class="filter-btn" data-filter="cloud">تحليل سحابي (Cloud)</button>
-                    <button class="filter-btn" data-filter="database">قواعد بيانات مكانية</button>
-                    <button class="filter-btn" data-filter="dev">برمجة وتطوير (Development)</button>
+                    <button class="filter-btn active" data-filter="all" data-i18n="filterAll">الكل</button>
+                    <button class="filter-btn" data-filter="desktop" data-i18n="filterDesktop">برمجيات مكتبية (Desktop)</button>
+                    <button class="filter-btn" data-filter="cloud" data-i18n="filterCloud">تحليل سحابي (Cloud)</button>
+                    <button class="filter-btn" data-filter="database" data-i18n="filterDatabase">قواعد بيانات مكانية</button>
+                    <button class="filter-btn" data-filter="dev" data-i18n="filterDev">برمجة وتطوير (Development)</button>
                 </div>
 
                 <!-- Software Grid -->
                 <div class="software-grid" id="softwareGrid">
                     <!-- 1. ArcGIS Pro -->
                     <div class="software-card" data-category="desktop">
-                        <div class="sw-badge sw-commercial">تجاري (رخصة ESRI)</div>
+                        <div class="sw-badge sw-commercial" data-i18n="badgeCommercial">تجاري (رخصة ESRI)</div>
                         <div class="sw-header">
                             <div class="sw-icon"><i class="fa-solid fa-earth-americas"></i></div>
                             <div class="sw-title-group">
-                                <h4>ArcGIS Pro</h4>
-                                <span class="sw-developer font-mono">ESRI Corp.</span>
+                                <h4 data-i18n="softwareTitle1">ArcGIS Pro</h4>
+                                <span class="sw-developer font-mono" data-i18n="softwareDev1">ESRI Corp.</span>
                             </div>
                         </div>
-                        <p class="sw-desc">
+                        <p class="sw-desc" data-i18n="softwareDesc1">
                             المعيار الذهبي والبرنامج الأكثر شهرة واستخداماً عالمياً في الشركات والجهات الحكومية. يتميز بقدرات تحليلية جبارة ثلاثية الأبعاد وعرض خرائط فائق الدقة.
                         </p>
                         <ul class="sw-features">
-                            <li><i class="fa-solid fa-check"></i> تحليلات مكانية ومتقدمة ومحاكاة ثلاثية الأبعاد.</li>
-                            <li><i class="fa-solid fa-check"></i> تكامل ممتاز مع قواعد البيانات السحابية وبيئات الـ Enterprise.</li>
-                            <li><i class="fa-solid fa-check"></i> متوفر للطلاب برخص تعليمية مخفضة.</li>
+                            <li data-i18n="swFeatures1_1"><i class="fa-solid fa-check"></i> تحليلات مكانية ومتقدمة ومحاكاة ثلاثية الأبعاد.</li>
+                            <li data-i18n="swFeatures1_2"><i class="fa-solid fa-check"></i> تكامل ممتاز مع قواعد البيانات السحابية وبيئات الـ Enterprise.</li>
+                            <li data-i18n="swFeatures1_3"><i class="fa-solid fa-check"></i> متوفر للطلاب برخص تعليمية مخفضة.</li>
                         </ul>
                         <div class="sw-footer-action">
-                            <a href="https://www.esri.com/en-us/arcgis/products/arcgis-pro/overview" target="_blank" class="btn btn-outline-primary btn-sm">زيارة الموقع الرسمي</a>
+                            <a href="https://www.esri.com/en-us/arcgis/products/arcgis-pro/overview" target="_blank" class="btn btn-outline-primary btn-sm" data-i18n="btnLearnMore">زيارة الموقع الرسمي</a>
                         </div>
                     </div>
 
                     <!-- 2. QGIS -->
                     <div class="software-card" data-category="desktop">
-                        <div class="sw-badge sw-free">مفتوح المصدر (مجاني بالكامل)</div>
+                        <div class="sw-badge sw-free" data-i18n="badgeFree">مفتوح المصدر (مجاني بالكامل)</div>
                         <div class="sw-header">
                             <div class="sw-icon"><i class="fa-solid fa-globe"></i></div>
                             <div class="sw-title-group">
-                                <h4>QGIS Desktop</h4>
-                                <span class="sw-developer font-mono">OSGeo Foundation</span>
+                                <h4 data-i18n="softwareTitle2">QGIS Desktop</h4>
+                                <span class="sw-developer font-mono" data-i18n="softwareDev2">OSGeo Foundation</span>
                             </div>
                         </div>
-                        <p class="sw-desc">
+                        <p class="sw-desc" data-i18n="softwareDesc2">
                             العملاق مفتوح المصدر الأقوى والمنافس الأبرز لبرمجيات إزري. مجاني بالكامل بدون أي قيود، مدعوم بمجتمع ضخم يوفر آلاف الإضافات البرمجية المجانية لكل استخدام.
                         </p>
                         <ul class="sw-features">
-                            <li><i class="fa-solid fa-check"></i> مجاني 100% وخفيف الوزن للغاية ويعمل على نظام Mac و Windows.</li>
-                            <li><i class="fa-solid fa-check"></i> آلاف الملحقات (Plugins) لحل المشكلات المعقدة.</li>
-                            <li><i class="fa-solid fa-check"></i> سرعة معالجة وتكامل تام مع لغة بايثون.</li>
+                            <li data-i18n="swFeatures2_1"><i class="fa-solid fa-check"></i> مجاني 100% وخفيف الوزن للغاية ويعمل على نظام Mac و Windows.</li>
+                            <li data-i18n="swFeatures2_2"><i class="fa-solid fa-check"></i> آلاف الملحقات (Plugins) لحل المشكلات المعقدة.</li>
+                            <li data-i18n="swFeatures2_3"><i class="fa-solid fa-check"></i> سرعة معالجة وتكامل تام مع لغة بايثون.</li>
                         </ul>
                         <div class="sw-footer-action">
-                            <a href="https://qgis.org/" target="_blank" class="btn btn-outline-primary btn-sm">زيارة الموقع الرسمي</a>
+                            <a href="https://qgis.org/" target="_blank" class="btn btn-outline-primary btn-sm" data-i18n="btnLearnMore">زيارة الموقع الرسمي</a>
                         </div>
                     </div>
 
                     <!-- 3. Google Earth Engine -->
                     <div class="software-card" data-category="cloud">
-                        <div class="sw-badge sw-free">مجاني للاستخدام الأكاديمي</div>
+                        <div class="sw-badge sw-free" data-i18n="badgeAcademic">مجاني للاستخدام الأكاديمي</div>
                         <div class="sw-header">
                             <div class="sw-icon"><i class="fa-solid fa-cloud-sun"></i></div>
                             <div class="sw-title-group">
                                 <h4>Google Earth Engine</h4>
-                                <span class="sw-developer font-mono">Google Cloud</span>
+                                <span class="sw-developer font-mono" data-i18n="softwareDev3">Google Cloud</span>
                             </div>
                         </div>
-                        <p class="sw-desc">
+                        <p class="sw-desc" data-i18n="softwareDesc3">
                             منصة سحابية ثورية لتحليل ومعالجة صور الأقمار الصناعية والبيانات البيئية الضخمة (Big Data) على نطاق كوكبي في ثوانٍ معدودة باستخدام سيرفرات غوغل الفائقة.
                         </p>
                         <ul class="sw-features">
-                            <li><i class="fa-solid fa-check"></i> معالجة صور الأقمار الصناعية على نطاق كوكبي بدون تنزيل ملفات.</li>
-                            <li><i class="fa-solid fa-check"></i> برمجة باستخدام JavaScript أو Python بشكل سحابي كامل.</li>
-                            <li><i class="fa-solid fa-check"></i> الوصول لمكتبة بيانات مجانية ضخمة تحوي بيانات لعقود ماضية.</li>
+                            <li data-i18n="swFeatures3_1"><i class="fa-solid fa-check"></i> معالجة صور الأقمار الصناعية على نطاق كوكبي بدون تنزيل ملفات.</li>
+                            <li data-i18n="swFeatures3_2"><i class="fa-solid fa-check"></i> برمجة باستخدام JavaScript أو Python بشكل سحابي كامل.</li>
+                            <li data-i18n="swFeatures3_3"><i class="fa-solid fa-check"></i> الوصول لمكتبة بيانات مجانية ضخمة تحوي بيانات لعقود ماضية.</li>
                         </ul>
                         <div class="sw-footer-action">
-                            <a href="https://earthengine.google.com/" target="_blank" class="btn btn-outline-primary btn-sm">زيارة الموقع الرسمي</a>
+                            <a href="https://earthengine.google.com/" target="_blank" class="btn btn-outline-primary btn-sm" data-i18n="btnLearnMore">زيارة الموقع الرسمي</a>
                         </div>
                     </div>
 
                     <!-- 4. PostGIS -->
-                    <div class="software-card" data-category="database">
-                        <div class="sw-badge sw-free">مفتوح المصدر (مجاني)</div>
+                    <div class="software-card" data-category="database" data-i18n="badgeWeb">
+                        <div class="sw-badge sw-free" data-i18n="badgeDb">مفتوح المصدر (مجاني)</div>
                         <div class="sw-header">
                             <div class="sw-icon"><i class="fa-solid fa-table"></i></div>
                             <div class="sw-title-group">
-                                <h4>PostGIS / PostgreSQL</h4>
-                                <span class="sw-developer font-mono">Refractions Research</span>
+                                <h4 data-i18n="softwareTitle4">PostGIS / PostgreSQL</h4>
+                                <span class="sw-developer font-mono" data-i18n="softwareDev4">Refractions Research</span>
                             </div>
                         </div>
-                        <p class="sw-desc">
+                        <p class="sw-desc" data-i18n="softwareDesc4">
                             إضافة لقواعد البيانات مفتوحة المصدر PostgreSQL تحولها إلى قاعدة بيانات جغرافية قوية قادرة على حفظ البيانات المكانية وتخزينها، وعمل استعلامات SQL مكانية متطورة وسريعة للغاية.
                         </p>
                         <ul class="sw-features">
-                            <li><i class="fa-solid fa-check"></i> المعيار المهني والفعلي لإدارة قواعد البيانات الجغرافية الكبيرة.</li>
-                            <li><i class="fa-solid fa-check"></i> إجراء عمليات الهندسة المكانية المعقدة مباشرة عبر كود SQL.</li>
-                            <li><i class="fa-solid fa-check"></i> تكامل تام وربط مباشر مع برامج ArcGIS و QGIS وسيرفرات الويب.</li>
+                            <li data-i18n="swFeatures4_1"><i class="fa-solid fa-check"></i> المعيار المهني والفعلي لإدارة قواعد البيانات الجغرافية الكبيرة.</li>
+                            <li data-i18n="swFeatures4_2"><i class="fa-solid fa-check"></i> إجراء عمليات الهندسة المكانية المعقدة مباشرة عبر كود SQL.</li>
+                            <li data-i18n="swFeatures4_3"><i class="fa-solid fa-check"></i> تكامل تام وربط مباشر مع برامج ArcGIS و QGIS وسيرفرات الويب.</li>
                         </ul>
                         <div class="sw-footer-action">
-                            <a href="https://postgis.net/" target="_blank" class="btn btn-outline-primary btn-sm">زيارة الموقع الرسمي</a>
+                            <a href="https://postgis.net/" target="_blank" class="btn btn-outline-primary btn-sm" data-i18n="btnLearnMore">زيارة الموقع الرسمي</a>
                         </div>
                     </div>
 
                     <!-- 5. Python (ArcPy / GeoPandas) -->
                     <div class="software-card" data-category="dev">
-                        <div class="sw-badge sw-free">بيئة برمجية مجانية</div>
+                        <div class="sw-badge sw-free" data-i18n="badgePy">بيئة برمجية مجانية</div>
                         <div class="sw-header">
                             <div class="sw-icon"><i class="fa-brands fa-python"></i></div>
                             <div class="sw-title-group">
-                                <h4>Python for GIS</h4>
-                                <span class="sw-developer font-mono">Geo-Development</span>
+                                <h4 data-i18n="softwareTitle5">Python for GIS</h4>
+                                <span class="sw-developer font-mono" data-i18n="softwareDev5">Geo-Development</span>
                             </div>
                         </div>
-                        <p class="sw-desc">
+                        <p class="sw-desc" data-i18n="softwareDesc5">
                             لغة البرمجة الأهم على الإطلاق لعالم الـ GIS. باستخدام مكتبات مثل GeoPandas و Shapely، أو مكتبة ArcPy المدفوعة، يمكنك أتمتة كافة العمليات الحسابية وبناء نماذج أتمتة مذهلة.
                         </p>
                         <ul class="sw-features">
-                            <li><i class="fa-solid fa-check"></i> أتمتة المهام المتكررة (Geoprocessing Automation).</li>
-                            <li><i class="fa-solid fa-check"></i> معالجة البيانات الجغرافية الضخمة بذكاء وسرعة مدهشة.</li>
-                            <li><i class="fa-solid fa-check"></i> المهارة رقم 1 المطلوبة حالياً في أسواق العمل الدولية للتميز.</li>
+                            <li data-i18n="swFeatures5_1"><i class="fa-solid fa-check"></i> أتمتة المهام المتكررة (Geoprocessing Automation).</li>
+                            <li data-i18n="swFeatures5_2"><i class="fa-solid fa-check"></i> معالجة البيانات الجغرافية الضخمة بذكاء وسرعة مدهشة.</li>
+                            <li data-i18n="swFeatures5_3"><i class="fa-solid fa-check"></i> المهارة رقم 1 المطلوبة حالياً في أسواق العمل الدولية للتميز.</li>
                         </ul>
                         <div class="sw-footer-action">
-                            <a href="https://geopandas.org/" target="_blank" class="btn btn-outline-primary btn-sm">استكشف GeoPandas</a>
+                            <a href="https://geopandas.org/" target="_blank" class="btn btn-outline-primary btn-sm" data-i18n="btnExplorePy">استكشف GeoPandas</a>
                         </div>
                     </div>
 
                     <!-- 6. Web Mapping (Leaflet / MapLibre) -->
                     <div class="software-card" data-category="dev">
-                        <div class="sw-badge sw-free">مفتوح المصدر (مجاني)</div>
+                        <div class="sw-badge sw-free" data-i18n="badgeDb">مفتوح المصدر (مجاني)</div>
                         <div class="sw-header">
                             <div class="sw-icon"><i class="fa-solid fa-code"></i></div>
                             <div class="sw-title-group">
-                                <h4>Leaflet & MapLibre JS</h4>
-                                <span class="sw-developer font-mono">Web Cartography</span>
+                                <h4 data-i18n="softwareTitle6">Leaflet & MapLibre JS</h4>
+                                <span class="sw-developer font-mono" data-i18n="softwareDev6">Web Cartography</span>
                             </div>
                         </div>
-                        <p class="sw-desc">
+                        <p class="sw-desc" data-i18n="softwareDesc6">
                             مكتبات جافاسكريبت قوية وخفيفة الوزن لبناء خرائط تفاعلية حية على صفحات الويب وتطبيقات الهواتف المحمولة. تتيح للمطورين بناء تطبيقات مخصصة وتفاعلية بالكامل للعملاء.
                         </p>
                         <ul class="sw-features">
-                            <li><i class="fa-solid fa-check"></i> حجم مكتبات صغير جداً وسرعة تحميل فائقة على الهواتف.</li>
-                            <li><i class="fa-solid fa-check"></i> بناء لوحات تحكم وخرائط تفاعلية للشركات.</li>
-                            <li><i class="fa-solid fa-check"></i> متوافق مع كافة مصادر البيانات الجغرافية مثل GeoJSON و WMS.</li>
+                            <li data-i18n="swFeatures6_1"><i class="fa-solid fa-check"></i> حجم مكتبات صغير جداً وسرعة تحميل فائقة على الهواتف.</li>
+                            <li data-i18n="swFeatures6_2"><i class="fa-solid fa-check"></i> بناء لوحات تحكم وخرائط تفاعلية للشركات.</li>
+                            <li data-i18n="swFeatures6_3"><i class="fa-solid fa-check"></i> متوافق مع كافة مصادر البيانات الجغرافية مثل GeoJSON و WMS.</li>
                         </ul>
                         <div class="sw-footer-action">
-                            <a href="https://leafletjs.com/" target="_blank" class="btn btn-outline-primary btn-sm">استكشف Leaflet.js</a>
+                            <a href="https://leafletjs.com/" target="_blank" class="btn btn-outline-primary btn-sm" data-i18n="btnExploreWeb">استكشف Leaflet.js</a>
                         </div>
                     </div>
                 </div>
@@ -661,15 +658,15 @@
             <div class="container">
                 <div class="section-header" id="spatialDataHeader">
                     <span class="section-badge"><i class="fa-solid fa-database"></i> مستودع البيانات المكانية</span>
-                    <h2 class="section-title">البيانات الجغرافية المفتوحة للمملكة</h2>
-                    <p class="section-subtitle">دليل شامل ومنسق لأهم طبقات البيانات الجغرافية المجانية والنظيفة المتاحة للتحميل المباشر لمشاريع الطلاب والباحثين</p>
+                    <h2 class="section-title" data-i18n="dataHubTitle">البيانات الجغرافية المفتوحة للمملكة</h2>
+                    <p class="section-subtitle" data-i18n="dataHubSubtitle">دليل شامل ومنسق لأهم طبقات البيانات الجغرافية المجانية والنظيفة المتاحة للتحميل المباشر لمشاريع الطلاب والباحثين</p>
                 </div>
 
                 <!-- Search and Filter Bar -->
                 <div class="data-hub-controls">
                     <div class="search-box-wrapper">
                         <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                        <input type="text" id="datasetSearch" placeholder="ابحث عن طبقة بيانات مكانية (مثال: الطرق، الحدود، الارتفاعات)...">
+                        <input type="text" id="datasetSearch" data-i18n-placeholder="searchPlaceholder" placeholder="ابحث عن طبقة بيانات مكانية (مثال: الطرق، الحدود، الارتفاعات)...">
                     </div>
                     <div class="filter-wrapper" id="datasetFilters">
                         <button class="filter-btn active" data-filter="all" data-i18n="filterDataAll">الكل</button>
@@ -890,43 +887,43 @@
         <section id="tips" class="tips-section">
             <div class="container">
                 <div class="section-header" id="tipsHeader">
-                    <h2 class="section-title">نصائح ذهبية للتميز في التخصص</h2>
-                    <p class="section-subtitle">إرشادات وتوجيهات عملية من خبراء المجال لتسريع نموك المهني</p>
+                    <h2 class="section-title" data-i18n="tipsTitle">نصائح ذهبية للتميز في التخصص</h2>
+                    <p class="section-subtitle" data-i18n="tipsSubtitle">إرشادات وتوجيهات عملية من خبراء المجال لتسريع نموك المهني</p>
                 </div>
                 <div class="tips-grid">
                     <!-- Tip 1 -->
                     <div class="tip-card">
                         <div class="tip-icon"><i class="fa-solid fa-compass"></i></div>
-                        <h4>افهم الجغرافيا قبل الأزرار</h4>
-                        <p>لا تكن مجرد منفذ نقرات (Button Pusher). افهم الأساسيات العلمية أولاً؛ لماذا نختار مسقطاً معيناً؟ وما هو نموذج البيانات الأنسب للتحليل؟ استيعاب المفهوم النظري يضمن دقة وصحة مخرجاتك.</p>
+                        <h4 data-i18n="tipTitle1">افهم الجغرافيا قبل الأزرار</h4>
+                        <p data-i18n="tipDesc1">لا تكن مجرد منفذ نقرات (Button Pusher). افهم الأساسيات العلمية أولاً؛ لماذا نختار مسقطاً معيناً؟ وما هو نموذج البيانات الأنسب للتحليل؟ استيعاب المفهوم النظري يضمن دقة وصحة مخرجاتك.</p>
                     </div>
 
                     <!-- Tip 2 -->
                     <div class="tip-card">
                         <div class="tip-icon"><i class="fa-brands fa-python"></i></div>
-                        <h4>تعلم البرمجة (بايثون) مبكراً</h4>
-                        <p>بايثون هي المهارة الذهبية الأقوى حالياً. تعلم كيف تكتب سكربتات لتسريع المهام المتكررة (Geoprocessing) والتعامل مع قواعد البيانات الجغرافية الضخمة. ستختصر على نفسك مئات ساعات العمل اليدوي.</p>
+                        <h4 data-i18n="tipTitle2">تعلم البرمجة (بايثون) مبكراً</h4>
+                        <p data-i18n="tipDesc2">بايثون هي المهارة الذهبية الأقوى حالياً. تعلم كيف تكتب سكربتات لتسريع المهام المتكررة (Geoprocessing) والتعامل مع قواعد البيانات الجغرافية الضخمة. ستختصر على نفسك مئات ساعات العمل اليدوي.</p>
                     </div>
 
                     <!-- Tip 3 -->
                     <div class="tip-card">
                         <div class="tip-icon"><i class="fa-solid fa-briefcase"></i></div>
-                        <h4>ابنِ محفظة أعمالك (Portfolio)</h4>
-                        <p>لا تنتظر التخرج لتبدأ في البحث عن عمل. صمم خرائط مميزة، واعرضها على منصة GitHub أو Behance أو LinkedIn. محفظة الأعمال التطبيقية الحية هي أسرع وسيلة لإثبات كفاءتك لأي جهة توظيف.</p>
+                        <h4 data-i18n="tipTitle3">ابنِ محفظة أعمالك (Portfolio)</h4>
+                        <p data-i18n="tipDesc3">لا تنتظر التخرج لتبدأ في البحث عن عمل. صمم خرائط مميزة، واعرضها على منصة GitHub أو Behance أو LinkedIn. محفظة الأعمال التطبيقية الحية هي أسرع وسيلة لإثبات كفاءتك لأي جهة توظيف.</p>
                     </div>
 
                     <!-- Tip 4 -->
                     <div class="tip-card">
                         <div class="tip-icon"><i class="fa-solid fa-shuffle"></i></div>
-                        <h4>لا تحصر نفسك في برنامج واحد</h4>
-                        <p>كن مرناً دائماً. تعلم ArcGIS Pro كمعيار عالمي للشركات الكبرى، وتدرب أيضاً على QGIS كأداة قوية مفتوحة المصدر. هذه المرونة ستجعلك جاهزاً لأي بيئة عمل أو مشاريع برمجية حرة.</p>
+                        <h4 data-i18n="tipTitle4">لا تحصر نفسك في برنامج واحد</h4>
+                        <p data-i18n="tipDesc4">كن مرناً دائماً. تعلم ArcGIS Pro كمعيار عالمي للشركات الكبرى، وتدرب أيضاً على QGIS كأداة قوية مفتوحة المصدر. هذه المرونة ستجعلك جاهزاً لأي بيئة عمل أو مشاريع برمجية حرة.</p>
                     </div>
 
                     <!-- Tip 5 -->
                     <div class="tip-card">
                         <div class="tip-icon"><i class="fa-solid fa-users"></i></div>
-                        <h4>تابع وتفاعل مع مجتمع الـ GIS</h4>
-                        <p>تابع قادة التخصص والمطورين على شبكات التواصل الاحترافية مثل LinkedIn و X. انخرط في التحديات العالمية مثل (30DayMapChallenge#) لمواكبة أحدث الابتكارات والمشاريع والتقنيات.</p>
+                        <h4 data-i18n="tipTitle5">تابع وتفاعل مع مجتمع الـ GIS</h4>
+                        <p data-i18n="tipDesc5">تابع قادة التخصص والمطورين على شبكات التواصل الاحترافية مثل LinkedIn و X. انخرط في التحديات العالمية مثل (30DayMapChallenge#) لمواكبة أحدث الابتكارات والمشاريع والتقنيات.</p>
                     </div>
                 </div>
             </div>
@@ -936,8 +933,8 @@
         <section id="mistakes" class="mistakes-section">
             <div class="container">
                 <div class="section-header" id="mistakesHeader">
-                    <h2 class="section-title">أخطاء كارثية يقع فيها <span class="highlight">مبتدئو الـ GIS</span></h2>
-                    <p class="section-subtitle">تجنب هذه الأخطاء الأربعة الشائعة التي تعطل عمل البرمجيات وتفسد الخرائط الجغرافية</p>
+                    <h2 class="section-title" data-i18n="mistakesTitle">أخطاء كارثية يقع فيها <span class="highlight">مبتدئو الـ GIS</span></h2>
+                    <p class="section-subtitle" data-i18n="mistakesSubtitle">تجنب هذه الأخطاء الأربعة الشائعة التي تعطل عمل البرمجيات وتفسد الخرائط الجغرافية</p>
                 </div>
 
                 <div class="accordion-group">
@@ -946,20 +943,20 @@
                         <summary class="mistake-summary">
                             <span class="summary-title">
                                 <span class="badge-icon badge-orange"><i class="fa-solid fa-triangle-exclamation"></i></span>
-                                1. تداخل ونزاع نظم الإحداثيات (CRS Mismatch)
+                                <span data-i18n="mistakeTitle1">1. تداخل ونزاع نظم الإحداثيات (CRS Mismatch)</span>
                             </span>
                             <i class="fa-solid fa-chevron-down summary-arrow"></i>
                         </summary>
                         <div class="mistake-content">
                             <div class="mistake-box alert-red">
-                                <strong>الخطأ الشائع:</strong> إسقاط طبقات بنظم إحداثيات مرجعية مختلفة (مثلاً طبقة بنظام WGS84 الجغرافي وطبقة أخرى بنظام إسقاط ميركاتور UTM) في نفس المشروع دون التحقق من مطابقة نظام إحداثيات الخريطة، مما يتسبب في انحراف الخريطة بآلاف الأمتار أو ظهورها في منتصف المحيط الهندي!
+                                <strong data-i18n="mistakeLabel1">الخطأ الشائع:</strong> إسقاط طبقات بنظم إحداثيات مرجعية مختلفة (مثلاً طبقة بنظام WGS84 الجغرافي وطبقة أخرى بنظام إسقاط ميركاتور UTM) في نفس المشروع دون التحقق من مطابقة نظام إحداثيات الخريطة، مما يتسبب في انحراف الخريطة بآلاف الأمتار أو ظهورها في منتصف المحيط الهندي!
                             </div>
                             <div class="solution-box alert-green">
-                                <strong>الحل الصحيح والاحترافي:</strong> 
+                                <strong data-i18n="solutionLabel1">الحل الصحيح والاحترافي:</strong> 
                                 <ul>
-                                    <li>قم بتوحيد نظام الإحداثيات (CRS) لجميع طبقات بياناتك المساحية قبل البدء بالتحليل.</li>
-                                    <li>استخدم خاصية "التحويل الفوري أثناء العرض" (On-the-Fly Projection) في برمجيات QGIS و ArcGIS Pro.</li>
-                                    <li>قم بتعيين نظام إحداثيات موحد للمشروع بأكمله يتوافق مع منطقتك (مثل استخدام EPSG:3857 لخرائط الويب، أو مساقط UTM Zone 37N إلى 39N للمشاريع المحلية بالمملكة العربية السعودية).</li>
+                                    <li data-i18n="solutionItem1_1">قم بتوحيد نظام الإحداثيات (CRS) لجميع طبقات بياناتك المساحية قبل البدء بالتحليل.</li>
+                                    <li data-i18n="solutionItem1_2">استخدم خاصية "التحويل الفوري أثناء العرض" (On-the-Fly Projection) في برمجيات QGIS و ArcGIS Pro.</li>
+                                    <li data-i18n="solutionItem1_3">قم بتعيين نظام إحداثيات موحد للمشروع بأكمله يتوافق مع منطقتك (مثل استخدام EPSG:3857 لخرائط الويب، أو مساقط UTM Zone 37N إلى 39N للمشاريع المحلية بالمملكة العربية السعودية).</li>
                                 </ul>
                             </div>
                         </div>
@@ -970,20 +967,20 @@
                         <summary class="mistake-summary">
                             <span class="summary-title">
                                 <span class="badge-icon badge-orange"><i class="fa-solid fa-folder-minus"></i></span>
-                                2. إرسال ملف Shapefile منفصل وفقدان بقية الملحقات (.shp only)
+                                <span data-i18n="mistakeTitle2">2. إرسال ملف Shapefile منفصل وفقدان بقية الملحقات (.shp only)</span>
                             </span>
                             <i class="fa-solid fa-chevron-down summary-arrow"></i>
                         </summary>
                         <div class="mistake-content">
                             <div class="mistake-box alert-red">
-                                <strong>الخطأ الشائع:</strong> إرسال ملف بامتداد `.shp` فقط عبر الإيميل أو نقله لمجلد آخر ظناً منك أنه الطبقة الكاملة، مما يؤدي فوراً لتلف الطبقة تماماً وفشلها في الفتح على أي جهاز آخر لأنها فقدت الجداول والروابط والمساقط الملحقة بها.
+                                <strong data-i18n="mistakeLabel1">الخطأ الشائع:</strong> إرسال ملف بامتداد `.shp` فقط عبر الإيميل أو نقله لمجلد آخر ظناً منك أنه الطبقة الكاملة، مما يؤدي فوراً لتلف الطبقة تماماً وفشلها في الفتح على أي جهاز آخر لأنها فقدت الجداول والروابط والمساقط الملحقة بها.
                             </div>
                             <div class="solution-box alert-green">
-                                <strong>الحل الصحيح والاحترافي:</strong>
+                                <strong data-i18n="solutionLabel1">الحل الصحيح والاحترافي:</strong>
                                 <ul>
-                                    <li>تذكر دائماً أن ملف الـ Shapefile هو عبارة عن "مجموعة عائلية" من 3 إلى 8 ملفات مرتبطة ببعضها البعض ومحفوظة بنفس الاسم تماماً (مثل `.shp`, `.dbf`, `.shx`, `.prj`).</li>
-                                    <li>إذا رغبت بنقل الطبقة أو إرسالها لزميلك، فقم بضغط كامل المجلد أو كامل الملفات ذات الاسم المشترك في ملف مضغوط واحد `.zip`.</li>
-                                    <li><strong>الخيار الأفضل حديثاً:</strong> انتقل كلياً لاستخدام صيغة **GeoPackage (`.gpkg`)** المتكاملة والموصى بها رسمياً من OGC؛ حيث تجمع الطبقات المتعددة وقواعد البيانات والجداول في ملف ذكي واحد وبأداء فائق السرعة!</li>
+                                    <li data-i18n="solutionItem2_1">تذكر دائماً أن ملف الـ Shapefile هو عبارة عن "مجموعة عائلية" من 3 إلى 8 ملفات مرتبطة ببعضها البعض ومحفوظة بنفس الاسم تماماً (مثل `.shp`, `.dbf`, `.shx`, `.prj`).</li>
+                                    <li data-i18n="solutionItem2_2">إذا رغبت بنقل الطبقة أو إرسالها لزميلك، فقم بضغط كامل المجلد أو كامل الملفات ذات الاسم المشترك في ملف مضغوط واحد `.zip`.</li>
+                                    <li data-i18n="solutionItem2_3"><strong>الخيار الأفضل حديثاً:</strong> انتقل كلياً لاستخدام صيغة **GeoPackage (`.gpkg`)** المتكاملة والموصى بها رسمياً من OGC؛ حيث تجمع الطبقات المتعددة وقواعد البيانات والجداول في ملف ذكي واحد وبأداء فائق السرعة!</li>
                                 </ul>
                             </div>
                         </div>
@@ -994,20 +991,20 @@
                         <summary class="mistake-summary">
                             <span class="summary-title">
                                 <span class="badge-icon badge-orange"><i class="fa-solid fa-language"></i></span>
-                                3. استخدام الحروف العربية والمسافات في مسارات الحفظ (Arabic Paths)
+                                <span data-i18n="mistakeTitle3">3. استخدام الحروف العربية والمسافات في مسارات الحفظ (Arabic Paths)</span>
                             </span>
                             <i class="fa-solid fa-chevron-down summary-arrow"></i>
                         </summary>
                         <div class="mistake-content">
                             <div class="mistake-box alert-red">
-                                <strong>الخطأ الشائع:</strong> تنظيم مجلداتك وحفظ ملفاتك في مسارات تحتوي على حروف عربية أو مسافات فارغة (مثال: `C:\المستخدمين\أحمد\بيانات نظم المعلومات\الرياض.shp`). هذا الأمر يتسبب في تعطل أدوات المعالجة الجغرافية (Geoprocessing Tools) كأدوات الكليب والرندرة، والسبب هو عدم دعم مكتبات بايثون و GDAL القديمة للمسارات غير اللاتينية بشكل مثالي.
+                                <strong data-i18n="mistakeLabel1">الخطأ الشائع:</strong> تنظيم مجلداتك وحفظ ملفاتك في مسارات تحتوي على حروف عربية أو مسافات فارغة (مثال: `C:\المستخدمين\أحمد\بيانات نظم المعلومات\الرياض.shp`). هذا الأمر يتسبب في تعطل أدوات المعالجة الجغرافية (Geoprocessing Tools) كأدوات الكليب والرندرة، والسبب هو عدم دعم مكتبات بايثون و GDAL القديمة للمسارات غير اللاتينية بشكل مثالي.
                             </div>
                             <div class="solution-box alert-green">
-                                <strong>الحل الصحيح والاحترافي:</strong>
+                                <strong data-i18n="solutionLabel1">الحل الصحيح والاحترافي:</strong>
                                 <ul>
-                                    <li>احرص كل الحرص على استخدام الأحرف الإنجليزية فقط والأرقام في تسمية المجلدات وملفات الـ GIS.</li>
-                                    <li>تجنب استخدام المسافات الفارغة نهائياً؛ واستبدلها دائماً بالشرطة السفلية (Underscore `_`) (مثال: `C:/gis_workspace/riyadh_boundary/riyadh_suburbs.shp`).</li>
-                                    <li>هذه العادة الذهبية البسيطة ستمنع حدوث أكثر من 90% من أخطاء الـ Run Failure المبهمة والمفاجئة في بايثون ومكتبات الـ GIS.</li>
+                                    <li data-i18n="solutionItem3_1">احرص كل الحرص على استخدام الأحرف الإنجليزية فقط والأرقام في تسمية المجلدات وملفات الـ GIS.</li>
+                                    <li data-i18n="solutionItem3_2">تجنب استخدام المسافات الفارغة نهائياً؛ واستبدلها دائماً بالشرطة السفلية (Underscore `_`) (مثال: `C:/gis_workspace/riyadh_boundary/riyadh_suburbs.shp`).</li>
+                                    <li data-i18n="solutionItem3_3">هذه العادة الذهبية البسيطة ستمنع حدوث أكثر من 90% من أخطاء الـ Run Failure المبهمة والمفاجئة في بايثون ومكتبات الـ GIS.</li>
                                 </ul>
                             </div>
                         </div>
@@ -1018,20 +1015,20 @@
                         <summary class="mistake-summary">
                             <span class="summary-title">
                                 <span class="badge-icon badge-orange"><i class="fa-solid fa-circle-question"></i></span>
-                                4. إهمال كتابة البيانات الوصفية والتوثيق (Missing Metadata)
+                                <span data-i18n="mistakeTitle4">4. إهمال كتابة البيانات الوصفية والتوثيق (Missing Metadata)</span>
                             </span>
                             <i class="fa-solid fa-chevron-down summary-arrow"></i>
                         </summary>
                         <div class="mistake-content">
                             <div class="mistake-box alert-red">
-                                <strong>الخطأ الشائع:</strong> إنتاج طبقات مساحية وخرائط وتوزيعها دون إرفاق ملف توثيقي أو كتابة البيانات الوصفية (Metadata) لها؛ مما يجعل المستخدم اللاحق (أو أنت نفسك بعد بضعة أشهر) تجهل مصدر البيانات، تاريخ المسح، الدقة المكانية، أو نسبة الخطأ المسموح بها.
+                                <strong data-i18n="mistakeLabel1">الخطأ الشائع:</strong> إنتاج طبقات مساحية وخرائط وتوزيعها دون إرفاق ملف توثيقي أو كتابة البيانات الوصفية (Metadata) لها؛ مما يجعل المستخدم اللاحق (أو أنت نفسك بعد بضعة أشهر) تجهل مصدر البيانات، تاريخ المسح، الدقة المكانية، أو نسبة الخطأ المسموح بها.
                             </div>
                             <div class="solution-box alert-green">
-                                <strong>الحل الصحيح والاحترافي:</strong>
+                                <strong data-i18n="solutionLabel1">الحل الصحيح والاحترافي:</strong>
                                 <ul>
-                                    <li>خصص 5 دقائق بنهاية كل مشروع لتعبئة نموذج البيانات الوصفية (Metadata Card) ببرمجيات الـ GIS.</li>
-                                    <li>دوّن بوضوح: الجهة المصنعة للبيانات، تاريخ المسح الفعلي، نظام الإسقاط، ودقة المسح بالأمتار، بالإضافة إلى شروط الاستخدام والملكيات الفكرية.</li>
-                                    <li>توثيق البيانات يرفع قيمتها الاحترافية ويضمن بقاءها صالحة للاستخدام وقابلة للدمج في قواعد البيانات الوطنية ومشاريع صناع القرار.</li>
+                                    <li data-i18n="solutionItem4_1">خصص 5 دقائق بنهاية كل مشروع لتعبئة نموذج البيانات الوصفية (Metadata Card) ببرمجيات الـ GIS.</li>
+                                    <li data-i18n="solutionItem4_2">دوّن بوضوح: الجهة المصنعة للبيانات، تاريخ المسح الفعلي، نظام الإسقاط، ودقة المسح بالأمتار، بالإضافة إلى شروط الاستخدام والملكيات الفكرية.</li>
+                                    <li data-i18n="solutionItem4_3">توثيق البيانات يرفع قيمتها الاحترافية ويضمن بقاءها صالحة للاستخدام وقابلة للدمج في قواعد البيانات الوطنية ومشاريع صناع القرار.</li>
                                 </ul>
                             </div>
                         </div>
@@ -1042,20 +1039,20 @@
 
         <!-- Saudi Vision 2030, GIS News & Data Copyright Section -->
         <section id="vision-future" class="vision-future-section" style="position: relative; z-index: 2; padding: 5rem 0; background: transparent;">
-            <div class="container">
+            <div class="container" data-i18n="visionBadge">
                 <div class="section-header" id="visionFutureHeader">
-                    <div class="sandbox-badge"><i class="fa-solid fa-gem text-accent animate-pulse"></i> فضاء الابتكار الجيومكاني ورؤية الوطن</div>
-                    <h2 class="section-title">رؤية 2030 <span class="highlight">والمستقبل الجيومكاني</span></h2>
-                    <p class="section-subtitle">اكتشف كيف تقود التقنيات المساحية ونظم المعلومات الجغرافية مشاريع المملكة الكبرى، وتابع أحدث الأخبار وتعرف على سياسات حماية البيانات الوطنية</p>
+                    <div class="sandbox-badge"><i class="fa-solid fa-gem text-accent animate-pulse"></i> <span data-i18n="visionBadge">فضاء الابتكار الجيومكاني ورؤية الوطن</span></div>
+                    <h2 class="section-title" data-i18n="visionTitle">رؤية 2030 <span class="highlight">والمستقبل الجيومكاني</span></h2>
+                    <p class="section-subtitle" data-i18n="visionSubtitle">اكتشف كيف تقود التقنيات المساحية ونظم المعلومات الجغرافية مشاريع المملكة الكبرى، وتابع أحدث الأخبار وتعرف على سياسات حماية البيانات الوطنية</p>
                 </div>
 
                 <div class="vision-tabs-container">
                     <div class="vision-tabs">
-                        <button type="button" class="vision-tab-btn active" data-tab="tab-vision">
-                            <i class="fa-solid fa-mountain-sun"></i> رؤية السعودية 2030
+                        <button type="button" class="vision-tab-btn active" data-tab="tab-vision" data-i18n="tabVision">
+                            <i class="fa-solid fa-mountain-sun"></i> <span data-i18n="tabVision">رؤية السعودية 2030</span>
                         </button>
-                        <button type="button" class="vision-tab-btn" data-tab="tab-news">
-                            <i class="fa-solid fa-newspaper"></i> الأخبار المكانية
+                        <button type="button" class="vision-tab-btn" data-tab="tab-news" data-i18n="tabNews">
+                            <i class="fa-solid fa-newspaper"></i> <span data-i18n="tabNews">الأخبار المكانية</span>
                         </button>
                     </div>
                 </div>
@@ -1067,10 +1064,10 @@
                         <div class="vision-card">
                             <div class="vision-card-glow"></div>
                             <div class="vision-card-icon"><i class="fa-solid fa-city"></i></div>
-                            <h3>نيوم وذا لاين (NEOM & The Line)</h3>
-                            <p>تشكّل نظم المعلومات الجغرافية ثلاثية الأبعاد (3D GIS) والتكامل الجيومكاني مع نمذجة معلومات البناء (BIM) الأساس في التخطيط والتنفيذ لمدينة المستقبل الذكية. يتم استخدام نظم المعلومات الجغرافية لتحديد مسارات النقل الذاتي، ونمذجة الشبكات الخدمية التحتية، وتوليد التوائم الرقمية (Digital Twins) بالكامل لتشغيل المدينة وتتبع صيانتها لحظياً بخرائط حية.</p>
+                            <h3 data-i18n="projectTitle1">نيوم وذا لاين (NEOM & The Line)</h3>
+                            <p data-i18n="projectDesc1">تشكّل نظم المعلومات الجغرافية ثلاثية الأبعاد (3D GIS) والتكامل الجيومكاني مع نمذجة معلومات البناء (BIM) الأساس في التخطيط والتنفيذ لمدينة المستقبل الذكية. يتم استخدام نظم المعلومات الجغرافية لتحديد مسارات النقل الذاتي، ونمذجة الشبكات الخدمية التحتية، وتوليد التوائم الرقمية (Digital Twins) بالكامل لتشغيل المدينة وتتبع صيانتها لحظياً بخرائط حية.</p>
                             <div class="skill-tag-group" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 10px;">
-                                <span class="skill-tag" style="background: rgba(16, 185, 129, 0.08); color: var(--color-primary); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(16, 185, 129, 0.15);"><i class="fa-solid fa-cube"></i> التوائم الرقمية 3D Digital Twins</span>
+                                <span class="skill-tag" style="background: rgba(16, 185, 129, 0.08); color: var(--color-primary); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(16, 185, 129, 0.15);" data-i18n="projectSkill1"><i class="fa-solid fa-cube"></i> التوائم الرقمية 3D Digital Twins</span>
                                 <span class="software-tag" style="background: rgba(255,255,255,0.03); color: var(--color-text-white); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(255,255,255,0.06);">ArcGIS Pro & WebGL</span>
                             </div>
                         </div>
@@ -1078,30 +1075,30 @@
                         <div class="vision-card">
                             <div class="vision-card-glow"></div>
                             <div class="vision-card-icon"><i class="fa-solid fa-water"></i></div>
-                            <h3>مشروع البحر الأحمر (The Red Sea)</h3>
-                            <p>يعتمد المشروع على نظم معلومات جغرافية بحرية وبيئية دقيقة للغاية (Marine GIS). يتم توظيف الاستشعار عن بعد ومسح القيعان البحرية (Bathymetry) لرسم خرائط الشعاب المرجانية، والموائل الحساسة بيئياً لضمان عدم المساس بها أثناء التشييد، مع مراقبة التيارات المائية ودرجات الحرارة عبر الأقمار الصناعية لتحقيق تنمية مستدامة بنسبة 100%.</p>
+                            <h3 data-i18n="projectTitle2">مشروع البحر الأحمر (The Red Sea)</h3>
+                            <p data-i18n="projectDesc2">يعتمد المشروع على نظم معلومات جغرافية بحرية وبيئية دقيقة للغاية (Marine GIS). يتم توظيف الاستشعار عن بعد ومسح القيعان البحرية (Bathymetry) لرسم خرائط الشعاب المرجانية، والموائل الحساسة بيئياً لضمان عدم المساس بها أثناء التشييد، مع مراقبة التيارات المائية ودرجات الحرارة عبر الأقمار الصناعية لتحقيق تنمية مستدامة بنسبة 100%.</p>
                             <div class="skill-tag-group" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 10px;">
-                                <span class="skill-tag" style="background: rgba(0, 242, 254, 0.08); color: var(--color-secondary); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(0, 242, 254, 0.15);"><i class="fa-solid fa-satellite"></i> الاستشعار عن بعد Remote Sensing</span>
+                                <span class="skill-tag" style="background: rgba(0, 242, 254, 0.08); color: var(--color-secondary); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(0, 242, 254, 0.15);" data-i18n="projectSkill2"><i class="fa-solid fa-satellite"></i> الاستشعار عن بعد Remote Sensing</span>
                                 <span class="software-tag" style="background: rgba(255,255,255,0.03); color: var(--color-text-white); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(255,255,255,0.06);">QGIS & ENVI</span>
                             </div>
                         </div>
                         <!-- Card 3 -->
                         <div class="vision-card">
                             <div class="vision-card-icon"><i class="fa-solid fa-tree"></i></div>
-                            <h3>الرياض الخضراء (Green Riyadh)</h3>
-                            <p>يتم تطبيق تحليلات الغطاء النباتي (NDVI) وتحديد الجزر الحرارية الحضرية (Urban Heat Islands) لتوجيه خطط التشجير وتوزيع غرس 7.5 مليون شجرة جغرافياً داخل العاصمة. تساعد أدوات ملاءمة المواقع في محاكاة الاحتياجات المائية والظلال والتربة لضمان أقصى كفاءة بيئية وخفض حرارة الرياض بمعدل 1.5 إلى 2 درجات مئوية.</p>
+                            <h3 data-i18n="projectTitle3">الرياض الخضراء (Green Riyadh)</h3>
+                            <p data-i18n="projectDesc3">يتم تطبيق تحليلات الغطاء النباتي (NDVI) وتحديد الجزر الحرارية الحضرية (Urban Heat Islands) لتوجيه خطط التشجير وتوزيع غرس 7.5 مليون شجرة جغرافياً داخل العاصمة. تساعد أدوات ملاءمة المواقع في محاكاة الاحتياجات المائية والظلال والتربة لضمان أقصى كفاءة بيئية وخفض حرارة الرياض بمعدل 1.5 إلى 2 درجات مئوية.</p>
                             <div class="skill-tag-group" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 10px;">
-                                <span class="skill-tag" style="background: rgba(16, 185, 129, 0.08); color: var(--color-primary); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(16, 185, 129, 0.15);"><i class="fa-solid fa-chart-line"></i> الملاءمة المكانية & NDVI analysis</span>
-                                <span class="software-tag" style="background: rgba(255,255,255,0.03); color: var(--color-text-white); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(255,255,255,0.06);">Google Earth Engine</span>
+                                <span class="skill-tag" style="background: rgba(16, 185, 129, 0.08); color: var(--color-primary); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(16, 185, 129, 0.15);" data-i18n="projectSkill3"><i class="fa-solid fa-chart-line"></i> الملاءمة المكانية & NDVI analysis</span>
+                                <span class="software-tag" style="background: rgba(255,255,255,0.03); color: var(--color-text-white); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(255,255,255,0.06);" data-i18n="softwareTitle3">Google Earth Engine</span>
                             </div>
                         </div>
                         <!-- Card 4 -->
                         <div class="vision-card">
                             <div class="vision-card-icon"><i class="fa-solid fa-compass-drafting"></i></div>
-                            <h3>القدية والدرعية (Qiddiya & Diriyah)</h3>
-                            <p>تمثل النمذجة ثلاثية الأبعاد للتضاريس وحساب المنحدرات (DEM / Slope Analysis) وحل المشكلات الجيوتقنية الأساس لتصميم المشاريع الجبلية والمنشآت الترفيهية الفاخرة. كما يتم إعداد تحليلات هيدرولوجية مساحية معقدة لمحاكاة مياه الأمطار وتأمين مجاري السيول والأودية الطبيعية لحماية المواقع التاريخية والمستقبلية.</p>
+                            <h3 data-i18n="projectTitle4">القدية والدرعية (Qiddiya & Diriyah)</h3>
+                            <p data-i18n="projectDesc4">تمثل النمذجة ثلاثية الأبعاد للتضاريس وحساب المنحدرات (DEM / Slope Analysis) وحل المشكلات الجيوتقنية الأساس لتصميم المشاريع الجبلية والمنشآت الترفيهية الفاخرة. كما يتم إعداد تحليلات هيدرولوجية مساحية معقدة لمحاكاة مياه الأمطار وتأمين مجاري السيول والأودية الطبيعية لحماية المواقع التاريخية والمستقبلية.</p>
                             <div class="skill-tag-group" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 10px;">
-                                <span class="skill-tag" style="background: rgba(245, 158, 11, 0.08); color: var(--color-accent); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(245, 158, 11, 0.15);"><i class="fa-solid fa-droplet"></i> التحليل الهيدرولوجي Hydrology</span>
+                                <span class="skill-tag" style="background: rgba(245, 158, 11, 0.08); color: var(--color-accent); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(245, 158, 11, 0.15);" data-i18n="projectSkill4"><i class="fa-solid fa-droplet"></i> التحليل الهيدرولوجي Hydrology</span>
                                 <span class="software-tag" style="background: rgba(255,255,255,0.03); color: var(--color-text-white); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(255,255,255,0.06);">HEC-RAS & ArcGIS Pro</span>
                             </div>
                         </div>
@@ -1112,7 +1109,7 @@
                 <div id="tab-news" class="vision-tab-content" style="display: none;">
                     <!-- Filter Search Input -->
                     <div style="max-width: 600px; margin: 0 auto 2rem auto; position: relative;">
-                        <input type="text" id="news-search" data-i18n-placeholder="newsSearchPlaceholder" placeholder="ابحث في الأخبار والفعاليات الجيومكانية..." style="width: 100%; padding: 14px 45px 14px 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); background: rgba(0,0,0,0.25); color: var(--color-text-white); text-align: right; outline: none; font-size: 0.9rem; transition: all 0.3s; backdrop-filter: blur(10px);">
+                        <input type="text" id="news-search" data-i18n-placeholder="newsSearchPlaceholder" data-i18n-placeholder="newsSearchPlaceholder" placeholder="ابحث في الأخبار والفعاليات الجيومكانية..." style="width: 100%; padding: 14px 45px 14px 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); background: rgba(0,0,0,0.25); color: var(--color-text-white); text-align: right; outline: none; font-size: 0.9rem; transition: all 0.3s; backdrop-filter: blur(10px);">
                         <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--color-text-muted); font-size: 1rem;"></i>
                     </div>
 
@@ -1123,8 +1120,8 @@
                             <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-text-white); margin-bottom: 0.5rem;"><i class="fa-solid fa-feather-pointed text-primary"></i> <span data-i18n="newsContribHeader">مساهمة جغرافية سريعة</span></h3>
                             <p style="font-size: 0.8rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 1.25rem;" data-i18n="newsContribDesc">هل لديك خبر جيو-مكاني أو تحديث تقني تود نشره ومشاركته مع زملائك؟ اكتب مسودة الخبر أدناه وأرسله فوراً للمراجعة والنشر:</p>
                             <form id="news-contrib-form" style="display: flex; flex-direction: column; gap: 12px;">
-                                <input type="text" id="news-contrib-title" data-i18n-placeholder="newsContribTitlePlaceholder" placeholder="عنوان الخبر أو الحدث الجغرافي..." required style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.3); color: var(--color-text-white); text-align: right; outline: none; font-size: 0.85rem;">
-                                <textarea id="news-contrib-desc" rows="3" data-i18n-placeholder="newsContribDescPlaceholder" placeholder="اكتب تفاصيل الخبر المساحي بإيجاز..." required style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.3); color: var(--color-text-white); text-align: right; outline: none; font-size: 0.85rem; resize: none;"></textarea>
+                                <input type="text" id="news-contrib-title" data-i18n-placeholder="newsContribTitlePlaceholder" data-i18n-placeholder="newsContribTitlePlaceholder" placeholder="عنوان الخبر أو الحدث الجغرافي..." required style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.3); color: var(--color-text-white); text-align: right; outline: none; font-size: 0.85rem;">
+                                <textarea id="news-contrib-desc" rows="3" data-i18n-placeholder="newsContribDescPlaceholder" data-i18n-placeholder="newsContribDescPlaceholder" placeholder="اكتب تفاصيل الخبر المساحي بإيجاز..." required style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.3); color: var(--color-text-white); text-align: right; outline: none; font-size: 0.85rem; resize: none;"></textarea>
                                 <button type="submit" class="btn btn-primary btn-sm w-full" style="width: 100%;"><i class="fa-solid fa-paper-plane"></i> <span data-i18n="newsContribBtn">إرسال مسودة الخبر للمراجعة</span></button>
                             </form>
                         </div>
@@ -1132,28 +1129,28 @@
                         <!-- Live News Items Feed -->
                         <div class="news-feed-grid" id="news-feed-items" style="display: grid; grid-template-columns: 1fr; gap: 1rem; width: 100%;">
                             <div class="news-item" data-search="الهيئة العامة للمساحة والمعلومات الجيومكانية تطلق المنصة الموحدة خبر رسمي gasgi">
-                                <span class="news-tag tag-primary">خبر رسمي</span>
+                                <span class="news-tag tag-primary" data-i18n="newsTagOfficial">خبر رسمي</span>
                                 <span class="news-date">28 مايو 2026</span>
-                                <h4>الهيئة العامة للمساحة والمعلومات الجيومكانية تطلق المنصة الموحدة</h4>
-                                <p>أطلقت الهيئة العامة للمساحة والمعلومات الجيومكانية (GASGI) رسمياً المنصة الجيومكانية الوطنية الموحدة لربط وتكامل البيانات الجغرافية الحيوية بين كافة القطاعات الخدمية والحكومية بالمملكة لضمان موثوقية وتدفق البيانات المكانية.</p>
+                                <h4 data-i18n="newsTitle1">الهيئة العامة للمساحة والمعلومات الجيومكانية تطلق المنصة الموحدة</h4>
+                                <p data-i18n="newsBody1">أطلقت الهيئة العامة للمساحة والمعلومات الجيومكانية (GASGI) رسمياً المنصة الجيومكانية الوطنية الموحدة لربط وتكامل البيانات الجغرافية الحيوية بين كافة القطاعات الخدمية والحكومية بالمملكة لضمان موثوقية وتدفق البيانات المكانية.</p>
                             </div>
                             <div class="news-item" data-search="توسيع نطاق استخدام الذكاء الاصطناعي الجغرافي Geo-AI وزارة البيئة والمياه والزراعة تحديث فني">
-                                <span class="news-tag tag-accent">تحديث فني</span>
+                                <span class="news-tag tag-accent" data-i18n="newsTagTechnical">تحديث فني</span>
                                 <span class="news-date">24 مايو 2026</span>
-                                <h4>توسيع نطاق استخدام الذكاء الاصطناعي الجغرافي Geo-AI</h4>
-                                <p>أعلنت وزارة البيئة والمياه والزراعة عن تعزيز استخدام تقنيات الذكاء الاصطناعي الجغرافي والاستشعار عن بعد لمراقبة الغطاء النباتي بدقة متناهية، وتحديد مناطق الزحف الرملي والتعديات على الأراضي الحكومية آلياً.</p>
+                                <h4 data-i18n="newsTitle2">توسيع نطاق استخدام الذكاء الاصطناعي الجغرافي Geo-AI</h4>
+                                <p data-i18n="newsBody2">أعلنت وزارة البيئة والمياه والزراعة عن تعزيز استخدام تقنيات الذكاء الاصطناعي الجغرافي والاستشعار عن بعد لمراقبة الغطاء النباتي بدقة متناهية، وتحديد مناطق الزحف الرملي والتعديات على الأراضي الحكومية آلياً.</p>
                             </div>
                             <div class="news-item" data-search="انطلاق فعاليات ملتقى التقنيات الجيومكانية بالرياض فعالية مكانية ليدار lidar">
-                                <span class="news-tag tag-success">فعالية مكانية</span>
+                                <span class="news-tag tag-success" data-i18n="newsTagEvent">فعالية مكانية</span>
                                 <span class="news-date">15 مايو 2026</span>
-                                <h4>انطلاق فعاليات ملتقى التقنيات الجيومكانية بالرياض</h4>
-                                <p>شهدت العاصمة الرياض انطلاق فعاليات الملتقى الجيومكاني السنوي بمشاركة خبراء وباحثين محليين وعالميين لمناقشة أحدث تقنيات الليدار (LiDAR)، والتوائم الرقمية، وأنظمة التموضع الفضائي لربط المشاريع المساحية.</p>
+                                <h4 data-i18n="newsTitle3">انطلاق فعاليات ملتقى التقنيات الجيومكانية بالرياض</h4>
+                                <p data-i18n="newsBody3">شهدت العاصمة الرياض انطلاق فعاليات الملتقى الجيومكاني السنوي بمشاركة خبراء وباحثين محليين وعالميين لمناقشة أحدث تقنيات الليدار (LiDAR)، والتوائم الرقمية، وأنظمة التموضع الفضائي لربط المشاريع المساحية.</p>
                             </div>
                             <div class="news-item" data-search="اعتماد معايير الإطار الوطني للبيانات الجيومكانية بالأبحاث طلاب وجامعات مرجع جيوديسي wgs84">
-                                <span class="news-tag tag-warning">طلاب وجامعات</span>
+                                <span class="news-tag tag-warning" data-i18n="newsTagAcademic">طلاب وجامعات</span>
                                 <span class="news-date">10 مايو 2026</span>
-                                <h4>اعتماد معايير الإطار الوطني للبيانات الجيومكانية بالأبحاث</h4>
-                                <p>أوصت الجامعات السعودية الطلاب والباحثين بضرورة مطابقة كافة الأبحاث والمشاريع الأكاديمية لمعايير المرجع الجيوديسي الوطني السعودي (GRS80/WGS84) المعتمد رسمياً لدى الهيئة لضمان انسجام مخرجاتهم الأكاديمية.</p>
+                                <h4 data-i18n="newsTitle4">اعتماد معايير الإطار الوطني للبيانات الجيومكانية بالأبحاث</h4>
+                                <p data-i18n="newsBody4">أوصت الجامعات السعودية الطلاب والباحثين بضرورة مطابقة كافة الأبحاث والمشاريع الأكاديمية لمعايير المرجع الجيوديسي الوطني السعودي (GRS80/WGS84) المعتمد رسمياً لدى الهيئة لضمان انسجام مخرجاتهم الأكاديمية.</p>
                             </div>
                         </div>
                     </div>
@@ -1163,26 +1160,26 @@
 
         <!-- GIS File Converter Section -->
         <section id="gis-file-converter" class="file-converter-section" style="position: relative; z-index: 2; padding: 5rem 0; background: transparent;">
-            <div class="container">
+            <div class="container" data-i18n="converterBadge">
                 <div class="section-header" id="fileConverterHeader">
-                    <div class="sandbox-badge"><i class="fa-solid fa-file-shield text-primary animate-pulse"></i> تحويل محلي آمن 100% دون خوادم</div>
-                    <h2 class="section-title">محول ملفات نظم المعلومات <span class="highlight">الجغرافية (GIS)</span></h2>
-                    <p class="section-subtitle">قم بتحويل صيغ البيانات الجغرافية محلياً في جهازك لحماية خصوصية بياناتك: من Shapefile إلى GeoJSON، ومن CSV إلى GeoJSON والعكس تلقائياً</p>
+                    <div class="sandbox-badge"><i class="fa-solid fa-file-shield text-primary animate-pulse"></i> <span data-i18n="converterBadge">تحويل محلي آمن 100% دون خوادم</span></div>
+                    <h2 class="section-title" data-i18n="converterTitle">محول ملفات نظم المعلومات <span class="highlight">الجغرافية (GIS)</span></h2>
+                    <p class="section-subtitle" data-i18n="converterSubtitle">قم بتحويل صيغ البيانات الجغرافية محلياً في جهازك لحماية خصوصية بياناتك: من Shapefile إلى GeoJSON، ومن CSV إلى GeoJSON والعكس تلقائياً</p>
                 </div>
 
                 <div class="file-converter-grid">
                     <!-- Upload and Controls Card -->
                     <div class="converter-card" id="fileConverterUploadCard">
                         <div class="converter-glow" style="background: radial-gradient(circle, rgba(0, 242, 254, 0.1) 0%, transparent 70%);"></div>
-                        <h3><i class="fa-solid fa-cloud-arrow-up text-secondary"></i> مركز رفع ومعالجة الملفات</h3>
-                        <p class="card-desc">اختر نوع التحويل المطلوب ثم قم بسحب وإفلات الملف الجغرافي المعني في المساحة المخصصة بالأسفل للبدء بالتحويل التلقائي الفوري:</p>
+                        <h3 data-i18n="converterCardUpload"><i class="fa-solid fa-cloud-arrow-up text-secondary"></i> مركز رفع ومعالجة الملفات</h3>
+                        <p class="card-desc" data-i18n="converterCardUploadDesc">اختر نوع التحويل المطلوب ثم قم بسحب وإفلات الملف الجغرافي المعني في المساحة المخصصة بالأسفل للبدء بالتحويل التلقائي الفوري:</p>
 
                         <!-- Converter Choice Toggles -->
                         <div class="converter-tabs-container" style="margin-bottom: 1rem;">
                             <div class="converter-tabs" style="display: flex; gap: 0.5rem; background: rgba(0, 0, 0, 0.2); padding: 4px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); overflow-x: auto; scrollbar-width: none;">
-                                <button type="button" class="file-conv-tab-btn active" data-mode="shp2geojson" style="flex: 1; padding: 8px 10px; border-radius: 8px; border: none; background: transparent; color: var(--color-text-muted); cursor: pointer; transition: all 0.3s; font-size: 0.8rem; font-weight: 600; white-space: nowrap;">Shapefile → GeoJSON</button>
-                                <button type="button" class="file-conv-tab-btn" data-mode="csv2geojson" style="flex: 1; padding: 8px 10px; border-radius: 8px; border: none; background: transparent; color: var(--color-text-muted); cursor: pointer; transition: all 0.3s; font-size: 0.8rem; font-weight: 600; white-space: nowrap;">CSV → GeoJSON</button>
-                                <button type="button" class="file-conv-tab-btn" data-mode="geojson2csv" style="flex: 1; padding: 8px 10px; border-radius: 8px; border: none; background: transparent; color: var(--color-text-muted); cursor: pointer; transition: all 0.3s; font-size: 0.8rem; font-weight: 600; white-space: nowrap;">GeoJSON → CSV</button>
+                                <button type="button" class="file-conv-tab-btn active" data-mode="shp2geojson" style="flex: 1; padding: 8px 10px; border-radius: 8px; border: none; background: transparent; color: var(--color-text-muted); cursor: pointer; transition: all 0.3s; font-size: 0.8rem; font-weight: 600; white-space: nowrap;" data-i18n="tabShpGeoJson">Shapefile → GeoJSON</button>
+                                <button type="button" class="file-conv-tab-btn" data-mode="csv2geojson" style="flex: 1; padding: 8px 10px; border-radius: 8px; border: none; background: transparent; color: var(--color-text-muted); cursor: pointer; transition: all 0.3s; font-size: 0.8rem; font-weight: 600; white-space: nowrap;" data-i18n="tabCsvGeoJson">CSV → GeoJSON</button>
+                                <button type="button" class="file-conv-tab-btn" data-mode="geojson2csv" style="flex: 1; padding: 8px 10px; border-radius: 8px; border: none; background: transparent; color: var(--color-text-muted); cursor: pointer; transition: all 0.3s; font-size: 0.8rem; font-weight: 600; white-space: nowrap;" data-i18n="tabGeoJsonCsv">GeoJSON → CSV</button>
                             </div>
                         </div>
 
@@ -1193,9 +1190,9 @@
                                 <div class="dropzone-icon-wrapper" style="width: 60px; height: 60px; border-radius: 50%; background: rgba(0, 242, 254, 0.08); display: flex; align-items: center; justify-content: center; color: #00f2fe;">
                                     <i class="fa-solid fa-file-zipper" id="dropzone-icon" style="font-size: 1.8rem; transition: transform 0.3s;"></i>
                                 </div>
-                                <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--color-text-white); margin: 0;" id="dropzone-title">اسحب ملف Shapefile المضغوط (.zip)</h4>
-                                <p style="font-size: 0.8rem; color: var(--color-text-muted); margin: 0; max-width: 320px; text-align: center;" id="dropzone-desc">يجب أن يحتوي ملف الـ ZIP على ملفات .shp و .dbf ويفضل .prj لإتمام الإسقاط</p>
-                                <span class="btn btn-sm btn-outline" style="pointer-events: none; margin-top: 8px;">تصفح الملفات المحلية</span>
+                                <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--color-text-white); margin: 0;" id="dropzone-title" data-i18n="dropzoneTitleShp">اسحب ملف Shapefile المضغوط (.zip)</h4>
+                                <p style="font-size: 0.8rem; color: var(--color-text-muted); margin: 0; max-width: 320px; text-align: center;" id="dropzone-desc" data-i18n="dropzoneDescShp">يجب أن يحتوي ملف الـ ZIP على ملفات .shp و .dbf ويفضل .prj لإتمام الإسقاط</p>
+                                <span class="btn btn-sm btn-outline" style="pointer-events: none; margin-top: 8px;" data-i18n="dropzoneBrowse">تصفح الملفات المحلية</span>
                             </div>
                             <input type="file" id="gis-file-input" style="display: none;">
                         </div>
@@ -1203,7 +1200,7 @@
                         <!-- Info/Warning Box (Dynamic) -->
                         <div class="dropzone-help-box" id="dropzone-help-info" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 12px; font-size: 0.8rem; color: var(--color-text-muted); display: flex; align-items: flex-start; gap: 8px; margin-top: 1rem;">
                             <i class="fa-solid fa-circle-info text-secondary" style="margin-top: 2px; flex-shrink: 0;"></i>
-                            <span id="help-text-content">يتيح لك هذا الوضع تحويل الطبقات المساحية والخطية والنقطية من صيغة Shapefile (مع جدول البيانات الوصفية بالكامل) إلى ملف GeoJSON قياسي صالح للاستخدام في الويب فوراً.</span>
+                            <span id="help-text-content" data-i18n="helpShp2GeoJson">يتيح لك هذا الوضع تحويل الطبقات المساحية والخطية والنقطية من صيغة Shapefile (مع جدول البيانات الوصفية بالكامل) إلى ملف GeoJSON قياسي صالح للاستخدام في الويب فوراً.</span>
                         </div>
 
                         <!-- Progress Bar (Hidden by default) -->
@@ -1221,14 +1218,14 @@
                     <!-- Output Previsualizer Card -->
                     <div class="converter-card" id="fileConverterOutputCard" style="display: flex; flex-direction: column;">
                         <div class="converter-glow" style="background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);"></div>
-                        <h3><i class="fa-solid fa-code text-primary"></i> معاينة المخرجات المباشرة</h3>
-                        <p class="card-desc">نافذة تفاعلية مبرمجة لعرض عينات المخرجات المكانية فور اكتمال التحويل:</p>
+                        <h3 data-i18n="outputSectionTitle"><i class="fa-solid fa-code text-primary"></i> معاينة المخرجات المباشرة</h3>
+                        <p class="card-desc" data-i18n="outputPlaceholderDesc">نافذة تفاعلية مبرمجة لعرض عينات المخرجات المكانية فور اكتمال التحويل:</p>
 
                         <!-- Code / Tabular View Container -->
                         <div class="preview-viewport" style="flex: 1; min-height: 250px; background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; position: relative;">
                             <!-- File Meta Header -->
                             <div style="background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 8px 14px; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--color-text-muted);">
-                                <span id="output-filename"><i class="fa-solid fa-file-code"></i> لا يوجد ملف معالج حالياً</span>
+                                <span id="output-filename" data-i18n="outputMetaPlaceholder"><i class="fa-solid fa-file-code"></i> لا يوجد ملف معالج حالياً</span>
                                 <span id="output-filesize" class="font-mono">--</span>
                             </div>
 
@@ -1251,8 +1248,8 @@
                         </div>
 
                         <!-- Actions Bar -->
-                        <div style="display: flex; gap: 10px; margin-top: 1rem;">
-                            <button type="button" class="btn btn-secondary w-full" id="btn-download-result" style="flex: 1; padding: 12px; font-weight: 700;" disabled><i class="fa-solid fa-file-arrow-down"></i> تحميل الملف الجغرافي المعالج</button>
+                        <div style="display: flex; gap: 10px; margin-top: 1rem;" data-i18n="btnDownloadResult">
+                            <button type="button" class="btn btn-secondary w-full" id="btn-download-result" style="flex: 1; padding: 12px; font-weight: 700;" disabled><i class="fa-solid fa-file-arrow-down"></i> <span data-i18n="btnDownloadResult">تحميل الملف الجغرافي المعالج</span></button>
                         </div>
                     </div>
                 </div>
@@ -1260,63 +1257,14 @@
         </section>
 
         <!-- Geospatial Ethics Pledge & Certificate Section -->
-        <section id="geospatial-pledge" class="geospatial-pledge-section">
-            <div class="container">
-                <div class="section-header" id="pledgeHeader">
-                    <span class="section-badge"><i class="fa-solid fa-file-signature"></i> <span data-i18n="pledgeBadge">الميثاق الجيومكاني والعهد الأخلاقي</span></span>
-                    <h2 class="section-title" data-i18n="pledgeTitle">ميثاق الشرف الأخلاقي للبيانات الجغرافية</h2>
-                    <p class="section-subtitle" data-i18n="pledgeSubtitle">لأن البيانات المكانية جزء لا يتجزأ من الأمن الوطني والتنمية المستدامة، نلتزم بحمايتها واستخدامها بمسؤولية وأمانة علمية.</p>
-                </div>
-
-                <div class="pledge-card-wrapper glass-panel">
-                    <div class="pledge-icon-header">
-                        <i class="fa-solid fa-shield-halved text-accent"></i>
-                    </div>
-                    <form id="pledgeForm" class="pledge-form" onsubmit="return false;">
-                        <div class="pledge-terms-grid">
-                            <label class="pledge-checkbox-wrapper">
-                                <input type="checkbox" id="pledge-check-1" class="custom-checkbox">
-                                <span class="checkbox-box"></span>
-                                <span class="checkbox-text" data-i18n="pledgeCheck1">ألتزم بالمحافظة الكاملة على خصوصية وسرية وأمن البيانات الجغرافية والخرائط التي تقع تحت يدي ولا أشاركها مع أي جهات غير مخولة.</span>
-                            </label>
-
-                            <label class="pledge-checkbox-wrapper">
-                                <input type="checkbox" id="pledge-check-2" class="custom-checkbox">
-                                <span class="checkbox-box"></span>
-                                <span class="checkbox-text" data-i18n="pledgeCheck2">أتعهد بعدم استخدام مهارات ونظم المعلومات الجغرافية إلا في تحقيق منافع التنمية وإعمار الأرض، والامتناع التام عن أي ضرر بيئي أو تضليل مكاني.</span>
-                            </label>
-
-                            <label class="pledge-checkbox-wrapper">
-                                <input type="checkbox" id="pledge-check-3" class="custom-checkbox">
-                                <span class="checkbox-box"></span>
-                                <span class="checkbox-text" data-i18n="pledgeCheck3">أقسم على احترام الأمانة العلمية وحقوق الملكية الفكرية للمصادر الوطنية، ونسب الفضل في جمع وتطوير البيانات الجغرافية لأصحابها ومؤسساتها.</span>
-                            </label>
-                        </div>
-
-                        <div class="pledge-name-group">
-                            <label for="pledge-student-input-name" class="pledge-label" data-i18n="pledgeInputNameLabel">الاسم الثلاثي الكامل للباحث/الطالب:</label>
-                            <div class="input-with-icon">
-                                <i class="fa-solid fa-user-pen"></i>
-                                <input type="text" id="pledge-student-input-name" class="form-input" data-i18n-placeholder="pledgeInputPlaceholder" placeholder="اكتب اسمك الثلاثي الكامل هنا لتوثيق العهد...">
-                            </div>
-                        </div>
-
-                        <div class="pledge-btn-wrapper">
-                            <button type="button" id="btn-sign-pledge" class="btn btn-primary btn-lg w-full pledge-submit-btn">
-                                <i class="fa-solid fa-signature"></i> <span data-i18n="pledgeBtnSign">توقيع الميثاق وإصدار وثيقة العهد الأخلاقي</span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
+        
 
         <!-- X (Twitter) Community Section -->
         <section id="x-community" class="x-community-section">
             <div class="container">
                 <div class="section-header" id="xCommunityHeader">
-                    <h2 class="section-title">مجتمع X للتقنيات المكانية</h2>
-                    <p class="section-subtitle">حسابات ومجتمعات رائدة على منصة X تُثري المحتوى الجغرافي العربي وتدعم الطلاب</p>
+                    <h2 class="section-title" data-i18n="xCommunityTitle">مجتمع X للتقنيات المكانية</h2>
+                    <p class="section-subtitle" data-i18n="xCommunitySubtitle">حسابات ومجتمعات رائدة على منصة X تُثري المحتوى الجغرافي العربي وتدعم الطلاب</p>
                 </div>
 
                 <div class="x-accounts-grid">
@@ -1329,9 +1277,9 @@
                                 <div class="online-indicator"></div>
                             </div>
                         </div>
-                        <p class="x-profile-bio">مختص وباحث في نظم المعلومات الجغرافية، ينشر شروحات وتقنيات وحلول مكانية حية ومفيدة لطلاب ومحترفي الجيوماتكس.</p>
+                        <p class="x-profile-bio"><span data-i18n="xProfileBio1">مختص وباحث في نظم المعلومات الجغرافية، ينشر شروحات وتقنيات وحلول مكانية حية ومفيدة لطلاب ومحترفي الجيوماتكس.</span></p>
                         <div class="x-action-btn">
-                            <span>زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
+                            <span data-i18n="xVisitProfile">زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
                         </div>
                     </a>
 
@@ -1344,9 +1292,9 @@
                                 <div class="online-indicator"></div>
                             </div>
                         </div>
-                        <p class="x-profile-bio">شروحات ومقالات مميزة في الـ GIS والتحليل المكاني وتصميم الخرائط الجذابة، تقدم محتوى تفاعلي متميز لتبسيط العلوم الجغرافية.</p>
+                        <p class="x-profile-bio"><span data-i18n="xProfileBio2">شروحات ومقالات مميزة في الـ GIS والتحليل المكاني وتصميم الخرائط الجذابة، تقدم محتوى تفاعلي متميز لتبسيط العلوم الجغرافية.</span></p>
                         <div class="x-action-btn">
-                            <span>زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
+                            <span data-i18n="xVisitProfile">زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
                         </div>
                     </a>
 
@@ -1359,9 +1307,9 @@
                                 <div class="online-indicator"></div>
                             </div>
                         </div>
-                        <p class="x-profile-bio">مجتمع تطوعي عربي يهتم بنشر ومشاركة المعرفة والفرص والندوات وورش العمل وكل ما يخص نظم المعلومات الجغرافية والتقنيات المكانية.</p>
+                        <p class="x-profile-bio"><span data-i18n="xProfileBio3">مجتمع تطوعي عربي يهتم بنشر ومشاركة المعرفة والفرص والندوات وورش العمل وكل ما يخص نظم المعلومات الجغرافية والتقنيات المكانية.</span></p>
                         <div class="x-action-btn">
-                            <span>زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
+                            <span data-i18n="xVisitProfile">زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
                         </div>
                     </a>
 
@@ -1374,9 +1322,9 @@
                                 <div class="online-indicator"></div>
                             </div>
                         </div>
-                        <p class="x-profile-bio">مختص في الجيوماتكس ونظم المعلومات الجغرافية، ينشر نصائح مهنية وتوجيهات للطلاب لتطوير مهاراتهم والالتحاق بسوق العمل بنجاح.</p>
+                        <p class="x-profile-bio"><span data-i18n="xProfileBio4">مختص في الجيوماتكس ونظم المعلومات الجغرافية، ينشر نصائح مهنية وتوجيهات للطلاب لتطوير مهاراتهم والالتحاق بسوق العمل بنجاح.</span></p>
                         <div class="x-action-btn">
-                            <span>زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
+                            <span data-i18n="xVisitProfile">زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
                         </div>
                     </a>
 
@@ -1389,9 +1337,9 @@
                                 <div class="online-indicator"></div>
                             </div>
                         </div>
-                        <p class="x-profile-bio">حساب تعليمي متميز يركز على تقديم شروحات مبسطة، كتب رقمية، ومصادر تعليمية غنية لطلاب تخصص نظم المعلومات الجغرافية لتمكينهم أكاديمياً وعملياً.</p>
+                        <p class="x-profile-bio"><span data-i18n="xProfileBio5">حساب تعليمي متميز يركز على تقديم شروحات مبسطة، كتب رقمية، ومصادر تعليمية غنية لطلاب تخصص نظم المعلومات الجغرافية لتمكينهم أكاديمياً وعملياً.</span></p>
                         <div class="x-action-btn">
-                            <span>زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
+                            <span data-i18n="xVisitProfile">زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
                         </div>
                     </a>
 
@@ -1404,9 +1352,9 @@
                                 <div class="online-indicator"></div>
                             </div>
                         </div>
-                        <p class="x-profile-bio">مهتم بمشاركة حيل وأدوات احترافية في QGIS وتصميم الخرائط الجذابة (Cartography)، مع تقديم إرشادات برمجية ممتازة للمطورين الجغرافيين.</p>
+                        <p class="x-profile-bio"><span data-i18n="xProfileBio6">مهتم بمشاركة حيل وأدوات احترافية في QGIS وتصميم الخرائط الجذابة (Cartography)، مع تقديم إرشادات برمجية ممتازة للمطورين الجغرافيين.</span></p>
                         <div class="x-action-btn">
-                            <span>زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
+                            <span data-i18n="xVisitProfile">زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
                         </div>
                     </a>
 
@@ -1419,9 +1367,9 @@
                                 <div class="online-indicator"></div>
                             </div>
                         </div>
-                        <p class="x-profile-bio">محلل بيانات مكانية كارتوغرافي شهير، يشارك خرائط استثنائية وعالية الدقة مع تقديم شروحات ممتازة حول استخدام لغتي R وبايثون في التحليل المكاني.</p>
+                        <p class="x-profile-bio"><span data-i18n="xProfileBio7">محلل بيانات مكانية كارتوغرافي شهير، يشارك خرائط استثنائية وعالية الدقة مع تقديم شروحات ممتازة حول استخدام لغتي R وبايثون في التحليل المكاني.</span></p>
                         <div class="x-action-btn">
-                            <span>زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
+                            <span data-i18n="xVisitProfile">زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
                         </div>
                     </a>
 
@@ -1434,9 +1382,9 @@
                                 <div class="online-indicator"></div>
                             </div>
                         </div>
-                        <p class="x-profile-bio">بروفيسور جامعي ومطور حزمتي geemap و leafmap المفتوحتين، يقدم دروساً احترافية في تحليل بيانات الاستشعار عن بعد ومحرك جوجل لعلوم الأرض (Google Earth Engine).</p>
+                        <p class="x-profile-bio"><span data-i18n="xProfileBio8">بروفيسور جامعي ومطور حزمتي geemap و leafmap المفتوحتين، يقدم دروساً احترافية في تحليل بيانات الاستشعار عن بعد ومحرك جوجل لعلوم الأرض (Google Earth Engine).</span></p>
                         <div class="x-action-btn">
-                            <span>زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
+                            <span data-i18n="xVisitProfile">زيارة الملف الشخصي <i class="fa-solid fa-arrow-left"></i></span>
                         </div>
                     </a>
                 </div>
@@ -1453,11 +1401,11 @@
                                 </div>
                             </div>
                             <div class="feedback-text-group">
-                                <h3>💡 هل لديك اقتراحات أو أفكار لتطوير الموقع؟</h3>
-                                <p>يسعدنا جداً الاستماع لأفكارك ومقترحاتك لتطوير هذه البوابة وإضافة المزيد من الأدوات والدورات المفيدة لطلاب تخصص نظم المعلومات الجغرافية!</p>
+                                <h3 data-i18n="feedbackTitle">💡 هل لديك اقتراحات أو أفكار لتطوير الموقع؟</h3>
+                                <p data-i18n="feedbackDesc">يسعدنا جداً الاستماع لأفكارك ومقترحاتك لتطوير هذه البوابة وإضافة المزيد من الأدوات والدورات المفيدة لطلاب تخصص نظم المعلومات الجغرافية!</p>
                             </div>
-                            <a href="https://x.com/i6naF" target="_blank" class="btn btn-outline-secondary feedback-btn">
-                                <i class="fa-brands fa-x-twitter"></i> تواصل معي عبر X للاقتراحات والتحسينات
+                            <a href="https://x.com/i6naF" target="_blank" class="btn btn-outline-secondary feedback-btn" data-i18n="feedbackBtn">
+                                <i class="fa-brands fa-x-twitter"></i> <span data-i18n="feedbackBtn">تواصل معي عبر X للاقتراحات والتحسينات</span>
                             </a>
                         </div>
                     </div>
@@ -1474,19 +1422,19 @@
                     <div class="donate-glow-effect"></div>
                     <div class="donate-grid">
                         <div class="donate-info">
-                            <div class="donate-badge"><i class="fa-solid fa-heart text-accent"></i> عمل خيري وطني مستدام</div>
-                            <h2 class="donate-title">المسؤولية المجتمعية والتمكين الخيري لبلدنا المعطاء</h2>
-                            <p class="donate-description">
+                            <div class="donate-badge"><i class="fa-solid fa-heart text-accent"></i> <span data-i18n="donateSecBadge">عمل خيري وطني مستدام</span></div>
+                            <h2 class="donate-title" data-i18n="donateTitle">المسؤولية المجتمعية والتمكين الخيري لبلدنا المعطاء</h2>
+                            <p class="donate-description" data-i18n="ehsanBody">
                                 نحن في بوابة نظم المعلومات الجغرافية، كمنصة طلابية غير ربحية تقدم العون المعرفي، نؤمن بأهمية دعم مبادرات وطننا المعطاء. ندعوكم للمساهمة والتبرع ومساندة الأعمال الإنسانية والتنموية الرسمية عبر **منصة إحسان الوطنية للعمل الخيري** الرسمية في المملكة العربية السعودية بكل موثوقية وسرعة وأمان.
                             </p>
                             <div class="donate-features">
                                 <div class="donate-feature">
                                     <i class="fa-solid fa-shield-halved"></i>
-                                    <span>مظلة رسمية آمنة وتحت إشراف مباشر من عدة جهات وهيئات حكومية.</span>
+                                    <span data-i18n="donateFeature1">مظلة رسمية آمنة وتحت إشراف مباشر من عدة جهات وهيئات حكومية.</span>
                                 </div>
                                 <div class="donate-feature">
                                     <i class="fa-solid fa-circle-nodes"></i>
-                                    <span>دعم حقيقي مباشر يصل للجهات المستحقة بكل شفافية وسرعة.</span>
+                                    <span data-i18n="donateFeature2">دعم حقيقي مباشر يصل للجهات المستحقة بكل شفافية وسرعة.</span>
                                 </div>
                             </div>
                         </div>
@@ -1499,11 +1447,11 @@
                                     <circle cx="60" cy="48" r="8" fill="#eab308"/>
                                     <path d="M48,60 Q60,72 72,60" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round"/>
                                 </svg>
-                                <h3>منصة إحسان الوطنية</h3>
-                                <span class="ehsan-subtext">تسهيل وتوطين العمل الخيري بالمملكة</span>
+                                <h3 data-i18n="ehsanTitle">منصة إحسان الوطنية</h3>
+                                <span class="ehsan-subtext" data-i18n="ehsanSubtext">تسهيل وتوطين العمل الخيري بالمملكة</span>
                             </div>
-                            <a href="https://ehsan.sa/" target="_blank" class="btn btn-primary btn-lg w-full donate-btn" id="ehsanDonateBtn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                                <i class="fa-solid fa-heart"></i> تبرع الآن عبر منصة إحسان <i class="fa-solid fa-up-right-from-square" style="font-size: 0.75rem; margin-right: 3px;"></i>
+                            <a href="https://ehsan.sa/" target="_blank" class="btn btn-primary btn-lg w-full donate-btn" id="ehsanDonateBtn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;" data-i18n="btnDonateNow">
+                                <i class="fa-solid fa-heart"></i> <span data-i18n="btnDonateNow">تبرع الآن عبر منصة إحسان</span> <i class="fa-solid fa-up-right-from-square" style="font-size: 0.75rem; margin-right: 3px;"></i>
                             </a>
                         </div>
                     </div>
@@ -1518,11 +1466,11 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <h3><span class="highlight">GIS</span></h3>
-                    <p>منصة طلابية عربية غير ربحية تهدف لتسهيل وتبسيط علوم ومبادئ وأدوات نظم المعلومات الجغرافية وتقنيات الاستشعار عن بعد لجيل واعد من الجغرافيين والمطورين.</p>
+                    <p data-i18n="footerBrand">منصة طلابية عربية غير ربحية تهدف لتسهيل وتبسيط علوم ومبادئ وأدوات نظم المعلومات الجغرافية وتقنيات الاستشعار عن بعد لجيل واعد من الجغرافيين والمطورين.</p>
                 </div>
             </div>
-            <div class="footer-bottom" style="display: flex; justify-content: center; align-items: center; text-align: center; direction: rtl; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 2rem;">
-                <p style="margin: 0; color: var(--color-text-muted);">&copy; 2026 | المنصة الجغرافية السعودية - تطوير وإشراف Yazeed Alshammari</p>
+            <div class="footer-bottom" style="display: flex; justify-content: center; align-items: center; text-align: center; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 2rem;">
+                <p style="margin: 0; color: var(--color-text-muted);" data-i18n="footerCredits">&copy; 2026 | المنصة الجغرافية السعودية - تطوير وإشراف Yazeed Alshammari</p>
             </div>
         </div>
     </footer>
@@ -1543,14 +1491,14 @@
                 </svg>
             </div>
             <div class="ehsan-ad-text">
-                <span class="ehsan-ad-badge">🇸🇦 الحملة الوطنية للتبرع</span>
-                <h4>منصة إحسان الخيرية</h4>
-                <p>ساهم معنا بتقديم الخير ودعم المحتاجين عبر منصة إحسان الوطنية بكل أمان وموثوقية.</p>
+                <span class="ehsan-ad-badge" data-i18n="floatingAdBadge">🇸🇦 الحملة الوطنية للتبرع</span>
+                <h4 data-i18n="floatingAdTitle">منصة إحسان الخيرية</h4>
+                <p data-i18n="floatingAdBody">ساهم معنا بتقديم الخير ودعم المحتاجين عبر منصة إحسان الوطنية بكل أمان وموثوقية.</p>
             </div>
         </div>
         <div class="ehsan-ad-actions">
             <a href="https://ehsan.sa/" target="_blank" class="btn btn-emerald btn-sm w-full ehsan-ad-btn" id="ehsanFloatingAdBtn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                <i class="fa-solid fa-heart animate-pulse-heart"></i> تبرع الآن (إحسان) <i class="fa-solid fa-up-right-from-square" style="font-size: 0.7rem; margin-right: 2px;"></i>
+                <i class="fa-solid fa-heart animate-pulse-heart"></i> <span data-i18n="floatingAdBtn">تبرع الآن (إحسان)</span> <i class="fa-solid fa-up-right-from-square" style="font-size: 0.7rem; margin-right: 2px;"></i>
             </a>
         </div>
     </div>
@@ -1558,7 +1506,7 @@
 
     <!-- Pledge Certificate Modal Overlay -->
     <div id="pledge-cert-overlay" class="pledge-cert-overlay" style="display: none;">
-        <canvas id="confetti-canvas"></canvas>
+        
         <div class="pledge-cert-modal">
             <!-- Glassmorphic premium frame design with corner accents -->
             <div class="cert-corner top-left"></div>
@@ -1614,7 +1562,7 @@
     <!-- Privacy-friendly Web Analytics (GoatCounter) -->
     <script data-goatcounter="https://webgis-i6na.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
     <!-- Scripts -->
-    <script src="translations.js?v=9.0"></script>
-    <script src="app.js?v=9.0"></script>
+    <script src="translations.js?v=10.0"></script>
+    <script src="app.js?v=10.0"></script>
 </body>
 </html>
