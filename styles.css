@@ -1463,6 +1463,7 @@ input:checked + .slider:before {
     display: flex;
     align-items: flex-start;
     gap: 0.5rem;
+    text-align: start;
 }
 
 .sw-features li i {

@@ -206,7 +206,7 @@ const translations = {
         softwareTitle5: "Python for GIS",
         softwareDesc5: "لغة البرمجة الأهم على الإطلاق لعالم الـ GIS. باستخدام مكتبات مثل GeoPandas و Shapely، أو مكتبة ArcPy المدفوعة، يمكنك أتمتة كافة العمليات الحسابية وبناء نماذج أتمتة مذهلة.",
         softwareDev5: "Geo-Development",
-        swFeatures5_1: "أتمتة المهام المتكررة (Geoprocessing Automation).",
+        swFeatures5_1: "أتمتة المهام المتكررة <bdi>(Geoprocessing Automation)</bdi>.",
         swFeatures5_2: "معالجة البيانات الجغرافية الضخمة بذكاء وسرعة مدهشة.",
         swFeatures5_3: "المهارة رقم 1 المطلوبة حالياً في أسواق العمل الدولية للتميز.",
         
