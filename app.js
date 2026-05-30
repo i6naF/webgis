@@ -784,17 +784,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const cleanDesc = desc.replace(/<[^>]*>/g, '').substring(0, 180) + '...';
 
-        itemDiv.innerHTML = `
-            <span class="news-tag ${tagClass}">${tagText}</span>
-            <span class="news-date">${date}</span>
-            <h4>${title}</h4>
-            <p>${cleanDesc}</p>
-            <div style="margin-top: 0.75rem; text-align: left;">
-                <a href="${link}" target="_blank" style="color: var(--color-secondary); font-size: 0.8rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
-                    ${currentLang === 'ar' ? 'اقرأ المزيد <i class="fa-solid fa-arrow-left"></i>' : 'Read More <i class="fa-solid fa-arrow-right"></i>'}
-                </a>
-            </div>
-        `;
+        // Validate link to prevent javascript: injection
+        let safeLink = '#';
+        try {
+            const parsed = new URL(link);
+            if (parsed.protocol === 'https:' || parsed.protocol === 'http:') {
+                safeLink = link;
+            }
+        } catch (_) { /* invalid URL, keep safeLink as # */ }
+
+        const tagSpan = document.createElement('span');
+        tagSpan.className = `news-tag ${tagClass}`;
+        tagSpan.textContent = tagText;
+
+        const dateSpan = document.createElement('span');
+        dateSpan.className = 'news-date';
+        dateSpan.textContent = date;
+
+        const titleEl = document.createElement('h4');
+        titleEl.textContent = title;
+
+        const descEl = document.createElement('p');
+        descEl.textContent = cleanDesc;
+
+        const linkWrapper = document.createElement('div');
+        linkWrapper.style.cssText = 'margin-top: 0.75rem; text-align: left;';
+
+        const anchor = document.createElement('a');
+        anchor.href = safeLink;
+        anchor.target = '_blank';
+        anchor.rel = 'noopener noreferrer';
+        anchor.style.cssText = 'color: var(--color-secondary); font-size: 0.8rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;';
+        anchor.innerHTML = currentLang === 'ar'
+            ? 'اقرأ المزيد <i class="fa-solid fa-arrow-left"></i>'
+            : 'Read More <i class="fa-solid fa-arrow-right"></i>';
+
+        linkWrapper.appendChild(anchor);
+        itemDiv.append(tagSpan, dateSpan, titleEl, descEl, linkWrapper);
         return itemDiv;
     }
 

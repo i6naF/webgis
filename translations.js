@@ -425,6 +425,12 @@ const translations = {
         newsTitle6: "المعلومات الجيومكانية تعلن إصدار تراخيص المسح الجوي والبانورامي لدعم موسم الحج",
         newsBody6: "أصدرت الهيئة الجيومكانية تصاريح وتراخيص لأعمال المسح الجوي والبانورامي عالي الدقة لصالح الجهات والقطاعات الحكومية المساهمة في أعمال موسم الحج 1447هـ / 2026م لضمان سلامة وإدارة الحشود والخدمات اللوجستية بدقة مكانية استثنائية.",
         
+        newsTitle7: "الهيئة الجيومكانية تحصل على شهادة الآيزو الدولية ISO 27001 في أمن المعلومات الجغرافية",
+        newsBody7: "حصلت الهيئة العامة للمساحة والمعلومات الجيومكانية على شهادة الآيزو الدولية (ISO/IEC 27001:2022) لنظم إدارة أمن المعلومات، مما يعكس ريادة الهيئة والتزامها بحماية الأصول والبيانات الجيومكانية الوطنية وفقاً لأعلى المعايير العالمية.",
+        
+        newsTitle8: "الهيئة الجيومكانية ترعى المؤتمر العالمي للمساحين FIG 2026 كراعٍ ماسي في كيب تاون",
+        newsBody8: "شاركت الهيئة العامة للمساحة والمعلومات الجيومكانية كراعٍ ماسي في المؤتمر السنوي للاتحاد الدولي للمساحين (FIG 2026) المنعقد بجنوب أفريقيا، حيث استعرضت تجربة المملكة الرائدة في بناء البنية التحتية الجيومكانية الوطنية ومستجدات المسح والخرائط الرقمية.",
+        
         // Suggestions and feedback
         feedbackTitle: "💡 هل لديك اقتراحات أو أفكار لتطوير الموقع؟",
         feedbackDesc: "يسعدنا جداً الاستماع لأفكارك ومقترحاتك لتطوير هذه البوابة وإضافة المزيد من الأدوات والدورات المفيدة لطلاب تخصص نظم المعلومات الجغرافية!",
@@ -885,6 +891,12 @@ const translations = {
         
         newsTitle6: "GEOSA Issues Aerial Survey and Panoramic Imaging Permits to Support Hajj Operations",
         newsBody6: "GEOSA has officially issued permits for high-precision aerial surveying and panoramic mapping to government sectors involved in Hajj 2026 operations to support secure crowd management and advanced logistics.",
+        
+        newsTitle7: "GEOSA Obtains ISO 27001 Certification for Geospatial Information Security",
+        newsBody7: "The General Authority for Survey and Geospatial Information (GEOSA) successfully achieved the international ISO/IEC 27001:2022 certification for Information Security Management Systems, affirming its commitment to protecting national geospatial data assets.",
+        
+        newsTitle8: "GEOSA Sponsors the FIG 2026 International Surveyors Conference as a Diamond Sponsor",
+        newsBody8: "The General Authority for Survey and Geospatial Information participated as a Diamond Sponsor in the International Federation of Surveyors (FIG 2026) Conference in Cape Town, South Africa, showcasing Saudi Arabia’s leading spatial infrastructure models.",
         
         // Suggestions and feedback
         feedbackTitle: "💡 Do you have suggestions or ideas to develop the site?",
