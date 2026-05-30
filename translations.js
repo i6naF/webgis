@@ -371,11 +371,11 @@ const translations = {
         solutionItem4_3: "توثيق البيانات يرفع قيمتها الاحترافية ويضمن بقاءها صالحة للاستخدام وقابلة للدمج في قواعد البيانات الوطنية ومشاريع صناع القرار.",
         
         // Vision 2030 Section
-        visionBadge: "<i class=\"fa-solid fa-gem text-accent animate-pulse\"></i> فضاء الابتكار الجيومكاني ورؤية الوطن",
+        visionBadge: "فضاء الابتكار الجيومكاني ورؤية الوطن",
         visionTitle: "رؤية 2030 <span class=\"highlight\">والمستقبل الجيومكاني</span>",
         visionSubtitle: "اكتشف كيف تقود التقنيات المساحية ونظم المعلومات الجغرافية مشاريع المملكة الكبرى، وتابع أحدث الأخبار وتعرف على سياسات حماية البيانات الوطنية",
-        tabVision: "<i class=\"fa-solid fa-mountain-sun\"></i> رؤية السعودية 2030",
-        tabNews: "<i class=\"fa-solid fa-newspaper\"></i> الأخبار المكانية",
+        tabVision: "رؤية السعودية 2030",
+        tabNews: "الأخبار المكانية",
         
         projectTitle1: "نيوم وذا لاين (NEOM & The Line)",
         projectDesc1: "تشكّل نظم المعلومات الجغرافية ثلاثية الأبعاد (3D GIS) والتكامل الجيومكاني مع نمذجة معلومات البناء (BIM) الأساس في التخطيط والتنفيذ لمدينة المستقبل الذكية. يتم استخدام نظم المعلومات الجغرافية لتحديد مسارات النقل الذاتي، ونمذجة الشبكات الخدمية التحتية، وتوليد التوائم الرقمية (Digital Twins) بالكامل لتشغيل المدينة وتتبع صيانتها لحظياً بخرائط حية.",
@@ -838,11 +838,11 @@ const translations = {
         solutionItem4_3: "Documenting data elevates its professional value and ensures it remains valid for use and integrable into national databases and decision-makers' projects.",
         
         // Vision 2030 Section
-        visionBadge: "<i class=\"fa-solid fa-gem text-accent animate-pulse\"></i> Geospatial Innovation & National Vision",
+        visionBadge: "Geospatial Innovation & National Vision",
         visionTitle: "Vision 2030 & <span class=\"highlight\">Geospatial Future</span>",
         visionSubtitle: "Discover how spatial technologies and GIS drive KSA's giga projects, track the latest news, and review national data protection standards.",
-        tabVision: "<i class=\"fa-solid fa-mountain-sun\"></i> Saudi Vision 2030",
-        tabNews: "<i class=\"fa-solid fa-newspaper\"></i> Geospatial News",
+        tabVision: "Saudi Vision 2030",
+        tabNews: "Geospatial News",
         
         projectTitle1: "NEOM & THE LINE Megacity districts",
         projectDesc1: "3D GIS and geospatial integration with Building Information Modeling (BIM) form the foundation for planning and executing the smart city of the future. GIS is leveraged to designate autonomous transport routes, model utility infrastructures, and generate comprehensive 3D Digital Twins to operate the city and track its maintenance in real time via live maps.",
