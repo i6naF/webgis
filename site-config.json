@@ -1,6 +1,6 @@
 {
   "maintenance": {
-    "enabled": false,
+    "enabled": true,
     "message": "نعتذر، الموقع تحت الصيانة حالياً. نعود إليكم قريباً بإذن الله.",
     "schedule": {
       "enabled": false,
@@ -16,5 +16,5 @@
     "linkText": ""
   },
   "hiddenSections": [],
-  "updated": "2026-05-31T01:56:42.840Z"
+  "updated": "2026-05-31T18:48:59.183Z"
 }
