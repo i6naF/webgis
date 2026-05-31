@@ -304,3 +304,43 @@ body.light .nav-link.active,body.light .subtab.active{color:#fff}
 .help-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:6px}
 .help-list li{display:flex;gap:10px;font-size:13.5px;color:var(--text-secondary);line-height:1.7}
 .help-list li b{color:var(--secondary-light)}
+
+/* ========================================================================
+   v3 additions — PWA install, mobile backdrop, accessibility, polish
+   ======================================================================== */
+
+/* Install button — subtle accent so it reads as a primary affordance */
+.install-btn{color:var(--primary-light);border-color:var(--primary-light)}
+.install-btn:hover{background:var(--primary-dark);color:#fff}
+
+/* Mobile sidebar backdrop */
+.sidebar-backdrop{position:fixed;inset:0;background:rgba(3,6,12,.6);backdrop-filter:blur(3px);z-index:40;border:none;animation:fadeIn .25s ease}
+@media(min-width:769px){.sidebar-backdrop{display:none!important}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* Stat-card hover — align to the primary palette (was an off-theme gold) */
+.stat-card:hover{border-color:var(--primary-light)}
+
+/* View entrance micro-interaction */
+.view.active{animation:viewIn .35s cubic-bezier(.2,.7,.2,1)}
+@keyframes viewIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* Accessibility — clearly visible keyboard focus ring */
+:focus-visible{outline:2px solid var(--primary-light);outline-offset:2px;border-radius:8px}
+.btn:focus-visible,.icon-btn:focus-visible,.nav-link:focus-visible,.subtab:focus-visible,.qa-btn:focus-visible{outline-offset:3px}
+
+/* Themed scrollbars (adapt to light/dark via variables) */
+*{scrollbar-width:thin;scrollbar-color:var(--primary-dark) transparent}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--primary-dark);border-radius:10px;border:3px solid var(--bg-dark)}
+::-webkit-scrollbar-thumb:hover{background:var(--primary)}
+
+/* Respect users who prefer reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+
+/* Light-mode finishing touches */
+body.light .sidebar-backdrop{background:rgba(15,23,42,.35)}
+body.light .topbar{border-color:var(--border)}

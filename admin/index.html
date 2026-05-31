@@ -1,465 +1,1718 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="theme-color" content="#10b981">
-    <title>لوحة التحكم | بوابة نظم المعلومات الجغرافية</title>
-    <link rel="manifest" href="manifest.webmanifest">
-    <link rel="icon" type="image/svg+xml" href="icon.svg">
-    <link rel="apple-touch-icon" href="icon-192.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="admin.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#03050c">
+<meta name="color-scheme" content="dark">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="لوحة التحكم">
+<title>لوحة التحكم الجيومكانية | بوابة نظم المعلومات الجغرافية</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- Leaflet Map CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<!-- Leaflet Map JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<style>
+:root{
+  --void: #03050c;
+  --abyss: #060914;
+  --deep: #090e1f;
+  --panel: rgba(9, 14, 31, 0.65);
+  --panel-hover: rgba(14, 21, 46, 0.85);
+  --glass-line: rgba(0, 242, 254, 0.16);
+  --glass-line-glow: rgba(0, 242, 254, 0.35);
+  
+  --neon-cyan: #00f2fe;
+  --neon-cyan-glow: rgba(0, 242, 254, 0.45);
+  --neon-violet: #d946ef;
+  --neon-violet-glow: rgba(217, 70, 239, 0.4);
+  --neon-emerald: #10b981;
+  --neon-emerald-glow: rgba(16, 185, 129, 0.45);
+  --neon-amber: #f59e0b;
+  --neon-amber-glow: rgba(245, 158, 11, 0.4);
+  --neon-rose: #fb7185;
+  --neon-rose-glow: rgba(251, 113, 133, 0.4);
+  
+  --ink: #f3f7fc;
+  --soft: #a8b9d3;
+  --muted: #64758e;
+  --faint: #344259;
+  
+  --grad-nebula: linear-gradient(135deg, #00f2fe, #d946ef);
+  --grad-cyan: linear-gradient(135deg, #00c6ff, #0072ff);
+  --grad-emerald: linear-gradient(135deg, #059669, #10b981 60%, #34d399);
+  --grad-amber: linear-gradient(135deg, #d97706, #fbbf24);
+  --grad-violet: linear-gradient(135deg, #a855f7, #d946ef);
+  
+  --r: 22px;
+  --r-sm: 12px;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'Readex Pro', 'Cairo', system-ui, -apple-system, sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans); color:var(--ink); background:var(--void);
+  min-height:100vh; overflow-x:hidden; position:relative;
+  -webkit-font-smoothing:antialiased; line-height: 1.6;
+}
+
+/* Atmospheric Background Layers */
+.bg-layer{position:fixed;inset:0;z-index:-5;overflow:hidden;background:var(--void)}
+.aurora{position:absolute;border-radius:50%;filter:blur(110px);opacity:.35;mix-blend-mode:screen;animation:drift 28s ease-in-out infinite alternate}
+.a1{width:60vw;height:60vw;background:radial-gradient(circle,#7c00fe,transparent 65%);top:-15%;inset-inline-end:-10%}
+.a2{width:50vw;height:50vw;background:radial-gradient(circle,#00f2fe,transparent 65%);bottom:-15%;inset-inline-start:-8%;animation-delay:-8s}
+.a3{width:35vw;height:35vw;background:radial-gradient(circle,#d946ef,transparent 70%);top:38%;inset-inline-start:35%;opacity:.22;animation-delay:-16s}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(4%,3%) scale(1.15)}100%{transform:translate(-4%,-2%) scale(.92)}}
+
+.grid-overlay{position:fixed;inset:0;z-index:-4;pointer-events:none;
+  background-image:
+    linear-gradient(var(--glass-line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--glass-line) 1px,transparent 1px);
+  background-size:50px 50px;mask:radial-gradient(circle at 60% 30%,#000,transparent 88%);opacity:.4}
+
+.relief-contour{position:fixed;inset:0;z-index:-4;pointer-events:none;opacity:.35;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500' viewBox='0 0 500 500'%3E%3Cg fill='none' stroke='%2300f2fe' stroke-width='1' stroke-opacity='0.08'%3E%3Cpath d='M0,100 Q125,50 250,110 T500,80'/%3E%3Cpath d='M0,180 Q150,230 300,160 T500,200'/%3E%3Cpath d='M0,280 Q120,220 240,300 T500,260'/%3E%3Cpath d='M0,380 Q160,430 320,340 T500,400'/%3E%3C/g%3E%3Cg fill='none' stroke='%23d946ef' stroke-width='1.2' stroke-opacity='0.06'%3E%3Cpath d='M0,50 Q160,-20 320,60 T500,30'/%3E%3Cpath d='M0,230 Q180,280 360,210 T500,250'/%3E%3Cpath d='M0,430 Q140,390 280,450 T500,410'/%3E%3C/g%3E%3C/svg%3E")}
+.grain-texture{position:fixed;inset:0;z-index:-3;pointer-events:none;opacity:.028;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* Layout Structure */
+.dashboard{display:grid;grid-template-columns:275px 1fr;min-height:100vh;position:relative}
+
+/* Glassmorphic Sidebar */
+.sidebar{position:sticky;top:0;height:100vh;padding:26px 20px;display:flex;flex-direction:column;gap:8px;
+  background:rgba(4, 7, 18, 0.78);backdrop-filter:blur(22px);
+  border-inline-end:1px solid var(--glass-line);z-index:90}
+.brand{display:flex;align-items:center;gap:14px;padding:6px 8px 24px;border-bottom:1px solid rgba(0,242,254,.08)}
+.brand-icon{position:relative;width:48px;height:48px;border-radius:15px;display:grid;place-items:center;
+  background:var(--grad-nebula);box-shadow:0 8px 26px rgba(0,242,254,.3),inset 0 0 0 1px rgba(255,255,255,.2);color:#03050c;font-size:22px}
+.brand-icon::after{content:"";position:absolute;inset:-5px;border-radius:19px;border:1px dashed var(--neon-cyan);opacity:.4;animation:spin 24s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.brand-text b{display:block;font-size:16px;font-weight:700;letter-spacing:-.2px;color:#fff}
+.brand-text span{font-family:var(--mono);font-size:9.5px;color:var(--neon-cyan);letter-spacing:2.5px;text-transform:uppercase}
+
+.nav{display:flex;flex-direction:column;gap:4px;flex:1;margin-top:20px}
+.nav-sec{font-family:var(--mono);font-size:9px;letter-spacing:2.5px;color:var(--muted);padding:14px 12px 6px;text-transform:uppercase;font-weight:700}
+.nav-link{position:relative;display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:var(--r-sm);
+  color:var(--soft);font-size:14px;font-weight:500;transition:.22s cubic-bezier(.4,0,.2,1);cursor:pointer;border:1px solid transparent;text-decoration:none;}
+.nav-link i{width:20px;text-align:center;font-size:16px;color:var(--muted);transition:.22s}
+.nav-link:hover{background:rgba(0,242,254,.04);color:#fff;border-color:rgba(0,242,254,.1)}
+.nav-link:hover i{color:var(--neon-cyan);text-shadow:0 0 8px var(--neon-cyan-glow)}
+.nav-link.active{background:linear-gradient(100deg,rgba(0,242,254,.18),rgba(217,70,239,.04));color:#fff;border-color:rgba(0,242,254,.35);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.nav-link.active i{color:var(--neon-cyan);text-shadow:0 0 10px var(--neon-cyan-glow)}
+.nav-link.active::before{content:"";position:absolute;inset-inline-start:0;top:20%;bottom:20%;width:3px;border-radius:3px;background:var(--neon-cyan);box-shadow:0 0 12px var(--neon-cyan)}
+
+.sidebar-footer{border-top:1px solid rgba(0,242,254,.08);padding-top:16px;display:flex;flex-direction:column;gap:4px}
+
+/* Main Panel Wrapper */
+.main{display:flex;flex-direction:column;min-width:0;position:relative;flex:1;}
+
+/* Topbar */
+.topbar{position:sticky;top:0;z-index:80;display:flex;align-items:center;gap:20px;padding:20px 36px;
+  background:rgba(4, 7, 18, 0.65);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--glass-line);justify-content:space-between}
+.crumbs .kicker{font-family:var(--mono);font-size:9.5px;letter-spacing:3px;color:var(--neon-violet);text-transform:uppercase;margin-bottom:2px;font-weight:700}
+.crumbs h1{font-size:24px;font-weight:700;letter-spacing:-.5px;color:#fff}
+.hud-panel{display:flex;align-items:center;gap:12px}
+.hud-readout{font-family:var(--mono);font-size:11.5px;color:var(--soft);background:rgba(0,242,254,.03);border:1px solid var(--glass-line);
+  padding:9px 15px;border-radius:10px;display:flex;align-items:center;gap:9px;letter-spacing:.5px}
+.hud-readout .status-pulse{width:7px;height:7px;border-radius:50%;background:var(--neon-emerald);box-shadow:0 0 10px var(--neon-emerald);animation:pulse-blink 2s ease-in-out infinite}
+@keyframes pulse-blink{0%,100%{opacity:1}50%{opacity:.3}}
+.top-iconbtn{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;cursor:pointer;font-size:16px;
+  background:rgba(0,242,254,.03);border:1px solid var(--glass-line);color:var(--soft);transition:.22s}
+.top-iconbtn:hover{color:var(--neon-cyan);border-color:var(--neon-cyan);box-shadow:0 0 18px var(--neon-cyan-glow);transform:translateY(-2px)}
+
+.content{padding:32px 36px 60px;max-width:1440px;width:100%;display:flex;flex-direction:column;gap:26px;margin:0 auto}
+
+/* Toast Notifications */
+.toast{position:fixed;bottom:24px;left:24px;z-index:1200;background:rgba(8, 14, 30, 0.95);backdrop-filter:blur(10px);border:1px solid var(--glass-line);
+  padding:14px 22px;border-radius:var(--r-sm);color:#fff;font-size:13.5px;display:flex;align-items:center;gap:12px;
+  box-shadow:0 12px 36px rgba(0,0,0,.6);transition:all 0.35s cubic-bezier(.175, .885, .32, 1.275);min-width:280px}
+.toast.ok i{color:var(--neon-emerald);text-shadow:0 0 8px var(--neon-emerald-glow)}
+.toast.err i{color:var(--neon-rose);text-shadow:0 0 8px var(--neon-rose-glow)}
+
+/* Views Switcher System */
+.view{display:none;animation:tab-fade .45s cubic-bezier(.4, 0, .2, 1) both}
+.view.active{display:flex;flex-direction:column;gap:26px}
+@keyframes tab-fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* Premium Obsidian Glass Card Panels */
+.card{position:relative;background:var(--panel);backdrop-filter:blur(20px);border:1px solid var(--glass-line);
+  border-radius:var(--r);padding:24px;transition:border-color .3s,box-shadow .3s,transform .3s;overflow:hidden}
+.card:hover{border-color:var(--glass-line-glow);box-shadow:0 20px 48px rgba(0,0,0,.5);transform:translateY(-2px)}
+
+/* Corner Crosshair HUD Details */
+.card::before, .card::after{content:"";position:absolute;width:14px;height:14px;pointer-events:none;opacity:.5;transition:opacity .3s}
+.card:hover::before, .card:hover::after{opacity:.85}
+.card::before{top:12px;left:12px;border-top:2px solid var(--neon-cyan);border-left:2px solid var(--neon-cyan)}
+.card::after{bottom:12px;right:12px;border-bottom:2px solid var(--neon-cyan);border-right:2px solid var(--neon-cyan)}
+
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;border-bottom:1px solid rgba(0,242,254,.05);padding-bottom:12px}
+.card-title{font-size:15px;font-weight:600;display:flex;align-items:center;gap:11px;color:#fff}
+.card-title i{color:var(--neon-cyan);text-shadow:0 0 8px var(--neon-cyan-glow)}
+.card-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:1.5px;color:var(--soft);text-transform:uppercase;
+  background:rgba(0,242,254,.06);border:1px solid var(--glass-line);padding:4px 9px;border-radius:8px;font-weight:600}
+
+/* Stats Widgets Row */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.stat-card{position:relative;background:var(--panel);backdrop-filter:blur(20px);border:1px solid var(--glass-line);
+  border-radius:var(--r);padding:22px;overflow:hidden;transition:.3s cubic-bezier(.25,.8,.25,1)}
+.stat-card:hover{transform:translateY(-6px);border-color:var(--glass-line-glow);box-shadow:0 22px 50px rgba(0,0,0,.55)}
+
+/* Left vertical neon accent bar */
+.stat-card::before{content:"";position:absolute;inset-inline-start:0;top:0;bottom:0;width:3.5px;background:var(--grad-cyan);opacity:.85}
+.stat-card.violet::before{background:var(--grad-violet)}
+.stat-card.emerald::before{background:var(--grad-emerald)}
+.stat-card.amber::before{background:var(--grad-amber)}
+
+.stat-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.stat-icon{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:18px;color:#03050c;box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.stat-icon.cyan{background:var(--grad-cyan);box-shadow:0 6px 18px var(--neon-cyan-glow)}
+.stat-icon.violet{background:var(--grad-violet);box-shadow:0 6px 18px var(--neon-violet-glow)}
+.stat-icon.emerald{background:var(--grad-emerald);box-shadow:0 6px 18px var(--neon-emerald-glow)}
+.stat-icon.amber{background:var(--grad-amber);box-shadow:0 6px 18px var(--neon-amber-glow)}
+
+.stat-trend{font-family:var(--mono);font-size:11px;font-weight:700;padding:5px 9px;border-radius:8px;display:inline-flex;align-items:center;gap:4px}
+.stat-trend.up{color:var(--neon-emerald);background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.2)}
+.stat-trend.pulse{color:var(--neon-cyan);background:rgba(0,242,254,.1);border:1px solid rgba(0,242,254,.25)}
+.stat-trend.pulse span{width:6px;height:6px;border-radius:50%;background:var(--neon-cyan);box-shadow:0 0 8px var(--neon-cyan);animation:pulse-blink 1.4s infinite}
+
+.stat-value{font-family:var(--mono);font-size:32px;font-weight:700;line-height:1;letter-spacing:-.8px;color:#fff;margin-top:6px}
+.stat-label{font-size:12.5px;color:var(--soft);margin-top:9px;letter-spacing:.2px;font-weight:400}
+
+/* Sparklines inside stat card */
+.stat-sparkline{margin-top:16px;height:24px;display:flex;align-items:flex-end;gap:3.5px}
+.stat-sparkline span{flex:1;border-radius:2px 2px 0 0;background:linear-gradient(180deg,var(--neon-cyan),rgba(0,242,254,.05));opacity:.75;transition:height .3s}
+.stat-sparkline.violet span{background:linear-gradient(180deg,var(--neon-violet),rgba(217,70,239,.05))}
+
+/* PageSpeed Circular Gauge Widget */
+.gauge-box{display:flex;align-items:center;gap:18px;margin-top:4px}
+.gauge-svg{width:56px;height:56px;transform:rotate(-90deg)}
+.gauge-track{fill:none;stroke:rgba(255,255,255,.05);stroke-width:5.5}
+.gauge-fill{fill:none;stroke:var(--neon-emerald);stroke-width:5.5;stroke-linecap:round;
+  stroke-dasharray:151;stroke-dashoffset:151;transition:stroke-dashoffset 1.8s ease-out;filter:drop-shadow(0 0 4px var(--neon-emerald))}
+.gauge-text{font-family:var(--mono);font-size:16px;font-weight:700;color:var(--neon-emerald);text-shadow:0 0 6px var(--neon-emerald-glow)}
+
+/* Uptime Bar Timelines */
+.uptime-timeline{display:flex;gap:3.5px;height:24px;align-items:flex-end;margin-top:16px}
+.uptime-bar{flex:1;height:100%;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.2);border-radius:2px;position:relative;cursor:pointer}
+.uptime-bar::after{content:"";position:absolute;inset:0;background:var(--neon-emerald);border-radius:1px;transform:scaleY(.85);transform-origin:bottom;transition:.2s;opacity:.8;box-shadow:0 0 6px var(--neon-emerald-glow)}
+.uptime-bar:hover::after{transform:scaleY(1);opacity:1}
+.uptime-bar:hover::before{content:attr(data-date);position:absolute;bottom:100%;left:50%;transform:translateX(-50%) translateY(-6px);
+  background:#03050c;border:1px solid var(--glass-line);color:#fff;font-family:var(--mono);font-size:8.5px;padding:3px 6px;border-radius:4px;white-space:nowrap;z-index:10}
+
+/* Map & Chart Split */
+.map-chart-split{display:grid;grid-template-columns:1.05fr .95fr;gap:26px}
+
+/* Interactive Map Panel */
+.map-card{height:370px;display:flex;flex-direction:column}
+.map-wrapper{flex:1;border-radius:var(--r-sm);border:1px solid var(--glass-line);position:relative;overflow:hidden;background:#03060c}
+#liveMap{width:100%;height:100%;z-index:10}
+.map-glow{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 35px rgba(0,242,254,.2);z-index:15}
+/* Blinking Map Marker pulses */
+.map-pulse-marker{display:grid;place-items:center}
+.map-pulse-dot{width:9px;height:9px;background:var(--neon-cyan);border:2px solid #fff;border-radius:50%;box-shadow:0 0 8px var(--neon-cyan)}
+.map-pulse-ring{position:absolute;width:24px;height:24px;border:1.5px solid var(--neon-cyan);border-radius:50%;animation:map-pulse 1.8s infinite;opacity:0}
+@keyframes map-pulse{
+  0%{transform:scale(0.35);opacity:0.8}
+  100%{transform:scale(1.4);opacity:0}
+}
+
+/* Charts Panel */
+.chart-card{height:370px;display:flex;flex-direction:column}
+.chart-actions{display:flex;gap:6px}
+.chart-btn{background:rgba(0,242,254,.03);border:1px solid var(--glass-line);color:var(--soft);
+  font-family:var(--mono);font-size:10.5px;padding:5px 10px;border-radius:7px;cursor:pointer;transition:.2s;font-weight:600}
+.chart-btn:hover, .chart-btn.active{color:var(--neon-cyan);border-color:var(--neon-cyan);background:rgba(0,242,254,.08);box-shadow:0 0 10px rgba(0,242,254,.2)}
+.chart-container{flex:1;position:relative;margin-top:12px}
+/* Scanning grid beam animation overlay on chart */
+.chart-scanline{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(0,242,254,.025) 50%,transparent);
+  animation:beam 5s linear infinite;z-index:2}
+@keyframes beam{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+
+/* Lower Section: Controls & Git Monitor Split */
+.ops-system-split{display:grid;grid-template-columns:1.05fr .95fr;gap:26px}
+
+/* Operations Panel controls */
+.ops-card{display:flex;flex-direction:column;gap:18px}
+.ops-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.ops-block{display:flex;flex-direction:column;gap:10px}
+.ops-label{font-size:12.5px;color:var(--soft);font-weight:500;display:flex;align-items:center;gap:8px}
+.ops-label i{color:var(--neon-cyan)}
+
+/* Premium Custom Toggle Switches */
+.switch-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:rgba(255,255,255,.015);border:1px solid rgba(0,242,254,.06);border-radius:var(--r-sm);transition:.2s}
+.switch-row:hover{background:rgba(0,242,254,.02);border-color:rgba(0,242,254,.12)}
+.switch-title{font-size:13px;color:var(--ink);font-weight:500}
+.switch-sub{font-size:10.5px;color:var(--muted);display:block;margin-top:2px}
+.switch-control{position:relative;display:inline-block;width:42px;height:22px}
+.switch-control input{opacity:0;width:0;height:0}
+.switch-slider{position:absolute;cursor:pointer;inset:0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:34px;transition:.28s}
+.switch-slider::before{content:"";position:absolute;height:14px;width:14px;left:3px;bottom:3px;background:var(--soft);border-radius:50%;transition:.28s}
+.switch-control input:checked + .switch-slider{background:rgba(0,242,254,.15);border-color:var(--neon-cyan)}
+.switch-control input:checked + .switch-slider::before{transform:translateX(20px);background:var(--neon-cyan);box-shadow:0 0 10px var(--neon-cyan-glow)}
+
+.switch-control.emerald input:checked + .switch-slider{background:rgba(16,185,129,.15);border-color:var(--neon-emerald)}
+.switch-control.emerald input:checked + .switch-slider::before{transform:translateX(20px);background:var(--neon-emerald);box-shadow:0 0 10px var(--neon-emerald-glow)}
+
+.switch-control.amber input:checked + .switch-slider{background:rgba(245,158,11,.15);border-color:var(--neon-amber)}
+.switch-control.amber input:checked + .switch-slider::before{transform:translateX(20px);background:var(--neon-amber);box-shadow:0 0 10px var(--neon-amber-glow)}
+
+/* Ribbon Banner Real-time Simulator widget */
+.banner-editor{display:flex;flex-direction:column;gap:10px}
+.banner-textarea{width:100%;height:68px;background:rgba(3,5,12,.5);border:1px solid var(--glass-line);border-radius:var(--r-sm);
+  color:#fff;padding:10px 14px;font-size:12.5px;font-family:var(--sans);outline:none;resize:none;transition:.2s}
+.banner-textarea:focus{border-color:var(--neon-cyan);box-shadow:0 0 12px rgba(0,242,254,.15)}
+
+.banner-sim{position:relative;border:1px solid rgba(0,242,254,.1);border-radius:var(--r-sm);overflow:hidden;background:#03060c;height:52px;display:flex;flex-direction:column}
+.banner-sim-bar{height:18px;background:var(--grad-nebula);color:#03050c;font-size:8.5px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.banner-sim-body{flex:1;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:9.5px;color:var(--muted)}
+.banner-sim-body span{color:var(--soft);font-weight:700}
+
+/* Git Monitor & File Explorer Panel */
+.git-card{display:flex;flex-direction:column;gap:18px}
+.git-tabs{display:flex;gap:6px;border-bottom:1px solid rgba(0,242,254,.08);padding-bottom:10px}
+.git-tab{background:transparent;border:none;color:var(--muted);font-family:var(--mono);font-size:11.5px;padding:6px 12px;cursor:pointer;transition:.2s;position:relative}
+.git-tab:hover{color:var(--soft)}
+.git-tab.active{color:var(--neon-cyan);font-weight:600}
+.git-tab.active::after{content:"";position:absolute;bottom:-11px;left:0;right:0;height:2px;background:var(--neon-cyan);box-shadow:0 0 8px var(--neon-cyan)}
+
+/* Simulated Terminal and File Grid */
+.terminal-view{background:rgba(3,5,12,.7);border:1px solid rgba(0,242,254,.08);border-radius:var(--r-sm);padding:14px 18px;height:190px;
+  overflow-y:auto;font-family:var(--mono);font-size:11px;line-height:1.75;display:flex;flex-direction:column;gap:6px;scrollbar-width:thin}
+.terminal-line{display:flex;gap:10px;text-align:start;align-items:flex-start}
+.terminal-line.cmd{color:var(--neon-cyan)}
+.terminal-line.success{color:var(--neon-emerald)}
+.terminal-line.info{color:var(--soft)}
+.terminal-line.time{color:var(--muted);flex-shrink:0}
+
+/* Extended Specialized Tab layouts styles */
+.analytics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.progress-list{display:flex;flex-direction:column;gap:12px}
+.progress-item{display:flex;flex-direction:column;gap:6px}
+.progress-label{display:flex;justify-content:space-between;font-size:12.5px;color:var(--soft)}
+.progress-bar-bg{height:6px;background:rgba(255,255,255,.05);border-radius:6px;overflow:hidden}
+.progress-bar-fill{height:100%;border-radius:6px;background:var(--grad-cyan);box-shadow:0 0 8px var(--neon-cyan-glow);width:0;transition:width 1.2s cubic-bezier(.2,.7,.2,1)}
+
+.server-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.telemetry-card{display:flex;align-items:center;justify-content:space-around;padding:16px 12px}
+.metric-ring{position:relative;width:64px;height:64px}
+.metric-ring-svg{width:100%;height:100%;transform:rotate(-90deg)}
+.metric-ring-track{fill:none;stroke:rgba(255,255,255,.04);stroke-width:5}
+.metric-ring-fill{fill:none;stroke:var(--neon-cyan);stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 1s ease}
+.metric-ring-label{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-size:12.5px;font-weight:700}
+
+.settings-grid{display:grid;grid-template-columns:1fr;gap:18px}
+.settings-group{display:flex;flex-direction:column;gap:14px}
+.settings-field{display:flex;flex-direction:column;gap:8px;text-align:start}
+.settings-field label{font-size:12.5px;color:var(--soft);font-weight:500}
+.settings-field-input-wrap{position:relative;display:flex;align-items:center}
+.settings-field-input-wrap input{width:100%;background:rgba(3,5,12,.6);border:1px solid var(--glass-line);border-radius:var(--r-sm);
+  color:#fff;padding:12px 16px;font-family:var(--mono);font-size:13.5px;outline:none;transition:.2s}
+.settings-field-input-wrap input:focus{border-color:var(--neon-cyan);box-shadow:0 0 12px rgba(0,242,254,.15)}
+.settings-field-input-wrap i.toggle-pwd{position:absolute;right:16px;cursor:pointer;color:var(--muted);transition:.2s}
+.settings-field-input-wrap i.toggle-pwd:hover{color:#fff}
+
+body.en .settings-field-input-wrap i.toggle-pwd{right:auto;left:16px}
+
+.git-actions-row{display:flex;gap:12px;margin-bottom:14px}
+.git-action-btn{flex:1;background:rgba(0,242,254,.03);border:1px solid var(--glass-line);color:var(--soft);font-weight:600;
+  padding:12px;border-radius:var(--r-sm);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:.22s}
+.git-action-btn:hover{color:#fff;border-color:var(--neon-cyan);background:rgba(0,242,254,.08);transform:translateY(-2px)}
+.git-action-btn i.spin{animation:spinner-rotation .8s linear infinite}
+@keyframes spinner-rotation{to{transform:rotate(360deg)}}
+
+.bottom-note{font-family:var(--mono);font-size:10px;color:var(--muted);text-align:center;letter-spacing:1px;padding-top:10px}
+
+/* Translation and Language Support */
+body.en{
+  direction: ltr;
+  font-family: var(--sans);
+}
+body.en .sidebar{border-inline-end:none;border-inline-start:1px solid var(--glass-line)}
+body.en .nav-link.active::before{left:auto;right:0;background:var(--neon-cyan)}
+body.en .stat-card::before{left:auto;right:0}
+body.en .terminal-line{text-align:left}
+body.en .settings-field{text-align:left}
+
+/* Scrollbar customizations */
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(0,242,254,.15);border-radius:10px;border:2px solid var(--void)}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,242,254,.3)}
+
+/* Responsiveness */
+@media(max-width:1150px){
+  .dashboard{grid-template-columns:1fr}
+  .sidebar{display:none} 
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .map-chart-split,.ops-system-split,.analytics-grid,.server-grid{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+  .stats-grid{grid-template-columns:1fr}
+  .topbar{padding:16px 20px}
+  .content{padding:20px}
+}
+
+/* Modal styling */
+.modal {
+  position: fixed; inset: 0; z-index: 1100;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(3, 5, 12, 0.85); backdrop-filter: blur(10px);
+}
+.modal-inner {
+  position: relative; background: var(--panel); border: 1px solid var(--glass-line);
+  border-radius: var(--r); padding: 40px; width: 90%; max-width: 480px; text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+.modal-inner::before, .modal-inner::after {
+  content: ""; position: absolute; width: 14px; height: 14px; pointer-events: none; opacity: 0.7;
+}
+.modal-inner::before { top: 12px; left: 12px; border-top: 2px solid var(--neon-cyan); border-left: 2px solid var(--neon-cyan); }
+.modal-inner::after { bottom: 12px; right: 12px; border-bottom: 2px solid var(--neon-cyan); border-right: 2px solid var(--neon-cyan); }
+
+.modal-close {
+  position: absolute; top: 16px; right: 16px; background: transparent; border: none;
+  color: var(--soft); cursor: pointer; font-size: 18px; transition: color 0.2s;
+}
+.modal-close:hover { color: #fff; }
+.mp-icon {
+  width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center;
+  background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--neon-amber); font-size: 24px; margin: 0 auto 20px;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.2);
+}
+.modal-inner h1 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+#previewMsg { font-size: 14px; color: var(--soft); line-height: 1.6; margin-bottom: 24px; }
+.mp-foot { font-size: 11px; color: var(--muted); font-family: var(--mono); text-transform: uppercase; letter-spacing: 1px; }
+
+/* Login Screen */
+.login-screen {
+  position: fixed; inset: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--void);
+}
+.login-card {
+  position: relative; background: var(--panel); backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-line); border-radius: var(--r);
+  padding: 40px; width: 100%; max-width: 420px; text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+.login-card::before, .login-card::after {
+  content: ""; position: absolute; width: 14px; height: 14px; pointer-events: none; opacity: 0.7;
+}
+.login-card::before { top: 12px; left: 12px; border-top: 2px solid var(--neon-cyan); border-left: 2px solid var(--neon-cyan); }
+.login-card::after { bottom: 12px; right: 12px; border-bottom: 2px solid var(--neon-cyan); border-right: 2px solid var(--neon-cyan); }
+
+.login-logo {
+  width: 64px; height: 64px; border-radius: 20px; display: grid; place-items: center;
+  background: var(--grad-nebula); color: #03050c; font-size: 28px; margin: 0 auto 20px;
+  box-shadow: 0 8px 24px var(--neon-cyan-glow);
+}
+.login-card h1 { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.login-sub { font-size: 13px; color: var(--soft); margin-bottom: 28px; }
+.input-wrap {
+  position: relative; display: flex; align-items: center; margin-bottom: 20px;
+}
+.input-wrap i {
+  position: absolute; right: 16px; color: var(--muted); font-size: 16px; transition: color 0.2s;
+}
+.input-wrap input {
+  width: 100%; background: rgba(3, 5, 12, 0.6); border: 1px solid var(--glass-line);
+  border-radius: var(--r-sm); color: #fff; padding: 14px 44px 14px 16px;
+  font-family: var(--sans); font-size: 14px; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+  text-align: center;
+}
+.input-wrap input:focus {
+  border-color: var(--neon-cyan); box-shadow: 0 0 12px var(--neon-cyan-glow);
+}
+.input-wrap input:focus + i { color: var(--neon-cyan); }
+
+/* Buttons */
+.btn-block { width: 100%; }
+.btn-primary {
+  background: var(--grad-nebula); color: #03050c; border: none; border-radius: var(--r-sm);
+  padding: 14px 20px; font-family: var(--sans); font-size: 14px; font-weight: 600;
+  cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  box-shadow: 0 8px 20px var(--neon-cyan-glow); transition: 0.22s;
+}
+.btn-primary:hover {
+  transform: translateY(-2px); box-shadow: 0 12px 28px var(--neon-cyan-glow);
+}
+.login-error { font-size: 12px; color: var(--neon-rose); margin-top: 14px; min-height: 18px; }
+.login-back {
+  display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--soft);
+  text-decoration: none; margin-top: 24px; transition: color 0.2s;
+}
+.login-back:hover { color: #fff; }
+
+/* Custom radio visual toggle buttons styling */
+.radio-shim {
+  transition: 0.22s;
+}
+.radio-shim.active {
+  border-color: var(--neon-cyan) !important;
+  color: #fff !important;
+  background: rgba(0, 242, 254, 0.08) !important;
+  box-shadow: 0 0 10px var(--neon-cyan-glow) !important;
+}
+
+/* Sections items layout list */
+.sec-item {
+  display: flex; align-items: center; gap: 16px; padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.015); border: 1px solid var(--glass-line);
+  border-radius: var(--r-sm); text-align: start; transition: .2s;
+}
+.sec-item.hidden-sec {
+  opacity: 0.6; border-color: rgba(255,255,255,0.02);
+}
+.sec-item i {
+  font-size: 18px; color: var(--neon-cyan); width: 24px; text-align: center;
+}
+.sec-name {
+  flex: 1; font-weight: 600; color: #fff; font-size: 13.5px;
+}
+.sec-state {
+  font-family: var(--mono); font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: 700;
+}
+.sec-state.on {
+  color: var(--neon-emerald); background: rgba(16,185,129,0.1);
+}
+.sec-state.off {
+  color: var(--neon-rose); background: rgba(251,113,133,0.1);
+}
+
+.commit-list li {
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid var(--glass-line);
+  border-radius: var(--r-sm);
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: start;
+}
+.commit-list li .commit-msg {
+  font-weight: 600; color: #fff; font-size: 13.5px;
+}
+.commit-list li .commit-meta {
+  display: flex; gap: 12px; font-size: 11px; color: var(--muted); align-items:center;
+}
+.commit-list li .commit-sha {
+  font-family: var(--mono); color: var(--neon-violet); background: rgba(217,70,239,.1);
+  padding: 2px 6px; border-radius: 4px; font-size:10px;
+}
+
+.log-list li {
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid var(--glass-line);
+  border-radius: var(--r-sm);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-align: start;
+}
+.log-list li .log-ic {
+  width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(0, 242, 254, 0.06); border: 1px solid var(--glass-line); color: var(--neon-cyan);
+}
+.log-list li .log-body {
+  flex: 1; font-weight: 500; color: #fff; font-size:13.5px;
+}
+.log-list li .log-time {
+  font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 4px;
+}
+
+[hidden] { display: none !important; }
+</style>
 </head>
 <body>
+<div class="bg-layer"><div class="aurora a1"></div><div class="aurora a2"></div><div class="aurora a3"></div></div>
+<div class="grid-overlay"></div><div class="relief-contour"></div><div class="grain-texture"></div>
 
 <!-- ===== Login Gate ===== -->
 <div id="loginScreen" class="login-screen">
-    <div class="login-card">
-        <div class="login-logo"><i class="fa-solid fa-shield-halved"></i></div>
-        <h1>لوحة التحكم</h1>
-        <p class="login-sub">بوابة نظم المعلومات الجغرافية</p>
-        <form id="loginForm" autocomplete="off">
-            <div class="input-wrap">
-                <i class="fa-solid fa-lock"></i>
-                <input type="password" id="passwordInput" placeholder="كلمة المرور" autocomplete="current-password" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">
-                <i class="fa-solid fa-right-to-bracket"></i> دخول
-            </button>
-            <p id="loginError" class="login-error"></p>
-        </form>
-        <a href="../" class="login-back"><i class="fa-solid fa-arrow-right"></i> العودة للموقع</a>
-    </div>
+  <div class="login-card">
+    <div class="login-logo"><i class="fa-solid fa-shield-halved"></i></div>
+    <h1 data-tr="login-title">لوحة التحكم</h1>
+    <p class="login-sub" data-tr="login-sub">بوابة نظم المعلومات الجغرافية</p>
+    <form id="loginForm" autocomplete="off">
+      <div class="input-wrap">
+        <input type="password" id="passwordInput" placeholder="كلمة المرور" autocomplete="current-password" required>
+        <i class="fa-solid fa-lock"></i>
+      </div>
+      <button type="submit" class="btn-primary btn-block">
+        <i class="fa-solid fa-right-to-bracket"></i> <span data-tr="login-btn">دخول</span>
+      </button>
+      <p id="loginError" class="login-error"></p>
+    </form>
+    <a href="../" class="login-back"><i class="fa-solid fa-arrow-right"></i> <span data-tr="login-back">العودة للموقع</span></a>
+  </div>
 </div>
 
 <!-- ===== Dashboard ===== -->
 <div id="dashboard" class="dashboard" hidden>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-earth-asia"></i></div>
+      <div class="brand-text">
+        <b data-tr="brand-title">محطة التحكم</b>
+        <span>GIS · OPERATIONS</span>
+      </div>
+    </div>
+    <nav class="nav">
+      <div class="nav-sec" data-tr="nav-monitor">المراقبة والمزامنة</div>
+      <a href="#overview" class="nav-link active" data-view="overview"><i class="fa-solid fa-square-poll-vertical"></i> <span data-tr="nav-overview">نظرة عامة</span></a>
+      <a href="#analytics" class="nav-link" data-view="analytics"><i class="fa-solid fa-chart-line"></i> <span data-tr="nav-analytics">الزوار والتحليلات</span></a>
+      <a href="#performance" class="nav-link" data-view="performance"><i class="fa-solid fa-server"></i> <span data-tr="nav-performance">الأداء والتوافر</span></a>
+      
+      <div class="nav-sec" data-tr="nav-control">الإدارة والتحكم</div>
+      <a href="#maintenance" class="nav-link" data-view="maintenance"><i class="fa-solid fa-screwdriver-wrench"></i> <span data-tr="nav-maintenance">وضع الصيانة</span></a>
+      <a href="#content" class="nav-link" data-view="content"><i class="fa-solid fa-file-pen"></i> <span data-tr="nav-content">محرر المحتوى</span></a>
+      
+      <div class="nav-sec" data-tr="nav-system">النظام والمستودع</div>
+      <a href="#site" class="nav-link" data-view="site"><i class="fa-solid fa-code-branch"></i> <span data-tr="nav-git">إدارة Git</span></a>
+      <a href="#log" class="nav-link" data-view="log"><i class="fa-solid fa-clock-rotate-left"></i> <span data-tr="nav-log">سجل العمليات</span></a>
+      <a href="#settings" class="nav-link" data-view="settings"><i class="fa-solid fa-gear"></i> <span data-tr="nav-settings">الإعدادات الرقمية</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <a class="nav-link" href="../index.html"><i class="fa-solid fa-arrow-up-right-from-square"></i> <span data-tr="nav-open-site">الموقع الرئيسي</span></a>
+      <button id="logoutBtn" class="nav-link logout" style="background:transparent; border:none; width:100%; text-align:start; cursor:pointer;"><i class="fa-solid fa-right-from-bracket"></i> <span data-tr="nav-logout">تسجيل الخروج</span></button>
+    </div>
+  </aside>
 
-    <aside class="sidebar">
-        <div class="brand">
-            <span class="brand-icon"><i class="fa-solid fa-earth-asia"></i></span>
-            <span class="brand-text">لوحة التحكم</span>
-        </div>
-        <nav class="nav">
-            <a href="#overview" class="nav-link active" data-view="overview"><i class="fa-solid fa-gauge-high"></i> نظرة عامة</a>
-            <a href="#analytics" class="nav-link" data-view="analytics"><i class="fa-solid fa-chart-line"></i> الزوار</a>
-            <a href="#performance" class="nav-link" data-view="performance"><i class="fa-solid fa-bolt-lightning"></i> الأداء والتوفر</a>
-            <a href="#maintenance" class="nav-link" data-view="maintenance"><i class="fa-solid fa-screwdriver-wrench"></i> الصيانة</a>
-            <a href="#content" class="nav-link" data-view="content"><i class="fa-solid fa-bullhorn"></i> المحتوى</a>
-            <a href="#site" class="nav-link" data-view="site"><i class="fa-solid fa-circle-info"></i> معلومات الموقع</a>
-            <a href="#log" class="nav-link" data-view="log"><i class="fa-solid fa-clock-rotate-left"></i> السجل</a>
-            <a href="#settings" class="nav-link" data-view="settings"><i class="fa-solid fa-gear"></i> الإعدادات</a>
-        </nav>
-        <div class="sidebar-footer">
-            <a href="../" target="_blank" class="nav-link"><i class="fa-solid fa-up-right-from-square"></i> فتح الموقع</a>
-            <button id="logoutBtn" class="nav-link logout"><i class="fa-solid fa-right-from-bracket"></i> خروج</button>
-        </div>
-    </aside>
+  <!-- Main Panel -->
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs">
+        <div class="kicker" id="liveIndicator" data-tr="topbar-live">LIVE SYSTEM · مباشر</div>
+        <h1 id="viewTitle" data-tr="topbar-title">لوحة التحكم الجيومكانية</h1>
+      </div>
+      <div class="hud-panel">
+        <span id="siteStatusPill" class="hud-readout status-online"><span class="status-pulse"></span> <span>يعمل</span></span>
+        <div class="hud-readout"><span id="localClock">--:--:--</span></div>
+        <div class="hud-readout" id="coordTracker" style="min-width: 140px;">24.7136°N · 46.6753°E</div>
+        <div class="top-iconbtn" id="langSwitch" title="Switch Language">EN</div>
+        <div class="top-iconbtn" id="installBtn" title="تثبيت كتطبيق" hidden><i class="fa-solid fa-download"></i></div>
+        <div class="top-iconbtn" id="themeBtn" title="تبديل المظهر"><i class="fa-solid fa-moon"></i></div>
+        <div class="top-iconbtn" id="refreshBtn" title="تحديث البيانات"><i class="fa-solid fa-rotate"></i></div>
+      </div>
+    </header>
 
-    <main class="main">
-        <header class="topbar">
-            <button id="menuToggle" class="icon-btn mobile-only"><i class="fa-solid fa-bars"></i></button>
-            <div class="topbar-title" id="viewTitle">نظرة عامة</div>
-            <div class="topbar-right">
-                <span id="siteStatusPill" class="status-pill status-online"><i class="fa-solid fa-circle"></i> <span>يعمل</span></span>
-                <button id="themeBtn" class="icon-btn" title="تبديل المظهر"><i class="fa-solid fa-moon"></i></button>
-                <button id="refreshBtn" class="icon-btn" title="تحديث"><i class="fa-solid fa-rotate"></i></button>
+    <div class="content">
+      
+      <!-- ========================================== -->
+      <!-- VIEW 1: OVERVIEW (نظرة عامة) -->
+      <!-- ========================================== -->
+      <section class="view active" data-view="overview" id="view-overview">
+        <!-- 4 Stats Cards Grid -->
+        <div class="stats-grid">
+          <!-- System Status Card -->
+          <div class="stat-card" id="ov-status-icon-container">
+            <div class="stat-header">
+              <div class="stat-icon green" id="ov-status-icon"><i class="fa-solid fa-satellite-dish"></i></div>
+              <div class="stat-trend pulse"><span class="status-pulse"></span><span data-tr="stat-live">نشط</span></div>
             </div>
-        </header>
+            <div class="stat-value" id="ov-status" data-tr="stat-status-val">قيد العمل</div>
+            <div class="stat-label" data-tr="stat-status-lbl">الحالة الفورية للبوابة</div>
+            <div style="margin-top: 15px; border-top: 1px solid rgba(0,242,254,.08); padding-top: 10px; font-family: var(--mono); font-size: 10px; color: var(--muted); display: flex; justify-content: space-between;">
+              <span>SRV: RIYADH-01</span>
+              <span>PING: 14ms</span>
+            </div>
+          </div>
 
-        <div class="content">
+          <!-- Total Traffic Card -->
+          <div class="stat-card violet">
+            <div class="stat-header">
+              <div class="stat-icon violet"><i class="fa-solid fa-chart-column"></i></div>
+              <div class="stat-trend up"><i class="fa-solid fa-arrow-trend-up"></i> +12%</div>
+            </div>
+            <div class="stat-value" id="ov-total">—</div>
+            <div class="stat-label" data-tr="stat-traffic-lbl">إجمالي زيارات الموقع (شهري)</div>
+            <div class="stat-sparkline violet" id="sp1"></div>
+          </div>
 
-            <!-- ===== Overview ===== -->
-            <section class="view active" data-view="overview">
-                <div class="stat-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon" id="ov-status-icon"><i class="fa-solid fa-signal"></i></div>
-                        <div class="stat-body"><div class="stat-value" id="ov-status">يعمل</div><div class="stat-label">حالة الموقع</div></div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon teal"><i class="fa-solid fa-chart-simple"></i></div>
-                        <div class="stat-body"><div class="stat-value" id="ov-total">—</div><div class="stat-label">إجمالي الزيارات</div></div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon gold"><i class="fa-solid fa-calendar-week"></i></div>
-                        <div class="stat-body"><div class="stat-value" id="ov-week">—</div><div class="stat-label">آخر 7 أيام <span id="ov-week-delta" class="delta flat">—</span></div></div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon green"><i class="fa-solid fa-users"></i></div>
-                        <div class="stat-body"><div class="stat-value" id="ov-today">—</div><div class="stat-label">زوار اليوم</div></div>
-                    </div>
-                </div>
+          <!-- Live Sessions Card -->
+          <div class="stat-card emerald">
+            <div class="stat-header">
+              <div class="stat-icon emerald"><i class="fa-solid fa-users-rays"></i></div>
+              <div class="stat-trend pulse"><span></span> <span id="ov-week-delta" class="delta flat">—</span></div>
+            </div>
+            <div class="stat-value" id="ov-week">—</div>
+            <div class="stat-label" data-tr="stat-sessions-lbl">زيارات آخر 7 أيام</div>
+            <div class="stat-sparkline" id="sp2"></div>
+          </div>
 
-                <div class="panel">
-                    <div class="panel-head"><h3><i class="fa-solid fa-chart-area"></i> الزيارات خلال 14 يوم</h3></div>
-                    <div class="chart-wrap"><canvas id="miniChart" height="120"></canvas></div>
-                </div>
-
-                <div class="two-col">
-                    <div class="panel">
-                        <div class="panel-head"><h3><i class="fa-solid fa-fire"></i> أكثر الصفحات زيارة</h3></div>
-                        <ul class="rank-list" id="ov-toppages"><li class="empty">— لا توجد بيانات —</li></ul>
-                    </div>
-                    <div class="panel">
-                        <div class="panel-head"><h3><i class="fa-solid fa-bolt"></i> إجراءات سريعة</h3></div>
-                        <div class="quick-actions">
-                            <button class="qa-btn" data-jump="maintenance"><i class="fa-solid fa-power-off"></i> وضع الصيانة</button>
-                            <button class="qa-btn" data-jump="content"><i class="fa-solid fa-bullhorn"></i> إعلان جديد</button>
-                            <a class="qa-btn" href="../" target="_blank"><i class="fa-solid fa-eye"></i> معاينة الموقع</a>
-                            <button class="qa-btn" id="qa-refresh"><i class="fa-solid fa-rotate"></i> تحديث الأرقام</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===== Analytics ===== -->
-            <section class="view" data-view="analytics">
-                <div id="analyticsUnconfigured" class="notice notice-info" hidden>
-                    <i class="fa-solid fa-circle-info"></i>
-                    <div>
-                        <strong>الإجمالي رقم حقيقي من GoatCounter ✓</strong>
-                        <p>التفاصيل (الرسم، الصفحات، المتصفحات، الأجهزة) تحتاج <a href="#settings" class="link-jump" data-jump="settings">مفتاح API</a>. حالياً بعضها بيانات توضيحية.</p>
-                    </div>
-                </div>
-
-                <div class="subtabs">
-                    <button class="subtab active" data-sub="an-traffic">الزيارات</button>
-                    <button class="subtab" data-sub="an-tech">المتصفحات والأنظمة</button>
-                    <button class="subtab" data-sub="an-devices">الأجهزة والدول</button>
-                </div>
-
-                <div class="subview active" data-sub="an-traffic">
-                    <div class="stat-grid">
-                        <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-user"></i></div><div class="stat-body"><div class="stat-value" id="an-today">—</div><div class="stat-label">اليوم</div></div></div>
-                        <div class="stat-card"><div class="stat-icon gold"><i class="fa-solid fa-calendar-day"></i></div><div class="stat-body"><div class="stat-value" id="an-yesterday">—</div><div class="stat-label">أمس</div></div></div>
-                        <div class="stat-card"><div class="stat-icon teal"><i class="fa-solid fa-calendar-week"></i></div><div class="stat-body"><div class="stat-value" id="an-week">—</div><div class="stat-label">7 أيام <span id="an-week-delta" class="delta flat">—</span></div></div></div>
-                        <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-chart-simple"></i></div><div class="stat-body"><div class="stat-value" id="an-total">—</div><div class="stat-label">الإجمالي</div></div></div>
-                    </div>
-                    <div class="panel">
-                        <div class="panel-head"><h3><i class="fa-solid fa-chart-line"></i> اتجاه الزيارات (30 يوم)</h3></div>
-                        <div class="chart-wrap"><canvas id="bigChart" height="110"></canvas></div>
-                    </div>
-                    <div class="two-col">
-                        <div class="panel">
-                            <div class="panel-head"><h3><i class="fa-solid fa-fire"></i> أكثر الصفحات</h3></div>
-                            <ul class="rank-list" id="an-toppages"><li class="empty">— لا توجد بيانات —</li></ul>
-                        </div>
-                        <div class="panel">
-                            <div class="panel-head"><h3><i class="fa-solid fa-calendar-check"></i> أنشط أيام الأسبوع</h3></div>
-                            <ul class="rank-list" id="an-weekdays"><li class="empty">— لا توجد بيانات —</li></ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="subview" data-sub="an-tech">
-                    <div class="two-col">
-                        <div class="panel">
-                            <div class="panel-head"><h3><i class="fa-solid fa-compass"></i> المتصفحات</h3></div>
-                            <ul class="rank-list" id="an-browsers"><li class="empty">— يحتاج مفتاح API —</li></ul>
-                        </div>
-                        <div class="panel">
-                            <div class="panel-head"><h3><i class="fa-solid fa-desktop"></i> أنظمة التشغيل</h3></div>
-                            <ul class="rank-list" id="an-systems"><li class="empty">— يحتاج مفتاح API —</li></ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="subview" data-sub="an-devices">
-                    <div class="two-col">
-                        <div class="panel">
-                            <div class="panel-head"><h3><i class="fa-solid fa-mobile-screen"></i> نوع الجهاز</h3></div>
-                            <div class="donut-wrap">
-                                <div class="chart-wrap" style="width:150px;height:150px"><canvas id="deviceChart" width="150" height="150"></canvas></div>
-                                <div class="donut-legend" id="an-devices-legend"><div class="dl">— يحتاج مفتاح API —</div></div>
-                            </div>
-                        </div>
-                        <div class="panel">
-                            <div class="panel-head"><h3><i class="fa-solid fa-earth-americas"></i> الدول</h3></div>
-                            <ul class="rank-list" id="an-countries"><li class="empty">— يحتاج مفتاح API —</li></ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===== Performance + Uptime ===== -->
-            <section class="view" data-view="performance">
-                <div class="panel">
-                    <div class="panel-head">
-                        <h3><i class="fa-solid fa-heart-pulse"></i> توفّر الموقع (Uptime)</h3>
-                        <button id="pingBtn" class="btn btn-ghost"><i class="fa-solid fa-satellite-dish"></i> فحص الآن</button>
-                    </div>
-                    <div class="uptime-row">
-                        <div class="uptime-led" id="uptimeLed"><i class="fa-solid fa-question"></i></div>
-                        <div class="uptime-info">
-                            <h2 id="uptimeTitle">لم يتم الفحص بعد</h2>
-                            <p id="uptimeDesc">اضغط «فحص الآن» لقياس استجابة الموقع.</p>
-                        </div>
-                    </div>
-                    <div class="notice notice-info" style="margin-top:18px">
-                        <i class="fa-solid fa-bell"></i>
-                        <div>
-                            <strong>مراقبة مستمرة وتنبيه عند التوقف</strong>
-                            <p>الفحص هنا لحظي عند الطلب. لمراقبة على مدار الساعة وإشعار يوصلك إذا توقف الموقع، أنشئ مراقباً مجانياً على <a href="https://uptimerobot.com" target="_blank">UptimeRobot</a> للرابط <code>i6naf.github.io/webgis</code>.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel">
-                    <div class="panel-head">
-                        <h3><i class="fa-solid fa-gauge-high"></i> سرعة الموقع (Google PageSpeed)</h3>
-                        <button id="psiBtn" class="btn btn-primary"><i class="fa-solid fa-play"></i> قياس الأداء</button>
-                    </div>
-                    <div id="psiEmpty" class="perf-empty">اضغط «قياس الأداء» — يستغرق 15-30 ثانية ويجلب درجة حقيقية من Google.</div>
-                    <div id="psiResult" hidden>
-                        <div class="perf-wrap">
-                            <div class="gauge">
-                                <svg width="160" height="160">
-                                    <circle cx="80" cy="80" r="68" fill="none" stroke="rgba(136,158,193,.15)" stroke-width="12"/>
-                                    <circle id="gaugeArc" cx="80" cy="80" r="68" fill="none" stroke="#10b981" stroke-width="12" stroke-linecap="round" stroke-dasharray="427" stroke-dashoffset="427"/>
-                                </svg>
-                                <div class="gauge-num" id="psiScore">0</div>
-                                <div class="gauge-label">الأداء (جوال)</div>
-                            </div>
-                            <div class="perf-metrics">
-                                <div class="metric"><div class="m-val" id="psi-fcp">—</div><div class="m-lab">First Contentful Paint</div></div>
-                                <div class="metric"><div class="m-val" id="psi-lcp">—</div><div class="m-lab">Largest Contentful Paint</div></div>
-                                <div class="metric"><div class="m-val" id="psi-tbt">—</div><div class="m-lab">Total Blocking Time</div></div>
-                                <div class="metric"><div class="m-val" id="psi-cls">—</div><div class="m-lab">Cumulative Layout Shift</div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===== Maintenance ===== -->
-            <section class="view" data-view="maintenance">
-                <div class="panel maintenance-panel">
-                    <div class="maint-status" id="maintStatusBox">
-                        <div class="maint-led" id="maintLed"></div>
-                        <div>
-                            <h2 id="maintStatusTitle">الموقع يعمل بشكل طبيعي</h2>
-                            <p id="maintStatusDesc">الزوار يستطيعون الوصول للموقع الآن.</p>
-                        </div>
-                    </div>
-
-                    <div class="maint-toggle-row">
-                        <label class="switch"><input type="checkbox" id="maintToggle"><span class="slider"></span></label>
-                        <span class="maint-toggle-label">تفعيل وضع الصيانة الآن (إغلاق الموقع للزوار)</span>
-                    </div>
-
-                    <div class="field">
-                        <label for="maintMessage">رسالة الصيانة (تظهر للزوار)</label>
-                        <textarea id="maintMessage" rows="3">نعتذر، الموقع تحت الصيانة حالياً. نعود إليكم قريباً بإذن الله.</textarea>
-                    </div>
-
-                    <div class="maint-toggle-row">
-                        <label class="switch"><input type="checkbox" id="schedToggle"><span class="slider"></span></label>
-                        <span class="maint-toggle-label">جدولة صيانة تلقائية (تبدأ وتنتهي في وقت محدد)</span>
-                    </div>
-                    <div class="two-col" id="schedFields" hidden>
-                        <div class="field"><label for="schedFrom">يبدأ في</label><input type="datetime-local" id="schedFrom"></div>
-                        <div class="field"><label for="schedTo">ينتهي في</label><input type="datetime-local" id="schedTo"></div>
-                    </div>
-
-                    <div class="maint-actions">
-                        <button id="maintSaveBtn" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-up"></i> حفظ ونشر التغيير</button>
-                        <button id="maintPreviewBtn" class="btn btn-ghost"><i class="fa-solid fa-eye"></i> معاينة شاشة الصيانة</button>
-                    </div>
-
-                    <div class="notice notice-warn" id="maintTokenWarn" hidden>
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                        <div>لتطبيق التغييرات مباشرة، أضف <strong>رمز GitHub</strong> في <a href="#settings" class="link-jump" data-jump="settings">الإعدادات</a>.</div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===== Content (announcement + sections) ===== -->
-            <section class="view" data-view="content">
-                <div class="subtabs">
-                    <button class="subtab active" data-sub="ct-ann">شريط الإعلان</button>
-                    <button class="subtab" data-sub="ct-sec">إظهار/إخفاء الأقسام</button>
-                </div>
-
-                <div class="subview active" data-sub="ct-ann">
-                    <div class="panel">
-                        <div class="panel-head"><h3><i class="fa-solid fa-bullhorn"></i> شريط إعلان للزوار</h3></div>
-                        <p class="muted">يظهر شريطاً في أسفل الموقع لكل الزوار — مناسب لإعلان دورة جديدة أو خبر مهم.</p>
-
-                        <div class="maint-toggle-row" style="margin:6px 0 16px">
-                            <label class="switch"><input type="checkbox" id="annToggle"><span class="slider"></span></label>
-                            <span class="maint-toggle-label">تفعيل شريط الإعلان</span>
-                        </div>
-
-                        <div class="field"><label for="annText">نص الإعلان</label>
-                            <textarea id="annText" rows="2" placeholder="مثال: انطلقت دورة QGIS الجديدة — سجّل الآن!"></textarea></div>
-
-                        <div class="field"><label>نوع الإعلان</label>
-                            <div class="seg">
-                                <label><input type="radio" name="annType" value="info" checked><span class="seg-box"><i class="fa-solid fa-circle-info"></i> معلومة</span></label>
-                                <label><input type="radio" name="annType" value="success"><span class="seg-box"><i class="fa-solid fa-circle-check"></i> نجاح</span></label>
-                                <label><input type="radio" name="annType" value="warning"><span class="seg-box"><i class="fa-solid fa-triangle-exclamation"></i> تنبيه</span></label>
-                            </div>
-                        </div>
-
-                        <div class="two-col">
-                            <div class="field"><label for="annLink">رابط (اختياري)</label><input type="text" id="annLink" placeholder="https://..."></div>
-                            <div class="field"><label for="annLinkText">نص الرابط</label><input type="text" id="annLinkText" placeholder="مثال: سجّل الآن"></div>
-                        </div>
-
-                        <div class="field"><label>معاينة</label>
-                            <div class="ann-preview"><div class="ann-bar info" id="annPreview"><i class="fa-solid fa-circle-info"></i> <span>—</span></div></div>
-                        </div>
-
-                        <div class="maint-actions"><button id="annSaveBtn" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-up"></i> حفظ ونشر الإعلان</button></div>
-                    </div>
-                </div>
-
-                <div class="subview" data-sub="ct-sec">
-                    <div class="panel">
-                        <div class="panel-head"><h3><i class="fa-solid fa-eye-slash"></i> التحكم بأقسام الموقع</h3></div>
-                        <p class="muted">أطفئ أي قسم لإخفائه عن الزوار مؤقتاً (يُخفى من الصفحة ومن القائمة). يبقى في الكود ويظهر فوراً عند إعادة تفعيله.</p>
-                        <div class="sec-list" id="secList"></div>
-                        <div class="maint-actions" style="margin-top:18px"><button id="secSaveBtn" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-up"></i> حفظ ونشر التغييرات</button></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===== Site Info ===== -->
-            <section class="view" data-view="site">
-                <div class="two-col">
-                    <div class="panel">
-                        <div class="panel-head"><h3><i class="fa-brands fa-github"></i> المستودع</h3></div>
-                        <ul class="info-list" id="repoInfo">
-                            <li><span>الاسم</span><b id="si-repo">—</b></li>
-                            <li><span>آخر تحديث</span><b id="si-updated">—</b></li>
-                            <li><span>النجوم</span><b id="si-stars">—</b></li>
-                            <li><span>الحالة</span><b id="si-visibility">—</b></li>
-                        </ul>
-                        <a id="si-repolink" href="#" target="_blank" class="btn btn-ghost btn-block"><i class="fa-brands fa-github"></i> فتح على GitHub</a>
-                    </div>
-                    <div class="panel">
-                        <div class="panel-head"><h3><i class="fa-solid fa-code-commit"></i> آخر التغييرات</h3></div>
-                        <ul class="commit-list" id="commitList"><li class="empty">— أضف رمز GitHub لعرض السجل —</li></ul>
-                    </div>
-                </div>
-                <div class="panel">
-                    <div class="panel-head"><h3><i class="fa-solid fa-rocket"></i> النشر</h3></div>
-                    <ul class="info-list">
-                        <li><span>الرابط المباشر</span><b><a href="https://i6naf.github.io/webgis/" target="_blank">i6naf.github.io/webgis</a></b></li>
-                        <li><span>الاستضافة</span><b>GitHub Pages</b></li>
-                        <li><span>آخر فحص</span><b id="si-lastcheck">—</b></li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- ===== Activity Log ===== -->
-            <section class="view" data-view="log">
-                <div class="panel">
-                    <div class="panel-head">
-                        <h3><i class="fa-solid fa-clock-rotate-left"></i> سجل العمليات</h3>
-                        <button id="clearLogBtn" class="btn btn-ghost"><i class="fa-solid fa-trash"></i> مسح السجل</button>
-                    </div>
-                    <p class="muted">يسجّل العمليات التي قمت بها من هذا المتصفح (تفعيل صيانة، نشر إعلان، إخفاء قسم...).</p>
-                    <ul class="log-list" id="logList"><li class="empty" style="justify-content:center;padding:24px;color:var(--text-muted)">— لا توجد عمليات بعد —</li></ul>
-                </div>
-            </section>
-
-            <!-- ===== Settings ===== -->
-            <section class="view" data-view="settings">
-                <div class="panel">
-                    <div class="panel-head"><h3><i class="fa-brands fa-github"></i> ربط GitHub</h3></div>
-                    <p class="muted">يُستخدم لنشر التغييرات (صيانة، إعلانات، أقسام) وقراءة معلومات المستودع. الرمز يُحفظ في متصفحك فقط.</p>
-                    <div class="field">
-                        <label for="ghToken">رمز GitHub (Fine-grained token)</label>
-                        <div class="input-inline">
-                            <input type="password" id="ghToken" placeholder="github_pat_...">
-                            <button id="saveTokenBtn" class="btn btn-primary">حفظ</button>
-                            <button id="clearTokenBtn" class="btn btn-ghost">حذف</button>
-                        </div>
-                        <small id="ghTokenState" class="muted"></small>
-                    </div>
-                    <details class="howto">
-                        <summary>كيف أحصل على الرمز؟</summary>
-                        <ol>
-                            <li>افتح <a href="https://github.com/settings/personal-access-tokens/new" target="_blank">صفحة إنشاء Fine-grained token</a></li>
-                            <li>الصلاحية: <b>Only select repositories → i6naF/webgis</b></li>
-                            <li>Permissions → Contents → <b>Read and write</b></li>
-                            <li>أنشئ الرمز وانسخه والصقه هنا</li>
-                        </ol>
-                    </details>
-                </div>
-
-                <div class="panel">
-                    <div class="panel-head"><h3><i class="fa-solid fa-chart-line"></i> عدّاد الزوار (GoatCounter)</h3></div>
-                    <p class="muted">موقعك مربوط مسبقاً بحساب <b>webgis-i6na</b>. الإجمالي يُقرأ تلقائياً. لعرض التفاصيل أضف مفتاح API.</p>
-                    <div class="field">
-                        <label for="gcCode">اسم حساب GoatCounter</label>
-                        <div class="input-inline">
-                            <input type="text" id="gcCode" placeholder="webgis-i6na">
-                            <span class="suffix">.goatcounter.com</span>
-                            <button id="saveGcBtn" class="btn btn-primary">حفظ</button>
-                        </div>
-                        <small id="gcState" class="muted"></small>
-                    </div>
-                    <div class="field" style="margin-top:16px">
-                        <label for="gcToken">مفتاح API (يفعّل الرسم والمتصفحات والأجهزة والدول)</label>
-                        <div class="input-inline">
-                            <input type="password" id="gcToken" placeholder="الصق مفتاح GoatCounter API">
-                            <button id="saveGcTokBtn" class="btn btn-primary">حفظ</button>
-                        </div>
-                        <small id="gcTokenState" class="muted"></small>
-                    </div>
-                    <details class="howto">
-                        <summary>كيف أحصل على مفتاح API؟</summary>
-                        <ol>
-                            <li>ادخل على <a href="https://webgis-i6na.goatcounter.com/user/api" target="_blank">لوحة GoatCounter → API</a></li>
-                            <li>اضغط <b>Add token</b> وفعّل <b>Read statistics</b></li>
-                            <li>انسخ المفتاح والصقه هنا</li>
-                        </ol>
-                    </details>
-                </div>
-
-                <div class="panel">
-                    <div class="panel-head"><h3><i class="fa-solid fa-gauge"></i> مفتاح PageSpeed (اختياري)</h3></div>
-                    <p class="muted">قياس الأداء يعمل بدون مفتاح، لكن المفتاح يرفع حدّ الاستخدام. احصل عليه من Google Cloud (PageSpeed Insights API).</p>
-                    <div class="field">
-                        <div class="input-inline">
-                            <input type="password" id="psiKey" placeholder="AIza... (اختياري)">
-                            <button id="savePsiBtn" class="btn btn-primary">حفظ</button>
-                        </div>
-                        <small id="psiKeyState" class="muted"></small>
-                    </div>
-                </div>
-
-                <div class="panel">
-                    <div class="panel-head"><h3><i class="fa-solid fa-broom"></i> الجلسة</h3></div>
-                    <button id="forgetBtn" class="btn btn-ghost"><i class="fa-solid fa-eraser"></i> مسح كل البيانات المحفوظة في هذا المتصفح</button>
-                </div>
-            </section>
-
+          <!-- Page Performance Card -->
+          <div class="stat-card amber">
+            <div class="stat-header">
+              <div class="stat-icon amber"><i class="fa-solid fa-users"></i></div>
+              <div class="stat-trend pulse"><span></span> <span data-tr="stat-realtime">فوري</span></div>
+            </div>
+            <div class="stat-value" id="ov-today">—</div>
+            <div class="stat-label" data-tr="stat-today-lbl">زوار اليوم</div>
+            <div class="uptime-timeline" id="uptimeTimeline"></div>
+          </div>
         </div>
-    </main>
+
+        <!-- Map & Chart Split Row -->
+        <div class="map-chart-split">
+          <div class="card map-card">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-solid fa-map-location-dot"></i> <span data-tr="map-title">التوزع الجغرافي اللحظي للزوار</span></div>
+              <span class="card-tag">LEAFLET MAP</span>
+            </div>
+            <div class="map-wrapper">
+              <div id="liveMap"></div>
+              <div class="map-glow"></div>
+            </div>
+          </div>
+
+          <div class="card chart-card">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-solid fa-chart-line"></i> <span data-tr="chart-title">مراقبة تدفق الزيارات ومصادر البيانات</span></div>
+              <span class="card-tag">GOATCOUNTER CHART</span>
+            </div>
+            <div class="chart-container">
+              <div class="chart-scanline"></div>
+              <canvas id="miniChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lower Section: Controls & Git Monitor Split -->
+        <div class="ops-system-split">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-solid fa-fire"></i> <span data-tr="top-pages-title">الصفحات الأكثر زيارة</span></div>
+              <span class="card-tag">POPULAR</span>
+            </div>
+            <ul class="rank-list" id="ov-toppages">
+              <li class="empty">— لا توجد بيانات —</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-solid fa-bolt"></i> <span data-tr="quick-actions-title">إجراءات سريعة واختصارات</span></div>
+              <span class="card-tag">SYSTEM ACTION</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:16px; justify-content:center; height:100%; padding-bottom: 20px;">
+              <div class="git-actions-row">
+                <button class="git-action-btn qa-btn" data-jump="maintenance"><i class="fa-solid fa-power-off"></i> <span data-tr="qa-maint">وضع الصيانة</span></button>
+                <button class="git-action-btn qa-btn" data-jump="content"><i class="fa-solid fa-bullhorn"></i> <span data-tr="qa-announce">إعلان جديد</span></button>
+              </div>
+              <div class="git-actions-row">
+                <a class="git-action-btn" href="../" target="_blank" style="text-decoration:none;"><i class="fa-solid fa-eye"></i> <span data-tr="qa-preview">معاينة الموقع</span></a>
+                <button class="git-action-btn" id="qa-refresh"><i class="fa-solid fa-rotate"></i> <span data-tr="qa-reload">تحديث الأرقام</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 2: ANALYTICS (الزوار والتحليلات) -->
+      <!-- ========================================== -->
+      <section class="view" data-view="analytics" id="view-analytics">
+        <div id="analyticsUnconfigured" class="notice notice-info" hidden style="background: rgba(0, 242, 254, 0.05); border: 1px solid var(--glass-line); border-radius: var(--r-sm); padding: 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 14px; color: var(--soft); text-align: start;">
+          <i class="fa-solid fa-circle-info" style="color: var(--neon-cyan); font-size: 20px;"></i>
+          <div>
+            <strong style="color: #fff;" data-tr="gc-notice-title">إحصائيات GoatCounter الفورية نشطة ✓</strong>
+            <p style="font-size:12.5px; margin-top: 4px;" data-tr="gc-notice-desc">لعرض التفاصيل الدقيقة للمتصفحات والمواقع والدول، يرجى تفعيل مفتاح API في صفحة الإعدادات الرقمية.</p>
+          </div>
+        </div>
+
+        <div class="git-tabs" style="margin-bottom:10px;">
+          <button class="git-tab subtab active" data-sub="an-traffic" data-tr="an-tab-traffic">حجم الزيارات والتدفق</button>
+          <button class="git-tab subtab" data-sub="an-tech" data-tr="an-tab-tech">بيئة المتصفحات والأنظمة</button>
+          <button class="git-tab subtab" data-sub="an-devices" data-tr="an-tab-devices">الأجهزة والبلدان</button>
+        </div>
+
+        <!-- Subview 1: Traffic -->
+        <div class="subview active" data-sub="an-traffic" style="display:flex; flex-direction:column; gap:26px;">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-icon green"><i class="fa-solid fa-user"></i></div>
+              </div>
+              <div class="stat-value" id="an-today">—</div>
+              <div class="stat-label" data-tr="an-today-lbl">زيارات اليوم</div>
+            </div>
+            <div class="stat-card violet">
+              <div class="stat-header">
+                <div class="stat-icon violet"><i class="fa-solid fa-calendar-day"></i></div>
+              </div>
+              <div class="stat-value" id="an-yesterday">—</div>
+              <div class="stat-label" data-tr="an-yest-lbl">زيارات أمس</div>
+            </div>
+            <div class="stat-card emerald">
+              <div class="stat-header">
+                <div class="stat-icon emerald"><i class="fa-solid fa-calendar-week"></i></div>
+                <span id="an-week-delta" class="stat-trend up">—</span>
+              </div>
+              <div class="stat-value" id="an-week">—</div>
+              <div class="stat-label" data-tr="an-week-lbl">زيارات آخر 7 أيام</div>
+            </div>
+            <div class="stat-card amber">
+              <div class="stat-header">
+                <div class="stat-icon amber"><i class="fa-solid fa-chart-line"></i></div>
+              </div>
+              <div class="stat-value" id="an-total">—</div>
+              <div class="stat-label" data-tr="an-total-lbl">إجمالي زيارات البوابة</div>
+            </div>
+          </div>
+
+          <div class="card" style="height:350px; display:flex; flex-direction:column;">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-solid fa-chart-area"></i> <span data-tr="an-chart-title">اتجاه الزيارات وتراكم القراءات (30 يوم)</span></div>
+              <span class="card-tag">GOATCOUNTER API</span>
+            </div>
+            <div class="chart-container">
+              <div class="chart-scanline"></div>
+              <canvas id="bigChart"></canvas>
+            </div>
+          </div>
+
+          <div class="map-chart-split">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title"><i class="fa-solid fa-fire"></i> <span data-tr="an-top-pages">أكثر المسارات زيارة</span></div>
+                <span class="card-tag">PAGES</span>
+              </div>
+              <ul class="rank-list" id="an-toppages">
+                <li class="empty">— لا توجد بيانات —</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title"><i class="fa-solid fa-calendar-check"></i> <span data-tr="an-active-days">أنشط أيام الأسبوع بالزيارات</span></div>
+                <span class="card-tag">DAYS</span>
+              </div>
+              <ul class="rank-list" id="an-weekdays">
+                <li class="empty">— لا توجد بيانات —</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subview 2: Tech -->
+        <div class="subview" data-sub="an-tech" style="display:none;">
+          <div class="map-chart-split">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title"><i class="fa-solid fa-compass"></i> <span data-tr="an-browsers">المتصفحات الأكثر استخداماً</span></div>
+                <span class="card-tag">BROWSERS</span>
+              </div>
+              <ul class="rank-list" id="an-browsers">
+                <li class="empty">— يحتاج مفتاح API —</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title"><i class="fa-solid fa-desktop"></i> <span data-tr="an-os">أنظمة تشغيل الزوار</span></div>
+                <span class="card-tag">OPERATING SYSTEMS</span>
+              </div>
+              <ul class="rank-list" id="an-systems">
+                <li class="empty">— يحتاج مفتاح API —</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subview 3: Devices -->
+        <div class="subview" data-sub="an-devices" style="display:none;">
+          <div class="map-chart-split">
+            <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; height: 350px;">
+              <div class="card-header">
+                <div class="card-title"><i class="fa-solid fa-mobile-screen"></i> <span data-tr="an-devices">توزيع الأجهزة المستخدمة</span></div>
+                <span class="card-tag">DEVICES</span>
+              </div>
+              <div style="display:flex; align-items:center; justify-content:space-around; flex:1; padding: 20px 0;">
+                <div style="width:160px; height:160px; position:relative;">
+                  <canvas id="deviceChart" width="160" height="160"></canvas>
+                </div>
+                <div id="an-devices-legend" style="display:flex; flex-direction:column; gap:12px; font-family:var(--sans); font-size:13px;">
+                  <div class="dl">— يحتاج مفتاح API —</div>
+                </div>
+              </div>
+            </div>
+            <div class="card" style="height: 350px;">
+              <div class="card-header">
+                <div class="card-title"><i class="fa-solid fa-earth-americas"></i> <span data-tr="an-countries">بلدان ومواقع الزوار</span></div>
+                <span class="card-tag">COUNTRIES</span>
+              </div>
+              <ul class="rank-list" id="an-countries" style="max-height: 250px; overflow-y:auto;">
+                <li class="empty">— يحتاج مفتاح API —</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 3: PERFORMANCE (الأداء والتوافر) -->
+      <!-- ========================================== -->
+      <section class="view" data-view="performance" id="view-performance">
+        <div class="map-chart-split">
+          <!-- Uptime card -->
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; min-height: 250px;">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-solid fa-heart-pulse"></i> <span data-tr="perf-uptime">حالة توفر الموقع الفورية (Uptime)</span></div>
+              <button id="pingBtn" class="chart-btn"><i class="fa-solid fa-satellite-dish"></i> <span data-tr="perf-check-now">فحص الآن</span></button>
+            </div>
+            
+            <div style="display:flex; align-items:center; gap:20px; flex:1; padding: 20px 0;">
+              <div id="uptimeLed" class="uptime-led" style="width: 52px; height:52px; border-radius:15px; display:grid; place-items:center; font-size:22px; background: rgba(0,242,254,.03); border:1px solid var(--glass-line); color: var(--muted);">
+                <i class="fa-solid fa-question"></i>
+              </div>
+              <div style="text-align:start;">
+                <h2 id="uptimeTitle" style="font-size:18px; font-weight:700; color:#fff;" data-tr="perf-not-tested">لم يتم الفحص بعد</h2>
+                <p id="uptimeDesc" style="font-size:12.5px; color: var(--soft); margin-top: 4px;" data-tr="perf-tested-desc">اضغط «فحص الآن» لقياس سرعة واستجابة الموقع الحالي.</p>
+              </div>
+            </div>
+            
+            <div style="background: rgba(0, 242, 254, 0.04); border: 1px solid var(--glass-line); border-radius: var(--r-sm); padding: 14px; font-size: 11.5px; color: var(--soft); display: flex; align-items: center; gap: 10px;">
+              <i class="fa-solid fa-bell" style="color: var(--neon-cyan);"></i>
+              <span data-tr="perf-robot-tip">للمراقبة الفورية المستمرة، ننصح بربط مستودع GitHub بخدمة مراقبة خارجية مجانية.</span>
+            </div>
+          </div>
+
+          <!-- PageSpeed card -->
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; min-height: 250px;">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-solid fa-gauge-high"></i> <span data-tr="perf-speed">سرعة تحميل الصفحة (Google PageSpeed)</span></div>
+              <button id="psiBtn" class="git-action-btn" style="padding: 6px 12px; font-size: 12px;"><i class="fa-solid fa-play"></i> <span data-tr="perf-run-audit">قياس الأداء</span></button>
+            </div>
+            
+            <div id="psiEmpty" style="flex:1; display:grid; place-items:center; font-size: 13px; color: var(--muted); padding: 40px 20px; text-align:center;" data-tr="perf-empty-msg">
+              اضغط «قياس الأداء» — يستغرق الفحص 15-30 ثانية ويجلب نتيجة حقيقية من خوادم Google Insights.
+            </div>
+            
+            <div id="psiResult" hidden style="flex:1; display:flex; align-items:center; justify-content:space-around; padding: 20px 0;">
+              <div class="gauge" style="position:relative; width:160px; height:160px; display:grid; place-items:center;">
+                <svg width="160" height="160" style="transform: rotate(-90deg);">
+                  <circle cx="80" cy="80" r="68" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="12"/>
+                  <circle id="gaugeArc" cx="80" cy="80" r="68" fill="none" stroke="#10b981" stroke-width="12" stroke-linecap="round" stroke-dasharray="427" stroke-dashoffset="427"/>
+                </svg>
+                <div id="psiScore" style="position:absolute; font-family:var(--mono); font-size: 32px; font-weight: 700; color: var(--neon-emerald);">0</div>
+              </div>
+              
+              <div class="perf-metrics" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-family:var(--sans); font-size:12px; color: var(--soft);">
+                <div><div id="psi-fcp" style="font-family:var(--mono); color:#fff; font-size:14px; font-weight:700;">—</div>FCP</div>
+                <div><div id="psi-lcp" style="font-family:var(--mono); color:#fff; font-size:14px; font-weight:700;">—</div>LCP</div>
+                <div><div id="psi-tbt" style="font-family:var(--mono); color:#fff; font-size:14px; font-weight:700;">—</div>TBT</div>
+                <div><div id="psi-cls" style="font-family:var(--mono); color:#fff; font-size:14px; font-weight:700;">—</div>CLS</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Server metrics simulation row (Telemetry widgets) -->
+        <div class="server-grid" style="margin-top: 26px;">
+          <!-- Node health -->
+          <div class="card telemetry-card">
+            <div class="metric-ring">
+              <svg class="metric-ring-svg" viewBox="0 0 64 64">
+                <circle class="metric-ring-track" cx="32" cy="32" r="28"></circle>
+                <circle class="metric-ring-fill" id="cpuFill" cx="32" cy="32" r="28" stroke-dasharray="176" stroke-dashoffset="176" stroke="var(--neon-cyan)" filter="drop-shadow(0 0 4px var(--neon-cyan))"></circle>
+              </svg>
+              <div class="metric-ring-label" id="cpuText" style="color:var(--neon-cyan)">0%</div>
+            </div>
+            <div style="text-align:start;">
+              <div style="font-weight:700; font-size:14px;">CPU Load</div>
+              <div style="font-size:11.5px; color:var(--muted); font-family:var(--mono); margin-top:2px;">SYS: <span id="cpuRaw">0.12</span> LoadAvg</div>
+            </div>
+          </div>
+
+          <!-- Memory load -->
+          <div class="card telemetry-card">
+            <div class="metric-ring">
+              <svg class="metric-ring-svg" viewBox="0 0 64 64">
+                <circle class="metric-ring-track" cx="32" cy="32" r="28"></circle>
+                <circle class="metric-ring-fill" id="ramFill" cx="32" cy="32" r="28" stroke-dasharray="176" stroke-dashoffset="176" stroke="var(--neon-violet)" filter="drop-shadow(0 0 4px var(--neon-violet))"></circle>
+              </svg>
+              <div class="metric-ring-label" id="ramText" style="color:var(--neon-violet)">0%</div>
+            </div>
+            <div style="text-align:start;">
+              <div style="font-weight:700; font-size:14px;">RAM Allocation</div>
+              <div style="font-size:11.5px; color:var(--muted); font-family:var(--mono); margin-top:2px;">ALLOC: 4.32 GB / 8.00 GB</div>
+            </div>
+          </div>
+
+          <!-- Edge Node -->
+          <div class="card telemetry-card">
+            <div style="width: 52px; height:52px; border-radius:50%; display:grid; place-items:center; background: rgba(16,185,129,.12); border:1px solid rgba(16,185,129,.25); color: var(--neon-emerald); font-size:22px; box-shadow: 0 0 12px var(--neon-emerald-glow);">
+              <i class="fa-solid fa-server"></i>
+            </div>
+            <div style="text-align:start;">
+              <div style="font-weight:700; font-size:14px;">Active Node</div>
+              <div style="font-size:11.5px; color:var(--neon-emerald); font-family:var(--mono); margin-top:2px;">CLUSTER: RIYADH-EDGE-01</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 4: MAINTENANCE (وضع الصيانة) -->
+      <!-- ========================================== -->
+      <section class="view" data-view="maintenance" id="view-maintenance">
+        <div class="map-chart-split">
+          <!-- Active Lockdown Card -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-solid fa-lock"></i> <span data-tr="maint-title">حالة وضع الصيانة الفورية</span></div>
+              <span class="card-tag">SYSTEM INSTANCE</span>
+            </div>
+            
+            <div style="display:flex; flex-direction:column; gap:20px; text-align:start;">
+              <!-- LED status -->
+              <div id="maintStatusBox" style="display:flex; align-items:center; gap:16px; padding: 14px 18px; background:rgba(255,255,255,.015); border:1px solid var(--glass-line); border-radius:var(--r-sm);">
+                <div id="maintLed" class="maint-led" style="width:12px; height:12px; border-radius:50%; background:var(--muted); transition:.3s;"></div>
+                <div>
+                  <h2 id="maintStatusTitle" style="font-size:15px; font-weight:700; color:#fff;">الموقع يعمل بشكل طبيعي</h2>
+                  <p id="maintStatusDesc" style="font-size:12px; color:var(--muted); margin-top:2px;">الزوار يستطيعون الوصول للموقع الآن.</p>
+                </div>
+              </div>
+
+              <!-- Switch checkbox -->
+              <div class="switch-row" style="border-color: rgba(245,158,11,.15);">
+                <div>
+                  <span class="switch-title" style="color:var(--neon-amber)" data-tr="ops-maint">وضع الصيانة الفوري</span>
+                  <span class="switch-sub" data-tr="ops-maint-sub">قفل البوابة وعرض صفحة مغلقة للزوار</span>
+                </div>
+                <label class="switch-control amber">
+                  <input type="checkbox" id="maintToggle">
+                  <span class="switch-slider"></span>
+                </label>
+              </div>
+
+              <!-- Maintenance message -->
+              <div class="settings-field">
+                <label for="maintMessage" data-tr="maint-msg-lbl">رسالة الصيانة التي تظهر للزوار</label>
+                <div class="settings-field-input-wrap">
+                  <textarea id="maintMessage" class="banner-textarea" rows="3" style="height:80px;"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scheduler Card -->
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-solid fa-clock"></i> <span data-tr="maint-sched-title">جدولة وضع الصيانة التلقائي</span></div>
+              <span class="card-tag">SCHEDULER</span>
+            </div>
+            
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <!-- Scheduler Switch -->
+              <div class="switch-row">
+                <div>
+                  <span class="switch-title" data-tr="sched-title">تفعيل مجدول صيانة تلقائي</span>
+                  <span class="switch-sub" data-tr="sched-sub">تبدأ الصيانة وتنتهي بأوقات محددة</span>
+                </div>
+                <label class="switch-control">
+                  <input type="checkbox" id="schedToggle">
+                  <span class="switch-slider"></span>
+                </label>
+              </div>
+
+              <!-- Date-time fields -->
+              <div class="settings-grid" id="schedFields" hidden style="grid-template-columns:1fr 1fr; gap:14px;">
+                <div class="settings-field">
+                  <label for="schedFrom" data-tr="sched-start">وقت البدء</label>
+                  <div class="settings-field-input-wrap">
+                    <input type="datetime-local" id="schedFrom">
+                  </div>
+                </div>
+                <div class="settings-field">
+                  <label for="schedTo" data-tr="sched-end">وقت الانتهاء</label>
+                  <div class="settings-field-input-wrap">
+                    <input type="datetime-local" id="schedTo">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Maintenance Actions -->
+            <div class="git-actions-row" style="margin-top:20px;">
+              <button id="maintSaveBtn" class="git-action-btn" style="background:var(--grad-nebula); color:#03050c; border:none; box-shadow:0 6px 18px var(--neon-cyan-glow);"><i class="fa-solid fa-cloud-arrow-up"></i> <span data-tr="maint-save">حفظ ونشر التغييرات</span></button>
+              <button id="maintPreviewBtn" class="git-action-btn"><i class="fa-solid fa-eye"></i> <span data-tr="maint-preview">معاينة الشاشة للزوار</span></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Token Warn alert -->
+        <div id="maintTokenWarn" class="notice notice-warn" hidden style="background: rgba(251, 113, 133, 0.05); border: 1px solid var(--glass-line); border-radius: var(--r-sm); padding: 16px; margin-top: 20px; display: flex; align-items: center; gap: 14px; color: var(--soft); text-align: start;">
+          <i class="fa-solid fa-triangle-exclamation" style="color: var(--neon-rose); font-size: 20px;"></i>
+          <div>
+            <strong style="color: #fff;" data-tr="warn-title">تحذير أمان: لا توجد صلاحيات للمستودع!</strong>
+            <p style="font-size:12.5px; margin-top: 4px;" data-tr="warn-desc">لتتمكن من نشر تعديل وضع الصيانة فوراً إلى الموقع، يرجى إدخال رمز GitHub PAT في صفحة الإعدادات أولاً.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 5: CONTENT (محرر المحتوى والأقسام) -->
+      <!-- ========================================== -->
+      <section class="view" data-view="content" id="view-content">
+        <div class="git-tabs" style="margin-bottom:10px;">
+          <button class="git-tab subtab active" data-sub="ct-ann" data-tr="content-tab-banner">شريط الإعلان للزوار</button>
+          <button class="git-tab subtab" data-sub="ct-sec" data-tr="content-tab-sections">إخفاء وإظهار أقسام الموقع</button>
+        </div>
+
+        <!-- Subview 1: Announcement Ribbon -->
+        <div class="subview active" data-sub="ct-ann" style="display:flex; flex-direction:column; gap:26px;">
+          <div class="map-chart-split">
+            <!-- Form field panel -->
+            <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+              <div class="card-header">
+                <div class="card-title"><i class="fa-solid fa-bullhorn"></i> <span data-tr="ann-editor-title">محرر شريط الإعلان العلوي للموقع</span></div>
+                <span class="card-tag">RIBBON EDITOR</span>
+              </div>
+              
+              <!-- Switch toggle -->
+              <div class="switch-row" style="margin-bottom: 6px;">
+                <div>
+                  <span class="switch-title" data-tr="ann-active">تفعيل شريط الإعلان الفوري</span>
+                  <span class="switch-sub" data-tr="ann-active-sub">يعرض الشريط لكل الزوار في أعلى البوابة</span>
+                </div>
+                <label class="switch-control">
+                  <input type="checkbox" id="annToggle">
+                  <span class="switch-slider"></span>
+                </label>
+              </div>
+
+              <!-- Input text -->
+              <div class="settings-field">
+                <label for="annText" data-tr="ann-text-lbl">نص الشريط الإعلاني للزوار</label>
+                <div class="settings-field-input-wrap">
+                  <textarea id="annText" class="banner-textarea" rows="2" placeholder="أدخل نص الإعلان الفوري هنا..."></textarea>
+                </div>
+              </div>
+
+              <!-- Announcement type segment control -->
+              <div class="settings-field">
+                <label data-tr="ann-style-lbl">لون ونوع مظهر شريط الإعلان</label>
+                <div class="git-actions-row" style="gap: 10px;">
+                  <label style="flex:1; cursor:pointer;">
+                    <input type="radio" name="annType" value="info" checked style="display:none;">
+                    <div class="git-action-btn radio-shim active" data-val="info"><i class="fa-solid fa-circle-info"></i> <span data-tr="ann-style-info">معلومات</span></div>
+                  </label>
+                  <label style="flex:1; cursor:pointer;">
+                    <input type="radio" name="annType" value="success" style="display:none;">
+                    <div class="git-action-btn radio-shim" data-val="success"><i class="fa-solid fa-circle-check"></i> <span data-tr="ann-style-success">نجاح</span></div>
+                  </label>
+                  <label style="flex:1; cursor:pointer;">
+                    <input type="radio" name="annType" value="warning" style="display:none;">
+                    <div class="git-action-btn radio-shim" data-val="warning"><i class="fa-solid fa-triangle-exclamation"></i> <span data-tr="ann-style-warning">تحذير</span></div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Link and link text -->
+              <div class="settings-grid" style="grid-template-columns:1.2fr .8fr; gap:14px;">
+                <div class="settings-field">
+                  <label for="annLink" data-tr="ann-link">رابط الإعلان (اختياري)</label>
+                  <div class="settings-field-input-wrap">
+                    <input type="text" id="annLink" placeholder="https://...">
+                  </div>
+                </div>
+                <div class="settings-field">
+                  <label for="annLinkText" data-tr="ann-link-txt">نص الرابط</label>
+                  <div class="settings-field-input-wrap">
+                    <input type="text" id="annLinkText" placeholder="سجّل الآن">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Simulation Site Frame -->
+            <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+              <div class="card-header">
+                <div class="card-title"><i class="fa-solid fa-desktop"></i> <span data-tr="content-sim-title">محاكاة العرض الحي للموقع الرئيسي</span></div>
+                <span class="card-tag">LIVE SIMULATION</span>
+              </div>
+              
+              <div style="flex:1; border: 1px solid var(--glass-line); border-radius: var(--r-sm); background: #03060c; overflow:hidden; display:flex; flex-direction:column; min-height: 200px;">
+                <!-- Simulated announcement ribbon container -->
+                <div class="ann-preview" style="padding:0;">
+                  <div id="annPreview" class="ann-bar info" style="height: 26px; border-radius: 0; font-size:10px; display:flex; align-items:center; justify-content:center; padding: 0 14px; gap:8px;">
+                    <i class="fa-solid fa-circle-info"></i> <span>—</span>
+                  </div>
+                </div>
+                <!-- Simulated header -->
+                <div style="height: 38px; border-bottom: 1px solid rgba(0,242,254,.08); display:flex; align-items:center; justify-content:space-between; padding: 0 16px;">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="width: 18px; height:18px; border-radius:50%; background: var(--grad-nebula)"></div>
+                    <span style="font-size: 8.5px; font-weight:700;">بوابة الـ GIS التعليمية</span>
+                  </div>
+                  <div style="display:flex; gap:10px; font-size:7.5px; color: var(--soft);">
+                    <span>عن التخصص</span>
+                    <span>البرمجيات</span>
+                    <span>البيانات المفتوحة</span>
+                  </div>
+                </div>
+                <!-- Simulated Hero content -->
+                <div style="flex:1; display:grid; grid-template-columns:1fr 1fr; align-items:center; padding: 20px;">
+                  <div style="text-align:start;">
+                    <div style="font-size:16px; font-weight:800; color:#fff; line-height:1.2;">بوابة نظم المعلومات الجغرافية</div>
+                    <div style="font-size:8.5px; color: var(--soft); margin-top: 6px; max-width:140px;">دليلك المساحي والبرمجي المتكامل لتعلم نظم المعلومات الجغرافية والتحليل المكاني.</div>
+                  </div>
+                  <div style="display:grid; place-items:center;">
+                    <div style="width: 54px; height: 54px; border-radius: 50%; border: 1.5px dashed var(--neon-cyan); display:grid; place-items:center; animation: spinner-rotation 16s linear infinite;">
+                      <div style="width:36px; height:36px; border-radius:50%; background: radial-gradient(circle at 35% 35%, #163a5c, #070f1a); border:1px solid rgba(0,242,254,.3)"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action buttons row -->
+              <div class="git-actions-row" style="margin-top:20px;">
+                <button id="annSaveBtn" class="git-action-btn" style="background:var(--grad-nebula); color:#03050c; border:none; box-shadow:0 6px 18px var(--neon-cyan-glow);"><i class="fa-solid fa-cloud-arrow-up"></i> <span data-tr="ann-publish">حفظ ونشر الإعلان للجميع</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subview 2: Hidden Sections -->
+        <div class="subview" data-sub="ct-sec" style="display:none;">
+          <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-solid fa-eye-slash"></i> <span data-tr="sec-manager-title">إدارة تفعيل وتعطيل أقسام الموقع</span></div>
+              <span class="card-tag">SECTIONS</span>
+            </div>
+            
+            <p style="font-size:13px; color:var(--soft); text-align:start;" data-tr="sec-manager-desc">تعطيل أي قسم سيقوم بإخفائه فوراً من الموقع الرئيسي للزوار ومن القائمة العلوية للتنقل، وسيبقى الكود محفوظاً وقابلاً للتفعيل بنقرة واحدة في أي وقت.</p>
+            
+            <!-- Dynamic Sections checkboxes wrapper list -->
+            <div id="secList" style="display:flex; flex-direction:column; gap:12px;"></div>
+            
+            <div class="git-actions-row" style="margin-top:20px; justify-content:flex-start;">
+              <button id="secSaveBtn" class="git-action-btn" style="background:var(--grad-nebula); color:#03050c; border:none; box-shadow:0 6px 18px var(--neon-cyan-glow); max-width:260px;"><i class="fa-solid fa-cloud-arrow-up"></i> <span data-tr="sec-publish">حفظ ونشر الأقسام</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 6: SITE INFO (معلومات الموقع وGit) -->
+      <!-- ========================================== -->
+      <section class="view" data-view="site" id="view-site">
+        <div class="map-chart-split">
+          <!-- Repo specifications card -->
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; min-height: 350px;">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-brands fa-github"></i> <span data-tr="site-specifications">مواصفات مستودع البوابة الجغرافية</span></div>
+              <span class="card-tag">REPOSITORY</span>
+            </div>
+            
+            <div style="flex:1; display:flex; flex-direction:column; gap:16px; padding: 20px 0; font-family: var(--sans); font-size:13.5px; text-align:start;">
+              <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,.03); padding-bottom:10px;">
+                <span style="color:var(--muted);" data-tr="site-repo-name">اسم مستودع GitHub</span>
+                <b id="si-repo" style="color:var(--neon-cyan); font-family:var(--mono);">—</b>
+              </div>
+              <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,.03); padding-bottom:10px;">
+                <span style="color:var(--muted);" data-tr="site-last-commit">تاريخ المزامنة الأخير</span>
+                <b id="si-updated" style="color:#fff; font-family:var(--mono);">—</b>
+              </div>
+              <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,.03); padding-bottom:10px;">
+                <span style="color:var(--muted);" data-tr="site-stars">عدد النجوم (Stars)</span>
+                <b id="si-stars" style="color:var(--neon-amber); font-family:var(--mono);">—</b>
+              </div>
+              <div style="display:flex; justify-content:space-between;">
+                <span style="color:var(--muted);" data-tr="site-visibility">نوع الخصوصية</span>
+                <b id="si-visibility" style="color:var(--neon-emerald); font-family:var(--mono);">—</b>
+              </div>
+            </div>
+
+            <div class="git-actions-row">
+              <a id="si-repolink" href="#" target="_blank" class="git-action-btn" style="text-decoration:none;"><i class="fa-brands fa-github"></i> <span data-tr="site-repo-link">معاينة المستودع الفعلي على GitHub</span></a>
+            </div>
+          </div>
+
+          <!-- Commit history card -->
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; min-height: 350px;">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-solid fa-code-commit"></i> <span data-tr="site-commits">سجل التعديلات الأخير (Commit History)</span></div>
+              <span class="card-tag">GIT HISTORY</span>
+            </div>
+            
+            <div style="flex:1; overflow-y:auto; max-height:220px; padding-inline-end: 6px;">
+              <ul class="commit-list" id="commitList" style="display:flex; flex-direction:column; gap:12px; list-style:none;">
+                <li class="empty">— أضف رمز GitHub لعرض السجل —</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deployment info bar -->
+        <div class="card" style="margin-top:26px;">
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-rocket"></i> <span data-tr="site-deploy-title">إعدادات وعنوان النشر الرئيسي للزوار</span></div>
+            <span class="card-tag">PAGES ACCELERATION</span>
+          </div>
+          
+          <div class="settings-grid" style="grid-template-columns:1fr 1fr 1fr; gap:20px; padding-top: 14px; text-align:start; font-size:13.5px;">
+            <div>
+              <div style="color:var(--muted);" data-tr="site-deploy-url">رابط الاستعراض المباشر</div>
+              <b style="display:block; margin-top:6px;"><a href="https://i6naf.github.io/webgis/" target="_blank" style="color:var(--neon-cyan); text-decoration:none;">i6naf.github.io/webgis</a></b>
+            </div>
+            <div>
+              <div style="color:var(--muted);" data-tr="site-deploy-host">الخادم المستضيف</div>
+              <b style="display:block; margin-top:6px; color:#fff;">GitHub Pages CDN</b>
+            </div>
+            <div>
+              <div style="color:var(--muted);" data-tr="site-deploy-check">توقيت فحص التوافر</div>
+              <b id="si-lastcheck" style="display:block; margin-top:6px; color:var(--neon-emerald); font-family:var(--mono);">—</b>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 7: OPERATIONS LOG (سجل العمليات) -->
+      <!-- ========================================== -->
+      <section class="view" data-view="log" id="view-log">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-clock-rotate-left"></i> <span data-tr="log-title">سجل عمليات لوحة التحكم الرقمية</span></div>
+            <button id="clearLogBtn" class="chart-btn" style="color: var(--neon-rose); border-color: rgba(251, 113, 133, 0.2);"><i class="fa-solid fa-trash"></i> <span data-tr="log-clear">مسح السجل بالكامل</span></button>
+          </div>
+          
+          <p style="font-size:13px; color:var(--soft); text-align:start; margin-bottom: 20px;" data-tr="log-desc">يتم تخزين هذا السجل محلياً في متصفحك الحالي فقط لتوثيق تاريخ الإجراءات العامة للنظام (مثل تفعيل وضع الصيانة، أو تغيير إعلانات الموقع الرئيسي، أو تعديل الأقسام).</p>
+          
+          <!-- Activity log dynamic lists -->
+          <ul class="log-list" id="logList" style="display:flex; flex-direction:column; gap:12px; list-style:none;">
+            <li class="empty" style="justify-content:center;padding:24px;color:var(--text-muted)">— لا توجد عمليات بعد —</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 8: DIGITAL CONFIGURATION (الإعدادات) -->
+      <!-- ========================================== -->
+      <section class="view" data-view="settings" id="view-settings">
+        <!-- 3 Settings Blocks -->
+        <div style="display:flex; flex-direction:column; gap:26px;">
+          <!-- 1. GitHub Link settings -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-brands fa-github"></i> <span data-tr="settings-git-section">ربط وربط مستودع GitHub</span></div>
+              <span class="card-tag">REPOSITORY SYNC</span>
+            </div>
+            <p style="font-size:13px; color:var(--soft); text-align:start;" data-tr="git-settings-desc">يُسخدم هذا التكوين للحصول على ترخيص التعديل الفوري لمحتوى الموقع الرئيسي (مثل نشر الصيانة أو الإعلانات). يُحفظ هذا الرمز بشكل مشفّر تماماً داخل متصفحك الحالي ولا يرسل لأي طرف خارجي.</p>
+            
+            <div class="settings-field" style="margin-top: 14px;">
+              <label for="ghToken" data-tr="settings-git-lbl">رمز GitHub Personal Access Token (PAT)</label>
+              <div style="display:flex; gap:12px; align-items:center;">
+                <div class="settings-field-input-wrap" style="flex:1;">
+                  <input type="password" id="ghToken" placeholder="github_pat_...">
+                  <i class="fa-solid fa-eye-slash toggle-pwd" id="settingsToggleGitTokenPwd" style="position:absolute; right:16px; cursor:pointer; color:var(--muted); transition:.2s;"></i>
+                </div>
+                <button id="saveTokenBtn" class="git-action-btn" style="max-width:120px; background:var(--grad-nebula); color:#03050c; border:none; box-shadow:0 4px 14px var(--neon-cyan-glow);"><span data-tr="save">حفظ</span></button>
+                <button id="clearTokenBtn" class="git-action-btn" style="max-width:120px; color:var(--neon-rose); border-color:rgba(251,113,133,.2);"><span data-tr="delete">حذف</span></button>
+              </div>
+              <small id="ghTokenState" style="color:var(--neon-emerald); font-family:var(--mono); margin-top:6px; display:block; text-align:start;"></small>
+            </div>
+
+            <!-- Details instructions dropdown -->
+            <details style="text-align:start; font-size:12.5px; color:var(--muted); margin-top:14px; background:rgba(255,255,255,.01); border:1px solid rgba(255,255,255,.03); padding:10px 14px; border-radius:8px; cursor:pointer;">
+              <summary style="font-weight:600; color:var(--soft);" data-tr="details-token-title">طريقة استخراج الرمز (PAT Token) الخاصة بمستودعك على GitHub</summary>
+              <ol style="margin-top:8px; padding-inline-start: 20px; display:flex; flex-direction:column; gap:4px; line-height: 1.6;">
+                <li>افتح صفحة المطورين على GitHub لإنشاء رمز جديد: <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" style="color:var(--neon-cyan); text-decoration:none;">Personal Access Tokens</a></li>
+                <li>من الخيارات اختر: <b>Only select repositories → i6naF/webgis</b></li>
+                <li>من جدول التراخيص (Permissions) اختر: Contents → <b>Read and write</b></li>
+                <li>اضغط على زر (Generate Token) وانسخ الرمز الصادر والصقه في الحقل أعلاه.</li>
+              </ol>
+            </details>
+          </div>
+
+          <!-- 2. GoatCounter settings -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-solid fa-chart-line"></i> <span data-tr="settings-goat-section">ربط وربط إحصائيات GoatCounter</span></div>
+              <span class="card-tag">ANALYTICS ENGINE</span>
+            </div>
+            <p style="font-size:13px; color:var(--soft); text-align:start;" data-tr="goat-settings-desc">يتم استخدام حساب GoatCounter المُعد مسبقاً للبوابة الجغرافية. لعرض التحليلات المتكاملة كالجداول التفصيلية والرسومات الموزعة، يرجى ملء الحقول بالأسفل.</p>
+            
+            <div class="settings-grid" style="grid-template-columns:1fr; gap:18px; margin-top:14px;">
+              <div class="settings-field">
+                <label for="gcCode" data-tr="settings-goat-lbl">اسم مستخدم أو نطاق حساب GoatCounter الخاص بك</label>
+                <div style="display:flex; gap:12px; align-items:center;">
+                  <div class="settings-field-input-wrap" style="flex:1;">
+                    <input type="text" id="gcCode" placeholder="webgis-i6na">
+                    <span style="position:absolute; left:16px; font-family:var(--mono); font-size:12px; color:var(--muted);">.goatcounter.com</span>
+                  </div>
+                  <button id="saveGcBtn" class="git-action-btn" style="max-width:120px; background:var(--grad-nebula); color:#03050c; border:none; box-shadow:0 4px 14px var(--neon-cyan-glow);"><span data-tr="save">حفظ</span></button>
+                </div>
+                <small id="gcState" style="color:var(--neon-emerald); font-family:var(--mono); margin-top:6px; display:block; text-align:start;"></small>
+              </div>
+
+              <div class="settings-field">
+                <label for="gcToken" data-tr="settings-goat-tok-lbl">رمز وصول واجهة برمجة التطبيقات (GoatCounter API Read-Token)</label>
+                <div style="display:flex; gap:12px; align-items:center;">
+                  <div class="settings-field-input-wrap" style="flex:1;">
+                    <input type="password" id="gcToken" placeholder="الصق رمز الوصول الفوري للتحليلات هنا...">
+                    <i class="fa-solid fa-eye-slash toggle-pwd" id="settingsToggleGcTokenPwd" style="position:absolute; right:16px; cursor:pointer; color:var(--muted); transition:.2s;"></i>
+                  </div>
+                  <button id="saveGcTokBtn" class="git-action-btn" style="max-width:120px; background:var(--grad-nebula); color:#03050c; border:none; box-shadow:0 4px 14px var(--neon-cyan-glow);"><span data-tr="save">حفظ</span></button>
+                </div>
+                <small id="gcTokenState" style="color:var(--neon-emerald); font-family:var(--mono); margin-top:6px; display:block; text-align:start;"></small>
+              </div>
+            </div>
+
+            <details style="text-align:start; font-size:12.5px; color:var(--muted); margin-top:14px; background:rgba(255,255,255,.01); border:1px solid rgba(255,255,255,.03); padding:10px 14px; border-radius:8px; cursor:pointer;">
+              <summary style="font-weight:600; color:var(--soft);" data-tr="details-gc-title">طريقة استخراج مفتاح وصول التحليلات (GoatCounter Read Token)</summary>
+              <ol style="margin-top:8px; padding-inline-start: 20px; display:flex; flex-direction:column; gap:4px; line-height: 1.6;">
+                <li>ادخل لوحة تحليلات GoatCounter الخاصة بك وافتح صفحة التراخيص: <a href="https://webgis-i6na.goatcounter.com/user/api" target="_blank" style="color:var(--neon-cyan); text-decoration:none;">GoatCounter API Settings</a></li>
+                <li>اضغط على زر (Add Token) وقم بتفعيل خيار القراءة: <b>Read statistics</b></li>
+                <li>انسخ الرمز الصادر وضعه في حقل مفتاح التحليلات أعلاه للحفظ المباشر.</li>
+              </ol>
+            </details>
+          </div>
+
+          <!-- 3. Google PageSpeed insights key -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-solid fa-gauge"></i> <span data-tr="settings-speed-section">ربط مفتاح PageSpeed Insights (Google Cloud)</span></div>
+              <span class="card-tag">PERFORMANCE ENGINE</span>
+            </div>
+            <p style="font-size:13px; color:var(--soft); text-align:start;" data-tr="speed-settings-desc">إجراء فحص سرعة وأداء الصفحة للزوار يعمل بدون حاجة لإضافة مفتاح، ولكن إضافة هذا المفتاح تزيد حصة الاستهلاك المسموحة لك من خوادم Google Cloud.</p>
+            
+            <div class="settings-field" style="margin-top: 14px;">
+              <label for="psiKey" data-tr="settings-speed-lbl">رمز مفتاح PageSpeed API (Google Key)</label>
+              <div style="display:flex; gap:12px; align-items:center;">
+                <div class="settings-field-input-wrap" style="flex:1;">
+                  <input type="password" id="psiKey" placeholder="AIzaSy... (مفتاح جوجل كلاود اختياري)">
+                  <i class="fa-solid fa-eye-slash toggle-pwd" id="settingsTogglePsiKeyPwd" style="position:absolute; right:16px; cursor:pointer; color:var(--muted); transition:.2s;"></i>
+                </div>
+                <button id="savePsiBtn" class="git-action-btn" style="max-width:120px; background:var(--grad-nebula); color:#03050c; border:none; box-shadow:0 4px 14px var(--neon-cyan-glow);"><span data-tr="save">حفظ</span></button>
+              </div>
+              <small id="psiKeyState" style="color:var(--neon-emerald); font-family:var(--mono); margin-top:6px; display:block; text-align:start;"></small>
+            </div>
+          </div>
+
+          <!-- 4. Forget session and browser reset -->
+          <div class="card" style="border-color: rgba(251, 113, 133, 0.15);">
+            <div class="card-header">
+              <div class="card-title" style="color:var(--neon-rose)"><i class="fa-solid fa-broom"></i> <span data-tr="settings-reset-section">إعادة ضبط وتهيئة لوحة التحكم للمتصفح</span></div>
+              <span class="card-tag" style="color:var(--neon-rose); border-color:rgba(251,113,133,.2); background:rgba(251,113,133,.05);">DANGEROUS ZONE</span>
+            </div>
+            <p style="font-size:13px; color:var(--soft); text-align:start;" data-tr="reset-settings-desc">الضغط على الزر أدناه سيقوم بمسح كافة الرموز المخزنة محلياً، وكلمة المرور الحالية، وإعدادات GoatCounter وإجبارك على إعادة إعداد لوحة التحكم من البداية.</p>
+            
+            <div style="text-align:start; margin-top:14px;">
+              <button id="forgetBtn" class="git-action-btn" style="max-width:240px; color:var(--neon-rose); border-color:rgba(251,113,133,.2);"><i class="fa-solid fa-eraser"></i> <span data-tr="reset-confirm">تهيئة ومسح بيانات المتصفح</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="bottom-note">— مركز العمليات الجغرافية الرقمية · بوابة الـ GIS التعليمية —</div>
+    </div>
+  </main>
 </div>
 
 <!-- Maintenance preview modal -->
 <div id="previewModal" class="modal" hidden>
-    <div class="modal-inner maint-preview">
-        <button class="modal-close" id="previewClose"><i class="fa-solid fa-xmark"></i></button>
-        <div class="mp-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-        <h1>الموقع تحت الصيانة</h1>
-        <p id="previewMsg">—</p>
-        <div class="mp-foot">بوابة نظم المعلومات الجغرافية</div>
-    </div>
+  <div class="modal-inner maint-preview">
+    <button class="modal-close" id="previewClose"><i class="fa-solid fa-xmark"></i></button>
+    <div class="mp-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+    <h1>الموقع تحت الصيانة</h1>
+    <p id="previewMsg">—</p>
+    <div class="mp-foot">بوابة نظم المعلومات الجغرافية</div>
+  </div>
 </div>
 
 <div id="toast" class="toast" hidden></div>
 
+<!-- Chart.js and original production script -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="admin.js"></script>
+
+<!-- Lightweight decoupling animations and dynamic shims script -->
+<script>
+// Clock
+function updateClock(){
+  const clockEl = document.getElementById('localClock');
+  if (clockEl) {
+    const now = new Date();
+    clockEl.textContent = now.toLocaleTimeString(currentLang === 'ar' ? 'ar-EG' : 'en-US');
+  }
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// Sparklines
+function buildSparkline(id, count, variance, styleClass = '') {
+  const container = document.getElementById(id);
+  if (!container) return;
+  let html = '';
+  for (let i = 0; i < count; i++) {
+    const h = 25 + Math.round(Math.random() * variance);
+    html += `<span style="height: ${h}%;" class="${styleClass}"></span>`;
+  }
+  container.innerHTML = html;
+}
+buildSparkline('sp1', 18, 65, 'violet');
+buildSparkline('sp2', 18, 65);
+
+// Generate 30 days of Uptime Bars
+const uptimeTimeline = document.getElementById('uptimeTimeline');
+if (uptimeTimeline) {
+  const today = new Date();
+  for (let i = 29; i >= 0; i--) {
+    const day = new Date();
+    day.setDate(today.getDate() - i);
+    const dateStr = day.toLocaleDateString(currentLang === 'ar' ? 'ar-EG' : 'en-US', { day: 'numeric', month: 'short' });
+    const bar = document.createElement('div');
+    bar.className = 'uptime-bar';
+    bar.setAttribute('data-date', `${dateStr}: 100% Uptime`);
+    uptimeTimeline.appendChild(bar);
+  }
+}
+
+// -------------------------------------------------------------
+// Interactive Leaflet Map Configuration with CDN safety
+// -------------------------------------------------------------
+const saudiCoordinates = [24.7136, 46.6753]; // Riyadh Center
+const trafficHotspots = [
+  { name: 'الرياض (Riyadh HUB)', coords: [24.7136, 46.6753], sessions: 6 },
+  { name: 'مكة المكرمة (Makkah)', coords: [21.4225, 39.8262], sessions: 3 },
+  { name: 'جدة (Jeddah)', coords: [21.4858, 39.1925], sessions: 2 },
+  { name: 'الدمام والشرقية', coords: [26.4207, 50.0888], sessions: 2 },
+  { name: 'نيوم والمنطقة الشمالية', coords: [27.9654, 35.0995], sessions: 1 }
+];
+
+let liveMap = null;
+if (typeof L !== 'undefined') {
+  try {
+    liveMap = L.map('liveMap', {
+      center: saudiCoordinates,
+      zoom: 5.4,
+      zoomControl: false,
+      attributionControl: false
+    });
+
+    // Load elegant dark tiles
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      maxZoom: 19
+    }).addTo(liveMap);
+
+    // Add blinking circles for each active node
+    trafficHotspots.forEach(node => {
+      const customIcon = L.divIcon({
+        className: 'map-pulse-marker',
+        html: `<div class="map-pulse-dot"></div><div class="map-pulse-ring"></div>`,
+        iconSize: [24, 24],
+        iconAnchor: [12, 12]
+      });
+
+      const marker = L.marker(node.coords, { icon: customIcon }).addTo(liveMap);
+      marker.bindPopup(`<b style="font-family: var(--sans); font-size:12px; color:#03050c;">${node.name}</b><br><span style="font-family:var(--mono); font-size:11px; color:#555;">Sessions: ${node.sessions}</span>`);
+      
+      // Custom glowing arc/line from Riyadh server hub to visitor coordinates
+      if(node.coords[0] !== 24.7136) {
+        const latlngs = [saudiCoordinates, node.coords];
+        L.polyline(latlngs, {
+          color: 'rgba(0, 242, 254, 0.45)',
+          weight: 1.8,
+          dashArray: '5, 8',
+          lineCap: 'round'
+        }).addTo(liveMap);
+      }
+    });
+
+    // Update Coordinates display as mouse moves over Leaflet map
+    liveMap.on('mousemove', function(e) {
+      const lat = e.latlng.lat.toFixed(4);
+      const lng = e.latlng.lng.toFixed(4);
+      const coordEl = document.getElementById('coordTracker');
+      if (coordEl) {
+        coordEl.textContent = `${lat}°N · ${lng}°E`;
+      }
+    });
+  } catch (mapErr) {
+    console.error("Leaflet map initialization failed:", mapErr);
+  }
+} else {
+  console.warn("Leaflet library not loaded. Mocking map container.");
+  const mapEl = document.getElementById('liveMap');
+  if (mapEl) {
+    mapEl.innerHTML = `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:var(--muted); font-size:13px; text-align:center; padding: 20px;">
+      <i class="fa-solid fa-map-location-dot" style="font-size:32px; color:var(--neon-cyan); opacity:0.6; margin-bottom:12px;"></i>
+      <span style="font-weight:600; color:#fff; display:block; margin-bottom:4px;">تنبيه: تعذر تحميل خرائط Leaflet</span>
+      <span>تعمل لوحة التحكم بشكل مستقل دون الحاجة للاتصال بالخادم.</span>
+    </div>`;
+  }
+}
+
+// -------------------------------------------------------------
+// Interactive Server Resource Gauge Telemetry animations
+// -------------------------------------------------------------
+let cpuInterval = null;
+function animateServerMetrics() {
+  const cpuFill = document.getElementById('cpuFill');
+  const ramFill = document.getElementById('ramFill');
+  const cpuText = document.getElementById('cpuText');
+  const ramText = document.getElementById('ramText');
+  const cpuRaw = document.getElementById('cpuRaw');
+  
+  const totalCircumference = 176; // 2 * PI * r (2 * 3.14159 * 28)
+  if(cpuFill && ramFill) {
+    cpuFill.style.strokeDasharray = totalCircumference;
+    ramFill.style.strokeDasharray = totalCircumference;
+    
+    // Animate RAM load to 54%
+    const ramPercent = 54;
+    if (ramText) ramText.textContent = ramPercent + '%';
+    ramFill.style.strokeDashoffset = totalCircumference - (totalCircumference * ramPercent / 100);
+
+    // Fluctuating CPU Load simulation loop
+    let cpuLoad = 8;
+    if (cpuInterval) clearInterval(cpuInterval);
+    cpuInterval = setInterval(() => {
+      const perfTab = document.getElementById('view-performance');
+      if(perfTab && perfTab.classList.contains('active')) {
+        const delta = Math.round(Math.random() * 4 - 2);
+        cpuLoad += delta;
+        if(cpuLoad < 3) cpuLoad = 3;
+        if(cpuLoad > 28) cpuLoad = 28;
+        
+        if (cpuText) cpuText.textContent = cpuLoad + '%';
+        cpuFill.style.strokeDashoffset = totalCircumference - (totalCircumference * cpuLoad / 100);
+        if (cpuRaw) cpuRaw.textContent = (cpuLoad / 20).toFixed(2);
+      } else {
+        clearInterval(cpuInterval);
+      }
+    }, 2000);
+  }
+}
+
+// Language translations support
+let currentLang = 'ar';
+const langSwitchBtn = document.getElementById('langSwitch');
+if (langSwitchBtn) {
+  langSwitchBtn.addEventListener('click', () => {
+    currentLang = currentLang === 'ar' ? 'en' : 'ar';
+    document.body.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+    document.body.className = currentLang === 'ar' ? '' : 'en';
+    langSwitchBtn.textContent = currentLang === 'ar' ? 'EN' : 'AR';
+    
+    // Update dynamic titles
+    const activeLink = document.querySelector('.sidebar .nav-link.active');
+    if (activeLink) {
+      const span = activeLink.querySelector('span');
+      if (span) {
+        document.getElementById('viewTitle').textContent = span.textContent;
+      }
+    }
+  });
+}
+
+// Setup password toggles
+function setupPasswordToggle(inputId, toggleIconId) {
+  const input = document.getElementById(inputId);
+  const icon = document.getElementById(toggleIconId);
+  if(input && icon) {
+    icon.addEventListener('click', () => {
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      }
+    });
+  }
+}
+setupPasswordToggle('ghToken', 'settingsToggleGitTokenPwd');
+setupPasswordToggle('gcToken', 'settingsToggleGcTokenPwd');
+setupPasswordToggle('psiKey', 'settingsTogglePsiKeyPwd');
+
+// Radio shims click listener
+document.querySelectorAll('.radio-shim').forEach(shim => {
+  shim.addEventListener('click', () => {
+    const parentLabel = shim.closest('label');
+    if (parentLabel) {
+      const radioInput = parentLabel.querySelector('input[type="radio"]');
+      if (radioInput) {
+        radioInput.checked = true;
+        radioInput.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+    document.querySelectorAll('.radio-shim').forEach(s => s.classList.remove('active'));
+    shim.classList.add('active');
+  });
+});
+
+// Decoupled element relocations switcher hook
+document.querySelectorAll('.sidebar .nav-link[data-view]').forEach(link => {
+  link.addEventListener('click', () => {
+    const viewName = link.getAttribute('data-view');
+    setTimeout(() => {
+      if (viewName === 'overview') {
+        // Restore elements
+        const mapChart = document.querySelector('.map-chart-split');
+        const overviewTab = document.getElementById('view-overview');
+        if (mapChart && overviewTab) {
+          const opsSplit = overviewTab.querySelector('.ops-system-split');
+          if (mapChart.parentNode !== overviewTab) {
+            overviewTab.insertBefore(mapChart, opsSplit);
+          }
+        }
+        const gauge = document.querySelector('.stat-card.amber');
+        const overviewStats = document.querySelector('#view-overview .stats-grid');
+        if (gauge && overviewStats && gauge.parentNode !== overviewStats) {
+          overviewStats.appendChild(gauge);
+        }
+      }
+      if (viewName === 'analytics') {
+        // Move Map/Chart Split
+        const mapChart = document.querySelector('.map-chart-split');
+        const subview1 = document.querySelector('.subview[data-sub="an-traffic"]');
+        if (mapChart && subview1 && mapChart.parentNode !== subview1) {
+          subview1.insertBefore(mapChart, subview1.querySelector('.map-chart-split').nextSibling);
+        }
+      }
+      if (viewName === 'performance') {
+        animateServerMetrics();
+      }
+      if (liveMap) {
+        try { liveMap.invalidateSize(); } catch(e){}
+      }
+    }, 120);
+  });
+});
+
+// Setup static clones on page load to serve as placeholders in hidden subviews
+try {
+  const mapChartRow = document.querySelector('#view-overview .map-chart-split');
+  const subview1 = document.querySelector('.subview[data-sub="an-traffic"]');
+  if(mapChartRow && subview1) {
+    const clone = mapChartRow.cloneNode(true);
+    subview1.insertBefore(clone, subview1.firstChild);
+  }
+} catch (cloneErr) {
+  console.error("Initial layout placeholder cloning failed:", cloneErr);
+}
+</script>
 </body>
 </html>

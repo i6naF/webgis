@@ -521,14 +521,72 @@ function wireMisc(){
 // ===================================================================
 // INIT
 // ===================================================================
+// ===================================================================
+// PWA — install (A2HS), offline feedback, theme-color sync, mobile backdrop, deep-link
+// ===================================================================
+let deferredPrompt=null;
+const isStandalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const isIOS=()=>/iphone|ipad|ipod/i.test(navigator.userAgent);
+function setThemeColor(){ const m=$('meta[name="theme-color"]'); if(m) m.setAttribute('content',document.body.classList.contains('light')?'#f1f5f9':'#070b13'); }
+function openViewFromHash(){ const h=(location.hash||'').slice(1); if(!h) return; const l=$(`.nav-link[data-view="${h}"]`); if(l) l.click(); }
+
+addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); deferredPrompt=e; const b=$('#installBtn'); if(b&&!isStandalone()) b.hidden=false; });
+addEventListener('appinstalled',()=>{ deferredPrompt=null; const b=$('#installBtn'); if(b) b.hidden=true; toast('تم تثبيت التطبيق ✓','ok'); logAction('fa-download','ثبّت اللوحة كتطبيق'); });
+
+function wirePWA(){
+  // keep the OS status-bar colour in sync with the active theme
+  setThemeColor();
+  new MutationObserver(setThemeColor).observe(document.body,{attributes:true,attributeFilter:['class']});
+
+  // install button (Add to Home Screen) — Chromium prompt, or iOS Share-sheet hint
+  const installBtn=$('#installBtn');
+  if(installBtn){
+    installBtn.addEventListener('click',async()=>{
+      if(deferredPrompt){
+        deferredPrompt.prompt();
+        try{ await deferredPrompt.userChoice; }catch(_){}
+        deferredPrompt=null; installBtn.hidden=true;
+      }else if(isIOS()){
+        toast('للتثبيت على iPhone: زر المشاركة ⬆️ ثم «أضف إلى الشاشة الرئيسية»','ok');
+      }
+    });
+    if(isIOS()&&!isStandalone()) installBtn.hidden=false;
+  }
+
+  // mobile sidebar backdrop — dim + close on outside-tap / Esc (decoupled from the menu toggle)
+  const sb=$('.sidebar'), bd=$('#sidebarBackdrop');
+  if(sb&&bd){
+    new MutationObserver(()=>{ bd.hidden=!sb.classList.contains('open'); }).observe(sb,{attributes:true,attributeFilter:['class']});
+    bd.addEventListener('click',()=>sb.classList.remove('open'));
+    addEventListener('keydown',e=>{ if(e.key==='Escape') sb.classList.remove('open'); });
+  }
+
+  // connectivity feedback
+  addEventListener('offline',()=>toast('انقطع الاتصال — تعمل الآن أوفلاين','err'));
+  addEventListener('online',()=>toast('عاد الاتصال بالإنترنت','ok'));
+}
+
+// ===================================================================
+// INIT
+// ===================================================================
 let dashInited=false;
 function initDashboard(){
   if(dashInited)return; dashInited=true;
   wireNav(); wireSettings(); wireMaintenance(); wireAnnouncement(); wireSections();
-  wirePerformance(); wireTheme(); wireMisc();
+  wirePerformance(); wireTheme(); wireMisc(); wirePWA();
   loadAnalytics(); loadConfig(); renderLog();
+  openViewFromHash();
   // register service worker for PWA (admin scope only)
-  if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('sw.js').then(reg=>{
+      reg.addEventListener('updatefound',()=>{
+        const nw=reg.installing;
+        nw&&nw.addEventListener('statechange',()=>{
+          if(nw.state==='installed'&&navigator.serviceWorker.controller) toast('تم تحديث اللوحة — حدّث الصفحة لتطبيقه','ok');
+        });
+      });
+    }).catch(()=>{});
+  }
 }
 
 refreshLoginCopy();

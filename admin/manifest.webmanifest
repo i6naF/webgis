@@ -1,18 +1,27 @@
 {
+  "id": "/webgis/admin/",
   "name": "لوحة تحكم بوابة GIS",
   "short_name": "لوحة التحكم",
   "description": "لوحة تحكم بوابة نظم المعلومات الجغرافية",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait-primary",
   "dir": "rtl",
   "lang": "ar",
+  "categories": ["productivity", "utilities"],
   "background_color": "#070b13",
-  "theme_color": "#10b981",
+  "theme_color": "#070b13",
   "icons": [
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
     { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "الزوار والتحليلات", "short_name": "الزوار", "url": "./index.html#analytics", "icons": [{ "src": "icon-192.png", "sizes": "192x192" }] },
+    { "name": "وضع الصيانة", "short_name": "الصيانة", "url": "./index.html#maintenance", "icons": [{ "src": "icon-192.png", "sizes": "192x192" }] },
+    { "name": "إعلان جديد", "short_name": "إعلان", "url": "./index.html#content", "icons": [{ "src": "icon-192.png", "sizes": "192x192" }] },
+    { "name": "الأداء والتوفّر", "short_name": "الأداء", "url": "./index.html#performance", "icons": [{ "src": "icon-192.png", "sizes": "192x192" }] }
   ]
 }
