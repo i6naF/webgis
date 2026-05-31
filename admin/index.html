@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#10b981">
     <title>لوحة التحكم | بوابة نظم المعلومات الجغرافية</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="apple-touch-icon" href="icon-192.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="admin.css">
 </head>
@@ -36,7 +40,6 @@
 <!-- ===== Dashboard ===== -->
 <div id="dashboard" class="dashboard" hidden>
 
-    <!-- Sidebar -->
     <aside class="sidebar">
         <div class="brand">
             <span class="brand-icon"><i class="fa-solid fa-earth-asia"></i></span>
@@ -45,8 +48,11 @@
         <nav class="nav">
             <a href="#overview" class="nav-link active" data-view="overview"><i class="fa-solid fa-gauge-high"></i> نظرة عامة</a>
             <a href="#analytics" class="nav-link" data-view="analytics"><i class="fa-solid fa-chart-line"></i> الزوار</a>
+            <a href="#performance" class="nav-link" data-view="performance"><i class="fa-solid fa-bolt-lightning"></i> الأداء والتوفر</a>
             <a href="#maintenance" class="nav-link" data-view="maintenance"><i class="fa-solid fa-screwdriver-wrench"></i> الصيانة</a>
+            <a href="#content" class="nav-link" data-view="content"><i class="fa-solid fa-bullhorn"></i> المحتوى</a>
             <a href="#site" class="nav-link" data-view="site"><i class="fa-solid fa-circle-info"></i> معلومات الموقع</a>
+            <a href="#log" class="nav-link" data-view="log"><i class="fa-solid fa-clock-rotate-left"></i> السجل</a>
             <a href="#settings" class="nav-link" data-view="settings"><i class="fa-solid fa-gear"></i> الإعدادات</a>
         </nav>
         <div class="sidebar-footer">
@@ -55,13 +61,13 @@
         </div>
     </aside>
 
-    <!-- Main -->
     <main class="main">
         <header class="topbar">
             <button id="menuToggle" class="icon-btn mobile-only"><i class="fa-solid fa-bars"></i></button>
             <div class="topbar-title" id="viewTitle">نظرة عامة</div>
             <div class="topbar-right">
                 <span id="siteStatusPill" class="status-pill status-online"><i class="fa-solid fa-circle"></i> <span>يعمل</span></span>
+                <button id="themeBtn" class="icon-btn" title="تبديل المظهر"><i class="fa-solid fa-moon"></i></button>
                 <button id="refreshBtn" class="icon-btn" title="تحديث"><i class="fa-solid fa-rotate"></i></button>
             </div>
         </header>
@@ -72,39 +78,25 @@
             <section class="view active" data-view="overview">
                 <div class="stat-grid">
                     <div class="stat-card">
-                        <div class="stat-icon green"><i class="fa-solid fa-users"></i></div>
-                        <div class="stat-body">
-                            <div class="stat-value" id="ov-today">—</div>
-                            <div class="stat-label">زوار اليوم</div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon gold"><i class="fa-solid fa-calendar-week"></i></div>
-                        <div class="stat-body">
-                            <div class="stat-value" id="ov-week">—</div>
-                            <div class="stat-label">آخر 7 أيام</div>
-                        </div>
+                        <div class="stat-icon" id="ov-status-icon"><i class="fa-solid fa-signal"></i></div>
+                        <div class="stat-body"><div class="stat-value" id="ov-status">يعمل</div><div class="stat-label">حالة الموقع</div></div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon teal"><i class="fa-solid fa-chart-simple"></i></div>
-                        <div class="stat-body">
-                            <div class="stat-value" id="ov-total">—</div>
-                            <div class="stat-label">إجمالي الزيارات</div>
-                        </div>
+                        <div class="stat-body"><div class="stat-value" id="ov-total">—</div><div class="stat-label">إجمالي الزيارات</div></div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon" id="ov-status-icon"><i class="fa-solid fa-signal"></i></div>
-                        <div class="stat-body">
-                            <div class="stat-value" id="ov-status">يعمل</div>
-                            <div class="stat-label">حالة الموقع</div>
-                        </div>
+                        <div class="stat-icon gold"><i class="fa-solid fa-calendar-week"></i></div>
+                        <div class="stat-body"><div class="stat-value" id="ov-week">—</div><div class="stat-label">آخر 7 أيام <span id="ov-week-delta" class="delta flat">—</span></div></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green"><i class="fa-solid fa-users"></i></div>
+                        <div class="stat-body"><div class="stat-value" id="ov-today">—</div><div class="stat-label">زوار اليوم</div></div>
                     </div>
                 </div>
 
                 <div class="panel">
-                    <div class="panel-head">
-                        <h3><i class="fa-solid fa-chart-area"></i> الزيارات خلال 14 يوم</h3>
-                    </div>
+                    <div class="panel-head"><h3><i class="fa-solid fa-chart-area"></i> الزيارات خلال 14 يوم</h3></div>
                     <div class="chart-wrap"><canvas id="miniChart" height="120"></canvas></div>
                 </div>
 
@@ -117,9 +109,9 @@
                         <div class="panel-head"><h3><i class="fa-solid fa-bolt"></i> إجراءات سريعة</h3></div>
                         <div class="quick-actions">
                             <button class="qa-btn" data-jump="maintenance"><i class="fa-solid fa-power-off"></i> وضع الصيانة</button>
+                            <button class="qa-btn" data-jump="content"><i class="fa-solid fa-bullhorn"></i> إعلان جديد</button>
                             <a class="qa-btn" href="../" target="_blank"><i class="fa-solid fa-eye"></i> معاينة الموقع</a>
                             <button class="qa-btn" id="qa-refresh"><i class="fa-solid fa-rotate"></i> تحديث الأرقام</button>
-                            <button class="qa-btn" data-jump="settings"><i class="fa-solid fa-gear"></i> الإعدادات</button>
                         </div>
                     </div>
                 </div>
@@ -131,27 +123,115 @@
                     <i class="fa-solid fa-circle-info"></i>
                     <div>
                         <strong>الإجمالي رقم حقيقي من GoatCounter ✓</strong>
-                        <p>أما الرسم البياني اليومي وأكثر الصفحات والدول فهي <b>بيانات توضيحية</b> حتى تضيف <a href="#settings" class="link-jump" data-jump="settings">مفتاح API</a> في الإعدادات (دقيقة واحدة).</p>
+                        <p>التفاصيل (الرسم، الصفحات، المتصفحات، الأجهزة) تحتاج <a href="#settings" class="link-jump" data-jump="settings">مفتاح API</a>. حالياً بعضها بيانات توضيحية.</p>
                     </div>
                 </div>
-                <div class="stat-grid">
-                    <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-user"></i></div><div class="stat-body"><div class="stat-value" id="an-today">—</div><div class="stat-label">اليوم</div></div></div>
-                    <div class="stat-card"><div class="stat-icon gold"><i class="fa-solid fa-calendar-day"></i></div><div class="stat-body"><div class="stat-value" id="an-yesterday">—</div><div class="stat-label">أمس</div></div></div>
-                    <div class="stat-card"><div class="stat-icon teal"><i class="fa-solid fa-calendar-week"></i></div><div class="stat-body"><div class="stat-value" id="an-week">—</div><div class="stat-label">آخر 7 أيام</div></div></div>
-                    <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-chart-simple"></i></div><div class="stat-body"><div class="stat-value" id="an-total">—</div><div class="stat-label">الإجمالي</div></div></div>
+
+                <div class="subtabs">
+                    <button class="subtab active" data-sub="an-traffic">الزيارات</button>
+                    <button class="subtab" data-sub="an-tech">المتصفحات والأنظمة</button>
+                    <button class="subtab" data-sub="an-devices">الأجهزة والدول</button>
                 </div>
+
+                <div class="subview active" data-sub="an-traffic">
+                    <div class="stat-grid">
+                        <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-user"></i></div><div class="stat-body"><div class="stat-value" id="an-today">—</div><div class="stat-label">اليوم</div></div></div>
+                        <div class="stat-card"><div class="stat-icon gold"><i class="fa-solid fa-calendar-day"></i></div><div class="stat-body"><div class="stat-value" id="an-yesterday">—</div><div class="stat-label">أمس</div></div></div>
+                        <div class="stat-card"><div class="stat-icon teal"><i class="fa-solid fa-calendar-week"></i></div><div class="stat-body"><div class="stat-value" id="an-week">—</div><div class="stat-label">7 أيام <span id="an-week-delta" class="delta flat">—</span></div></div></div>
+                        <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-chart-simple"></i></div><div class="stat-body"><div class="stat-value" id="an-total">—</div><div class="stat-label">الإجمالي</div></div></div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-head"><h3><i class="fa-solid fa-chart-line"></i> اتجاه الزيارات (30 يوم)</h3></div>
+                        <div class="chart-wrap"><canvas id="bigChart" height="110"></canvas></div>
+                    </div>
+                    <div class="two-col">
+                        <div class="panel">
+                            <div class="panel-head"><h3><i class="fa-solid fa-fire"></i> أكثر الصفحات</h3></div>
+                            <ul class="rank-list" id="an-toppages"><li class="empty">— لا توجد بيانات —</li></ul>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-head"><h3><i class="fa-solid fa-calendar-check"></i> أنشط أيام الأسبوع</h3></div>
+                            <ul class="rank-list" id="an-weekdays"><li class="empty">— لا توجد بيانات —</li></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subview" data-sub="an-tech">
+                    <div class="two-col">
+                        <div class="panel">
+                            <div class="panel-head"><h3><i class="fa-solid fa-compass"></i> المتصفحات</h3></div>
+                            <ul class="rank-list" id="an-browsers"><li class="empty">— يحتاج مفتاح API —</li></ul>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-head"><h3><i class="fa-solid fa-desktop"></i> أنظمة التشغيل</h3></div>
+                            <ul class="rank-list" id="an-systems"><li class="empty">— يحتاج مفتاح API —</li></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subview" data-sub="an-devices">
+                    <div class="two-col">
+                        <div class="panel">
+                            <div class="panel-head"><h3><i class="fa-solid fa-mobile-screen"></i> نوع الجهاز</h3></div>
+                            <div class="donut-wrap">
+                                <div class="chart-wrap" style="width:150px;height:150px"><canvas id="deviceChart" width="150" height="150"></canvas></div>
+                                <div class="donut-legend" id="an-devices-legend"><div class="dl">— يحتاج مفتاح API —</div></div>
+                            </div>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-head"><h3><i class="fa-solid fa-earth-americas"></i> الدول</h3></div>
+                            <ul class="rank-list" id="an-countries"><li class="empty">— يحتاج مفتاح API —</li></ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== Performance + Uptime ===== -->
+            <section class="view" data-view="performance">
                 <div class="panel">
-                    <div class="panel-head"><h3><i class="fa-solid fa-chart-line"></i> اتجاه الزيارات (30 يوم)</h3></div>
-                    <div class="chart-wrap"><canvas id="bigChart" height="110"></canvas></div>
-                </div>
-                <div class="two-col">
-                    <div class="panel">
-                        <div class="panel-head"><h3><i class="fa-solid fa-fire"></i> أكثر الصفحات</h3></div>
-                        <ul class="rank-list" id="an-toppages"><li class="empty">— لا توجد بيانات —</li></ul>
+                    <div class="panel-head">
+                        <h3><i class="fa-solid fa-heart-pulse"></i> توفّر الموقع (Uptime)</h3>
+                        <button id="pingBtn" class="btn btn-ghost"><i class="fa-solid fa-satellite-dish"></i> فحص الآن</button>
                     </div>
-                    <div class="panel">
-                        <div class="panel-head"><h3><i class="fa-solid fa-earth-americas"></i> الدول</h3></div>
-                        <ul class="rank-list" id="an-countries"><li class="empty">— لا توجد بيانات —</li></ul>
+                    <div class="uptime-row">
+                        <div class="uptime-led" id="uptimeLed"><i class="fa-solid fa-question"></i></div>
+                        <div class="uptime-info">
+                            <h2 id="uptimeTitle">لم يتم الفحص بعد</h2>
+                            <p id="uptimeDesc">اضغط «فحص الآن» لقياس استجابة الموقع.</p>
+                        </div>
+                    </div>
+                    <div class="notice notice-info" style="margin-top:18px">
+                        <i class="fa-solid fa-bell"></i>
+                        <div>
+                            <strong>مراقبة مستمرة وتنبيه عند التوقف</strong>
+                            <p>الفحص هنا لحظي عند الطلب. لمراقبة على مدار الساعة وإشعار يوصلك إذا توقف الموقع، أنشئ مراقباً مجانياً على <a href="https://uptimerobot.com" target="_blank">UptimeRobot</a> للرابط <code>i6naf.github.io/webgis</code>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-head">
+                        <h3><i class="fa-solid fa-gauge-high"></i> سرعة الموقع (Google PageSpeed)</h3>
+                        <button id="psiBtn" class="btn btn-primary"><i class="fa-solid fa-play"></i> قياس الأداء</button>
+                    </div>
+                    <div id="psiEmpty" class="perf-empty">اضغط «قياس الأداء» — يستغرق 15-30 ثانية ويجلب درجة حقيقية من Google.</div>
+                    <div id="psiResult" hidden>
+                        <div class="perf-wrap">
+                            <div class="gauge">
+                                <svg width="160" height="160">
+                                    <circle cx="80" cy="80" r="68" fill="none" stroke="rgba(136,158,193,.15)" stroke-width="12"/>
+                                    <circle id="gaugeArc" cx="80" cy="80" r="68" fill="none" stroke="#10b981" stroke-width="12" stroke-linecap="round" stroke-dasharray="427" stroke-dashoffset="427"/>
+                                </svg>
+                                <div class="gauge-num" id="psiScore">0</div>
+                                <div class="gauge-label">الأداء (جوال)</div>
+                            </div>
+                            <div class="perf-metrics">
+                                <div class="metric"><div class="m-val" id="psi-fcp">—</div><div class="m-lab">First Contentful Paint</div></div>
+                                <div class="metric"><div class="m-val" id="psi-lcp">—</div><div class="m-lab">Largest Contentful Paint</div></div>
+                                <div class="metric"><div class="m-val" id="psi-tbt">—</div><div class="m-lab">Total Blocking Time</div></div>
+                                <div class="metric"><div class="m-val" id="psi-cls">—</div><div class="m-lab">Cumulative Layout Shift</div></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -168,16 +248,22 @@
                     </div>
 
                     <div class="maint-toggle-row">
-                        <label class="switch">
-                            <input type="checkbox" id="maintToggle">
-                            <span class="slider"></span>
-                        </label>
-                        <span class="maint-toggle-label">تفعيل وضع الصيانة (إغلاق الموقع للزوار)</span>
+                        <label class="switch"><input type="checkbox" id="maintToggle"><span class="slider"></span></label>
+                        <span class="maint-toggle-label">تفعيل وضع الصيانة الآن (إغلاق الموقع للزوار)</span>
                     </div>
 
                     <div class="field">
                         <label for="maintMessage">رسالة الصيانة (تظهر للزوار)</label>
                         <textarea id="maintMessage" rows="3">نعتذر، الموقع تحت الصيانة حالياً. نعود إليكم قريباً بإذن الله.</textarea>
+                    </div>
+
+                    <div class="maint-toggle-row">
+                        <label class="switch"><input type="checkbox" id="schedToggle"><span class="slider"></span></label>
+                        <span class="maint-toggle-label">جدولة صيانة تلقائية (تبدأ وتنتهي في وقت محدد)</span>
+                    </div>
+                    <div class="two-col" id="schedFields" hidden>
+                        <div class="field"><label for="schedFrom">يبدأ في</label><input type="datetime-local" id="schedFrom"></div>
+                        <div class="field"><label for="schedTo">ينتهي في</label><input type="datetime-local" id="schedTo"></div>
                     </div>
 
                     <div class="maint-actions">
@@ -187,7 +273,58 @@
 
                     <div class="notice notice-warn" id="maintTokenWarn" hidden>
                         <i class="fa-solid fa-triangle-exclamation"></i>
-                        <div>لتفعيل/إيقاف الصيانة مباشرة من هنا، تحتاج إضافة <strong>رمز GitHub</strong> في <a href="#settings" class="link-jump" data-jump="settings">الإعدادات</a>. بدونه ستحتاج تعديل ملف <code>maintenance.json</code> يدوياً.</div>
+                        <div>لتطبيق التغييرات مباشرة، أضف <strong>رمز GitHub</strong> في <a href="#settings" class="link-jump" data-jump="settings">الإعدادات</a>.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== Content (announcement + sections) ===== -->
+            <section class="view" data-view="content">
+                <div class="subtabs">
+                    <button class="subtab active" data-sub="ct-ann">شريط الإعلان</button>
+                    <button class="subtab" data-sub="ct-sec">إظهار/إخفاء الأقسام</button>
+                </div>
+
+                <div class="subview active" data-sub="ct-ann">
+                    <div class="panel">
+                        <div class="panel-head"><h3><i class="fa-solid fa-bullhorn"></i> شريط إعلان للزوار</h3></div>
+                        <p class="muted">يظهر شريطاً في أسفل الموقع لكل الزوار — مناسب لإعلان دورة جديدة أو خبر مهم.</p>
+
+                        <div class="maint-toggle-row" style="margin:6px 0 16px">
+                            <label class="switch"><input type="checkbox" id="annToggle"><span class="slider"></span></label>
+                            <span class="maint-toggle-label">تفعيل شريط الإعلان</span>
+                        </div>
+
+                        <div class="field"><label for="annText">نص الإعلان</label>
+                            <textarea id="annText" rows="2" placeholder="مثال: انطلقت دورة QGIS الجديدة — سجّل الآن!"></textarea></div>
+
+                        <div class="field"><label>نوع الإعلان</label>
+                            <div class="seg">
+                                <label><input type="radio" name="annType" value="info" checked><span class="seg-box"><i class="fa-solid fa-circle-info"></i> معلومة</span></label>
+                                <label><input type="radio" name="annType" value="success"><span class="seg-box"><i class="fa-solid fa-circle-check"></i> نجاح</span></label>
+                                <label><input type="radio" name="annType" value="warning"><span class="seg-box"><i class="fa-solid fa-triangle-exclamation"></i> تنبيه</span></label>
+                            </div>
+                        </div>
+
+                        <div class="two-col">
+                            <div class="field"><label for="annLink">رابط (اختياري)</label><input type="text" id="annLink" placeholder="https://..."></div>
+                            <div class="field"><label for="annLinkText">نص الرابط</label><input type="text" id="annLinkText" placeholder="مثال: سجّل الآن"></div>
+                        </div>
+
+                        <div class="field"><label>معاينة</label>
+                            <div class="ann-preview"><div class="ann-bar info" id="annPreview"><i class="fa-solid fa-circle-info"></i> <span>—</span></div></div>
+                        </div>
+
+                        <div class="maint-actions"><button id="annSaveBtn" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-up"></i> حفظ ونشر الإعلان</button></div>
+                    </div>
+                </div>
+
+                <div class="subview" data-sub="ct-sec">
+                    <div class="panel">
+                        <div class="panel-head"><h3><i class="fa-solid fa-eye-slash"></i> التحكم بأقسام الموقع</h3></div>
+                        <p class="muted">أطفئ أي قسم لإخفائه عن الزوار مؤقتاً (يُخفى من الصفحة ومن القائمة). يبقى في الكود ويظهر فوراً عند إعادة تفعيله.</p>
+                        <div class="sec-list" id="secList"></div>
+                        <div class="maint-actions" style="margin-top:18px"><button id="secSaveBtn" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-up"></i> حفظ ونشر التغييرات</button></div>
                     </div>
                 </div>
             </section>
@@ -200,7 +337,7 @@
                         <ul class="info-list" id="repoInfo">
                             <li><span>الاسم</span><b id="si-repo">—</b></li>
                             <li><span>آخر تحديث</span><b id="si-updated">—</b></li>
-                            <li><span>المشاهدات (نجوم)</span><b id="si-stars">—</b></li>
+                            <li><span>النجوم</span><b id="si-stars">—</b></li>
                             <li><span>الحالة</span><b id="si-visibility">—</b></li>
                         </ul>
                         <a id="si-repolink" href="#" target="_blank" class="btn btn-ghost btn-block"><i class="fa-brands fa-github"></i> فتح على GitHub</a>
@@ -220,11 +357,23 @@
                 </div>
             </section>
 
+            <!-- ===== Activity Log ===== -->
+            <section class="view" data-view="log">
+                <div class="panel">
+                    <div class="panel-head">
+                        <h3><i class="fa-solid fa-clock-rotate-left"></i> سجل العمليات</h3>
+                        <button id="clearLogBtn" class="btn btn-ghost"><i class="fa-solid fa-trash"></i> مسح السجل</button>
+                    </div>
+                    <p class="muted">يسجّل العمليات التي قمت بها من هذا المتصفح (تفعيل صيانة، نشر إعلان، إخفاء قسم...).</p>
+                    <ul class="log-list" id="logList"><li class="empty" style="justify-content:center;padding:24px;color:var(--text-muted)">— لا توجد عمليات بعد —</li></ul>
+                </div>
+            </section>
+
             <!-- ===== Settings ===== -->
             <section class="view" data-view="settings">
                 <div class="panel">
                     <div class="panel-head"><h3><i class="fa-brands fa-github"></i> ربط GitHub</h3></div>
-                    <p class="muted">يُستخدم لتفعيل/إيقاف الصيانة وقراءة معلومات المستودع. الرمز يُحفظ في متصفحك فقط ولا يُرسل لأي جهة عدا GitHub.</p>
+                    <p class="muted">يُستخدم لنشر التغييرات (صيانة، إعلانات، أقسام) وقراءة معلومات المستودع. الرمز يُحفظ في متصفحك فقط.</p>
                     <div class="field">
                         <label for="ghToken">رمز GitHub (Fine-grained token)</label>
                         <div class="input-inline">
@@ -247,7 +396,7 @@
 
                 <div class="panel">
                     <div class="panel-head"><h3><i class="fa-solid fa-chart-line"></i> عدّاد الزوار (GoatCounter)</h3></div>
-                    <p class="muted">موقعك مربوط مسبقاً بحساب <b>webgis-i6na</b>. الإجمالي يُقرأ تلقائياً بدون أي إعداد. لعرض التفاصيل اليومية، أضف مفتاح API بالأسفل.</p>
+                    <p class="muted">موقعك مربوط مسبقاً بحساب <b>webgis-i6na</b>. الإجمالي يُقرأ تلقائياً. لعرض التفاصيل أضف مفتاح API.</p>
                     <div class="field">
                         <label for="gcCode">اسم حساب GoatCounter</label>
                         <div class="input-inline">
@@ -258,7 +407,7 @@
                         <small id="gcState" class="muted"></small>
                     </div>
                     <div class="field" style="margin-top:16px">
-                        <label for="gcToken">مفتاح API (اختياري — يفعّل الرسم البياني وأكثر الصفحات والدول)</label>
+                        <label for="gcToken">مفتاح API (يفعّل الرسم والمتصفحات والأجهزة والدول)</label>
                         <div class="input-inline">
                             <input type="password" id="gcToken" placeholder="الصق مفتاح GoatCounter API">
                             <button id="saveGcTokBtn" class="btn btn-primary">حفظ</button>
@@ -269,10 +418,22 @@
                         <summary>كيف أحصل على مفتاح API؟</summary>
                         <ol>
                             <li>ادخل على <a href="https://webgis-i6na.goatcounter.com/user/api" target="_blank">لوحة GoatCounter → API</a></li>
-                            <li>اضغط <b>Add token</b> وفعّل صلاحية <b>Read statistics</b></li>
+                            <li>اضغط <b>Add token</b> وفعّل <b>Read statistics</b></li>
                             <li>انسخ المفتاح والصقه هنا</li>
                         </ol>
                     </details>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-head"><h3><i class="fa-solid fa-gauge"></i> مفتاح PageSpeed (اختياري)</h3></div>
+                    <p class="muted">قياس الأداء يعمل بدون مفتاح، لكن المفتاح يرفع حدّ الاستخدام. احصل عليه من Google Cloud (PageSpeed Insights API).</p>
+                    <div class="field">
+                        <div class="input-inline">
+                            <input type="password" id="psiKey" placeholder="AIza... (اختياري)">
+                            <button id="savePsiBtn" class="btn btn-primary">حفظ</button>
+                        </div>
+                        <small id="psiKeyState" class="muted"></small>
+                    </div>
                 </div>
 
                 <div class="panel">
@@ -296,7 +457,6 @@
     </div>
 </div>
 
-<!-- Toast -->
 <div id="toast" class="toast" hidden></div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>

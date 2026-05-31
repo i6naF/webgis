@@ -1,0 +1,20 @@
+{
+  "maintenance": {
+    "enabled": false,
+    "message": "نعتذر، الموقع تحت الصيانة حالياً. نعود إليكم قريباً بإذن الله.",
+    "schedule": {
+      "enabled": false,
+      "from": "",
+      "to": ""
+    }
+  },
+  "announcement": {
+    "enabled": false,
+    "text": "",
+    "type": "info",
+    "link": "",
+    "linkText": ""
+  },
+  "hiddenSections": [],
+  "updated": ""
+}
